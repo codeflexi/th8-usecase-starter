@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI – Executive Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{font-family:Prompt,sans-serif}</style>
+</head>
+<body class="bg-slate-100 text-slate-900 p-6">
+
+<section class="space-y-6">
+
+  <!-- HEADER -->
+  <div>
+    <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+      Executive Overview
+    </p>
+    <h1 class="text-2xl font-semibold mt-1">
+      Decision Risk Dashboard
+    </h1>
+    <p class="text-sm text-slate-600 mt-1 max-w-2xl">
+      ภาพรวมความเสี่ยงและผลกระทบทางการเงินจาก Procurement และ Invoice
+    </p>
+  </div>
+
+  <!-- KPI -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="bg-white border rounded-2xl p-5">
+      <p class="text-xs uppercase text-slate-500 font-semibold">Amount at Risk</p>
+      <p class="text-2xl font-semibold mt-2">฿ 1.47M</p>
+      <p class="text-xs text-slate-600 mt-1">ก่อนอนุมัติ / จ่าย</p>
+    </div>
+    <div class="bg-white border rounded-2xl p-5">
+      <p class="text-xs uppercase text-slate-500 font-semibold">Prevented Leakage</p>
+      <p class="text-2xl font-semibold mt-2">฿ 236k</p>
+      <p class="text-xs text-slate-600 mt-1">จาก decision ที่ทำแล้ว</p>
+    </div>
+    <div class="bg-white border rounded-2xl p-5">
+      <p class="text-xs uppercase text-slate-500 font-semibold">Pending Decisions</p>
+      <p class="text-2xl font-semibold mt-2">5</p>
+      <p class="text-xs text-slate-600 mt-1">ต้องการการพิจารณา</p>
+    </div>
+    <div class="bg-white border rounded-2xl p-5">
+      <p class="text-xs uppercase text-slate-500 font-semibold">Decision SLA</p>
+      <p class="text-2xl font-semibold mt-2">80%</p>
+      <p class="text-xs text-slate-600 mt-1">ภายใน SLA</p>
+    </div>
+  </div>
+
+  <!-- RISK BREAKDOWN -->
+  <div class="bg-white border rounded-2xl p-6">
+    <p class="text-xs uppercase text-slate-500 font-semibold">
+      Risk Breakdown
+    </p>
+    <h2 class="text-lg font-semibold mt-1">
+      Amount at Risk by Domain
+    </h2>
+
+    <div class="mt-4 space-y-4">
+      <div>
+        <div class="flex justify-between text-sm font-semibold">
+          <span>Invoice & Payment</span>
+          <span>฿ 900k</span>
+        </div>
+        <div class="h-2 bg-slate-200 rounded-full mt-2">
+          <div class="h-2 bg-slate-900 rounded-full w-[60%]"></div>
+        </div>
+      </div>
+      <div>
+        <div class="flex justify-between text-sm font-semibold">
+          <span>Procurement</span>
+          <span>฿ 570k</span>
+        </div>
+        <div class="h-2 bg-slate-200 rounded-full mt-2">
+          <div class="h-2 bg-slate-900 rounded-full w-[40%]"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+</body>
+</html>

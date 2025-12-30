@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI Connected Value Chain Suite</title>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/primevue/core/core.min.js"></script>
+    <script src="https://unpkg.com/primevue/usetoast/usetoast.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #f8fafc; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Animation for Chat */
+        .fade-enter-active, .fade-leave-active { transition: opacity 0.5s ease; }
+        .fade-enter-from, .fade-leave-to { opacity: 0; }
+        
+        /* TH8 Colors */
+        .th8-red { color: #DC2626; }
+        .bg-th8-red { background-color: #DC2626; }
+        .border-th8-red { border-color: #DC2626; }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#DC2626', // TH8 Red
+                        secondary: '#475569', // Slate 600
+                        surface: '#ffffff'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="text-gray-800 h-screen overflow-hidden flex flex-col">
+
+    <div id="app" class="h-full flex flex-col">
+        
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shadow-sm z-10">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-th8-red rounded flex items-center justify-center text-white font-bold">8</div>
+                <h1 class="text-xl font-semibold tracking-tight">TH8.AI <span class="text-gray-400 font-light text-sm">| Connected Value Chain Suite</span></h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="text-sm text-right hidden md:block">
+                    <p class="font-medium">Admin User</p>
+                    <p class="text-xs text-gray-500">VP of Supply Chain</p>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-gray-100 border border-gray-300 flex items-center justify-center">
+                    👤
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 flex overflow-hidden">
+            
+            <aside class="w-1/3 min-w-[350px] bg-white border-r border-gray-200 flex flex-col relative z-0">
+                <div class="p-4 border-b border-gray-100 bg-gray-50">
+                    <label class="text-xs font-semibold text-gray-500 uppercase">Select Scenario (Demo Mode)</label>
+                    <select v-model="currentScenario" @change="resetSimulation" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm rounded-md border">
+                        <option value="siamwinery">🍷 Siam Winery (Bottle Shortage)</option>
+                        <option value="ovaltine">☕ Ovaltine (Capacity & OT)</option>
+                        <option value="skhonkaen">🥓 S. Khonkaen (Shelf-Life)</option>
+                    </select>
+                </div>
+
+                <div class="flex-1 overflow-y-auto p-4 space-y-4" id="chat-container">
+                    <div v-for="(msg, index) in messages" :key="index" 
+                         :class="['flex w-full', msg.role === 'user' ? 'justify-end' : 'justify-start']">
+                        
+                        <div v-if="msg.role === 'agent'" class="w-8 h-8 rounded bg-gray-100 flex-shrink-0 mr-2 flex items-center justify-center text-xs">🤖</div>
+                        
+                        <div :class="['max-w-[85%] rounded-2xl px-4 py-3 text-sm shadow-sm', 
+                                     msg.role === 'user' ? 'bg-th8-red text-white rounded-br-none' : 'bg-gray-100 text-gray-800 rounded-bl-none border border-gray-200']">
+                            <p class="whitespace-pre-line">{{ msg.text }}</p>
+                            
+                            <div v-if="msg.actions" class="mt-3 flex flex-wrap gap-2">
+                                <button v-for="action in msg.actions" 
+                                        @click="handleAction(action)"
+                                        class="px-3 py-1.5 bg-white border border-gray-300 rounded-full text-xs font-medium hover:bg-gray-50 hover:border-red-300 transition-colors text-gray-700">
+                                    {{ action.label }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div v-if="isThinking" class="flex w-full justify-start">
+                        <div class="w-8 h-8 rounded bg-gray-100 flex-shrink-0 mr-2 flex items-center justify-center text-xs">🤖</div>
+                        <div class="bg-gray-100 rounded-2xl rounded-bl-none px-4 py-3 flex items-center space-x-1">
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                            <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 border-t border-gray-200 bg-white">
+                    <div class="relative">
+                        <input type="text" v-model="userInput" @keyup.enter="sendMessage"
+                               placeholder="Type your command here..." 
+                               class="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-red-100 focus:border-red-500 outline-none shadow-sm transition-all">
+                        <button @click="sendMessage" 
+                                class="absolute right-2 top-2 w-8 h-8 bg-th8-red text-white rounded-full flex items-center justify-center hover:bg-red-700 transition-colors shadow-sm">
+                            ➤
+                        </button>
+                    </div>
+                    <div class="text-center mt-2">
+                        <span class="text-[10px] text-gray-400">Powered by TH8.AI Connected Intelligence (L1-L7 Stack)</span>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="flex-1 bg-gray-50 overflow-y-auto p-6">
+                
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Operational Cockpit</h2>
+                        <p class="text-sm text-gray-500">Real-time synchronization across value chain</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-700 border border-green-200">System Healthy</span>
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 border border-blue-200">L7 Guardrails Active</span>
+                    </div>
+                </div>
+
+                <div class="flex space-x-1 bg-gray-200 p-1 rounded-lg mb-6 w-fit">
+                    <button @click="activeTab = 'overview'" :class="['px-4 py-2 rounded-md text-sm font-medium transition-all', activeTab === 'overview' ? 'bg-white shadow text-gray-900' : 'text-gray-500 hover:text-gray-700']">Layer 4: Executive View</button>
+                    <button @click="activeTab = 'planning'" :class="['px-4 py-2 rounded-md text-sm font-medium transition-all', activeTab === 'planning' ? 'bg-white shadow text-gray-900' : 'text-gray-500 hover:text-gray-700']">Layer 1: Planning</button>
+                    <button @click="activeTab = 'ops'" :class="['px-4 py-2 rounded-md text-sm font-medium transition-all', activeTab === 'ops' ? 'bg-white shadow text-gray-900' : 'text-gray-500 hover:text-gray-700']">Layer 2: Operations</button>
+                </div>
+
+                <div v-if="activeTab === 'overview'" class="space-y-6 fade-enter-active">
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden">
+                            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">Projected Revenue</p>
+                            <h3 class="text-2xl font-bold mt-1 text-gray-900">{{ formatCurrency(simulationData.revenue) }}</h3>
+                            <div class="absolute right-0 top-0 h-full w-1 bg-green-500"></div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden">
+                            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">Total Cost (COGS+Logistics)</p>
+                            <h3 class="text-2xl font-bold mt-1 text-gray-900">{{ formatCurrency(simulationData.cost) }}</h3>
+                            <div class="absolute right-0 top-0 h-full w-1 bg-yellow-500"></div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden">
+                            <p class="text-xs text-gray-500 font-semibold uppercase tracking-wider">Est. Penalties</p>
+                            <h3 :class="['text-2xl font-bold mt-1', simulationData.penalty > 0 ? 'text-red-600' : 'text-gray-900']">{{ formatCurrency(simulationData.penalty) }}</h3>
+                            <div class="absolute right-0 top-0 h-full w-1 bg-red-500"></div>
+                        </div>
+                        <div class="bg-gray-900 p-5 rounded-xl border border-gray-800 shadow-sm relative overflow-hidden">
+                            <p class="text-xs text-gray-400 font-semibold uppercase tracking-wider">Net Margin Impact</p>
+                            <h3 :class="['text-2xl font-bold mt-1', simulationData.margin < 0 ? 'text-red-400' : 'text-green-400']">{{ formatCurrency(simulationData.margin) }}</h3>
+                            <div class="mt-2 text-xs text-gray-400">
+                                vs Baseline: <span class="text-white">{{ simulationData.marginPercent }}%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                            <h4 class="font-semibold text-gray-800 mb-4">Demand Forecast vs. Production Constraints</h4>
+                            <div class="h-64 flex items-end justify-between px-4 space-x-2 relative border-b border-l border-gray-300">
+                                <div v-for="(val, i) in [40, 60, 85, 120, 90]" :key="i" class="w-full flex flex-col justify-end group relative">
+                                    <div class="w-full bg-blue-100 rounded-t-sm hover:bg-blue-200 transition-all relative" :style="{height: val + '%'}">
+                                        <div v-if="simulationData.constraintLevel && val > simulationData.constraintLevel" 
+                                             class="absolute top-0 w-full bg-red-500/20 h-[30%] pattern-diagonal-stripes border-t-2 border-red-500 flex items-center justify-center">
+                                            <span class="text-[10px] text-red-700 font-bold bg-white/80 px-1 rounded">Constraint Hit</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs text-gray-400 mt-2 text-center">Week {{ i+1 }}</span>
+                                </div>
+                                <div class="absolute left-0 w-full border-t-2 border-dashed border-red-400" :style="{bottom: simulationData.constraintLevel + '%'}">
+                                    <span class="absolute right-0 -top-6 text-xs text-red-500 font-bold bg-red-50 px-2 py-0.5 rounded">Max Capacity</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                            <h4 class="font-semibold text-gray-800 mb-4">Risk Monitor (Layer 2)</h4>
+                            <div class="space-y-3">
+                                <div v-for="alert in simulationData.alerts" :key="alert.id" class="flex gap-3 p-3 bg-red-50 border border-red-100 rounded-lg">
+                                    <span class="text-xl">⚠️</span>
+                                    <div>
+                                        <p class="text-sm font-semibold text-red-800">{{ alert.title }}</p>
+                                        <p class="text-xs text-red-600 mt-1">{{ alert.desc }}</p>
+                                    </div>
+                                </div>
+                                <div v-if="simulationData.alerts.length === 0" class="text-center py-10 text-gray-400 text-sm">
+                                    No critical risks detected.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="activeTab === 'planning'" class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm fade-enter-active">
+                    <h3 class="font-bold text-lg mb-4 text-gray-800">Sales & Operations Planning (S&OP)</h3>
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-50 text-gray-600">
+                            <tr>
+                                <th class="p-3">SKU</th>
+                                <th class="p-3">Forecast Qty</th>
+                                <th class="p-3">Current Stock</th>
+                                <th class="p-3">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr v-for="item in simulationData.products" :key="item.sku">
+                                <td class="p-3 font-medium">{{ item.name }}</td>
+                                <td class="p-3">{{ item.forecast }}</td>
+                                <td class="p-3">{{ item.stock }}</td>
+                                <td class="p-3">
+                                    <span :class="['px-2 py-1 rounded text-xs font-semibold', item.status === 'OK' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700']">
+                                        {{ item.status }}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const { createApp, ref, computed } = Vue;
+
+        createApp({
+            setup() {
+                // --- STATE ---
+                const activeTab = ref('overview');
+                const userInput = ref('');
+                const currentScenario = ref('siamwinery'); // Default
+                const isThinking = ref(false);
+
+                // Initial Chat
+                const messages = ref([
+                    { role: 'agent', text: 'สวัสดีครับ ผมคือ TH8 Connected Agent 🤖\nระบบพร้อมจำลองแผน Promotion แล้วครับ\n\nโปรดเลือก Scenario ที่เมนูด้านซ้าย แล้วพิมพ์คำสั่ง เช่น "จัดโปรปีใหม่ ยอด +20%"' }
+                ]);
+
+                // Mock Data Logic (Based on the JSON data provided in previous prompts)
+                const scenarios = {
+                    siamwinery: {
+                        revenue: 0, cost: 0, penalty: 0, margin: 0, marginPercent: 0, constraintLevel: 100,
+                        alerts: [],
+                        products: [{name: 'SPY Classic', forecast: '-', stock: '50,000', status: 'OK'}]
+                    },
+                    ovaltine: {
+                        revenue: 0, cost: 0, penalty: 0, margin: 0, marginPercent: 0, constraintLevel: 100,
+                        alerts: [],
+                        products: [{name: 'Ovaltine 3in1', forecast: '-', stock: 'Healthy', status: 'OK'}]
+                    },
+                    skhonkaen: {
+                        revenue: 0, cost: 0, penalty: 0, margin: 0, marginPercent: 0, constraintLevel: 100,
+                        alerts: [],
+                        products: [{name: 'Moo Yor Boran', forecast: '-', stock: 'Full', status: 'OK'}]
+                    }
+                };
+
+                const simulationData = ref({...scenarios.siamwinery});
+
+                // --- ACTIONS ---
+
+                const resetSimulation = () => {
+                    messages.value = [{ role: 'agent', text: `เปลี่ยนบริบทเป็น: ${currentScenario.value.toUpperCase()} เรียบร้อยครับ\nพร้อมรับคำสั่งจำลองแผนครับ` }];
+                    simulationData.value = {...scenarios[currentScenario.value]};
+                };
+
+                const sendMessage = async () => {
+                    if (!userInput.value.trim()) return;
+
+                    // 1. User Message
+                    const text = userInput.value;
+                    messages.value.push({ role: 'user', text: text });
+                    userInput.value = '';
+                    isThinking.value = true;
+
+                    // 2. Simulate AI Processing (Layer 4 Orchestration)
+                    setTimeout(() => {
+                        runSimulationLogic(text);
+                        isThinking.value = false;
+                    }, 1500);
+                };
+
+                const runSimulationLogic = (text) => {
+                    // Simple Rule-based Logic for Demo
+                    let responseText = "";
+                    let actions = [];
+
+                    if (currentScenario.value === 'siamwinery') {
+                        // Case: Bottle Shortage
+                        simulationData.value = {
+                            revenue: 10000000,
+                            cost: 8000000,
+                            penalty: 1500000, // Penalty hit
+                            margin: 500000, // Low margin
+                            marginPercent: 5,
+                            constraintLevel: 60, // Capacity limit exceeded
+                            alerts: [
+                                {id:1, title: 'Material Shortage', desc: 'Glass Bottle Type A stock insufficient (Need 100k, Have 5k).'},
+                                {id:2, title: 'SLA Risk', desc: 'High risk of short shipment penalty (10%).'}
+                            ],
+                            products: [{name: 'SPY Classic', forecast: '100,000', stock: '5,000 (CRITICAL)', status: 'SHORTAGE'}]
+                        };
+                        responseText = "⚠️ **แจ้งเตือนความเสี่ยง (High Risk):**\nจากการตรวจสอบ Layer 2 พบว่า **'ขวดแก้ว'** ไม่พอผลิตครับ\n\n- ยอดขายคาดการณ์: 10 ลบ.\n- ค่าปรับความเสี่ยง: 1.5 ลบ.\n- **กำไรเหลือจริง: 0.5 ลบ. (ไม่คุ้มทุน)**\n\nท่านต้องการปรับแผนไหมครับ?";
+                        actions = [{label: 'Optimize Plan (แนะนำ)', value: 'optimize'}, {label: 'ยืนยันแผนเดิม', value: 'confirm'}];
+                    
+                    } else if (currentScenario.value === 'ovaltine') {
+                        // Case: OT & Maintenance
+                        simulationData.value = {
+                            revenue: 8500000,
+                            cost: 7800000, // High cost due to OT
+                            penalty: 0,
+                            margin: 700000,
+                            marginPercent: 8,
+                            constraintLevel: 95,
+                            alerts: [
+                                {id:1, title: 'Production Constraint', desc: 'Line 3 Maintenance until Dec 20th.'},
+                                {id:2, title: 'Cost Impact', desc: 'Requires OT (1.5x Cost) to meet deadline.'}
+                            ],
+                            products: [{name: 'Ovaltine 3in1', forecast: '50,000', stock: 'Healthy', status: 'OK'}]
+                        };
+                        responseText = "⚠️ **ระวังเรื่องต้นทุน (Margin Alert):**\nLine 3 ปิดซ่อมบำรุง ทำให้ต้องเปิด OT ผลิตครับ\n\n- ต้นทุนเพิ่มขึ้น: 15% (ค่า OT)\n- Net Margin ลดเหลือ: 8% (ต่ำกว่าเป้า 15%)\n\nแนะนำให้เลื่อนวันส่งของไปหลังวันที่ 20 ครับ";
+                        actions = [{label: 'เลื่อนวันส่ง (Shift Date)', value: 'optimize'}, {label: 'ยอมรับต้นทุน OT', value: 'confirm'}];
+
+                    } else if (currentScenario.value === 'skhonkaen') {
+                        // Case: Shelf Life & Storage
+                        simulationData.value = {
+                            revenue: 5000000,
+                            cost: 3500000,
+                            penalty: 0,
+                            margin: -200000, // Negative due to write-off risk
+                            marginPercent: -4,
+                            constraintLevel: 98,
+                            alerts: [
+                                {id:1, title: 'Inventory Overflow', desc: 'Cold Chain Warehouse is 95% Full.'},
+                                {id:2, title: 'Write-off Risk', desc: 'Shelf life 45 days. High risk of unsold stock.'}
+                            ],
+                            products: [{name: 'Moo Yor Boran', forecast: '20,000', stock: 'Full', status: 'RISK'}]
+                        };
+                        responseText = "⛔ **ความเสี่ยงสูง (Critical):**\nคลังสินค้าเย็นเต็ม 95% และสินค้ามีอายุสั้น (Shelf Life 45 วัน)\n\nหากผลิตมารอขาย มีความเสี่ยง Write-off สูงมาก\nแนะนำให้ทำ Pre-order กับห้างก่อนผลิตครับ";
+                        actions = [{label: 'เปลี่ยนเป็น Pre-order', value: 'optimize'}];
+                    }
+
+                    messages.value.push({ role: 'agent', text: responseText, actions: actions });
+                };
+
+                const handleAction = (action) => {
+                    // Simulate Optimization Response
+                    messages.value.push({ role: 'user', text: `เลือก: ${action.label}` });
+                    isThinking.value = true;
+                    
+                    setTimeout(() => {
+                        isThinking.value = false;
+                        if (action.value === 'optimize') {
+                            simulationData.value.margin = simulationData.value.revenue * 0.25; // Good margin
+                            simulationData.value.penalty = 0;
+                            simulationData.value.alerts = [];
+                            simulationData.value.marginPercent = 25;
+                            simulationData.value.constraintLevel = 80;
+                            
+                            messages.value.push({ 
+                                role: 'agent', 
+                                text: "✅ **Optimized Plan เรียบร้อยครับ:**\n\n- ปรับลดเป้าให้พอดีกับ Capacity/Stock\n- **กำไรสุทธิคาดการณ์เพิ่มเป็น: " + formatCurrency(simulationData.value.margin) + "**\n- ไม่มีความเสี่ยงค่าปรับ\n\nดำเนินการส่งแผนเข้า Layer 1 (ERP) เลยไหมครับ?" 
+                            });
+                        }
+                    }, 1000);
+                };
+
+                // Utility
+                const formatCurrency = (val) => {
+                    return new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', maximumFractionDigits: 0 }).format(val);
+                };
+
+                return {
+                    activeTab,
+                    userInput,
+                    messages,
+                    currentScenario,
+                    simulationData,
+                    isThinking,
+                    sendMessage,
+                    handleAction,
+                    formatCurrency,
+                    resetSimulation
+                };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>

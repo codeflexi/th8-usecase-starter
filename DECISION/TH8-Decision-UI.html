@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8 · Enterprise Decision Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Prompt -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    html, body {
+      font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-100 text-slate-900">
+  <main class="min-h-screen">
+
+    <!-- ================= Header ================= -->
+    <header class="bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+        <div>
+          <p class="text-xs uppercase tracking-wide text-red-600 font-medium">
+            TH8 · Enterprise Decision Platform
+          </p>
+          <h1 class="text-xl font-semibold mt-1">
+            Decision Center
+          </h1>
+        </div>
+
+        <div class="text-sm text-slate-500">
+          Environment: <span class="font-medium text-slate-700">Sandbox</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= Page ================= -->
+    <section class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+      <!-- ===== Page Intro ===== -->
+      <div>
+        <p class="text-xs uppercase tracking-wide text-slate-500">
+          Backoffice Workspace
+        </p>
+        <h2 class="text-2xl font-semibold mt-2">
+          Case Portfolio
+        </h2>
+        <p class="text-sm text-slate-600 mt-2 max-w-2xl">
+          Review, explain, and govern operational and procurement cases
+          that require human judgment.
+        </p>
+      </div>
+
+      <!-- ===== Table ===== -->
+      <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+        <table class="w-full border-collapse">
+          <thead>
+            <tr class="bg-slate-50">
+              <th class="text-left text-xs font-medium text-slate-500 uppercase tracking-wide px-4 py-3 border-b">
+                Case ID
+              </th>
+              <th class="text-left text-xs font-medium text-slate-500 uppercase tracking-wide px-4 py-3 border-b">
+                Domain
+              </th>
+              <th class="text-left text-xs font-medium text-slate-500 uppercase tracking-wide px-4 py-3 border-b">
+                Status
+              </th>
+              <th class="text-left text-xs font-medium text-slate-500 uppercase tracking-wide px-4 py-3 border-b">
+                Risk
+              </th>
+              <th class="text-left text-xs font-medium text-slate-500 uppercase tracking-wide px-4 py-3 border-b">
+                Last Updated
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr class="hover:bg-slate-50 transition cursor-pointer">
+              <td class="px-4 py-3 text-sm text-slate-900">
+                CASE-PO-OVT-2025-002
+              </td>
+              <td class="px-4 py-3 text-sm text-slate-700">
+                Procurement
+              </td>
+              <td class="px-4 py-3">
+                <span class="inline-flex px-2.5 py-1 rounded-md text-xs font-medium bg-slate-200 text-slate-700">
+                  Pending Review
+                </span>
+              </td>
+              <td class="px-4 py-3 text-sm text-slate-700">
+                High
+              </td>
+              <td class="px-4 py-3 text-sm text-slate-500">
+                29 Dec 2025
+              </td>
+            </tr>
+
+            <tr class="hover:bg-slate-50 transition cursor-pointer">
+              <td class="px-4 py-3 text-sm text-slate-900">
+                CASE-PO-OVT-2025-004
+              </td>
+              <td class="px-4 py-3 text-sm text-slate-700">
+                Procurement
+              </td>
+              <td class="px-4 py-3">
+                <span class="inline-flex px-2.5 py-1 rounded-md text-xs font-medium bg-green-100 text-green-700">
+                  Approved
+                </span>
+              </td>
+              <td class="px-4 py-3 text-sm text-slate-700">
+                Medium
+              </td>
+              <td class="px-4 py-3 text-sm text-slate-500">
+                28 Dec 2025
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===== Detail + Decision ===== -->
+      <div class="grid grid-cols-3 gap-6">
+
+        <!-- Explanation -->
+        <div class="col-span-2 space-y-6">
+
+          <div class="bg-white border border-slate-200 rounded-xl p-6">
+            <p class="text-xs uppercase tracking-wide text-slate-500 mb-1">
+              Decision Summary
+            </p>
+            <h3 class="text-lg font-medium mb-2">
+              Human Review Required
+            </h3>
+            <p class="text-sm text-slate-600">
+              This case exceeds approved pricing thresholds and requires
+              management review before execution.
+            </p>
+          </div>
+
+          <div class="bg-white border border-slate-200 rounded-xl p-6">
+            <p class="text-xs uppercase tracking-wide text-slate-500 mb-2">
+              Supporting Context
+            </p>
+            <ul class="text-sm text-slate-600 space-y-1">
+              <li>• Vendor price deviation +18%</li>
+              <li>• Contract threshold exceeded</li>
+              <li>• Historical variance above policy limit</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Action Panel -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6 space-y-4">
+          <p class="text-xs uppercase tracking-wide text-red-600 font-medium">
+            Human Decision
+          </p>
+          <h3 class="text-lg font-medium">
+            Take Action
+          </h3>
+
+          <p class="text-sm text-slate-600">
+            Actions are recorded and fully auditable.
+            Automated execution is not enabled.
+          </p>
+
+          <div class="space-y-2">
+            <button class="w-full px-4 py-2 rounded-lg bg-slate-900 text-white text-sm font-medium hover:bg-black transition">
+              Approve
+            </button>
+            <button class="w-full px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-medium hover:bg-red-700 transition">
+              Reject
+            </button>
+            <button class="w-full px-4 py-2 rounded-lg bg-slate-100 text-slate-700 text-sm font-medium hover:bg-slate-200 transition">
+              Request Information
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+  </main>
+</body>
+</html>

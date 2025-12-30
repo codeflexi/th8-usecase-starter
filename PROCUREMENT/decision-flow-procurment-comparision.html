@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SAP/Workflow/OCR (Current) vs TH8.AI Overlay · Procurement Contract Decision Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      html, body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    </style>
+  </head>
+
+  <body class="bg-slate-50 text-slate-900">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center font-semibold">TH8</div>
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Procurement Contract · UX Flow Comparison</p>
+            <h1 class="text-base md:text-lg font-semibold">Current (SAP/Workflow/OCR/Dashboard) vs TH8.AI Overlay</h1>
+          </div>
+        </div>
+        <div class="hidden md:flex items-center gap-2">
+          <span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">Scope: Purchase Contract Only</span>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100 font-semibold">TH8 Decision Center</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-6 space-y-8">
+
+      <!-- =========================================================
+        EXEC SUMMARY
+      ========================================================== -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-5 md:p-6">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+          <div class="max-w-3xl">
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Executive Summary</p>
+            <h2 class="text-xl md:text-2xl font-semibold mt-1">TH8 ไม่ได้ “แทน SAP” แต่เป็นชั้น Overlay ที่ทำให้ “Pending เกิดจากหลักฐานจริง” และ “ตัดสินใจได้เร็วขึ้น”</h2>
+            <p class="text-sm text-slate-600 mt-2">
+              ระบบเดิมทำได้ดีเรื่องบันทึกธุรกรรม, ลำดับอนุมัติ, และรายงานภาพรวม แต่จุดที่ยังเป็นคอขวดในโลกจริงคือ
+              <span class="font-semibold">การเทียบสัญญา + การอธิบายเหตุผล + การทำ audit ที่ย้อนกลับไปหาเอกสารได้ทันที</span>.
+              TH8 เข้าไปเสริม “จุดตัดสินใจ” ให้เป็นมาตรฐานและตรวจสอบได้ โดยไม่ต้องรื้อระบบเดิม
+            </p>
+          </div>
+
+          <div class="w-full md:w-[360px] rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">What changes</p>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex gap-2">
+                <span class="mt-1 h-2 w-2 rounded-full bg-slate-900"></span>
+                <div>
+                  <p class="font-semibold">ก่อน</p>
+                  <p class="text-xs text-slate-600">อนุมัติบน “หน้าจอ workflow” แต่หลักฐาน/สัญญาอยู่คนละที่</p>
+                </div>
+              </li>
+              <li class="flex gap-2">
+                <span class="mt-1 h-2 w-2 rounded-full bg-red-600"></span>
+                <div>
+                  <p class="font-semibold">หลังมี TH8</p>
+                  <p class="text-xs text-slate-600">อนุมัติบน “decision card” ที่มี delta + evidence link + reason (บังคับ)</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+        LEGEND
+      ========================================================== -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+        <div class="lg:col-span-8 bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Legend</p>
+          <div class="mt-3 flex flex-wrap gap-2 text-xs">
+            <span class="px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">Node = ขั้นตอนงาน</span>
+            <span class="px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">Data = ข้อมูลที่เกิดขึ้น</span>
+            <span class="px-2 py-1 rounded-full border border-red-200 bg-red-50 text-red-700 font-semibold">TH8 Overlay</span>
+            <span class="px-2 py-1 rounded-full border border-amber-200 bg-amber-50 text-amber-700 font-semibold">Pending ที่ “ควรดูจริง”</span>
+            <span class="px-2 py-1 rounded-full border border-emerald-200 bg-emerald-50 text-emerald-700 font-semibold">Auto-pass เคสปกติ</span>
+          </div>
+        </div>
+
+        <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Scope Guardrails</p>
+          <ul class="mt-3 text-sm space-y-2 text-slate-700 list-disc pl-4">
+            <li>โฟกัสเฉพาะ “สัญญาซื้อ” (Contract-based)</li>
+            <li>ไม่เพิ่ม use case ใหม่</li>
+            <li>ไม่ขยายไปฝั่งขาย / รายได้</li>
+            <li>ทำ 1 flow ให้สมบูรณ์ที่สุด</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- =========================================================
+        SIDE-BY-SIDE FLOW
+      ========================================================== -->
+      <section class="space-y-3">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">UX Flow Comparison</p>
+            <h2 class="text-xl md:text-2xl font-semibold">Current Flow vs TH8 Overlay Flow</h2>
+            <p class="text-sm text-slate-600 mt-1 max-w-3xl">
+              ซ้าย = วิธีทำงานปัจจุบัน (SAP + Workflow + OCR + Dashboard)
+              ขวา = ตำแหน่งที่ TH8 เข้าไปช่วย (Evidence + Policy + Decision + Audit) โดยยังอิงข้อมูลระบบเดิม
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 items-start">
+          <!-- LEFT: CURRENT -->
+          <div class="lg:col-span-6 bg-white border border-slate-200 rounded-2xl p-5">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Current State</p>
+                <h3 class="text-base font-semibold mt-1">SAP / Workflow System / OCR / Dashboard</h3>
+              </div>
+              <span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">Approval “ทำได้” แต่เหนื่อย</span>
+            </div>
+
+            <div class="mt-4 space-y-3">
+              <!-- Node 1 -->
+              <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold">1) สร้าง PR/PO ใน SAP</p>
+                    <p class="text-xs text-slate-600 mt-1">ผู้ใช้กรอก Vendor / Item / Qty / Price / Cost center</p>
+                  </div>
+                  <span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">SAP</span>
+                </div>
+                <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                  <div class="p-3 rounded-xl bg-white border border-slate-200">
+                    <p class="text-slate-500">ข้อมูลที่ได้</p>
+                    <p class="font-semibold mt-1">PO header + line items</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white border border-slate-200">
+                    <p class="text-slate-500">ข้อจำกัด</p>
+                    <p class="font-semibold mt-1">ยังไม่ “เทียบสัญญา” แบบอธิบายได้</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Node 2 -->
+              <div class="rounded-2xl border border-slate-200 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold">2) Attach เอกสาร / ส่ง OCR (ถ้ามี)</p>
+                    <p class="text-xs text-slate-600 mt-1">สัญญา/ใบเสนอราคา/เอกสารแนบกระจายหลายที่</p>
+                  </div>
+                  <span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">OCR</span>
+                </div>
+                <div class="mt-3 text-xs text-slate-700">
+                  <p class="font-semibold">ปัญหาที่เจอบ่อย</p>
+                  <ul class="mt-2 list-disc pl-4 space-y-1 text-slate-600">
+                    <li>OCR ได้ “ข้อความ” แต่ไม่รู้ว่า “ใช้ตัดสินใจอย่างไร”</li>
+                    <li>สัญญาเป็น PDF ยาว เปิด-หา-เทียบเอง</li>
+                    <li>หลักฐานไม่ถูกผูกกับเหตุผลใน workflow</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Node 3 -->
+              <div class="rounded-2xl border border-slate-200 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold">3) Workflow อนุมัติ (ลำดับขั้น)</p>
+                    <p class="text-xs text-slate-600 mt-1">กำหนดได้ไม่จำกัดตามวงเงิน/บทบาท</p>
+                  </div>
+                  <span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">Workflow</span>
+                </div>
+                <div class="mt-3 text-xs text-slate-700">
+                  <p class="font-semibold">ช่องว่างสำคัญ</p>
+                  <ul class="mt-2 list-disc pl-4 space-y-1 text-slate-600">
+                    <li>ระบบรู้ “ใครอนุมัติ” แต่ไม่รู้ว่า “ควรอนุมัติไหม”</li>
+                    <li>เหตุผลมักเป็น free-text หรือไม่บังคับ</li>
+                    <li>อนุมัติช้าเพราะต้อง “ไปหาหลักฐาน” เอง</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Node 4 -->
+              <div class="rounded-2xl border border-slate-200 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold">4) รายงาน/Dashboard (หลังเกิดเหตุ)</p>
+                    <p class="text-xs text-slate-600 mt-1">สรุปยอดใช้จ่าย, PO aging, supplier performance</p>
+                  </div>
+                  <span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">BI/Dashboard</span>
+                </div>
+                <div class="mt-3 text-xs text-slate-700">
+                  <p class="font-semibold">ข้อจำกัด</p>
+                  <ul class="mt-2 list-disc pl-4 space-y-1 text-slate-600">
+                    <li>เห็น “ภาพรวม” แต่ไม่ชี้ “เหตุผลรายเคส”</li>
+                    <li>Audit ต้องไล่เอกสาร/อีเมล/แชท</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Node 5 -->
+              <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50">
+                <p class="text-sm font-semibold">ผลลัพธ์เชิง UX ที่เกิดจริง</p>
+                <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                  <div class="p-3 rounded-xl bg-white border border-slate-200">
+                    <p class="text-slate-500">คอขวด</p>
+                    <p class="font-semibold mt-1">การเทียบสัญญา</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white border border-slate-200">
+                    <p class="text-slate-500">ความเสี่ยง</p>
+                    <p class="font-semibold mt-1">เหตุผลไม่เป็นมาตรฐาน</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white border border-slate-200">
+                    <p class="text-slate-500">ต้นทุนเวลา</p>
+                    <p class="font-semibold mt-1">คนเก่งต้องไล่หลักฐาน</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT: TH8 OVERLAY -->
+          <div class="lg:col-span-6 bg-white border border-red-200 rounded-2xl p-5">
+            <div class="flex items-start justify-between">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-red-600 font-semibold">TH8 Overlay</p>
+                <h3 class="text-base font-semibold mt-1">Evidence + Policy + Decision Center + Audit</h3>
+              </div>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100 font-semibold">ไม่แทนระบบเดิม</span>
+            </div>
+
+            <div class="mt-4 space-y-3">
+              <!-- Node A -->
+              <div class="rounded-2xl border border-red-200 p-4 bg-red-50">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold">A) รับข้อมูลจาก SAP (PO/PR) + สัญญา (PDF)</p>
+                    <p class="text-xs text-slate-700 mt-1">TH8 อ่านข้อมูลเพื่อ “ตรวจเชิงนโยบาย” ไม่ใช่เพื่อบันทึกบัญชี</p>
+                  </div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-red-200 font-semibold text-red-700">Input</span>
+                </div>
+                <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                  <div class="p-3 rounded-xl bg-white border border-red-200">
+                    <p class="text-slate-500">รับจาก SAP</p>
+                    <p class="font-semibold mt-1">PO header + lines</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white border border-red-200">
+                    <p class="text-slate-500">รับจากสัญญา</p>
+                    <p class="font-semibold mt-1">Vendor/Validity/Price table</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Node B -->
+              <div class="rounded-2xl border border-red-200 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold">B) Evidence Extract (ผูกหลักฐานกับ “จุดตัดสินใจ”)</p>
+                    <p class="text-xs text-slate-600 mt-1">สร้างหลักฐานแบบอ้างอิงได้: doc/page/snippet</p>
+                  </div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-red-200 font-semibold text-red-700">Phase 1</span>
+                </div>
+
+                <div class="mt-3 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <p class="text-xs text-slate-600">ตัวอย่าง Evidence</p>
+                  <div class="mt-2 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                    <div class="p-3 rounded-xl bg-white border border-slate-200">
+                      <p class="text-slate-500">Doc</p>
+                      <p class="font-semibold mt-1">contract_ovaltine_raw_2024.pdf</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-white border border-slate-200">
+                      <p class="text-slate-500">Page</p>
+                      <p class="font-semibold mt-1">6</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-white border border-slate-200">
+                      <p class="text-slate-500">Snippet</p>
+                      <p class="font-semibold mt-1">“Unit Price ฿12.50 …”</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Node C -->
+              <div class="rounded-2xl border border-red-200 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold">C) Policy Engine (ทำให้ “Pending เกิดจริง”)</p>
+                    <p class="text-xs text-slate-600 mt-1">นโยบายอ่านแบบธุรกิจ: rule_id + severity + delta + pending_reason</p>
+                  </div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-red-200 font-semibold text-red-700">Phase 1</span>
+                </div>
+
+                <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                  <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+                    <p class="font-semibold text-emerald-700">Auto-pass</p>
+                    <p class="text-slate-700 mt-1">เคสปกติผ่านอัตโนมัติ (ไม่มี violation)</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+                    <p class="font-semibold text-amber-700">Pending เฉพาะเคสที่ “ควรดูจริง”</p>
+                    <p class="text-slate-700 mt-1">เช่น ราคาเบี่ยง, vendor ไม่ตรง, สัญญาหมดอายุ</p>
+                  </div>
+                </div>
+
+                <div class="mt-3 rounded-2xl border border-amber-200 bg-amber-50 p-4">
+                  <p class="text-xs text-slate-700"><span class="font-semibold">ตัวอย่าง Pending Reason:</span> “ราคาต่อหน่วยสูงกว่าสัญญา 2.4% (สัญญา ฿12.50 → ขอซื้อ ฿12.80) · หลักฐาน: หน้า 6”</p>
+                </div>
+              </div>
+
+              <!-- Node D -->
+              <div class="rounded-2xl border border-red-200 p-4 bg-red-50">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold">D) Decision Center (CFO ตัดสินใจเร็ว + บังคับเหตุผล)</p>
+                    <p class="text-xs text-slate-700 mt-1">Decision card: delta + evidence link + reason (mandatory) + exception type</p>
+                  </div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-red-200 font-semibold text-red-700">Phase 2</span>
+                </div>
+
+                <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                  <div class="p-3 rounded-xl bg-white border border-red-200">
+                    <p class="text-slate-500">สิ่งที่ CFO เห็น</p>
+                    <p class="font-semibold mt-1">เทียบสัญญาแบบ 1 จอ</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white border border-red-200">
+                    <p class="text-slate-500">สิ่งที่ต้องกรอก</p>
+                    <p class="font-semibold mt-1">เหตุผล (บังคับ)</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white border border-red-200">
+                    <p class="text-slate-500">สิ่งที่ได้กลับ</p>
+                    <p class="font-semibold mt-1">มาตรฐาน Audit-ready</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Node E -->
+              <div class="rounded-2xl border border-red-200 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold">E) Dashboard & Reporting (KPI จากเหตุการณ์จริง)</p>
+                    <p class="text-xs text-slate-600 mt-1">คำนวณจาก pending/decision/delta ไม่ใช่ตัวเลขตั้งเอง</p>
+                  </div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-red-200 font-semibold text-red-700">Phase 3</span>
+                </div>
+
+                <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                  <div class="p-3 rounded-xl bg-white border border-slate-200">
+                    <p class="text-slate-500">ตัวอย่าง KPI</p>
+                    <p class="font-semibold mt-1">Amount at Risk / Prevented Leakage</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-white border border-slate-200">
+                    <p class="text-slate-500">ความหมายต่อผู้บริหาร</p>
+                    <p class="font-semibold mt-1">โยง “มูลค่าความเสี่ยง” ได้ตรง</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Node F -->
+              <div class="rounded-2xl border border-red-200 p-4">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <p class="text-sm font-semibold">F) Audit Trail (ไล่เหตุผลย้อนหลังได้ใน 1 นาที)</p>
+                    <p class="text-xs text-slate-600 mt-1">เก็บ event + policy_version/hash + evidence + decision reason</p>
+                  </div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-red-200 font-semibold text-red-700">Phase 4</span>
+                </div>
+
+                <div class="mt-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-700">
+                  <p class="font-semibold">Audit-ready =</p>
+                  <ul class="mt-2 list-disc pl-4 space-y-1 text-slate-600">
+                    <li>ชี้ได้ว่า “ผิดกฎอะไร” (rule_id + severity + delta)</li>
+                    <li>เปิดได้ว่า “อ้างอิงเอกสารหน้าไหน” (doc/page/snippet)</li>
+                    <li>ตอบได้ว่า “ใครตัดสินใจ เพราะอะไร” (mandatory reason)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+        WHERE TH8 HELPS (NODE MAP)
+      ========================================================== -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-5 md:p-6">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Node Map</p>
+            <h2 class="text-xl md:text-2xl font-semibold mt-1">TH8 เข้าไปช่วยตรงไหน (แบบชี้ node ต่อ node)</h2>
+            <p class="text-sm text-slate-600 mt-2 max-w-3xl">
+              สรุปให้ผู้บริหารเห็นว่า “ระบบเดิมทำอะไร” และ “TH8 เติมอะไร” โดยไม่บังคับให้เปลี่ยน SAP/Workflow
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[11px] px-2 py-1 rounded-full bg-slate-900 text-white font-semibold">SAP = System of Record</span>
+            <span class="text-[11px] px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100 font-semibold">TH8 = System of Decision</span>
+          </div>
+        </div>
+
+        <div class="mt-5 overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead>
+              <tr class="text-left text-xs text-slate-500">
+                <th class="py-3 pr-4">Node (งาน)</th>
+                <th class="py-3 pr-4">ระบบเดิมทำได้</th>
+                <th class="py-3 pr-4">ช่องว่างที่เจอจริง</th>
+                <th class="py-3 pr-4">TH8 เติมให้</th>
+                <th class="py-3">ผลลัพธ์ (ดีขึ้น)</th>
+              </tr>
+            </thead>
+            <tbody class="align-top">
+              <tr class="border-t border-slate-200">
+                <td class="py-4 pr-4 font-semibold">PO/PR Entry</td>
+                <td class="py-4 pr-4 text-slate-700">บันทึกธุรกรรม, คุม master data</td>
+                <td class="py-4 pr-4 text-slate-700">ยังไม่ “เทียบสัญญา” ให้เป็นเหตุผลได้</td>
+                <td class="py-4 pr-4 text-slate-700"><span class="px-2 py-1 rounded-full bg-red-50 border border-red-100 text-red-700 text-xs font-semibold">อ่านข้อมูลเพื่อทำ policy check</span></td>
+                <td class="py-4 text-slate-700">แยก “เคสปกติ” ออกจาก “เคสเสี่ยง” ตั้งแต่ต้น</td>
+              </tr>
+
+              <tr class="border-t border-slate-200">
+                <td class="py-4 pr-4 font-semibold">Document/OCR</td>
+                <td class="py-4 pr-4 text-slate-700">แปลงภาพ/ไฟล์เป็นข้อความ</td>
+                <td class="py-4 pr-4 text-slate-700">ข้อความไม่ผูกกับจุดตัดสินใจ, หา page/snippet ยาก</td>
+                <td class="py-4 pr-4 text-slate-700"><span class="px-2 py-1 rounded-full bg-red-50 border border-red-100 text-red-700 text-xs font-semibold">Evidence (doc/page/snippet)</span></td>
+                <td class="py-4 text-slate-700">เปิดหลักฐานได้ทันที ลดเวลาไล่เอกสาร</td>
+              </tr>
+
+              <tr class="border-t border-slate-200">
+                <td class="py-4 pr-4 font-semibold">Approval Workflow</td>
+                <td class="py-4 pr-4 text-slate-700">ลำดับอนุมัติ, routing ตามวงเงิน</td>
+                <td class="py-4 pr-4 text-slate-700">ไม่บังคับเหตุผล, ไม่ชี้ delta, ไม่รวมหลักฐาน</td>
+                <td class="py-4 pr-4 text-slate-700"><span class="px-2 py-1 rounded-full bg-red-50 border border-red-100 text-red-700 text-xs font-semibold">Decision card + mandatory reason</span></td>
+                <td class="py-4 text-slate-700">ตัดสินใจเร็วขึ้น + เหตุผลเป็นมาตรฐาน</td>
+              </tr>
+
+              <tr class="border-t border-slate-200">
+                <td class="py-4 pr-4 font-semibold">Policy/Controls</td>
+                <td class="py-4 pr-4 text-slate-700">ตั้ง rule ได้บางส่วน (config)</td>
+                <td class="py-4 pr-4 text-slate-700">rule ไม่ผูกหลักฐาน, pending เกิดแบบอธิบายยาก</td>
+                <td class="py-4 pr-4 text-slate-700"><span class="px-2 py-1 rounded-full bg-red-50 border border-red-100 text-red-700 text-xs font-semibold">policy → pending reason → decision → audit</span></td>
+                <td class="py-4 text-slate-700">Pending “เกิดจริง” และ audit ได้</td>
+              </tr>
+
+              <tr class="border-t border-slate-200">
+                <td class="py-4 pr-4 font-semibold">Dashboard/Audit</td>
+                <td class="py-4 pr-4 text-slate-700">รายงานภาพรวม, audit log เบื้องต้น</td>
+                <td class="py-4 pr-4 text-slate-700">ไล่เหตุผลรายเคสลำบาก, export ไม่ครบ</td>
+                <td class="py-4 pr-4 text-slate-700"><span class="px-2 py-1 rounded-full bg-red-50 border border-red-100 text-red-700 text-xs font-semibold">immutable event + export CSV/JSON</span></td>
+                <td class="py-4 text-slate-700">ตรวจย้อนหลังได้เร็ว, ลด effort audit</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =========================================================
+        END STATE: WHAT GETS BETTER
+      ========================================================== -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+        <!-- Outcome cards -->
+        <div class="lg:col-span-8 bg-white border border-slate-200 rounded-2xl p-5 md:p-6">
+          <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Outcomes</p>
+          <h2 class="text-xl md:text-2xl font-semibold mt-1">สุดท้าย “ดีขึ้นยังไง” (พูดกับผู้บริหารได้แบบไม่ต้องเชื่อ AI)</h2>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50">
+              <p class="text-sm font-semibold">1) เวลาอนุมัติลดลง</p>
+              <p class="text-xs text-slate-600 mt-1">CFO เห็น delta+หลักฐานในจอเดียว</p>
+              <div class="mt-3 text-xs">
+                <p class="text-slate-500 font-semibold">UX change</p>
+                <p class="text-slate-700 mt-1">จาก “ไล่เอกสาร” → “กดตัดสินใจบน evidence”</p>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50">
+              <p class="text-sm font-semibold">2) ลดความเสี่ยงเชิงควบคุม</p>
+              <p class="text-xs text-slate-600 mt-1">เหตุผลบังคับ + ผูกกับ rule + policy version</p>
+              <div class="mt-3 text-xs">
+                <p class="text-slate-500 font-semibold">Control change</p>
+                <p class="text-slate-700 mt-1">จาก “free-text” → “มาตรฐานตรวจสอบได้”</p>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 p-4 bg-slate-50">
+              <p class="text-sm font-semibold">3) KPI ชี้ผลได้</p>
+              <p class="text-xs text-slate-600 mt-1">Amount at risk / prevented leakage คำนวณจากเหตุการณ์จริง</p>
+              <div class="mt-3 text-xs">
+                <p class="text-slate-500 font-semibold">Reporting change</p>
+                <p class="text-slate-700 mt-1">จาก “รายงานหลังเกิดเหตุ” → “เห็นความเสี่ยงขณะตัดสินใจ”</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KPI examples -->
+        <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5 md:p-6">
+          <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">KPI Examples</p>
+          <h3 class="text-base font-semibold mt-1">ตัวอย่าง KPI ที่ “derive จาก data”</h3>
+
+          <div class="mt-4 space-y-3">
+            <div class="rounded-2xl border border-slate-200 p-4">
+              <p class="text-xs text-slate-500 font-semibold">Amount at Risk</p>
+              <p class="text-xl font-semibold mt-1">Σ pending PO amount</p>
+              <p class="text-xs text-slate-600 mt-1">สะท้อน “มูลค่าที่ต้องให้ผู้บริหารโฟกัส”</p>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 p-4">
+              <p class="text-xs text-slate-500 font-semibold">Prevented Leakage</p>
+              <p class="text-xl font-semibold mt-1">Σ corrected/rejected delta</p>
+              <p class="text-xs text-slate-600 mt-1">ชี้ “มูลค่าที่กันไว้ได้” จากการตัดสินใจ</p>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 p-4">
+              <p class="text-xs text-slate-500 font-semibold">Decision SLA</p>
+              <p class="text-xl font-semibold mt-1">within_sla / total_pending</p>
+              <p class="text-xs text-slate-600 mt-1">วัดความเร็วการตัดสินใจแบบจับต้องได้</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+        FOOTER: TALK TRACK (board-ready)
+      ========================================================== -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-5 md:p-6">
+        <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Board-ready Talk Track</p>
+        <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-semibold">ระบบเดิมดีอยู่แล้ว</p>
+            <p class="text-xs text-slate-600 mt-1">SAP/Workflow เก่งเรื่อง transaction + routing</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-red-50 border-red-200 p-4">
+            <p class="font-semibold">แต่จุดเจ็บคือ “การตัดสินใจ”</p>
+            <p class="text-xs text-slate-700 mt-1">เทียบสัญญา + เหตุผล + หลักฐาน ยังต้องพึ่งคนไล่เอง</p>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-semibold">TH8 ทำให้ตัดสินใจเป็นมาตรฐาน</p>
+            <p class="text-xs text-slate-600 mt-1">Pending ที่ควรดูจริง + evidence link + reason บังคับ + audit export</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </body>
+</html>

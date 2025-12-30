@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI Business Model Canvas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anuphan:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Anuphan', sans-serif;
+        }
+        .bmc-cell {
+            @apply p-4 border border-gray-300 h-full flex flex-col;
+            min-height: 200px; /* Standard minimum height for visual consistency */
+        }
+        .cell-title {
+            @apply text-lg font-bold mb-2;
+        }
+        .main-value {
+            @apply text-xl font-extrabold text-blue-800;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">TH8.AI Business Model Canvas</h1>
+        <h2 class="text-xl text-center mb-10 text-gray-600">Enterprise AI Agent Orchestrator: The Connected Value Chain</h2>
+
+        <div class="grid grid-cols-5 gap-4">
+            <div class="col-span-1">
+                <div class="bmc-cell bg-white">
+                    <div class="cell-title text-green-700">9. Key Partners</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-700">
+                        <li>**Technology Providers:** Microsoft Azure (OpenAI), AWS (Bedrock).</li>
+                        <li>**ERP Ecosystem:** SAP Consultancies (Implementer Partners).</li>
+                        <li>Data Providers (Weather, Commodity Prices).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-span-2 flex flex-col gap-4">
+                <div class="bmc-cell bg-white">
+                    <div class="cell-title text-green-700">7. Key Activities</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-700">
+                        <li>**Context Engineering & Prompt Tuning:** สร้างความฉลาดเฉพาะทางของ Agent.</li>
+                        <li>**System Integration:** เชื่อมต่อ API (OData/REST) กับ SAP/ERP.</li>
+                        <li>**Governance & Security:** การดูแล Audit Trail และ Guardrails.</li>
+                        <li>Sales & High-Value Demo Creation.</li>
+                    </ul>
+                </div>
+
+                <div class="bmc-cell bg-white">
+                    <div class="cell-title text-green-700">6. Key Resources</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-700">
+                        <li>**IP & Codebase:** TH8 Agent Framework (LangGraph Logic).</li>
+                        <li>**Core Team Talent:** ทีม 3 คน (Business Architect, AI Engineer, DevOps/Cloud).</li>
+                        <li>SAP Integration Blueprint & Mock Data.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-span-1">
+                <div class="bmc-cell bg-yellow-100 border-4 border-yellow-500">
+                    <div class="cell-title text-red-700 main-value text-2xl">1. Value Proposition</div>
+                    <p class="font-semibold mb-1">AI Agent ที่เข้าใจบริบทไทย & เชื่อมต่อ Enterprise ได้อย่างปลอดภัย</p>
+                    <ul class="list-disc ml-4 text-sm text-gray-800">
+                        <li>**ROI-Driven:** เปลี่ยน Data ให้เป็นกำไร (500% ROI).</li>
+                        <li>**Connected Context:** แก้ปัญหา "รอยต่อ" ระหว่าง Sales/Logistics/Finance.</li>
+                        <li>**Clean Core Integration:** การันตีความเสถียรของ ERP.</li>
+                        <li>**TH8 DNA:** ความยืดหยุ่นและ Agent ที่รู้ใจคนไทย.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-span-1 flex flex-col gap-4">
+                <div class="bmc-cell bg-white">
+                    <div class="cell-title text-green-700">4. Customer Relationships</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-700">
+                        <li>**Strategic Partner:** การเป็นที่ปรึกษา ไม่ใช่แค่ Vendor.</li>
+                        <li>POC & Pilot (4-8 สัปดาห์) เพื่อพิสูจน์ ROI.</li>
+                        <li>Executive Workshop (AI Governance).</li>
+                        <li>SLA & Proactive Maintenance.</li>
+                    </ul>
+                </div>
+
+                <div class="bmc-cell bg-white">
+                    <div class="cell-title text-green-700">3. Channels</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-700">
+                        <li>Direct Sales (Founder-led).</li>
+                        <li>LINE OA & Web App (Interactive Demo).</li>
+                        <li>Cloud Marketplace (AWS/Azure).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-span-3">
+                <div class="bmc-cell bg-red-100">
+                    <div class="cell-title text-red-700">9. Cost Structure</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-700">
+                        <li>**Personnel Cost:** เงินเดือนทีม 3 คน (ต้นทุนหลัก).</li>
+                        <li>Cloud Infrastructure (AWS/Supabase) & Security.</li>
+                        <li>LLM Token Access Cost (ถ้าลูกค้าไม่ BYOL).</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-span-2 flex flex-col gap-4">
+                <div class="bmc-cell bg-green-100">
+                    <div class="cell-title text-green-700">5. Revenue Streams</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-700">
+                        <li>**One-Time Fee:** ค่า Setup/Integration (500k-800k บาท).</li>
+                        <li>**Recurring Revenue:** Monthly Management Fee (30k-50k บาท).</li>
+                        <li>Consulting/Data Audit Fee.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-span-5">
+                <div class="bmc-cell bg-blue-100">
+                    <div class="cell-title text-blue-700">2. Customer Segments</div>
+                    <ul class="list-disc ml-4 text-sm text-gray-800">
+                        <li>**Target:** องค์กรขนาดกลางถึงใหญ่ในไทย/APAC (FMCG, Manufacturing, Retail).</li>
+                        <li>**Focus:** บริษัทที่ใช้ SAP S/4HANA (ต้องการต่อยอด).</li>
+                        <li>**Decision Makers:** COO, CFO, Head of Supply Chain, IT Director.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

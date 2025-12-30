@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI | Strategic Analysis</title>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0F172A; color: white; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .glass-active { background: rgba(220, 38, 38, 0.1); border: 1px solid #DC2626; box-shadow: 0 0 15px rgba(220, 38, 38, 0.3); }
+        
+        /* BMC Grid Layout */
+        .bmc-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(3, auto);
+            gap: 1rem;
+        }
+        .bmc-col-2 { grid-column: span 2; }
+        .bmc-full { grid-column: span 5; }
+        
+        @media (max-width: 1024px) {
+            .bmc-grid { grid-template-columns: 1fr; }
+            .bmc-col-2, .bmc-full { grid-column: span 1; }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { th8: { red: '#DC2626', dark: '#0F172A' } } }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div id="app" class="min-h-screen p-8">
+
+    <header class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mb-10">
+        <div class="flex items-center gap-4 mb-4 md:mb-0">
+            <div class="w-12 h-12 bg-th8-red rounded-xl flex items-center justify-center font-bold text-2xl shadow-lg">8</div>
+            <div>
+                <h1 class="text-2xl font-bold">Strategic Analysis</h1>
+                <p class="text-sm text-gray-400">SWOT & Business Model Canvas</p>
+            </div>
+        </div>
+
+        <div class="bg-gray-800 p-1 rounded-lg flex">
+            <button @click="scenario = 'ideal'" 
+                :class="['px-6 py-2 rounded-md text-sm font-bold transition-all', scenario === 'ideal' ? 'bg-th8-red text-white shadow' : 'text-gray-400 hover:text-white']">
+                Option A: Ideal (Series A Ready)
+            </button>
+            <button @click="scenario = 'real'" 
+                :class="['px-6 py-2 rounded-md text-sm font-bold transition-all', scenario === 'real' ? 'bg-blue-600 text-white shadow' : 'text-gray-400 hover:text-white']">
+                Option B: Realistic (Early Stage)
+            </button>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto mb-8">
+        <div v-if="scenario === 'ideal'" class="bg-red-900/20 border border-red-900/50 p-4 rounded-xl flex items-start gap-3">
+            <i class="fas fa-rocket text-th8-red mt-1"></i>
+            <div>
+                <h3 class="font-bold text-th8-red">Scenario: The "Unicorn" Pitch</h3>
+                <p class="text-sm text-gray-300">สมมติว่ามีทีมครบ (Tech/Biz), มี MVP เสร็จแล้ว, และเริ่มมี Traction (Pilot Users) เป้าหมายคือระดมทุนใหญ่เพื่อ Scale.</p>
+            </div>
+        </div>
+        <div v-if="scenario === 'real'" class="bg-blue-900/20 border border-blue-900/50 p-4 rounded-xl flex items-start gap-3">
+            <i class="fas fa-tools text-blue-400 mt-1"></i>
+            <div>
+                <h3 class="font-bold text-blue-400">Scenario: The "Bootstrapper" Pitch</h3>
+                <p class="text-sm text-gray-300">สะท้อนความจริงปัจจุบัน (ทีมเล็ก/Solo), ยังไม่มี MVP สมบูรณ์, เน้นขาย Consulting นำทางเพื่อสร้างทุนและเก็บ Data.</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="max-w-7xl mx-auto mb-16">
+        <h2 class="text-3xl font-bold mb-6 border-l-4 border-white pl-4">1. SWOT Analysis</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <div class="glass p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-green-400">Strengths (จุดแข็ง)</h3>
+                    <i class="fas fa-dumbbell text-2xl text-green-400 opacity-50"></i>
+                </div>
+                <ul class="space-y-3 text-sm text-gray-300">
+                    <li v-for="item in currentData.swot.strengths" class="flex gap-2">
+                        <i class="fas fa-check text-green-500 mt-1"></i> <span>{{ item }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="glass p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-red-400">Weaknesses (จุดอ่อน)</h3>
+                    <i class="fas fa-exclamation-triangle text-2xl text-red-400 opacity-50"></i>
+                </div>
+                <ul class="space-y-3 text-sm text-gray-300">
+                    <li v-for="item in currentData.swot.weaknesses" class="flex gap-2">
+                        <i class="fas fa-times text-red-500 mt-1"></i> <span>{{ item }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="glass p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-blue-400">Opportunities (โอกาส)</h3>
+                    <i class="fas fa-globe-asia text-2xl text-blue-400 opacity-50"></i>
+                </div>
+                <ul class="space-y-3 text-sm text-gray-300">
+                    <li v-for="item in currentData.swot.opportunities" class="flex gap-2">
+                        <i class="fas fa-lightbulb text-blue-500 mt-1"></i> <span>{{ item }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="glass p-6 rounded-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-yellow-400">Threats (อุปสรรค)</h3>
+                    <i class="fas fa-shield-alt text-2xl text-yellow-400 opacity-50"></i>
+                </div>
+                <ul class="space-y-3 text-sm text-gray-300">
+                    <li v-for="item in currentData.swot.threats" class="flex gap-2">
+                        <i class="fas fa-fire text-yellow-500 mt-1"></i> <span>{{ item }}</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto pb-20">
+        <h2 class="text-3xl font-bold mb-6 border-l-4 border-white pl-4">2. Business Model Canvas</h2>
+        
+        <div class="bmc-grid">
+            
+            <div class="glass p-4 rounded-xl">
+                <h4 class="text-xs text-gray-500 uppercase font-bold mb-2"><i class="fas fa-handshake mr-1"></i> Key Partners</h4>
+                <ul class="text-xs space-y-2">
+                    <li v-for="item in currentData.bmc.partners" class="flex gap-2 text-gray-300">• {{ item }}</li>
+                </ul>
+            </div>
+
+            <div class="glass p-4 rounded-xl">
+                <h4 class="text-xs text-gray-500 uppercase font-bold mb-2"><i class="fas fa-tasks mr-1"></i> Key Activities</h4>
+                <ul class="text-xs space-y-2">
+                    <li v-for="item in currentData.bmc.activities" class="flex gap-2 text-gray-300">• {{ item }}</li>
+                </ul>
+            </div>
+
+            <div class="glass-active p-4 rounded-xl bg-gray-900">
+                <h4 class="text-xs text-th8-red uppercase font-bold mb-2"><i class="fas fa-gift mr-1"></i> Value Propositions</h4>
+                <ul class="text-xs space-y-2">
+                    <li v-for="item in currentData.bmc.value" class="flex gap-2 text-white font-medium">• {{ item }}</li>
+                </ul>
+            </div>
+
+            <div class="glass p-4 rounded-xl">
+                <h4 class="text-xs text-gray-500 uppercase font-bold mb-2"><i class="fas fa-heart mr-1"></i> Relationships</h4>
+                <ul class="text-xs space-y-2">
+                    <li v-for="item in currentData.bmc.relationships" class="flex gap-2 text-gray-300">• {{ item }}</li>
+                </ul>
+            </div>
+
+            <div class="glass p-4 rounded-xl">
+                <h4 class="text-xs text-gray-500 uppercase font-bold mb-2"><i class="fas fa-users mr-1"></i> Segments</h4>
+                <ul class="text-xs space-y-2">
+                    <li v-for="item in currentData.bmc.segments" class="flex gap-2 text-gray-300">• {{ item }}</li>
+                </ul>
+            </div>
+
+            <div class="glass p-4 rounded-xl">
+                <h4 class="text-xs text-gray-500 uppercase font-bold mb-2"><i class="fas fa-gem mr-1"></i> Key Resources</h4>
+                <ul class="text-xs space-y-2">
+                    <li v-for="item in currentData.bmc.resources" class="flex gap-2 text-gray-300">• {{ item }}</li>
+                </ul>
+            </div>
+
+            <div class="glass p-4 rounded-xl">
+                <h4 class="text-xs text-gray-500 uppercase font-bold mb-2"><i class="fas fa-truck mr-1"></i> Channels</h4>
+                <ul class="text-xs space-y-2">
+                    <li v-for="item in currentData.bmc.channels" class="flex gap-2 text-gray-300">• {{ item }}</li>
+                </ul>
+            </div>
+
+            <div class="glass p-4 rounded-xl bmc-col-2">
+                <h4 class="text-xs text-gray-500 uppercase font-bold mb-2"><i class="fas fa-file-invoice-dollar mr-1"></i> Cost Structure</h4>
+                <ul class="text-xs space-y-2 grid grid-cols-2 gap-2">
+                    <li v-for="item in currentData.bmc.cost" class="flex gap-2 text-gray-300">• {{ item }}</li>
+                </ul>
+            </div>
+
+            <div class="glass-active p-4 rounded-xl bmc-col-2 bg-gray-900">
+                <h4 class="text-xs text-green-400 uppercase font-bold mb-2"><i class="fas fa-money-bill-wave mr-1"></i> Revenue Streams</h4>
+                <ul class="text-xs space-y-2 grid grid-cols-2 gap-2">
+                    <li v-for="item in currentData.bmc.revenue" class="flex gap-2 text-white font-medium">• {{ item }}</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+        setup() {
+            const scenario = ref('ideal'); // Default to Ideal
+
+            const data = {
+                ideal: {
+                    swot: {
+                        strengths: [
+                            "Proprietary Context Engine: เชื่อมต่อ Data Silo ได้ลึกกว่าคู่แข่ง (IP หลัก)",
+                            "Strong Vertical Focus: เชี่ยวชาญเฉพาะทาง FMCG/Mfg ไทย ที่คู่แข่งตปท. เข้าไม่ถึง",
+                            "First Mover Advantage: รายแรกที่ใช้ Agentic AI + LangGraph ในไทย",
+                            "Network Effect: ข้อมูล Pattern จากลูกค้า Pilot 3 รายแรก (Siam Winery etc.)"
+                        ],
+                        weaknesses: [
+                            "High R&D Burn Rate: ค่าตัว AI Engineer และ Token Cost สูง",
+                            "Long Sales Cycle: ลูกค้า Enterprise ใช้เวลาตัดสินใจ 3-6 เดือน",
+                            "Resource Constraints: ทีม Support ยังเล็กเมื่อเทียบกับ Scale ลูกค้า"
+                        ],
+                        opportunities: [
+                            "Market Boom: ตลาด Digital Trans. ไทยโต 10% (3.6 แสนล้าน)",
+                            "Regional Expansion: ขยายไป CLMV ที่มี Pain Point เรื่อง Supply Chain เหมือนกัน",
+                            "Partnership: จับมือกับ SCB/KBank เพื่อทำ Supply Chain Finance"
+                        ],
+                        threats: [
+                            "Giant Move: Microsoft/SAP เปิดตัวฟีเจอร์ Supply Chain Copilot",
+                            "Brain Drain: AI Talent ถูกซื้อตัวโดย Tech Giant",
+                            "Data Privacy Regulation: กฎหมาย PDPA/AI Governance ที่เข้มงวดขึ้น"
+                        ]
+                    },
+                    bmc: {
+                        partners: ["Cloud Providers (AWS/Azure)", "System Integrators (วางระบบ ERP)", "Industry Associations (สภาอุตฯ)", "University Labs (AI Research)"],
+                        activities: ["R&D (LangGraph Optimization)", "Enterprise Sales & B2B Deal", "Customer Onboarding & Integration", "Security Audit"],
+                        value: ["ลด Penalty 80% (ROI ชัดเจน)", "Margin Recovery 3% ของ Revenue", "Single Source of Truth (FMCG-Mfg-Logistics)", "Actionable Intelligence (ไม่ใช่แค่ Dashboard)"],
+                        relationships: ["Dedicated Customer Success Team", "Co-Innovation (Design Partner)", "Quarterly Business Review (QBR)"],
+                        segments: ["FMCG (ยอดขาย 1,000M+)", "Food Manufacturing (Export)", "3PL Logistics Provider", "ตำแหน่ง: COO, CFO, Supply Chain Dir."],
+                        resources: ["AI Engineering Team", "Proprietary Data connectors", "Pilot Customer Data (Pattern)", "Reputation/Case Studies"],
+                        channels: ["Direct Sales Team", "Industry Events/Webinars", "Partner Network (ERP Vendors)", "LinkedIn/Content Marketing"],
+                        cost: ["R&D & Engineering Salaries (60%)", "Cloud/GPU Infrastructure (20%)", "Sales & Marketing (15%)", "Legal & Compliance (5%)"],
+                        revenue: ["Annual License Fee (Recurring)", "Setup & Integration Fee (One-time)", "Value-Based Pricing (% of Saving)", "API Access Fee"]
+                    }
+                },
+                real: {
+                    swot: {
+                        strengths: [
+                            "Extreme Agility: ปรับเปลี่ยน Solution ได้ทันทีตามหน้างานจริง (SAP ทำไม่ได้)",
+                            "Cost Leadership: ราคาจับต้องได้ เริ่มต้นง่ายกว่า Global Brand",
+                            "Deep Local Insight: เข้าใจบริบท 'สัญญาห้าง' และ 'ระบบหลังบ้านไทยๆ'",
+                            "Lean Operation: Burn rate ต่ำ ยืดเยื้อได้นาน"
+                        ],
+                        weaknesses: [
+                            "No Brand Trust: ยังไม่มี Reference ลูกค้าใหญ่การันตี",
+                            "Key Man Risk: พึ่งพา Founder มากเกินไป (Solo/Small Team)",
+                            "Limited Tech Stack: ยังไม่มี Full Platform (Manual Backend บางส่วน)",
+                            "Cash Flow: สายป่านสั้น ต้องรีบหากระแสเงินสด"
+                        ],
+                        opportunities: [
+                            "Mid-Market Gap: ลูกค้าขนาดกลางที่ SAP แพงไป แต่ Excel เอาไม่อยู่",
+                            "Government Grants: ทุน NIA/Depa สำหรับ AI Startup",
+                            "Consulting-led Entry: เข้าไปด้วยงานที่ปรึกษา แล้วแฝง Product ขายทีหลัง"
+                        ],
+                        threats: [
+                            "Slow Decision: ลูกค้าเลื่อนโปรเจกต์เพราะเศรษฐกิจ",
+                            "Copycats: Software House ทั่วไปทำหน้าตาเลียนแบบ (แต่ Logic ไม่ลึก)",
+                            "Internal IT: ทีม IT ลูกค้าบล็อกไม่ให้ใช้ (กลัวตกงาน)"
+                        ]
+                    },
+                    bmc: {
+                        partners: ["Freelance Dev Networks", "Consulting Firms (รับช่วงต่อ)", "SME Communities", "Personal Network of Founder"],
+                        activities: ["Consulting & Problem Solving", "Rapid Prototyping (Low-code)", "Direct Pitching to Owners", "Manual Data Cleansing"],
+                        value: ["แก้ปัญหาเฉพาะหน้าทันที (Firefighting)", "Setup เร็ว (Shadow Mode ใน 30 วัน)", "เข้าใจภาษาคนหน้างาน (LINE Interface)", "ราคาคุ้มค่า (Pay as you save)"],
+                        relationships: ["Founder-to-Founder (High Touch)", "LINE Group Support (Real-time)", "Hands-on Implementation"],
+                        segments: ["SME โรงงาน (ยอดขาย 100-500M)", "FMCG Challenger Brands", "ธุรกิจครอบครัวที่กำลัง Transform", "ตำแหน่ง: เจ้าของกิจการ (Owner)"],
+                        resources: ["Founder's Domain Expertise", "Existing Code Assets (MVP)", "Connection with Industry Insiders"],
+                        channels: ["Personal Connection / Referral", "Niche Industry Events", "Direct Message (LinkedIn)", "Consulting Projects"],
+                        cost: ["Founder Time (Opportunity Cost)", "Freelance/Outsource Cost", "Server/API Basic Cost", "Travel/Meeting Expenses"],
+                        revenue: ["Project-based Fee (Consulting)", "Pilot Implementation Fee", "Monthly Retainer (Maintenance)", "Success Fee (กรณีลด cost ได้)"]
+                    }
+                }
+            };
+
+            const currentData = computed(() => data[scenario.value]);
+
+            return { scenario, currentData };
+        }
+    }).mount('#app');
+</script>
+
+</body>
+</html>

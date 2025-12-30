@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Agent + Memory + RAG + Tool — Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    </style>
+  </head>
+
+  <body class="bg-slate-50 text-slate-900">
+    <div class="max-w-7xl mx-auto px-4 py-10">
+      <!-- Header -->
+      <header class="space-y-2">
+        <p class="text-[11px] uppercase tracking-[0.22em] text-red-600 font-semibold">
+          TH8.AI · Agent System Architecture
+        </p>
+        <h1 class="text-2xl md:text-3xl font-semibold">
+          AI Agent + Memory + Context + RAG + Tool Integration
+        </h1>
+        <p class="text-sm md:text-base text-slate-600 max-w-3xl">
+          ภาพเดียวอธิบายครบ: Agent คิด → Context ประกอบ → ดึง Memory/RAG → ลงมือผ่าน Tools → ถูกควบคุมด้วย Governance
+        </p>
+      </header>
+
+      <!-- Legend -->
+      <div class="mt-6 flex flex-wrap gap-2 text-xs">
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1">
+          <span class="h-2.5 w-2.5 rounded-full bg-blue-500"></span> Agent / Thinking
+        </span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1">
+          <span class="h-2.5 w-2.5 rounded-full bg-amber-500"></span> Memory
+        </span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1">
+          <span class="h-2.5 w-2.5 rounded-full bg-emerald-500"></span> RAG / Knowledge
+        </span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1">
+          <span class="h-2.5 w-2.5 rounded-full bg-violet-500"></span> Tools / Execution
+        </span>
+        <span class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1">
+          <span class="h-2.5 w-2.5 rounded-full bg-slate-900"></span> Governance
+        </span>
+      </div>
+
+      <!-- Infographic Canvas -->
+      <section class="mt-8">
+        <div class="rounded-3xl border border-slate-200 bg-white shadow-sm p-4 md:p-6 overflow-x-auto">
+          <!-- Canvas -->
+          <div class="relative min-w-[1120px] h-[760px]">
+
+            <!-- SVG connectors (arrows/lines) -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1120 760" preserveAspectRatio="none">
+              <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L8,3 L0,6 Z" fill="#94a3b8"></path>
+                </marker>
+              </defs>
+
+              <!-- vertical main flow center -->
+              <line x1="560" y1="110" x2="560" y2="155" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrow)"/>
+              <line x1="560" y1="235" x2="560" y2="285" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrow)"/>
+              <line x1="560" y1="420" x2="560" y2="468" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+              <!-- context to memory / rag (diagonal) -->
+              <line x1="510" y1="595" x2="305" y2="640" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrow)"/>
+              <line x1="610" y1="595" x2="815" y2="640" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+              <!-- agent to tools (horizontal) -->
+              <line x1="740" y1="355" x2="860" y2="355" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrow)"/>
+
+              <!-- tools to post-action (down-left) -->
+              <line x1="920" y1="470" x2="720" y2="700" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrow)"/>
+            </svg>
+
+            <!-- MAIN FLOW: center column -->
+            <!-- User -->
+            <div class="absolute left-1/2 -translate-x-1/2 top-6 w-[360px]">
+              <div class="rounded-2xl border border-slate-200 bg-slate-100 p-4 text-center shadow-sm">
+                <div class="text-sm font-semibold">User / Executive / Ops</div>
+                <div class="text-xs text-slate-600 mt-1">Chat · API · Workflow Trigger</div>
+              </div>
+            </div>
+
+            <!-- Entry -->
+            <div class="absolute left-1/2 -translate-x-1/2 top-[160px] w-[420px]">
+              <div class="rounded-2xl border border-slate-200 bg-white p-4 text-center shadow-sm">
+                <div class="text-sm font-semibold">Entry Points</div>
+                <div class="text-xs text-slate-600 mt-1">
+                  Chat UI (LINE/Teams) · API Gateway · Scheduler · Event Bus
+                </div>
+              </div>
+            </div>
+
+            <!-- Agent Orchestrator -->
+            <div class="absolute left-1/2 -translate-x-1/2 top-[295px] w-[520px]">
+              <div class="rounded-2xl border border-blue-200 bg-blue-50 p-5 shadow-sm">
+                <div class="flex items-center justify-between">
+                  <div class="text-base font-semibold text-blue-900">AI Agent Orchestrator</div>
+                  <span class="text-[11px] font-semibold text-blue-700 bg-blue-100 border border-blue-200 rounded-full px-2 py-1">
+                    Thinking Layer
+                  </span>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-3 text-xs">
+                  <div class="rounded-xl border border-blue-200 bg-white p-3">
+                    <div class="font-semibold text-slate-900">Planner</div>
+                    <div class="text-slate-600 mt-1">วางแผนขั้นตอนก่อนลงมือ</div>
+                  </div>
+                  <div class="rounded-xl border border-blue-200 bg-white p-3">
+                    <div class="font-semibold text-slate-900">State Machine</div>
+                    <div class="text-slate-600 mt-1">คุม flow ลดความสุ่ม</div>
+                  </div>
+                  <div class="rounded-xl border border-blue-200 bg-white p-3">
+                    <div class="font-semibold text-slate-900">Risk Check</div>
+                    <div class="text-slate-600 mt-1">confidence + safety gate</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Context Builder -->
+            <div class="absolute left-1/2 -translate-x-1/2 top-[480px] w-[520px]">
+              <div class="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 shadow-sm">
+                <div class="flex items-center justify-between">
+                  <div class="text-base font-semibold text-indigo-900">Context Builder</div>
+                  <span class="text-[11px] font-semibold text-indigo-700 bg-indigo-100 border border-indigo-200 rounded-full px-2 py-1">
+                    Selection Layer
+                  </span>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-3 text-xs">
+                  <div class="rounded-xl border border-indigo-200 bg-white p-3">
+                    <div class="font-semibold text-slate-900">Intent</div>
+                    <div class="text-slate-600 mt-1">เข้าใจว่า “ต้องทำอะไร”</div>
+                  </div>
+                  <div class="rounded-xl border border-indigo-200 bg-white p-3">
+                    <div class="font-semibold text-slate-900">Budget</div>
+                    <div class="text-slate-600 mt-1">ดึงเท่าที่จำเป็น</div>
+                  </div>
+                  <div class="rounded-xl border border-indigo-200 bg-white p-3">
+                    <div class="font-semibold text-slate-900">Stitching</div>
+                    <div class="text-slate-600 mt-1">รวม Memory + RAG + Policy</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- LEFT: Memory System -->
+            <div class="absolute left-6 top-[580px] w-[320px]">
+              <div class="rounded-2xl border border-amber-200 bg-amber-50 p-5 shadow-sm">
+                <div class="flex items-center justify-between">
+                  <div class="text-base font-semibold text-amber-900">Memory System</div>
+                  <span class="text-[11px] font-semibold text-amber-700 bg-amber-100 border border-amber-200 rounded-full px-2 py-1">
+                    “สมองส่วนจำ”
+                  </span>
+                </div>
+                <div class="mt-3 space-y-2 text-xs">
+                  <div class="rounded-xl border border-amber-200 bg-white p-3">
+                    <div class="font-semibold">Working (Redis)</div>
+                    <div class="text-slate-600 mt-1">จำชั่วคราวสำหรับ task นี้</div>
+                  </div>
+                  <div class="rounded-xl border border-amber-200 bg-white p-3">
+                    <div class="font-semibold">Episodic (Postgres/Mongo)</div>
+                    <div class="text-slate-600 mt-1">จำ “เหตุการณ์ + ผลลัพธ์”</div>
+                  </div>
+                  <div class="rounded-xl border border-amber-200 bg-white p-3">
+                    <div class="font-semibold">Semantic/Policy</div>
+                    <div class="text-slate-600 mt-1">บทเรียน / กฎ / preference</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT: RAG -->
+            <div class="absolute right-[320px] top-[580px] w-[320px]">
+              <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+                <div class="flex items-center justify-between">
+                  <div class="text-base font-semibold text-emerald-900">Knowledge & RAG</div>
+                  <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-100 border border-emerald-200 rounded-full px-2 py-1">
+                    Ground Truth
+                  </span>
+                </div>
+                <div class="mt-3 space-y-2 text-xs">
+                  <div class="rounded-xl border border-emerald-200 bg-white p-3">
+                    <div class="font-semibold">Documents</div>
+                    <div class="text-slate-600 mt-1">SOP / Policy / Contracts</div>
+                  </div>
+                  <div class="rounded-xl border border-emerald-200 bg-white p-3">
+                    <div class="font-semibold">Indexes</div>
+                    <div class="text-slate-600 mt-1">Vector + Keyword + Rerank</div>
+                  </div>
+                  <div class="rounded-xl border border-emerald-200 bg-white p-3">
+                    <div class="font-semibold">Evidence</div>
+                    <div class="text-slate-600 mt-1">อ้างอิงที่มาได้</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT: Tools (upper-right of canvas) -->
+            <div class="absolute right-[320px] top-[295px] w-[320px]">
+              <div class="rounded-2xl border border-violet-200 bg-violet-50 p-5 shadow-sm">
+                <div class="flex items-center justify-between">
+                  <div class="text-base font-semibold text-violet-900">Tools & Actions</div>
+                  <span class="text-[11px] font-semibold text-violet-700 bg-violet-100 border border-violet-200 rounded-full px-2 py-1">
+                    Execution
+                  </span>
+                </div>
+                <div class="mt-3 space-y-2 text-xs">
+                  <div class="rounded-xl border border-violet-200 bg-white p-3">
+                    <div class="font-semibold">Read Tools</div>
+                    <div class="text-slate-600 mt-1">query ERP/WMS/DB</div>
+                  </div>
+                  <div class="rounded-xl border border-violet-200 bg-white p-3">
+                    <div class="font-semibold">Write Tools</div>
+                    <div class="text-slate-600 mt-1">create ticket / update status</div>
+                  </div>
+                  <div class="rounded-xl border border-violet-200 bg-white p-3">
+                    <div class="font-semibold">Approval Gate</div>
+                    <div class="text-slate-600 mt-1">high-risk actions ต้องอนุมัติ</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- GOVERNANCE: Side Rail (no overlap) -->
+            <div class="absolute right-6 top-6 w-[280px] h-[724px]">
+              <div class="h-full rounded-3xl border-2 border-slate-900/20 bg-slate-50 p-4 shadow-sm">
+                <div class="rounded-2xl bg-slate-950 p-4 border border-slate-900">
+                  <div class="text-white text-lg font-semibold">Governance & Observability</div>
+                  <div class="text-slate-300 text-sm mt-1">
+                    Policy · Approval · Audit Log · Monitoring · Security · Evaluation
+                  </div>
+                  <div class="mt-3 flex flex-wrap gap-2 text-xs">
+                    <span class="rounded-full bg-white/10 text-white px-3 py-1">RBAC/ABAC</span>
+                    <span class="rounded-full bg-white/10 text-white px-3 py-1">Lineage</span>
+                    <span class="rounded-full bg-white/10 text-white px-3 py-1">Cost/Latency</span>
+                    <span class="rounded-full bg-white/10 text-white px-3 py-1">LLM Eval</span>
+                  </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-1 gap-3 text-xs">
+                  <div class="rounded-2xl bg-white border border-slate-200 p-3 text-slate-700">
+                    <div class="font-semibold text-slate-900">Policy Gate</div>
+                    <div class="mt-1">คุมสิ่งที่ AI “ทำได้/ห้ามทำ”</div>
+                  </div>
+                  <div class="rounded-2xl bg-white border border-slate-200 p-3 text-slate-700">
+                    <div class="font-semibold text-slate-900">Audit Trail</div>
+                    <div class="mt-1">ย้อนดู prompt / docs / tool calls</div>
+                  </div>
+                  <div class="rounded-2xl bg-white border border-slate-200 p-3 text-slate-700">
+                    <div class="font-semibold text-slate-900">Monitoring</div>
+                    <div class="mt-1">latency, cost, drift, errors</div>
+                  </div>
+                  <div class="rounded-2xl bg-white border border-slate-200 p-3 text-slate-700">
+                    <div class="font-semibold text-slate-900">Evaluation</div>
+                    <div class="mt-1">regression tests & quality gates</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Post-action memory -->
+            <div class="absolute left-1/2 -translate-x-1/2 top-[690px] w-[560px]">
+              <div class="rounded-2xl border border-slate-200 bg-white p-4 text-center shadow-sm">
+                <div class="text-sm font-semibold">Post-Action Memory Loop</div>
+                <div class="text-xs text-slate-600 mt-1">
+                  ผลจาก Tools → บันทึกเป็น Episodic Memory → ใช้เป็นบริบทครั้งถัดไป (พร้อม approval/audit)
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Footer Notes -->
+        <div class="mt-4 grid md:grid-cols-3 gap-3 text-xs text-slate-600">
+          <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="font-semibold text-slate-900">หลักคิด</div>
+            <div class="mt-1">ไม่ดึงทุกอย่างเข้าพร้อมกัน — มี Context Builder เลือกให้</div>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="font-semibold text-slate-900">ลดความเสี่ยง</div>
+            <div class="mt-1">High-risk tool ต้องผ่าน approval gate และมี audit trail</div>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="font-semibold text-slate-900">วัดผล</div>
+            <div class="mt-1">ผูก episodic memory กับ KPI impact เพื่อทำ ROI ให้ชัด</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

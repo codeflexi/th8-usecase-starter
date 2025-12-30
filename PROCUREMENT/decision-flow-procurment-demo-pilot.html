@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TH8.AI – Pilot Pack (2 Pages)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    html, body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+  <main class="max-w-5xl mx-auto px-4 py-8 space-y-10">
+
+    <!-- =====================================================
+      PAGE 1 — PILOT SCOPE & BUSINESS OBJECTIVE
+    ====================================================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl p-6 space-y-6">
+      <header class="space-y-2">
+        <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+          TH8.AI · Pilot Pack (Page 1/2)
+        </p>
+        <h1 class="text-2xl font-semibold">
+          Pilot Scope & Business Objective  
+          <span class="text-slate-500 text-base">(Procurement Decision Center)</span>
+        </h1>
+      </header>
+
+      <!-- Business Objective -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="md:col-span-2 rounded-xl border border-slate-200 p-5 bg-slate-50">
+          <h2 class="text-lg font-semibold">🎯 เป้าหมาย Pilot (เชิงธุรกิจ)</h2>
+          <ul class="mt-3 text-sm text-slate-700 space-y-2 list-disc pl-5">
+            <li>ทำให้ผู้บริหาร <b>เห็นความเสี่ยงด้านต้นทุน (Cost Leakage)</b> จาก PO ที่ไม่ตรงสัญญา</li>
+            <li>ลดการอนุมัติแบบ “เชื่อคน” → เปลี่ยนเป็น <b>ตัดสินใจจากหลักฐาน</b></li>
+            <li>สร้าง KPI ที่เชื่อมกับ <b>P&L โดยตรง</b> (Amount at Risk, Prevented Leakage)</li>
+            <li>พิสูจน์ว่า AI Agent ช่วย “คิด + คุม + บันทึก” ได้จริง ไม่ใช่แค่ workflow</li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 p-5">
+          <h2 class="text-lg font-semibold">👥 กลุ่มผู้ใช้ใน Pilot</h2>
+          <ul class="mt-3 text-sm text-slate-700 space-y-2">
+            <li><b>CFO / Finance Director</b><br/>ตัดสินใจ + ดู KPI</li>
+            <li><b>Procurement Manager</b><br/>ดู pending / แก้ PO</li>
+            <li><b>Audit / Internal Control</b><br/>ตรวจสอบย้อนหลัง</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- In Scope / Out of Scope -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+          <h3 class="font-semibold text-emerald-800">✔ In Scope (Pilot)</h3>
+          <ul class="mt-3 text-sm text-emerald-900 space-y-2 list-disc pl-5">
+            <li>PO ประเภท <b>Contract-based procurement</b></li>
+            <li>Rule: ราคา, vendor, scope, validity</li>
+            <li>Decision: Approve / Reject / Exception</li>
+            <li>Dashboard: Amount at Risk, Prevented Leakage</li>
+            <li>Audit Trail + Export</li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl border border-red-200 bg-red-50 p-5">
+          <h3 class="font-semibold text-red-800">✖ Out of Scope (Pilot)</h3>
+          <ul class="mt-3 text-sm text-red-900 space-y-2 list-disc pl-5">
+            <li>การแก้ไข PO กลับเข้า SAP จริง</li>
+            <li>ML-based price prediction</li>
+            <li>Automation ฝั่ง payment / GR</li>
+            <li>การ scale ทุก BU / ทุก vendor</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Success Criteria -->
+      <div class="rounded-xl border border-slate-200 p-5 bg-white">
+        <h2 class="text-lg font-semibold">📌 Success Criteria (ผ่าน Pilot เมื่อ…)</h2>
+        <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">Decision Speed</p>
+            <p class="mt-1 text-slate-700">CFO ใช้เวลาต่อเคส ≤ 1 นาที</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">Financial Visibility</p>
+            <p class="mt-1 text-slate-700">เห็น Amount at Risk แบบ real-time</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">Audit Readiness</p>
+            <p class="mt-1 text-slate-700">ทุก decision มีเหตุผล + หลักฐาน</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+      PAGE 2 — DATA REQUIREMENT & TIMELINE
+    ====================================================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl p-6 space-y-6">
+      <header class="space-y-2">
+        <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+          TH8.AI · Pilot Pack (Page 2/2)
+        </p>
+        <h1 class="text-2xl font-semibold">
+          Data Requirement & Pilot Timeline
+        </h1>
+      </header>
+
+      <!-- Data Requirement -->
+      <div class="rounded-xl border border-slate-200 p-5 bg-slate-50">
+        <h2 class="text-lg font-semibold">🗂 Data ที่ต้องใช้ (ขั้นต่ำ)</h2>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <p class="font-semibold">Contract</p>
+            <ul class="mt-2 space-y-1 list-disc pl-4 text-slate-700">
+              <li>Contract PDF</li>
+              <li>Vendor</li>
+              <li>Validity</li>
+              <li>Price table</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <p class="font-semibold">PO Data</p>
+            <ul class="mt-2 space-y-1 list-disc pl-4 text-slate-700">
+              <li>PO number / date</li>
+              <li>Item / price / qty</li>
+              <li>Vendor code</li>
+              <li>Total amount</li>
+            </ul>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200">
+            <p class="font-semibold">Policy Config</p>
+            <ul class="mt-2 space-y-1 list-disc pl-4 text-slate-700">
+              <li>Price tolerance (%)</li>
+              <li>Amount threshold</li>
+              <li>Severity mapping</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div class="rounded-xl border border-slate-200 p-5 bg-white">
+        <h2 class="text-lg font-semibold">🗓 Pilot Timeline (4–6 สัปดาห์)</h2>
+        <div class="mt-4 space-y-4">
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <p class="font-semibold">Week 1 · Scope & Data Lock</p>
+            <p class="text-sm text-slate-700 mt-1">
+              Confirm use case, rule, dataset, success metric
+            </p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <p class="font-semibold">Week 2 · Evidence & Policy Engine</p>
+            <p class="text-sm text-slate-700 mt-1">
+              Extract contract, map PO, run policy → pending
+            </p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <p class="font-semibold">Week 3 · Decision UI & KPI</p>
+            <p class="text-sm text-slate-700 mt-1">
+              CFO decision screen + KPI calculation
+            </p>
+          </div>
+          <div class="p-4 rounded-xl border border-slate-200 bg-slate-50">
+            <p class="font-semibold">Week 4–5 · UAT & Demo</p>
+            <p class="text-sm text-slate-700 mt-1">
+              Run real scenario, replay, validate ROI story
+            </p>
+          </div>
+          <div class="p-4 rounded-xl border border-emerald-200 bg-emerald-50">
+            <p class="font-semibold text-emerald-800">Week 6 · Go / No-Go Decision</p>
+            <p class="text-sm text-emerald-900 mt-1">
+              Decide scale-up, integrate SAP, or stop
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Outcome -->
+      <div class="rounded-xl border border-slate-200 p-5 bg-slate-900 text-white">
+        <h2 class="text-lg font-semibold">ผลลัพธ์ที่องค์กรจะได้จาก Pilot</h2>
+        <ul class="mt-3 text-sm space-y-2 list-disc pl-5">
+          <li>เห็นตัวเลข “เงินที่เสี่ยง” ก่อนอนุมัติจริง</li>
+          <li>ลดความเสี่ยงเชิง audit และ compliance</li>
+          <li>มีหลักฐานรองรับการตัดสินใจผู้บริหาร</li>
+          <li>พร้อมขยายเป็น Production โดยไม่ต้องรื้อใหม่</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>

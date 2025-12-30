@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ovaltine: Trade Promotion Claim Validation Agent (ฝ่ายขาย/การเงิน) — ลด leakage + ลดเวลาตรวจเอกสารเคลม โดยยังตรวจสอบย้อนหลังได้</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }</style>
+  </head>
+  <body class="bg-slate-50 text-slate-900">
+    <!-- Top Bar -->
+    <header class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-xl bg-slate-900 text-white grid place-items-center font-semibold">TH8</div>
+          <div class="leading-tight">
+            <div class="text-sm font-semibold">TH8.AI — Ovaltine Trade Promo Claim Agent</div>
+            <div class="text-xs text-slate-600">ตรวจเคลมโปรโมชันจากร้านค้า/ตัวแทน: รับเอกสาร → ดึงข้อมูล → ตรวจเงื่อนไขโปรโมชัน (rule-based) → คำนวณยอดจ่าย → ขออนุมัติ → จ่ายเงิน พร้อม audit trail ต่อ field</div>
+          </div>
+        </div>
+        <div class="hidden md:flex items-center gap-2">
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700">SLM-first · LLM-escalation</span>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700">PII-safe · Audit-ready</span>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700">Confidence gate · Schema validation</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10">
+      <!-- Hero -->
+      <section class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div class="space-y-3">
+            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500 font-semibold">Pitch Asset · Use Case + UX Flow + Architecture</p>
+            <h1 class="text-2xl md:text-3xl font-semibold tracking-tight">กันเงินรั่วในโปรโมชัน ด้วยการตรวจเคลมที่ deterministic และ audit ได้</h1>
+            <p class="text-sm md:text-base text-slate-600 max-w-3xl">Ovaltine: Trade Promotion Claim Validation Agent (ฝ่ายขาย/การเงิน) — ลด leakage + ลดเวลาตรวจเอกสารเคลม โดยยังตรวจสอบย้อนหลังได้</p>
+
+            <div class="flex flex-wrap gap-2 mt-2">
+              
+      <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-700">
+        <span class="font-semibold">repetitive</span> · ดึง/สรุปข้อมูลจากใบเคลม+ใบกำกับ/PO
+      </span>
+
+      <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-700">
+        <span class="font-semibold">deterministic</span> · คำนวณยอดจ่ายตามเงื่อนไข/threshold
+      </span>
+
+      <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-700">
+        <span class="font-semibold">rule-based</span> · policy โปรโมชัน + approval matrix
+      </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full md:w-auto">
+            
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+        <div class="text-[11px] text-slate-500 font-semibold">Outcome</div>
+        <div class="text-sm font-semibold mt-1">Cycle time ↓</div>
+        <div class="text-xs text-slate-600 mt-1">ตรวจเคลมเร็วขึ้น</div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+        <div class="text-[11px] text-slate-500 font-semibold">Control</div>
+        <div class="text-sm font-semibold mt-1">Leakage ↓</div>
+        <div class="text-xs text-slate-600 mt-1">กันจ่ายเกิน/จ่ายซ้ำ</div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+        <div class="text-[11px] text-slate-500 font-semibold">Risk</div>
+        <div class="text-sm font-semibold mt-1">Audit-ready</div>
+        <div class="text-xs text-slate-600 mt-1">field-level evidence</div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+        <div class="text-[11px] text-slate-500 font-semibold">Cost</div>
+        <div class="text-sm font-semibold mt-1">SLM-first</div>
+        <div class="text-xs text-slate-600 mt-1">LLM เฉพาะ exception</div>
+      </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Use case overview -->
+      <section class="grid lg:grid-cols-3 gap-4">
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 lg:col-span-2">
+          <h2 class="text-xl md:text-2xl font-semibold">Use case overview</h2>
+          <p class="text-sm text-slate-600 mt-2">ตรวจเคลมโปรโมชันจากร้านค้า/ตัวแทน: รับเอกสาร → ดึงข้อมูล → ตรวจเงื่อนไขโปรโมชัน (rule-based) → คำนวณยอดจ่าย → ขออนุมัติ → จ่ายเงิน พร้อม audit trail ต่อ field</p>
+
+          <div class="mt-5 grid md:grid-cols-2 gap-4">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div class="text-[11px] text-slate-500 font-semibold">What changes</div>
+              <div class="text-sm font-semibold mt-1">งานที่ “ทำซ้ำทุกวัน” กลายเป็น pipeline ที่คุมได้</div>
+              <ul class="mt-2 text-xs text-slate-600 list-disc pl-4 space-y-1">
+                <li>แยก deterministic vs probabilistic ก่อนเรียก model</li>
+                <li>ใช้ SLM specialist ทำงานย่อย → เร็ว/ถูก/คุม cost</li>
+                <li>LLM ใช้เฉพาะงานต้อง reasoning จริง</li>
+              </ul>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div class="text-[11px] text-slate-500 font-semibold">Guardrails</div>
+              <div class="text-sm font-semibold mt-1">ปลอดภัย + ตรวจย้อนหลังได้</div>
+              <ul class="mt-2 text-xs text-slate-600 list-disc pl-4 space-y-1">
+                <li>PII redaction + field-level audit trail</li>
+                <li>confidence gate + schema validation</li>
+                <li>targeted retry (เฉพาะ schema-invalid) + escalate</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-5 rounded-2xl border border-slate-200 p-4">
+            <div class="text-xs text-slate-500 font-semibold">Recommended actions (auto)</div>
+            <div class="mt-2 text-sm font-semibold">สิ่งที่ระบบจะส่งให้ทีมทำต่อแบบ “ทำงานได้ทันที”</div>
+            <div class="mt-2 text-xs text-slate-600 leading-relaxed">
+              1) ดึงข้อมูลจากไฟล์แนบให้อยู่ใน schema เดียว (invoice_no/sku/qty/net_amount) เพื่อคุมความผิดพลาด<br />
+2) ตรวจซ้ำกับ ERP (invoice_facts) ทุกครั้ง เพื่อกันจ่ายซ้ำ/นอกงวด<br />
+3) ตั้ง approval matrix: auto-approve ใต้ threshold, เกินนั้นส่งอนุมัติ พร้อม evidence pack
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-3xl p-6">
+          <h3 class="text-lg font-semibold">Systems & data sources</h3>
+          <p class="text-sm text-slate-600 mt-1">บริบทองค์กร (Ovaltine) ที่มักมีอยู่แล้ว</p>
+
+          <div class="mt-4 space-y-3">
+            
+        <div class="rounded-2xl bg-white border border-slate-200 p-3">
+          <div class="text-xs text-slate-500 font-semibold">Distributor Portal / Email</div>
+          <div class="text-sm font-semibold mt-1">ใบเคลม/ไฟล์แนบ</div>
+          <div class="mt-2 text-xs text-slate-600">PDF/Excel upload</div>
+        </div>
+
+        <div class="rounded-2xl bg-white border border-slate-200 p-3">
+          <div class="text-xs text-slate-500 font-semibold">ERP (AR/AP/GL)</div>
+          <div class="text-sm font-semibold mt-1">ตรวจ PO/Invoice/Payment</div>
+          <div class="mt-2 text-xs text-slate-600">SAP/Oracle/Local ERP</div>
+        </div>
+
+        <div class="rounded-2xl bg-white border border-slate-200 p-3">
+          <div class="text-xs text-slate-500 font-semibold">Trade Promo Master</div>
+          <div class="text-sm font-semibold mt-1">เงื่อนไขโปรโมชัน + price list</div>
+          <div class="mt-2 text-xs text-slate-600">TPM/Excel controlled</div>
+        </div>
+
+        <div class="rounded-2xl bg-white border border-slate-200 p-3">
+          <div class="text-xs text-slate-500 font-semibold">Approval Matrix</div>
+          <div class="text-sm font-semibold mt-1">วงเงิน/ผู้อนุมัติ</div>
+          <div class="mt-2 text-xs text-slate-600">HR/Finance policy</div>
+        </div>
+          </div>
+
+          <div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-xs text-slate-500 font-semibold">Tool permission (policy)</div>
+            <div class="text-sm font-semibold mt-1">อนุญาต tool ตาม “ประเภทงาน”</div>
+            <div class="mt-2 text-xs text-slate-600">
+              ตัวอย่าง: งาน deterministic (validate/lookup) → tool ได้ตาม whitelist / งานตอบลูกค้า → จำกัด tool + บังคับ template
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- UX FLOW DIAGRAM -->
+      <section class="space-y-4">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-xl md:text-2xl font-semibold">UX Flow Diagram</h2>
+            <p class="text-sm text-slate-600">User → System → AI → Audit (ใช้ pitch ให้ผู้บริหารเห็นภาพ)</p>
+          </div>
+          <div class="hidden md:flex items-center gap-2 text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Deterministic → Rule/Tool/SLM</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Ambiguous → LLM</span>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+          <div class="grid lg:grid-cols-4 gap-4">
+            <!-- User -->
+            <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">1) User</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-700">Ops / CS</span>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Task Ingestion</div>
+                <div class="text-sm font-semibold mt-1">ส่งงานเข้าระบบ</div>
+                <ul class="mt-2 text-xs text-slate-600 list-disc pl-4 space-y-1">
+                  <li>ฟอร์ม / email / LINE OA / ticket</li>
+                  <li>หรือ webhook จากระบบ</li>
+                </ul>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Example</div>
+                <div class="text-sm font-semibold mt-1">Ovaltine Trade Promo Claim Agent</div>
+                <div class="mt-2 text-xs text-slate-600">
+                  รายละเอียดงาน + reference (อาจมีชื่อ/เบอร์/ที่อยู่)
+                </div>
+              </div>
+            </div>
+
+            <div class="hidden lg:flex items-center justify-center">
+              <div class="w-full flex items-center">
+                <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center">→</div>
+                <div class="flex-1 h-px bg-slate-200"></div>
+              </div>
+            </div>
+
+            <!-- System -->
+            <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">2) System</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-700">Governed</span>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">PII Redaction</div>
+                <div class="text-sm font-semibold mt-1">ลบข้อมูลอ่อนไหวก่อนเข้า AI</div>
+                <div class="mt-2 text-xs text-slate-600">email / phone / ID / address → [REDACTED]</div>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Task Routing</div>
+                <div class="text-sm font-semibold mt-1">แยกประเภทงาน</div>
+                <div class="mt-2 grid grid-cols-2 gap-2">
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">Deterministic</div>
+                    <div class="text-[11px] text-slate-600 mt-1">lookup, validate, classify</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">Ambiguous</div>
+                    <div class="text-[11px] text-slate-600 mt-1">narrative, rationale</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Tool Permission</div>
+                <div class="text-sm font-semibold mt-1">อนุญาต tool ตาม policy</div>
+                <div class="mt-2 text-xs text-slate-600">whitelist tools + deny-by-default สำหรับงานเสี่ยง</div>
+              </div>
+            </div>
+
+            <!-- AI -->
+            <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">3) AI Layer</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-700">SLM-first</span>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">SLM Specialists</div>
+                <div class="text-sm font-semibold mt-1">แบ่ง model ตามงาน</div>
+                <div class="mt-2 grid grid-cols-1 gap-2">
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">Summarizer (SLM)</div>
+                    <div class="text-[11px] text-slate-600 mt-1">สรุปสั้น + bullet ที่อิงหลักฐาน</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">Classifier (SLM)</div>
+                    <div class="text-[11px] text-slate-600 mt-1">tag/priority/route</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">SQL / Tool Agent</div>
+                    <div class="text-[11px] text-slate-600 mt-1">lookup/validation ที่ deterministic</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Confidence gate + Schema</div>
+                <div class="text-sm font-semibold mt-1">กัน output หลุดรูปแบบ</div>
+                <ul class="mt-2 text-xs text-slate-600 list-disc pl-4 space-y-1">
+                  <li>schema validation (Pydantic)</li>
+                  <li>targeted retry (ซ่อม JSON เฉพาะ schema-invalid)</li>
+                  <li>escalate ไป LLM เมื่อจำเป็น</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 flex flex-wrap gap-2 lg:hidden text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Deterministic → Rule/Tool/SLM</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Ambiguous → LLM</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">PII Redaction → field audit</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- WIREFRAMES -->
+      <section class="space-y-4">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-xl md:text-2xl font-semibold">UI Wireframes</h2>
+            <p class="text-sm text-slate-600">3 มุมมอง: Ops / Audit / Executive (ใช้ทำ demo หรือ pitch ได้)</p>
+          </div>
+          <div class="text-[11px] hidden md:flex gap-2">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Low friction</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Policy-controlled</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Traceable</span>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-4">
+          <!-- OPS VIEW -->
+          <section class="bg-white border border-slate-200 rounded-3xl overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50">
+              <div class="flex items-center justify-between">
+                <div class="font-semibold">Ops View</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Work Queue</span>
+              </div>
+              <div class="text-xs text-slate-600 mt-1">งานประจำวัน + action ที่ทำได้ทันที (ไม่ต้องรู้เรื่อง model)</div>
+            </div>
+
+            <div class="p-4 space-y-4">
+              <div class="flex flex-wrap gap-2">
+                <div class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">Filter: Today</div>
+                <div class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">Channel: All</div>
+                <div class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">Priority: High first</div>
+              </div>
+
+              <div class="space-y-3">
+                
+      <div class="rounded-2xl border border-slate-200 p-3">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Extractor + Summarizer (SLM) · Repetitive</div>
+            <div class="text-sm font-semibold mt-1">สรุปไฟล์แนบ: INV-7782 + sales_report.xlsx</div>
+            <div class="text-xs text-slate-600 mt-1">ดึง invoice_no, sku, qty, net_amount (schema-validated)</div>
+          </div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">New</span>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button class="px-3 py-2 rounded-xl bg-slate-900 text-white text-xs">View Extracted Fields</button><button class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs">Open Attachment</button>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 p-3">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Rule Check (Tool/SQL) · Deterministic</div>
+            <div class="text-sm font-semibold mt-1">ตรวจเงื่อนไข PROMO-Q4-OVT → Eligible · Calc payout = 5% (cap ok)</div>
+            <div class="text-xs text-slate-600 mt-1">คำนวณอัตโนมัติ + กันจ่ายซ้ำจาก ERP facts</div>
+          </div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Auto</span>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button class="px-3 py-2 rounded-xl bg-slate-900 text-white text-xs">Approve Payout</button><button class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs">View Rules</button>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 p-3">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="text-xs text-slate-500 font-semibold">Exception (LLM) · Probabilistic</div>
+            <div class="text-sm font-semibold mt-1">เอกสารไม่ครบ/ข้อมูลขัดกัน → สร้างคำขอข้อมูลเพิ่ม (ตาม policy)</div>
+            <div class="text-xs text-slate-600 mt-1">LLM ใช้เฉพาะเคสที่ evidence ไม่พอ</div>
+          </div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Review</span>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button class="px-3 py-2 rounded-xl bg-slate-900 text-white text-xs">Send Request</button><button class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs">Escalate Finance</button>
+        </div>
+      </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- AUDIT VIEW -->
+          <section class="bg-white border border-slate-200 rounded-3xl overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50">
+              <div class="flex items-center justify-between">
+                <div class="font-semibold">Audit View</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Trace</span>
+              </div>
+              <div class="text-xs text-slate-600 mt-1">ตรวจย้อนหลังได้: input → redaction → routing → output</div>
+            </div>
+
+            <div class="p-4 space-y-4">
+              <div class="rounded-2xl border border-slate-200 p-3">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-xs text-slate-500 font-semibold">Trace ID</div>
+                    <div class="text-sm font-semibold mt-1">7aa9…31df</div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs text-slate-500 font-semibold">Task</div>
+                    <div class="text-sm font-semibold mt-1">claim_validate</div>
+                  </div>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-2">
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] text-slate-500 font-semibold">PII</div>
+                    <div class="text-[11px] font-semibold mt-1">2 fields</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] text-slate-500 font-semibold">Routing</div>
+                    <div class="text-[11px] font-semibold mt-1">SLM → Tool → Gate</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+                    <div class="text-[11px] font-semibold mt-1">Validated (after retry)</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 overflow-hidden">
+                <div class="px-3 py-2 bg-slate-50 border-b border-slate-200 text-xs font-semibold">PII Redaction Audit (field-level)</div>
+                <div class="p-3 space-y-2">
+                  <div class="grid grid-cols-4 gap-2 text-[11px]">
+                    <div class="text-slate-500 font-semibold">Field</div>
+                    <div class="text-slate-500 font-semibold">Type</div>
+                    <div class="text-slate-500 font-semibold">Range</div>
+                    <div class="text-slate-500 font-semibold">Len</div>
+                  </div>
+                  <div class="grid grid-cols-4 gap-2 text-[11px]">
+                    <div class="font-semibold">attachment_text</div>
+                    <div>bank_account</div>
+                    <div>—</div>
+                    <div>—</div>
+                  </div><div class="grid grid-cols-4 gap-2 text-[11px]">
+                    <div class="font-semibold">attachment_text</div>
+                    <div>phone</div>
+                    <div>—</div>
+                    <div>—</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 p-3">
+                <div class="text-xs font-semibold">Decision Timeline</div>
+                <div class="mt-3 space-y-3">
+                  <div class="flex gap-3">
+                    <div class="w-2 mt-1.5"><div class="h-2 w-2 rounded-full bg-slate-900"></div></div>
+                    <div class="flex-1">
+                      <div class="text-xs font-semibold">Input received</div>
+                      <div class="text-[11px] text-slate-600">claim + attachments stored (encrypted)</div>
+                    </div>
+                    <div class="text-[11px] text-slate-500">t+0ms</div>
+                  </div><div class="flex gap-3">
+                    <div class="w-2 mt-1.5"><div class="h-2 w-2 rounded-full bg-slate-900"></div></div>
+                    <div class="flex-1">
+                      <div class="text-xs font-semibold">PII redacted</div>
+                      <div class="text-[11px] text-slate-600">bank/phone masked before model</div>
+                    </div>
+                    <div class="text-[11px] text-slate-500">t+15ms</div>
+                  </div><div class="flex gap-3">
+                    <div class="w-2 mt-1.5"><div class="h-2 w-2 rounded-full bg-slate-900"></div></div>
+                    <div class="flex-1">
+                      <div class="text-xs font-semibold">SLM extract</div>
+                      <div class="text-[11px] text-slate-600">schema-invalid on first run → targeted retry</div>
+                    </div>
+                    <div class="text-[11px] text-slate-500">t+410ms</div>
+                  </div><div class="flex gap-3">
+                    <div class="w-2 mt-1.5"><div class="h-2 w-2 rounded-full bg-slate-900"></div></div>
+                    <div class="flex-1">
+                      <div class="text-xs font-semibold">Tool validate</div>
+                      <div class="text-[11px] text-slate-600">ERP invoice_facts + duplicate check</div>
+                    </div>
+                    <div class="text-[11px] text-slate-500">t+620ms</div>
+                  </div><div class="flex gap-3">
+                    <div class="w-2 mt-1.5"><div class="h-2 w-2 rounded-full bg-slate-900"></div></div>
+                    <div class="flex-1">
+                      <div class="text-xs font-semibold">Decision logged</div>
+                      <div class="text-[11px] text-slate-600">APPROVE with rule evidence pack</div>
+                    </div>
+                    <div class="text-[11px] text-slate-500">t+780ms</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- EXEC VIEW -->
+          <section class="bg-white border border-slate-200 rounded-3xl overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50">
+              <div class="flex items-center justify-between">
+                <div class="font-semibold">Executive View</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Business KPI</span>
+              </div>
+              <div class="text-xs text-slate-600 mt-1">เห็นผลลัพธ์ + cost + ความเสี่ยง (ไม่ต้องดูรายละเอียดเทคนิค)</div>
+            </div>
+
+            <div class="p-4 space-y-4">
+              <div class="grid grid-cols-2 gap-3">
+                
+      <div class="rounded-2xl border border-slate-200 p-3">
+        <div class="text-[11px] text-slate-500 font-semibold">Avg claim cycle time</div>
+        <div class="text-2xl font-semibold mt-1">1.2d</div>
+        <div class="text-xs text-slate-600 mt-1">จากส่ง → อนุมัติ</div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 p-3">
+        <div class="text-[11px] text-slate-500 font-semibold">Leakage prevented</div>
+        <div class="text-2xl font-semibold mt-1">฿ 0.6M</div>
+        <div class="text-xs text-slate-600 mt-1">30 วันล่าสุด</div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 p-3">
+        <div class="text-[11px] text-slate-500 font-semibold">Auto-approve rate</div>
+        <div class="text-2xl font-semibold mt-1">68%</div>
+        <div class="text-xs text-slate-600 mt-1">ตามกฎ</div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 p-3">
+        <div class="text-[11px] text-slate-500 font-semibold">Exception rate</div>
+        <div class="text-2xl font-semibold mt-1">12%</div>
+        <div class="text-xs text-slate-600 mt-1">ต้องตรวจเพิ่ม</div>
+      </div>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 p-3">
+                <div class="text-xs font-semibold">Cost & Control Levers</div>
+                <div class="mt-3 space-y-2">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-600">SLM-first coverage</span>
+                    <span class="font-semibold">80–90%</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                    <div class="h-2 w-[85%] bg-slate-900 rounded-full"></div>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs mt-3">
+                    <span class="text-slate-600">Escalation rate</span>
+                    <span class="font-semibold">10–20%</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                    <div class="h-2 w-[18%] bg-slate-900 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 p-3">
+                <div class="text-xs font-semibold">Executive Summary (Auto)</div>
+                <div class="mt-2 text-xs text-slate-600 leading-relaxed">
+                  1) Key facts: Claim CLM-2025-12-1102 matches promo terms v1.4; payout computed 5% under cap; no duplicate invoices found.<br />
+                  2) Risks: main risk is duplicate/invalid invoice or out-of-period claims; controlled by rule checks + ERP validation.<br />
+                  3) Actions: auto-approve under threshold; route to finance approval when rule severity HIGH or amount &gt; limit.
+                </div>
+                <div class="mt-3 flex gap-2">
+                  <button class="px-3 py-2 rounded-xl bg-slate-900 text-white text-xs">Open Drill-down</button>
+                  <button class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs">Export</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- Context Tables -->
+      <section class="space-y-4">
+        <div>
+          <h2 class="text-xl md:text-2xl font-semibold">Context Tables (Schema) + Example Data</h2>
+          <p class="text-sm text-slate-600">ชุด schema ขั้นต่ำที่ทำให้ agent “เห็นข้อมูลถูกชั้น” และใช้งานจริงได้</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-4">
+          
+      <div class="bg-white border border-slate-200 rounded-3xl p-5">
+        <div class="flex items-center justify-between">
+          <div class="font-semibold">L1 · claim_submissions</div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Daily</span>
+        </div>
+        <div class="mt-3 text-xs text-slate-600">รายการเคลมรายใบ (พร้อมไฟล์แนบ) — ต้อง redaction ก่อนส่งเข้า AI</div>
+        <div class="mt-4 grid gap-3">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+            <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">claim_id (string)
+submit_at (timestamp)
+partner_id (string)
+promo_id (string)
+attachments (array)
+claimed_amount (float)</pre>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-[11px] text-slate-500 font-semibold">Example</div>
+            <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">{ &quot;claim_id&quot;:&quot;CLM-2025-12-1102&quot;,&quot;submit_at&quot;:&quot;2025-12-21T04:10:00Z&quot;,&quot;partner_id&quot;:&quot;DST-019&quot;,&quot;promo_id&quot;:&quot;PROMO-Q4-OVT&quot;,&quot;attachments&quot;:[&quot;inv_7782.pdf&quot;,&quot;sales_report.xlsx&quot;],&quot;claimed_amount&quot;:128450.00 }</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-3xl p-5">
+        <div class="flex items-center justify-between">
+          <div class="font-semibold">L2 · promo_terms</div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Change-based</span>
+        </div>
+        <div class="mt-3 text-xs text-slate-600">เงื่อนไขโปรโมชัน (truth) ที่ใช้ตรวจแบบ deterministic</div>
+        <div class="mt-4 grid gap-3">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+            <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">promo_id (string)
+period_start (date)
+period_end (date)
+eligible_skus (array)
+discount_type (pct|baht)
+discount_value (float)
+cap_amount (float)
+version (string)</pre>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-[11px] text-slate-500 font-semibold">Example</div>
+            <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">{ &quot;promo_id&quot;:&quot;PROMO-Q4-OVT&quot;,&quot;period_start&quot;:&quot;2025-10-01&quot;,&quot;period_end&quot;:&quot;2025-12-31&quot;,&quot;eligible_skus&quot;:[&quot;OVT-ORIG-400G&quot;,&quot;OVT-3IN1-450G&quot;],&quot;discount_type&quot;:&quot;pct&quot;,&quot;discount_value&quot;:5.0,&quot;cap_amount&quot;:150000.0,&quot;version&quot;:&quot;v1.4&quot; }</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-3xl p-5">
+        <div class="flex items-center justify-between">
+          <div class="font-semibold">L3 · invoice_facts</div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Near real-time</span>
+        </div>
+        <div class="mt-3 text-xs text-slate-600">ข้อเท็จจริงจาก ERP เพื่อกันจ่ายซ้ำ/ยืนยันยอดขาย</div>
+        <div class="mt-4 grid gap-3">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+            <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">invoice_no (string)
+partner_id (string)
+invoice_date (date)
+sku (string)
+qty (int)
+net_amount (float)
+payment_status (string)</pre>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-[11px] text-slate-500 font-semibold">Example</div>
+            <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">{ &quot;invoice_no&quot;:&quot;INV-7782&quot;,&quot;partner_id&quot;:&quot;DST-019&quot;,&quot;invoice_date&quot;:&quot;2025-11-18&quot;,&quot;sku&quot;:&quot;OVT-ORIG-400G&quot;,&quot;qty&quot;:2400,&quot;net_amount&quot;:256900.00,&quot;payment_status&quot;:&quot;OPEN&quot; }</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-3xl p-5">
+        <div class="flex items-center justify-between">
+          <div class="font-semibold">L4 · claim_rules</div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Change-based</span>
+        </div>
+        <div class="mt-3 text-xs text-slate-600">กฎตรวจเคลม + action (rule engine / JSON rules)</div>
+        <div class="mt-4 grid gap-3">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+            <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">rule_id (string)
+condition (string)
+action (string)
+severity (LOW|MED|HIGH)
+requires_approval (bool)</pre>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-[11px] text-slate-500 font-semibold">Example</div>
+            <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">{ &quot;rule_id&quot;:&quot;CLM-DUP-01&quot;,&quot;condition&quot;:&quot;invoice_no already claimed&quot;,&quot;action&quot;:&quot;REJECT&quot;,&quot;severity&quot;:&quot;HIGH&quot;,&quot;requires_approval&quot;:true }</pre>
+          </div>
+        </div>
+      </div>
+        </div>
+
+        <div class="mt-4 rounded-3xl border border-slate-200 bg-white p-5">
+          <div class="flex items-center justify-between">
+            <div class="text-sm font-semibold">Key rule</div>
+            <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">ประหยัด + คุมได้</span>
+          </div>
+          <div class="mt-2 text-sm font-semibold">อย่า dump ข้อมูลดิบทั้งหมดเข้าโมเดล</div>
+          <div class="mt-2 text-xs text-slate-600">
+            สร้าง “evidence pack” ที่ clean + relevant + traceable ก่อน แล้วค่อยให้ agent ตัดสินใจ/สร้าง output (ลด token, ลด hallucination, audit ได้)
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture Diagram -->
+      <section class="space-y-4">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-xl md:text-2xl font-semibold">Architecture Diagram</h2>
+            <p class="text-sm text-slate-600">System → Context Layer → Agent Layer → Output/Audit</p>
+          </div>
+          <div class="hidden md:flex items-center gap-2 text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">PII Redaction</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Confidence Gate</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Targeted Retry</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Metrics/Cost</span>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+          <div class="grid lg:grid-cols-12 gap-4">
+            <div class="lg:col-span-4 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">A) Systems</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Source</span>
+              </div>
+              <div class="mt-3 space-y-3">
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Operational</div>
+                  <div class="text-sm font-semibold mt-1">Tickets / Orders / Claims</div>
+                  <div class="text-xs text-slate-600 mt-1">event stream + status</div>
+                </div>
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Master / Policy</div>
+                  <div class="text-sm font-semibold mt-1">Product, SLA, Pricing, Policy</div>
+                  <div class="text-xs text-slate-600 mt-1">truth + versioning</div>
+                </div>
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">History</div>
+                  <div class="text-sm font-semibold mt-1">Past cases & outcomes</div>
+                  <div class="text-xs text-slate-600 mt-1">summary ก่อนส่งเข้า LLM</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hidden lg:flex lg:col-span-1 items-center justify-center">
+              <div class="w-full flex items-center">
+                <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center">→</div>
+                <div class="flex-1 h-px bg-slate-200"></div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">B) Context Layer</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Curate</span>
+              </div>
+              <div class="mt-3 space-y-3">
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">PII Redaction + Field Audit</div>
+                  <div class="text-sm font-semibold mt-1">Safe input</div>
+                  <div class="text-xs text-slate-600 mt-1">รู้ว่า field ไหนถูกลบ/แทนค่า</div>
+                </div>
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Evidence Pack</div>
+                  <div class="text-sm font-semibold mt-1">clean + relevant + traceable</div>
+                  <div class="text-xs text-slate-600 mt-1">ลด token / ลดความเสี่ยง</div>
+                </div>
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Routing Rules</div>
+                  <div class="text-sm font-semibold mt-1">Task → Model/Tools</div>
+                  <div class="text-xs text-slate-600 mt-1">deterministic vs probabilistic</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hidden lg:flex lg:col-span-1 items-center justify-center">
+              <div class="w-full flex items-center">
+                <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center">→</div>
+                <div class="flex-1 h-px bg-slate-200"></div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-3 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">C) Agent Layer</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Execute</span>
+              </div>
+              <div class="mt-3 space-y-3">
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">SLM Specialists</div>
+                  <div class="text-sm font-semibold mt-1">Fast + Cheap</div>
+                  <div class="text-xs text-slate-600 mt-1">Summarizer / Classifier / SQL</div>
+                </div>
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">LLM Escalation</div>
+                  <div class="text-sm font-semibold mt-1">Deep reasoning</div>
+                  <div class="text-xs text-slate-600 mt-1">เฉพาะงานที่จำเป็น</div>
+                </div>
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Guardrails</div>
+                  <div class="text-sm font-semibold mt-1">Gate + Validate</div>
+                  <div class="text-xs text-slate-600 mt-1">confidence + schema + targeted retry</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-12 mt-4 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div>
+                  <div class="text-sm font-semibold">Output & Metrics</div>
+                  <div class="text-xs text-slate-600 mt-1">ระบบบันทึก cost/latency/escalation และผลลัพธ์ทางธุรกิจ</div>
+                </div>
+                <div class="flex flex-wrap gap-2 text-[11px]">
+                  <span class="px-2 py-1 rounded-full bg-white border border-slate-200">latency_ms</span>
+                  <span class="px-2 py-1 rounded-full bg-white border border-slate-200">token_estimate</span>
+                  <span class="px-2 py-1 rounded-full bg-white border border-slate-200">escalation_rate</span>
+                  <span class="px-2 py-1 rounded-full bg-white border border-slate-200">SLA_met</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 flex flex-wrap gap-2 md:hidden text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Systems → Context → Agent</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">PII-safe</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Audit-ready</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer note -->
+      <section class="text-xs text-slate-500 pb-8">
+        หมายเหตุ: wireframe นี้ตั้งใจให้ “เอาไปทำ demo ได้เร็ว” และสามารถแปลงเป็น Vue/React ได้โดยใช้ layout เดิม
+      </section>
+    </main>
+  </body>
+</html>

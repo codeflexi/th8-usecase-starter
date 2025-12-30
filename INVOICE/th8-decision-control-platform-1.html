@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TH8.AI – Decision Control Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-100 text-slate-900">
+
+<div class="flex min-h-screen">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="w-64 bg-white border-r border-slate-200 flex flex-col">
+    <div class="px-4 py-5 border-b border-slate-200 flex items-center gap-3">
+      <div class="h-9 w-9 rounded-xl bg-slate-900 text-white grid place-items-center font-semibold">
+        TH8
+      </div>
+      <div>
+        <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+          Decision Control Platform
+        </p>
+        <p class="text-sm font-semibold">Enterprise Control Layer</p>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-3 py-4 space-y-6 text-sm">
+
+      <!-- Decision Domains -->
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold px-2 mb-2">
+          Decision Domains
+        </p>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl bg-slate-900 text-white font-semibold">
+          Procurement Decision Center
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100 mt-1">
+          Invoice & Payment Decision Center
+        </a>
+      </div>
+
+      <!-- Platform -->
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold px-2 mb-2">
+          Platform
+        </p>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+          Executive Dashboard
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+          Reports & Analytics
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+          Monitoring & Audit Logs
+        </a>
+      </div>
+
+      <!-- Knowledge -->
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold px-2 mb-2">
+          Knowledge & Evidence
+        </p>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+          Document Library
+        </a>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+          Maintain Documents
+        </a>
+      </div>
+
+      <!-- Admin -->
+      <div>
+        <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold px-2 mb-2">
+          Administration
+        </p>
+        <a class="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100">
+          User & Access Control
+        </a>
+      </div>
+
+    </nav>
+
+    <div class="border-t border-slate-200 px-4 py-4">
+      <p class="text-sm font-semibold">CFO · Ovaltine Thailand</p>
+      <p class="text-xs text-slate-500">Role: Decision Owner</p>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <main class="flex-1 p-6 space-y-8">
+
+    <!-- HEADER -->
+    <section class="flex items-start justify-between">
+      <div>
+        <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+          Enterprise Risk Overview
+        </p>
+        <h1 class="text-2xl font-semibold mt-1">
+          Decision Risk Snapshot
+        </h1>
+        <p class="text-sm text-slate-600 mt-1 max-w-2xl">
+          สรุปความเสี่ยงที่ต้องการการตัดสินใจจากผู้บริหาร  
+          ก่อนที่เงินจะถูกอนุมัติหรือจ่ายออกจากระบบ ERP
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-[11px] px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 font-semibold">
+          Read-only from SAP
+        </span>
+        <span class="text-[11px] px-3 py-1 rounded-full border border-slate-200 bg-white font-semibold">
+          Audit-ready
+        </span>
+      </div>
+    </section>
+
+    <!-- KPI RISK CARDS -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-5">
+        <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+          Amount at Risk
+        </p>
+        <p class="text-2xl font-semibold mt-2">฿ 1.47M</p>
+        <p class="text-xs text-slate-600 mt-1">
+          มูลค่าที่รอการตัดสินใจก่อนอนุมัติ / จ่าย
+        </p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-5">
+        <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+          Prevented Leakage
+        </p>
+        <p class="text-2xl font-semibold mt-2">฿ 236k</p>
+        <p class="text-xs text-slate-600 mt-1">
+          มูลค่าที่หลีกเลี่ยงได้จากการตัดสินใจ
+        </p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-5">
+        <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+          Pending Decisions
+        </p>
+        <p class="text-2xl font-semibold mt-2">5</p>
+        <p class="text-xs text-slate-600 mt-1">
+          เคสที่ต้องการการพิจารณา
+        </p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-5">
+        <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+          Decision SLA
+        </p>
+        <p class="text-2xl font-semibold mt-2">80%</p>
+        <p class="text-xs text-slate-600 mt-1">
+          การตัดสินใจภายใน SLA
+        </p>
+      </div>
+
+    </section>
+
+    <!-- DECISION QUEUE -->
+    <section class="bg-white border border-slate-200 rounded-2xl p-6">
+      <div class="flex items-end justify-between">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+            Immediate Attention
+          </p>
+          <h2 class="text-lg font-semibold mt-1">
+            Decision Queue (High / Medium Risk)
+          </h2>
+        </div>
+        <button class="text-sm font-semibold text-slate-900 hover:underline">
+          View All Decisions →
+        </button>
+      </div>
+
+      <div class="mt-5 space-y-3">
+
+        <div class="flex items-start justify-between p-4 rounded-xl border border-slate-200 hover:bg-slate-50">
+          <div>
+            <p class="font-semibold">PO-OVT-2025-002</p>
+            <p class="text-xs text-slate-600 mt-1">
+              Procurement · Price deviation +2.4% (฿9,000)
+            </p>
+            <p class="text-xs text-slate-500 mt-1">
+              Contract reference · Evidence attached
+            </p>
+          </div>
+          <span class="text-xs px-2 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-100 font-semibold">
+            Medium Risk
+          </span>
+        </div>
+
+        <div class="flex items-start justify-between p-4 rounded-xl border border-slate-200 hover:bg-slate-50">
+          <div>
+            <p class="font-semibold">INV-OVT-2025-017</p>
+            <p class="text-xs text-slate-600 mt-1">
+              Invoice · Exceeds PO (฿18,000)
+            </p>
+            <p class="text-xs text-slate-500 mt-1">
+              Payment pending · CFO review required
+            </p>
+          </div>
+          <span class="text-xs px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100 font-semibold">
+            High Risk
+          </span>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>

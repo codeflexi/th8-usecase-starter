@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 7 Layers of Agentic AI Stack - TH8.AI Style</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Sarabun:wght@400;600;800&display=swap');
+
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', 'Sarabun', sans-serif;
+        }
+
+        .container {
+            width: 800px;
+            background: #ffffff;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Branding Accent */
+        .brand-bar {
+            height: 8px;
+            width: 100%;
+            background: linear-gradient(90deg, #D32F2F 0%, #000000 100%);
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #111;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .stack-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+        }
+
+        /* Connecting Line (The Backbone) */
+        .backbone {
+            position: absolute;
+            left: -20px;
+            top: 20px;
+            bottom: 20px;
+            width: 4px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            display: none; /* Hide for cleaner look, or set block to show connection */
+        }
+
+        .layer {
+            display: flex;
+            align-items: stretch;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .layer:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-color: #D32F2F;
+        }
+
+        .layer-num {
+            width: 60px;
+            background: #111;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        /* Specific Colors for Layers */
+        .l7 .layer-num { background: #D32F2F; } /* Top Priority */
+        .l6 .layer-num { background: #333; }
+        .l5 .layer-num { background: #444; }
+        .l4 .layer-num { background: #555; }
+        .l3 .layer-num { background: #666; }
+        .l2 .layer-num { background: #777; }
+        .l1 .layer-num { background: #888; } /* Base */
+
+        .layer-content {
+            flex: 1;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .layer-info h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .layer-info p {
+            margin: 4px 0 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .layer-tech {
+            text-align: right;
+            font-size: 12px;
+            color: #888;
+            font-weight: 600;
+            background: #f9f9f9;
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: right;
+            font-size: 12px;
+            color: #999;
+            font-weight: 600;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .footer span {
+            color: #D32F2F;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="brand-bar"></div>
+        
+        <div class="header">
+            <h1>The Agentic AI Stack</h1>
+            <p>From POC to Production: The 7-Layer Enterprise Architecture</p>
+        </div>
+
+        <div class="stack-container">
+            <div class="layer l7">
+                <div class="layer-num">7</div>
+                <div class="layer-content">
+                    <div class="layer-info">
+                        <h3>Observability & Governance</h3>
+                        <p>ความปลอดภัย การตรวจสอบ และธรรมาภิบาล</p>
+                    </div>
+                    <div class="layer-tech">Guardrails • LangSmith • Tracing</div>
+                </div>
+            </div>
+
+            <div class="layer l6">
+                <div class="layer-num">6</div>
+                <div class="layer-content">
+                    <div class="layer-info">
+                        <h3>Applications</h3>
+                        <p>แอปพลิเคชันที่ผู้ใช้สัมผัสจริง (User Interface)</p>
+                    </div>
+                    <div class="layer-tech">Co-pilots • Auto-Agents • Assistants</div>
+                </div>
+            </div>
+
+            <div class="layer l5">
+                <div class="layer-num">5</div>
+                <div class="layer-content">
+                    <div class="layer-info">
+                        <h3>Tooling & Enrichment</h3>
+                        <p>เครื่องมือ ความจำ และการเข้าถึงข้อมูล</p>
+                    </div>
+                    <div class="layer-tech">RAG • Vector Store • APIs • Memory</div>
+                </div>
+            </div>
+
+            <div class="layer l4">
+                <div class="layer-num">4</div>
+                <div class="layer-content">
+                    <div class="layer-info">
+                        <h3>Orchestration</h3>
+                        <p>สมองควบคุม วางแผน และลำดับงาน</p>
+                    </div>
+                    <div class="layer-tech">LangGraph • CrewAI • Planning</div>
+                </div>
+            </div>
+
+            <div class="layer l3">
+                <div class="layer-num">3</div>
+                <div class="layer-content">
+                    <div class="layer-info">
+                        <h3>Protocols & Interoperability</h3>
+                        <p>มาตรฐานการสื่อสารระหว่าง Agent</p>
+                    </div>
+                    <div class="layer-tech">MCP • Agent Protocol • Function Call</div>
+                </div>
+            </div>
+
+            <div class="layer l2">
+                <div class="layer-num">2</div>
+                <div class="layer-content">
+                    <div class="layer-info">
+                        <h3>Agent Runtime</h3>
+                        <p>สภาพแวดล้อมการทำงานและประมวลผล</p>
+                    </div>
+                    <div class="layer-tech">Docker • K8s • Sandbox • Workflows</div>
+                </div>
+            </div>
+
+            <div class="layer l1">
+                <div class="layer-num">1</div>
+                <div class="layer-content">
+                    <div class="layer-info">
+                        <h3>Foundation Models</h3>
+                        <p>โครงสร้างพื้นฐานหลัก (Models & Compute)</p>
+                    </div>
+                    <div class="layer-tech">LLMs • GPUs • Vector DBs</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div>Strategic Blueprint for Enterprise AI</div>
+            <div>DESIGN BY <span>TH8.AI</span></div>
+        </div>
+    </div>
+
+</body>
+</html>

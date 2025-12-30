@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TH8.AI – Evidence & Document Library</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+
+<!-- HEADER -->
+<header class="bg-white border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center font-semibold">
+        TH8
+      </div>
+      <div>
+        <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+          Evidence & Knowledge Layer
+        </p>
+        <h1 class="text-lg font-semibold">
+          Document Library (Usable Evidence)
+        </h1>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-[11px] px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 font-semibold">
+        Decision-ready
+      </span>
+      <span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">
+        Read-only
+      </span>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-7xl mx-auto px-4 py-6 space-y-8">
+
+  <!-- SUMMARY BAR -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="bg-white border border-slate-200 rounded-2xl p-5">
+      <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Total Documents</p>
+      <p class="text-2xl font-semibold mt-2">48</p>
+      <p class="text-xs text-slate-600 mt-1">All evidence types</p>
+    </div>
+    <div class="bg-white border border-slate-200 rounded-2xl p-5">
+      <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Active Contracts</p>
+      <p class="text-2xl font-semibold mt-2">12</p>
+      <p class="text-xs text-slate-600 mt-1">Within validity period</p>
+    </div>
+    <div class="bg-white border border-slate-200 rounded-2xl p-5">
+      <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Vector-ready</p>
+      <p class="text-2xl font-semibold mt-2">42</p>
+      <p class="text-xs text-slate-600 mt-1">Indexed & usable</p>
+    </div>
+    <div class="bg-white border border-slate-200 rounded-2xl p-5">
+      <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Used in Decisions</p>
+      <p class="text-2xl font-semibold mt-2">19</p>
+      <p class="text-xs text-slate-600 mt-1">Referenced in audit</p>
+    </div>
+  </section>
+
+  <!-- FILTERS -->
+  <section class="bg-white border border-slate-200 rounded-2xl p-5">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+      <input class="px-3 py-2 rounded-xl border border-slate-200 text-sm"
+             placeholder="Search document / contract / vendor" />
+      <select class="px-3 py-2 rounded-xl border border-slate-200 text-sm">
+        <option>All document types</option>
+        <option>Contract</option>
+        <option>PO</option>
+        <option>Invoice</option>
+        <option>Quotation</option>
+        <option>Policy</option>
+      </select>
+      <select class="px-3 py-2 rounded-xl border border-slate-200 text-sm">
+        <option>All status</option>
+        <option>Active</option>
+        <option>Expired</option>
+        <option>Draft</option>
+      </select>
+      <select class="px-3 py-2 rounded-xl border border-slate-200 text-sm">
+        <option>All readiness</option>
+        <option>Vector-ready</option>
+        <option>Parsing</option>
+        <option>Not indexed</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- DOCUMENT LIST -->
+  <section class="bg-white border border-slate-200 rounded-2xl p-5">
+    <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+      Evidence Pool
+    </p>
+    <h2 class="text-xl font-semibold mt-1">
+      Documents Available for Decision & Audit
+    </h2>
+
+    <div class="mt-5 divide-y divide-slate-200">
+
+      <!-- ROW -->
+      <div class="py-4 flex items-start justify-between gap-4">
+        <div>
+          <p class="font-semibold">OVT-CON-RAW-2024-001</p>
+          <p class="text-xs text-slate-600 mt-1">
+            Contract · Thai Packaging Solutions Co., Ltd.
+          </p>
+          <p class="text-xs text-slate-500 mt-1">
+            Valid: 01 Jan 2024 – 31 Dec 2024
+          </p>
+          <div class="mt-2 flex flex-wrap gap-2 text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+              Active
+            </span>
+            <span class="px-2 py-1 rounded-full border border-slate-200 bg-white">
+              Vector-ready
+            </span>
+            <span class="px-2 py-1 rounded-full border border-slate-200 bg-white">
+              Used in 6 decisions
+            </span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-semibold">
+            View Evidence
+          </button>
+          <button class="px-3 py-2 rounded-xl bg-slate-900 text-white text-xs font-semibold">
+            Open PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- ROW -->
+      <div class="py-4 flex items-start justify-between gap-4">
+        <div>
+          <p class="font-semibold">PO-OVT-2025-002</p>
+          <p class="text-xs text-slate-600 mt-1">
+            Purchase Order · Packaging Material
+          </p>
+          <p class="text-xs text-slate-500 mt-1">
+            Linked Contract: OVT-CON-RAW-2024-001
+          </p>
+          <div class="mt-2 flex flex-wrap gap-2 text-[11px]">
+            <span class="px-2 py-1 rounded-full border border-slate-200 bg-white">
+              ERP-sourced
+            </span>
+            <span class="px-2 py-1 rounded-full border border-slate-200 bg-white">
+              Vector-ready
+            </span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-semibold">
+            View Context
+          </button>
+        </div>
+      </div>
+
+      <!-- ROW -->
+      <div class="py-4 flex items-start justify-between gap-4">
+        <div>
+          <p class="font-semibold">INV-OVT-2025-017</p>
+          <p class="text-xs text-slate-600 mt-1">
+            Invoice · Thai Packaging Solutions Co., Ltd.
+          </p>
+          <p class="text-xs text-slate-500 mt-1">
+            Referenced PO: PO-OVT-2025-002
+          </p>
+          <div class="mt-2 flex flex-wrap gap-2 text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-100">
+              Exception Case
+            </span>
+            <span class="px-2 py-1 rounded-full border border-slate-200 bg-white">
+              Evidence-linked
+            </span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="px-3 py-2 rounded-xl border border-slate-200 bg-white text-xs font-semibold">
+            Open Decision
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TRACEABILITY PANEL -->
+  <section class="bg-white border border-slate-200 rounded-2xl p-5">
+    <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+      Transparency
+    </p>
+    <h2 class="text-xl font-semibold mt-1">
+      Evidence Traceability
+    </h2>
+
+    <div class="mt-4 rounded-2xl bg-slate-50 border border-slate-200 p-4">
+      <p class="text-sm font-semibold">Example: How this document is used</p>
+      <pre class="mt-3 text-[11px] mono text-slate-800 leading-relaxed">
+Document: OVT-CON-RAW-2024-001
+ ├─ Used in Policy: INV-01 (Invoice > Contract)
+ ├─ Referenced by PO: PO-OVT-2025-002
+ ├─ Referenced by Invoice: INV-OVT-2025-017
+ ├─ Appears in Decisions: 6 cases
+ └─ Audit Exports: Enabled
+      </pre>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>

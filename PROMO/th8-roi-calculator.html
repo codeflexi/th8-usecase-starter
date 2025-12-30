@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TH8.AI — ROI Calculator (Ovaltine v1)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type=number] { -moz-appearance: textfield; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center font-semibold">TH8</div>
+        <div class="leading-tight">
+          <div class="text-sm font-semibold">TH8.AI ROI Calculator</div>
+          <div class="text-xs text-slate-600">2 Use Cases — Complaint/Brand + FP&A Variance</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="#faq" class="text-xs px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50">FAQ</a>
+        <button id="btnReset" class="text-xs px-3 py-2 rounded-xl bg-slate-900 text-white hover:opacity-90">Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-8 space-y-8">
+    <!-- Intro -->
+    <section class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+      <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500 font-semibold">CFO-grade · Cost Avoidance + Productivity</p>
+      <h1 class="text-2xl md:text-3xl font-semibold mt-2">คำนวณ ROI + Payback สำหรับ TH8 Product v1</h1>
+      <p class="text-sm text-slate-600 mt-2 max-w-4xl">
+        เครื่องมือนี้ออกแบบให้ “กรอกตัวเลขจริงขององค์กร” แล้วได้ผลลัพธ์แบบผู้บริหาร: Annual Benefit, Net Benefit, ROI%, Payback (เดือน)
+        พร้อมแยกผลลัพธ์ตาม use case และรวมทั้ง 2 use case
+      </p>
+
+      <div class="mt-5 grid md:grid-cols-3 gap-4">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <div class="text-xs text-slate-500 font-semibold">Benefit types</div>
+          <div class="text-sm font-semibold mt-1">Cost Avoidance + Productivity</div>
+          <div class="text-xs text-slate-600 mt-1">ยังไม่รวม “brand upside” ที่ประเมินยาก</div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <div class="text-xs text-slate-500 font-semibold">Method</div>
+          <div class="text-sm font-semibold mt-1">Conservative by default</div>
+          <div class="text-xs text-slate-600 mt-1">ตั้งค่า % improvement แบบระวัง</div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <div class="text-xs text-slate-500 font-semibold">Output</div>
+          <div class="text-sm font-semibold mt-1">Payback (months)</div>
+          <div class="text-xs text-slate-600 mt-1">ใช้ใส่ Investment memo ได้</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing / Cost Inputs -->
+    <section class="grid lg:grid-cols-12 gap-4">
+      <div class="lg:col-span-5 bg-white border border-slate-200 rounded-3xl p-6">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h2 class="text-lg font-semibold">A) Investment (Year 1)</h2>
+            <p class="text-sm text-slate-600 mt-1">กรอกค่าใช้จ่ายปีแรก (setup + subscription)</p>
+          </div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">THB</span>
+        </div>
+
+        <div class="mt-5 grid gap-4">
+          <div class="rounded-2xl border border-slate-200 p-4">
+            <div class="text-sm font-semibold">Setup fee (one-time)</div>
+            <div class="mt-3 grid grid-cols-2 gap-3">
+              <label class="text-xs text-slate-600">Setup (THB)</label>
+              <input id="setupFee" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="700000" min="0" />
+            </div>
+            <p class="text-[11px] text-slate-500 mt-2">ตัวอย่าง: Starter 300k–350k, Pro 600k–900k</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-4">
+            <div class="text-sm font-semibold">Subscription (Year 1)</div>
+            <div class="mt-3 grid grid-cols-2 gap-3 items-center">
+              <label class="text-xs text-slate-600">Monthly fee (THB)</label>
+              <input id="monthlyFee" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="150000" min="0" />
+              <label class="text-xs text-slate-600">Months</label>
+              <input id="months" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="12" min="1" max="12" />
+            </div>
+            <p class="text-[11px] text-slate-500 mt-2">ปีแรกมักคิด 12 เดือน</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-xs text-slate-500 font-semibold">Total Investment (Year 1)</div>
+            <div class="mt-1 text-2xl font-semibold" id="totalInvestment">—</div>
+            <div class="text-xs text-slate-600 mt-2">= Setup + (Monthly × Months)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Complaint Inputs -->
+      <div class="lg:col-span-7 bg-white border border-slate-200 rounded-3xl p-6">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h2 class="text-lg font-semibold">B) Use Case 1 — Complaint & Brand Protection</h2>
+            <p class="text-sm text-slate-600 mt-1">คำนวณ “Cost Avoidance” จากการลดเวลา/ลด escalation ที่ไม่จำเป็น</p>
+          </div>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Yearly</span>
+        </div>
+
+        <div class="mt-5 grid md:grid-cols-2 gap-4">
+          <div class="rounded-2xl border border-slate-200 p-4">
+            <div class="text-sm font-semibold">Volume & Cost</div>
+            <div class="mt-3 grid gap-3">
+              <div class="grid grid-cols-2 gap-3 items-center">
+                <label class="text-xs text-slate-600">Total complaints / year</label>
+                <input id="c_total" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="3000" min="0" />
+              </div>
+              <div class="grid grid-cols-2 gap-3 items-center">
+                <label class="text-xs text-slate-600">Sensitive rate (%)</label>
+                <input id="c_sensitiveRate" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="12" min="0" max="100" />
+              </div>
+              <div class="grid grid-cols-2 gap-3 items-center">
+                <label class="text-xs text-slate-600">Avg cost / sensitive case (THB)</label>
+                <input id="c_costPerSensitive" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="20000" min="0" />
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-2">Sensitive เช่น กลิ่น/รส/สุขภาพ/แพ้/ร้องเรียนสื่อ</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-4">
+            <div class="text-sm font-semibold">Improvement (TH8 effect)</div>
+            <div class="mt-3 grid gap-3">
+              <div class="grid grid-cols-2 gap-3 items-center">
+                <label class="text-xs text-slate-600">Handling cost reduction (%)</label>
+                <input id="c_costReduction" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="25" min="0" max="100" />
+              </div>
+              <div class="grid grid-cols-2 gap-3 items-center">
+                <label class="text-xs text-slate-600">Unnecessary escalation reduction (%)</label>
+                <input id="c_escalationReduction" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="20" min="0" max="100" />
+              </div>
+              <div class="grid grid-cols-2 gap-3 items-center">
+                <label class="text-xs text-slate-600">Escalation cost share (%)</label>
+                <input id="c_escalationShare" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="35" min="0" max="100" />
+              </div>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-2">Escalation cost share = สัดส่วนต้นทุนที่มาจาก QA/Legal/Management time</p>
+          </div>
+        </div>
+
+        <div class="mt-4 grid md:grid-cols-3 gap-4">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-xs text-slate-500 font-semibold">Baseline Cost / year</div>
+            <div class="text-xl font-semibold mt-1" id="c_baseline">—</div>
+            <div class="text-[11px] text-slate-600 mt-2">Sensitive cases × cost per case</div>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <div class="text-xs text-slate-500 font-semibold">Benefit / year</div>
+            <div class="text-xl font-semibold mt-1" id="c_benefit">—</div>
+            <div class="text-[11px] text-slate-600 mt-2">ลด handling + ลด escalation</div>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-white p-4">
+            <div class="text-xs text-slate-500 font-semibold">Notes</div>
+            <ul class="mt-2 text-[11px] text-slate-600 list-disc pl-4 space-y-1">
+              <li>ยังไม่รวม “brand upside”</li>
+              <li>ใช้เป็น conservative case</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FP&A Inputs -->
+    <section class="bg-white border border-slate-200 rounded-3xl p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-semibold">C) Use Case 2 — FP&A Variance & Executive Brief</h2>
+          <p class="text-sm text-slate-600 mt-1">คำนวณ “Productivity Gain” จากการลดวันคนทำงาน + ลด rework/meeting</p>
+        </div>
+        <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Yearly</span>
+      </div>
+
+      <div class="mt-5 grid md:grid-cols-3 gap-4">
+        <div class="rounded-2xl border border-slate-200 p-4">
+          <div class="text-sm font-semibold">Team & Effort</div>
+          <div class="mt-3 grid gap-3">
+            <div class="grid grid-cols-2 gap-3 items-center">
+              <label class="text-xs text-slate-600">People involved</label>
+              <input id="f_people" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="6" min="0" />
+            </div>
+            <div class="grid grid-cols-2 gap-3 items-center">
+              <label class="text-xs text-slate-600">Days / month (variance)</label>
+              <input id="f_daysPerMonth" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="4" min="0" />
+            </div>
+            <div class="grid grid-cols-2 gap-3 items-center">
+              <label class="text-xs text-slate-600">Avg cost / person-day (THB)</label>
+              <input id="f_costPerDay" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="4000" min="0" />
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-500 mt-2">ใช้รวม FP&A + Ops + Sales ที่ต้องส่งข้อมูล/ตอบคำถาม</p>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 p-4">
+          <div class="text-sm font-semibold">Improvement (TH8 effect)</div>
+          <div class="mt-3 grid gap-3">
+            <div class="grid grid-cols-2 gap-3 items-center">
+              <label class="text-xs text-slate-600">Effort reduction (%)</label>
+              <input id="f_effortReduction" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="45" min="0" max="100" />
+            </div>
+            <div class="grid grid-cols-2 gap-3 items-center">
+              <label class="text-xs text-slate-600">Rework/meeting cost share (%)</label>
+              <input id="f_reworkShare" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="25" min="0" max="100" />
+            </div>
+            <div class="grid grid-cols-2 gap-3 items-center">
+              <label class="text-xs text-slate-600">Rework reduction (%)</label>
+              <input id="f_reworkReduction" type="number" class="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm" value="30" min="0" max="100" />
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-500 mt-2">Effort reduction = ลดวันทำงาน / Rework reduction = ลด meeting + ping-pong</p>
+        </div>
+
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <div class="text-xs text-slate-500 font-semibold">Baseline & Benefit</div>
+          <div class="mt-3 space-y-3">
+            <div>
+              <div class="text-[11px] text-slate-600">Baseline cost / year</div>
+              <div class="text-xl font-semibold" id="f_baseline">—</div>
+            </div>
+            <div>
+              <div class="text-[11px] text-slate-600">Benefit / year</div>
+              <div class="text-xl font-semibold" id="f_benefit">—</div>
+            </div>
+          </div>
+          <div class="mt-3 text-[11px] text-slate-600">Baseline = people × days/month × 12 × cost/day</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-semibold">D) Results (Year 1)</h2>
+          <p class="text-sm text-slate-600 mt-1">รวมผลลัพธ์ทั้ง 2 use case และคำนวณ ROI / Payback</p>
+        </div>
+        <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">CFO view</span>
+      </div>
+
+      <div class="mt-6 grid md:grid-cols-4 gap-4">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <div class="text-xs text-slate-500 font-semibold">Total Benefit / year</div>
+          <div class="text-2xl font-semibold mt-1" id="totalBenefit">—</div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <div class="text-xs text-slate-500 font-semibold">Total Investment / year</div>
+          <div class="text-2xl font-semibold mt-1" id="totalCost">—</div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-4">
+          <div class="text-xs text-slate-500 font-semibold">Net Benefit / year</div>
+          <div class="text-2xl font-semibold mt-1" id="netBenefit">—</div>
+          <div class="text-[11px] text-slate-600 mt-2">Benefit − Cost</div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-4">
+          <div class="text-xs text-slate-500 font-semibold">ROI / Payback</div>
+          <div class="mt-2 space-y-1">
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-slate-600">ROI (%)</span>
+              <span class="font-semibold" id="roiPct">—</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-slate-600">Payback (months)</span>
+              <span class="font-semibold" id="paybackMonths">—</span>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-500 mt-2">Payback = Total Cost ÷ (Benefit/12)</div>
+        </div>
+      </div>
+
+      <div class="mt-6 grid md:grid-cols-2 gap-4">
+        <div class="rounded-2xl border border-slate-200 p-4">
+          <div class="text-sm font-semibold">“ถ้าไม่ทำอะไรเลย” (Status quo)</div>
+          <div class="mt-2 text-xs text-slate-600">
+            ระบบยังใช้คนเป็นหลัก → ตอบช้า, ping-pong, escalation มาก, บริหารด้วย meeting
+          </div>
+          <ul class="mt-3 text-[11px] text-slate-600 list-disc pl-4 space-y-1">
+            <li>Complaint: cost handling สูง + เสี่ยง brand ถ้าตอบผิด/ช้า</li>
+            <li>FP&A: variance cycle ช้า + rework สูง + forecast ปรับไม่ทัน</li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+          <div class="text-sm font-semibold">“มี TH8” (To-be)</div>
+          <div class="mt-2 text-xs text-slate-600">
+            ใช้ SLM-first + rule + audit → ลด cost + เพิ่มความเร็วการตัดสินใจ
+          </div>
+          <ul class="mt-3 text-[11px] text-slate-600 list-disc pl-4 space-y-1">
+            <li>Complaint: triage อัตโนมัติ + escalation เท่าที่จำเป็น</li>
+            <li>FP&A: variance narrative + action list ภายในวันเดียว</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ jump -->
+    <section id="faq" class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-semibold">Quick FAQ (ย่อ)</h2>
+          <p class="text-sm text-slate-600 mt-1">คำถามที่ CFO/IT/Legal มักถาม ก่อน approve</p>
+        </div>
+        <a href="./th8-faq-cfo-it-legal.html" class="text-xs px-3 py-2 rounded-xl bg-slate-900 text-white">เปิด FAQ ฉบับเต็ม</a>
+      </div>
+
+      <div class="mt-6 grid md:grid-cols-3 gap-4">
+        <div class="rounded-2xl border border-slate-200 p-4">
+          <div class="text-sm font-semibold">CFO</div>
+          <div class="text-xs text-slate-600 mt-2">Payback? คุม cost inference? วัดผลอย่างไร?</div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 p-4">
+          <div class="text-sm font-semibold">IT</div>
+          <div class="text-xs text-slate-600 mt-2">Integrate ยังไง? RBAC? Observability? DR?</div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 p-4">
+          <div class="text-sm font-semibold">Legal</div>
+          <div class="text-xs text-slate-600 mt-2">PDPA? PII redaction? Audit trail? Data retention?</div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="pb-10 text-xs text-slate-500">
+      Tip: ปรับ input ให้เป็นตัวเลขจริงของลูกค้า แล้ว capture หน้าจอ “Results” ใส่ investment memo ได้ทันที
+    </footer>
+  </main>
+
+<script>
+  const fmt = new Intl.NumberFormat('th-TH', { maximumFractionDigits: 0 });
+  const fmt2 = new Intl.NumberFormat('th-TH', { maximumFractionDigits: 2 });
+
+  const el = (id) => document.getElementById(id);
+  const num = (id) => {
+    const v = parseFloat(el(id).value);
+    return isNaN(v) ? 0 : v;
+  };
+
+  function calcComplaint() {
+    const total = num('c_total');
+    const sensitiveRate = num('c_sensitiveRate') / 100;
+    const costPer = num('c_costPerSensitive');
+    const costReduction = num('c_costReduction') / 100;
+
+    const escalationReduction = num('c_escalationReduction') / 100;
+    const escalationShare = num('c_escalationShare') / 100;
+
+    const sensitiveCases = total * sensitiveRate;
+    const baseline = sensitiveCases * costPer;
+
+    // Benefit model:
+    // - handling reduction applies to whole baseline
+    // - escalation reduction applies to escalation component of baseline (share)
+    const handlingBenefit = baseline * costReduction;
+    const escalationBenefit = (baseline * escalationShare) * escalationReduction;
+
+    const benefit = handlingBenefit + escalationBenefit;
+
+    return { baseline, benefit };
+  }
+
+  function calcFPA() {
+    const people = num('f_people');
+    const daysPerMonth = num('f_daysPerMonth');
+    const costPerDay = num('f_costPerDay');
+
+    const effortReduction = num('f_effortReduction') / 100;
+    const reworkShare = num('f_reworkShare') / 100;
+    const reworkReduction = num('f_reworkReduction') / 100;
+
+    const baseline = people * daysPerMonth * 12 * costPerDay;
+
+    const effortBenefit = baseline * effortReduction;
+    const reworkBenefit = (baseline * reworkShare) * reworkReduction;
+
+    const benefit = effortBenefit + reworkBenefit;
+    return { baseline, benefit };
+  }
+
+  function calcAll() {
+    const setup = num('setupFee');
+    const monthly = num('monthlyFee');
+    const months = Math.max(1, Math.min(12, num('months')));
+    el('months').value = months;
+
+    const totalInvestment = setup + (monthly * months);
+    el('totalInvestment').textContent = fmt.format(totalInvestment) + " ฿";
+
+    const c = calcComplaint();
+    el('c_baseline').textContent = fmt.format(c.baseline) + " ฿";
+    el('c_benefit').textContent = fmt.format(c.benefit) + " ฿";
+
+    const f = calcFPA();
+    el('f_baseline').textContent = fmt.format(f.baseline) + " ฿";
+    el('f_benefit').textContent = fmt.format(f.benefit) + " ฿";
+
+    const totalBenefit = c.benefit + f.benefit;
+    const totalCost = totalInvestment;
+    const net = totalBenefit - totalCost;
+
+    el('totalBenefit').textContent = fmt.format(totalBenefit) + " ฿";
+    el('totalCost').textContent = fmt.format(totalCost) + " ฿";
+    el('netBenefit').textContent = fmt.format(net) + " ฿";
+
+    const roi = totalCost > 0 ? (net / totalCost) * 100 : 0;
+    el('roiPct').textContent = fmt2.format(roi) + "%";
+
+    const monthlyBenefit = totalBenefit / 12;
+    const payback = monthlyBenefit > 0 ? (totalCost / monthlyBenefit) : Infinity;
+    el('paybackMonths').textContent = (payback === Infinity) ? "—" : fmt2.format(payback);
+
+    // color hint
+    el('netBenefit').className = "text-2xl font-semibold mt-1 " + (net >= 0 ? "text-emerald-700" : "text-rose-700");
+  }
+
+  function bind() {
+    const inputs = document.querySelectorAll('input');
+    inputs.forEach(i => i.addEventListener('input', calcAll));
+    el('btnReset').addEventListener('click', () => {
+      // default values (conservative)
+      el('setupFee').value = 700000;
+      el('monthlyFee').value = 150000;
+      el('months').value = 12;
+
+      el('c_total').value = 3000;
+      el('c_sensitiveRate').value = 12;
+      el('c_costPerSensitive').value = 20000;
+      el('c_costReduction').value = 25;
+      el('c_escalationReduction').value = 20;
+      el('c_escalationShare').value = 35;
+
+      el('f_people').value = 6;
+      el('f_daysPerMonth').value = 4;
+      el('f_costPerDay').value = 4000;
+      el('f_effortReduction').value = 45;
+      el('f_reworkShare').value = 25;
+      el('f_reworkReduction').value = 30;
+
+      calcAll();
+    });
+    calcAll();
+  }
+
+  bind();
+</script>
+</body>
+</html>

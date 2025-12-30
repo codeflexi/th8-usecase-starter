@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI - Executive Proposal (Deep Dive)</title>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #f3f4f6; overflow: hidden; }
+        .slide-enter-active, .slide-leave-active { transition: all 0.5s ease; }
+        .slide-enter-from { opacity: 0; transform: translateX(50px); }
+        .slide-leave-to { opacity: 0; transform: translateX(-50px); }
+        
+        .th8-gradient { background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%); }
+        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        
+        /* Custom Scrollbar for tables */
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        th8: { red: '#DC2626', dark: '#111827', gray: '#F3F4F6' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div id="app" class="h-screen w-screen flex flex-col items-center justify-center text-gray-800 relative bg-gray-50">
+
+    <div class="absolute bottom-6 z-50 flex gap-4 items-center bg-white px-6 py-2 rounded-full shadow-lg border border-gray-100">
+        <button @click="prevSlide" :disabled="currentSlide === 0" class="w-8 h-8 rounded-full hover:bg-gray-100 disabled:opacity-30 text-gray-600 transition-all">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="flex gap-2">
+            <div v-for="(slide, index) in slides" :key="index" 
+                 :class="['h-2 rounded-full transition-all duration-300', currentSlide === index ? 'bg-th8-red w-8' : 'bg-gray-300 w-2']">
+            </div>
+        </div>
+        <button @click="nextSlide" :disabled="currentSlide === slides.length - 1" class="w-8 h-8 rounded-full hover:bg-gray-100 disabled:opacity-30 text-gray-600 transition-all">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="absolute top-6 left-8 z-50 flex items-center gap-3">
+        <div class="w-8 h-8 bg-th8-red rounded flex items-center justify-center text-white font-bold text-sm">8</div>
+        <span class="font-bold text-lg tracking-tight">TH8.AI</span>
+    </div>
+
+    <div class="absolute top-6 right-8 z-50 text-sm text-gray-400 font-light">
+        Connected Value Chain Suite
+    </div>
+
+    <div class="w-full max-w-7xl h-[85vh] relative px-4">
+        <transition name="slide" mode="out-in">
+            
+            <div v-if="currentSlide === 0" key="0" class="h-full w-full flex flex-col items-center justify-center text-center">
+                <div class="w-24 h-24 bg-th8-red rounded-2xl flex items-center justify-center text-white text-4xl font-bold mb-8 shadow-xl shadow-red-200">
+                    TH8
+                </div>
+                <h1 class="text-6xl font-bold text-gray-900 mb-4 tracking-tight">The <span class="text-th8-red">Connected</span> Value Chain</h1>
+                <p class="text-xl text-gray-500 max-w-2xl mx-auto font-light">
+                    เปลี่ยน Silo ให้เป็น Synchronization ด้วยบริบทที่เชื่อมถึงกัน<br>
+                    (Context-Aware AI Agents)
+                </p>
+                <div class="mt-12 flex gap-4">
+                    <button @click="nextSlide" class="px-8 py-3 bg-gray-900 text-white rounded-full hover:bg-gray-700 transition-all shadow-lg text-sm font-medium">
+                        Start Presentation <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div v-if="currentSlide === 1" key="1" class="h-full w-full glass-panel rounded-3xl shadow-2xl p-10 border border-white flex flex-col">
+                <div class="flex justify-between items-end mb-8">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900">System UX Flow</h2>
+                        <p class="text-gray-500 mt-1">จากคำสั่ง User สู่การประมวลผลที่ปลอดภัย (Layer 1-7)</p>
+                    </div>
+                    <div class="text-5xl opacity-10 font-bold">01</div>
+                </div>
+
+                <div class="flex-1 flex items-center justify-center relative">
+                    <div class="flex items-center w-full justify-between relative z-10 px-8">
+                        <div class="flex flex-col items-center w-40 text-center group">
+                            <div class="w-14 h-14 rounded-xl bg-gray-800 text-white flex items-center justify-center text-xl shadow-lg mb-3 group-hover:bg-th8-red transition-colors">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 class="font-bold text-sm">1. User Input</h4>
+                            <p class="text-[10px] text-gray-500 mt-1">Web / Line OA<br>(L6)</p>
+                        </div>
+                        <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative"><div class="absolute top-0 left-0 h-full w-1/3 bg-th8-red animate-slide-right"></div></div>
+
+                        <div class="flex flex-col items-center w-40 text-center group">
+                            <div class="w-14 h-14 rounded-xl bg-white border-2 border-th8-red text-th8-red flex items-center justify-center text-xl shadow-lg mb-3">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4 class="font-bold text-sm">2. Guardrails</h4>
+                            <p class="text-[10px] text-gray-500 mt-1">Security Check<br>(L7)</p>
+                        </div>
+                        <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative"><div class="absolute top-0 left-0 h-full w-1/3 bg-th8-red animate-slide-right" style="animation-delay: 0.3s"></div></div>
+
+                        <div class="flex flex-col items-center w-40 text-center group">
+                            <div class="w-14 h-14 rounded-xl bg-th8-gradient text-white flex items-center justify-center text-xl shadow-lg mb-3 animate-pulse">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h4 class="font-bold text-sm">3. Orchestrator</h4>
+                            <p class="text-[10px] text-gray-500 mt-1">Planning & Logic<br>(L4 - LangGraph)</p>
+                        </div>
+                        <div class="flex-1 h-0.5 bg-gray-300 mx-2 relative"><div class="absolute top-0 left-0 h-full w-1/3 bg-th8-red animate-slide-right" style="animation-delay: 0.6s"></div></div>
+
+                        <div class="flex flex-col items-center w-40 text-center group">
+                            <div class="w-14 h-14 rounded-xl bg-blue-600 text-white flex items-center justify-center text-xl shadow-lg mb-3">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h4 class="font-bold text-sm">4. Context Engine</h4>
+                            <p class="text-[10px] text-gray-500 mt-1">Real-time Data<br>(L5 - RAG/API)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-100 p-4 rounded-xl mt-4 flex gap-4 items-start">
+                    <i class="fas fa-info-circle text-blue-500 mt-1"></i>
+                    <div>
+                        <h5 class="font-bold text-blue-800 text-sm">Why this flow matters?</h5>
+                        <p class="text-xs text-blue-600">
+                            ระบบไม่ได้แค่ "ตอบแชท" แต่มีการตรวจสอบความปลอดภัย (Guardrails) และดึงข้อมูลจริง (Context) มาคำนวณ 
+                            ก่อนส่งคำตอบ ทำให้ข้อมูลที่ได้มีความถูกต้องระดับ Enterprise Grade
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="currentSlide === 2" key="2" class="h-full w-full glass-panel rounded-3xl shadow-2xl p-10 border border-white flex flex-col">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900">Context Engineering Pipeline</h2>
+                        <p class="text-gray-500 mt-1">Map ข้อมูลที่ AI ต้องใช้, แหล่งที่มา, และความถี่ในการ Sync</p>
+                    </div>
+                    <div class="text-5xl opacity-10 font-bold">02</div>
+                </div>
+
+                <div class="flex-1 overflow-hidden flex flex-col">
+                    <div class="grid grid-cols-4 gap-4 mb-4">
+                        <div v-for="layer in contextLayers" :key="layer.title" class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 h-full flex flex-col">
+                            <div class="flex items-center gap-2 mb-3 pb-2 border-b border-gray-100">
+                                <div :class="['w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm', layer.color]">
+                                    <i :class="layer.icon"></i>
+                                </div>
+                                <h3 class="font-bold text-sm text-gray-800">{{ layer.title }}</h3>
+                            </div>
+                            
+                            <div class="flex-1 overflow-y-auto custom-scroll pr-1 space-y-3">
+                                <div v-for="(item, i) in layer.items" :key="i" class="group">
+                                    <div class="flex justify-between items-start">
+                                        <p class="text-xs font-semibold text-gray-700">{{ item.name }}</p>
+                                        <span :class="['text-[9px] px-1.5 py-0.5 rounded font-bold uppercase', 
+                                            item.sync === 'Real-time' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500']">
+                                            {{ item.sync }}
+                                        </span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-400 mt-0.5"><i class="fas fa-server mr-1"></i>{{ item.source }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center text-xs text-gray-400 mt-2">
+                        *เราใช้ ETL Pipelines เชื่อมต่อ ERP/WMS และใช้ RAG สำหรับเอกสารสัญญาต่างๆ
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="currentSlide === 3" key="3" class="h-full w-full glass-panel rounded-3xl shadow-2xl p-10 border border-white flex flex-col">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900">Feature Logic Deep Dive</h2>
+                        <p class="text-gray-500 mt-1">คลิกที่การ์ดเพื่อดู Logic การคิดของ AI (Input -> Process -> Output)</p>
+                    </div>
+                    <div class="text-5xl opacity-10 font-bold">03</div>
+                </div>
+
+                <div class="flex h-full gap-6">
+                    <div class="w-1/3 space-y-3">
+                        <div v-for="(feature, index) in featuresLogic" :key="index" 
+                             @click="activeFeature = index"
+                             :class="['p-4 rounded-xl cursor-pointer border transition-all flex items-center gap-3', 
+                                      activeFeature === index ? 'bg-gray-900 text-white border-gray-900 shadow-lg' : 'bg-white text-gray-600 border-gray-200 hover:border-th8-red']">
+                            <div :class="['w-10 h-10 rounded-full flex items-center justify-center text-lg', activeFeature === index ? 'bg-gray-700' : 'bg-gray-100']">
+                                <i :class="feature.icon"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm">{{ feature.title }}</h4>
+                                <p :class="['text-xs', activeFeature === index ? 'text-gray-400' : 'text-gray-400']">{{ feature.role }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-2/3 bg-white rounded-2xl border border-gray-200 p-8 relative overflow-hidden flex flex-col justify-center">
+                        <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl text-gray-300">
+                            <i :class="featuresLogic[activeFeature].icon"></i>
+                        </div>
+                        
+                        <div class="relative z-10 space-y-8">
+                            <div class="flex gap-4">
+                                <div class="w-24 text-right pt-2 font-bold text-gray-400 text-xs uppercase">1. Trigger</div>
+                                <div class="flex-1 bg-gray-50 border border-gray-200 p-3 rounded-lg text-sm text-gray-700 shadow-sm">
+                                    <i class="fas fa-keyboard mr-2 text-gray-400"></i>
+                                    {{ featuresLogic[activeFeature].input }}
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <div class="w-24 text-right pt-2 font-bold text-th8-red text-xs uppercase">2. AI Logic</div>
+                                <div class="flex-1 bg-red-50 border border-red-100 p-4 rounded-lg text-sm text-gray-800 shadow-sm relative">
+                                    <div class="absolute -left-2 top-4 w-2 h-2 bg-red-400 rounded-full"></div>
+                                    <ul class="list-disc pl-4 space-y-1">
+                                        <li v-for="step in featuresLogic[activeFeature].logic" :key="step">{{ step }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4">
+                                <div class="w-24 text-right pt-2 font-bold text-green-600 text-xs uppercase">3. Result</div>
+                                <div class="flex-1 bg-green-50 border border-green-100 p-3 rounded-lg text-sm text-gray-800 shadow-sm font-semibold">
+                                    <i class="fas fa-check-circle mr-2 text-green-500"></i>
+                                    {{ featuresLogic[activeFeature].output }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="currentSlide === 4" key="4" class="h-full w-full glass-panel rounded-3xl shadow-2xl p-10 border border-white flex flex-col">
+                <div class="flex justify-between items-end mb-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900">ROI Calculator</h2>
+                        <p class="text-gray-500 mt-1">ประเมินผลตอบแทนจากการลงทุน (Estimated Savings)</p>
+                    </div>
+                    <div class="text-5xl opacity-10 font-bold">04</div>
+                </div>
+
+                <div class="flex gap-8 items-start h-full">
+                    <div class="w-1/3 space-y-5 bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h3 class="font-bold text-gray-800 border-b pb-2 text-sm">Business Assumptions</h3>
+                        
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 uppercase">Annual Revenue (THB)</label>
+                            <input type="number" v-model="roi.revenue" class="w-full mt-1 p-2 border rounded font-mono text-gray-700 focus:ring-2 focus:ring-red-500 outline-none text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 uppercase">Waste / Write-off (%)</label>
+                            <div class="flex items-center gap-2">
+                                <input type="range" v-model="roi.wastePercent" min="0" max="10" step="0.1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                <span class="text-sm font-bold w-12 text-right">{{ roi.wastePercent }}%</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-500 uppercase">Logistics Penalty (%)</label>
+                            <div class="flex items-center gap-2">
+                                <input type="range" v-model="roi.penaltyPercent" min="0" max="5" step="0.1" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                                <span class="text-sm font-bold w-12 text-right">{{ roi.penaltyPercent }}%</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-50 p-3 rounded text-[10px] text-gray-500">
+                            *สมมติฐาน: TH8.AI ช่วยลด Waste ได้ 30% และลด Penalty ได้ 50%
+                        </div>
+                    </div>
+
+                    <div class="w-2/3 flex flex-col justify-center space-y-6">
+                        <div class="bg-gray-900 text-white p-8 rounded-2xl shadow-xl relative overflow-hidden group">
+                            <div class="absolute right-0 top-0 w-40 h-40 bg-th8-red rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-all"></div>
+                            
+                            <p class="text-xs text-gray-400 font-bold uppercase tracking-widest mb-2">Total Potential Savings / Year</p>
+                            <div class="text-6xl font-bold text-green-400 font-mono tracking-tighter">
+                                {{ formatCurrency(calculateSavings) }}
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 mt-8 pt-6 border-t border-gray-700">
+                                <div>
+                                    <p class="text-xs text-gray-400">Waste Reduction Saving</p>
+                                    <p class="text-xl font-semibold">{{ formatCurrency(savingBreakdown.waste) }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-400">Penalty Avoidance Saving</p>
+                                    <p class="text-xl font-semibold">{{ formatCurrency(savingBreakdown.penalty) }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="currentSlide === 5" key="5" class="h-full w-full flex flex-col items-center justify-center text-center">
+                <div class="w-20 h-20 bg-th8-red rounded-2xl flex items-center justify-center text-white text-3xl font-bold mb-6 shadow-lg">
+                    8
+                </div>
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Ready to Synchronize?</h2>
+                <p class="text-lg text-gray-500 mb-10">
+                    เปลี่ยนข้อมูลมหาศาล ให้เป็นกำไรที่จับต้องได้จริง
+                </p>
+                
+                <div class="flex gap-6">
+                    <button class="px-6 py-3 bg-gray-900 text-white rounded-lg shadow hover:bg-gray-800 transition-all font-medium">
+                        <i class="fas fa-phone-alt mr-2"></i> Contact Sales
+                    </button>
+                    <button class="px-6 py-3 bg-white text-gray-900 border border-gray-300 rounded-lg shadow hover:bg-gray-50 transition-all font-medium">
+                        <i class="fas fa-envelope mr-2"></i> Email Us
+                    </button>
+                </div>
+                <div class="mt-16 text-xs text-gray-400">
+                    © 2025 TH8.AI | Connected Value Chain Suite
+                </div>
+            </div>
+
+        </transition>
+    </div>
+
+</div>
+
+<script>
+    const { createApp, ref, computed } = Vue;
+
+    createApp({
+        setup() {
+            const currentSlide = ref(0);
+            const slides = [0, 1, 2, 3, 4, 5]; 
+            const activeFeature = ref(0);
+
+            // Context Layers Data
+            const contextLayers = [
+                {
+                    title: 'L1: Commercial', color: 'bg-blue-500', icon: 'fas fa-tags',
+                    items: [
+                        { name: 'Product Master (SKU)', source: 'ERP (SAP)', sync: 'Batch (Daily)' },
+                        { name: 'Promo Plan', source: 'Excel/SharePoint', sync: 'Batch (Manual)' },
+                        { name: 'Customer Contract', source: 'PDF (Vector DB)', sync: 'Real-time' }
+                    ]
+                },
+                {
+                    title: 'L2: Production', color: 'bg-yellow-500', icon: 'fas fa-industry',
+                    items: [
+                        { name: 'Inventory (RM/FG)', source: 'WMS / ERP', sync: 'Real-time' },
+                        { name: 'Machine Capacity', source: 'IoT / Excel', sync: 'Batch (Weekly)' },
+                        { name: 'BOM Structure', source: 'ERP (PP Module)', sync: 'Batch (Monthly)' }
+                    ]
+                },
+                {
+                    title: 'L3: Logistics', color: 'bg-green-500', icon: 'fas fa-truck',
+                    items: [
+                        { name: 'Truck Status', source: 'TMS / GPS', sync: 'Real-time' },
+                        { name: 'Delivery SLA', source: 'Customer Portal', sync: 'Batch (Weekly)' },
+                        { name: 'Warehouse Space', source: 'WMS', sync: 'Real-time' }
+                    ]
+                },
+                {
+                    title: 'L4: Finance', color: 'bg-red-600', icon: 'fas fa-coins',
+                    items: [
+                        { name: 'Std. Costing (COGS)', source: 'ERP (FI/CO)', sync: 'Batch (Monthly)' },
+                        { name: 'Penalty Rules', source: 'Legal Docs', sync: 'Static' },
+                        { name: 'OT Rates', source: 'HR System', sync: 'Batch (Yearly)' }
+                    ]
+                }
+            ];
+
+            // Feature Logic Data
+            const featuresLogic = [
+                {
+                    title: 'Promo Simulator (L1)',
+                    role: 'Planning Agent',
+                    icon: 'fas fa-chart-line',
+                    input: 'User: "จัดโปรปีใหม่ ยอด +20% สำหรับสินค้า SPY"',
+                    logic: [
+                        'Query Inventory: เช็คสต็อกขวดแก้ว (Real-time)',
+                        'Check Capacity: คำนวณ Lead Time ผลิต vs วันส่งมอบ',
+                        'Financial Check: คำนวณ OT Cost vs Margin ที่เหลือ'
+                    ],
+                    output: 'Alert: "ขวดไม่พอ! เสี่ยงค่าปรับ 1.5M แนะนำลดเป้าเหลือ +15%"'
+                },
+                {
+                    title: 'Incident Alert (L2)',
+                    role: 'Operations Agent',
+                    icon: 'fas fa-exclamation-triangle',
+                    input: 'System: Machine #3 Breakdown (IoT Trigger)',
+                    logic: [
+                        'Impact Analysis: กระทบ Order ไหนบ้าง?',
+                        'Reschedule: หาไลน์ผลิตทดแทน',
+                        'Notify: แจ้ง Planning ปรับแผนทันที'
+                    ],
+                    output: 'Action: "Auto-notify Planner & Adjust Schedule +2 days"'
+                },
+                {
+                    title: 'SLA Guard (L3)',
+                    role: 'Customer Service Agent',
+                    icon: 'fas fa-user-shield',
+                    input: 'User: "Lotus สั่งด่วน ส่งพรุ่งนี้ทันไหม?"',
+                    logic: [
+                        'Check Stock: มีของไหม?',
+                        'Check Truck: มีรถว่างไหม?',
+                        'Check SLA: ถ้าส่งช้าโดนปรับเท่าไหร่?'
+                    ],
+                    output: 'Response: "ทันครับ แต่ต้องใช้รถเสริม (Cost +2k) ยืนยันไหม?"'
+                }
+            ];
+
+            // ROI State
+            const roi = ref({
+                revenue: 500000000, 
+                wastePercent: 2.0,
+                penaltyPercent: 1.0
+            });
+
+            // Navigation
+            const nextSlide = () => { if (currentSlide.value < slides.length - 1) currentSlide.value++; };
+            const prevSlide = () => { if (currentSlide.value > 0) currentSlide.value--; };
+            
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') nextSlide();
+                if (e.key === 'ArrowLeft') prevSlide();
+            });
+
+            // Calculations
+            const calculateSavings = computed(() => {
+                const wasteVal = roi.value.revenue * (roi.value.wastePercent / 100);
+                const penaltyVal = roi.value.revenue * (roi.value.penaltyPercent / 100);
+                return (wasteVal * 0.30) + (penaltyVal * 0.50);
+            });
+
+            const savingBreakdown = computed(() => {
+                const wasteVal = roi.value.revenue * (roi.value.wastePercent / 100);
+                const penaltyVal = roi.value.revenue * (roi.value.penaltyPercent / 100);
+                return {
+                    waste: wasteVal * 0.30,
+                    penalty: penaltyVal * 0.50
+                };
+            });
+
+            const formatCurrency = (val) => {
+                return new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', maximumFractionDigits: 0 }).format(val);
+            };
+
+            return {
+                currentSlide,
+                slides,
+                nextSlide,
+                prevSlide,
+                contextLayers,
+                featuresLogic,
+                activeFeature,
+                roi,
+                calculateSavings,
+                savingBreakdown,
+                formatCurrency
+            };
+        }
+    }).mount('#app');
+</script>
+
+<style>
+    @keyframes slide-right {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(300%); }
+    }
+    .animate-slide-right { animation: slide-right 2s linear infinite; }
+</style>
+
+</body>
+</html>

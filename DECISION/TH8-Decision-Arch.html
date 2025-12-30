@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TH8.AI — Enterprise Decision Center Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html, body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+      /* crisp-ish diagram lines */
+      svg { shape-rendering: geometricPrecision; }
+    </style>
+  </head>
+
+  <body class="bg-slate-50 text-slate-900">
+    <div class="max-w-7xl mx-auto px-4 py-10 space-y-6">
+      <!-- Header -->
+      <header class="space-y-2">
+        <p class="text-[11px] uppercase tracking-wide text-red-600 font-semibold">
+          TH8.AI · Enterprise Decision Center
+        </p>
+        <h1 class="text-2xl md:text-3xl font-semibold">
+          Sellable Enterprise Architecture (Decision + Audit + Control)
+        </h1>
+        <p class="text-sm text-slate-600 max-w-4xl">
+          ออกแบบเพื่อ “ตัดสินใจได้จริง” และ “ตรวจสอบได้จริง” ในองค์กร — แยกชั้น UI, Policy/Control, Agent Orchestration, Evidence (RAG), Data & Integrations พร้อม Audit Trail ครบ.
+        </p>
+      </header>
+
+      <!-- Legend -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 flex flex-wrap gap-3 items-center">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded bg-slate-900"></span>
+          <span class="text-xs text-slate-700">Core TH8 Runtime</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded bg-red-600"></span>
+          <span class="text-xs text-slate-700">Policy / Control</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded bg-emerald-600"></span>
+          <span class="text-xs text-slate-700">Evidence / Audit</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded bg-sky-600"></span>
+          <span class="text-xs text-slate-700">Integrations</span>
+        </div>
+        <div class="ml-auto text-xs text-slate-500">
+          One-slide view for CFO / COO / Head of IT
+        </div>
+      </div>
+
+      <!-- Diagram canvas -->
+      <div class="relative bg-white border border-slate-200 rounded-3xl p-6 md:p-8 overflow-hidden">
+        <!-- Grid -->
+        <div class="grid grid-cols-12 gap-4 md:gap-6">
+          <!-- LEFT: Business Systems -->
+          <section class="col-span-12 lg:col-span-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-slate-600 uppercase tracking-wide">Enterprise Data Sources</p>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-600 font-semibold">Input</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="rounded-2xl border border-sky-200 bg-sky-50 p-4">
+                <p class="text-sm font-semibold text-slate-900">ERP / Finance</p>
+                <p class="text-xs text-slate-600 mt-1">PO · GR · Invoice · Payment · Vendor</p>
+              </div>
+
+              <div class="rounded-2xl border border-sky-200 bg-sky-50 p-4">
+                <p class="text-sm font-semibold text-slate-900">Procurement Systems</p>
+                <p class="text-xs text-slate-600 mt-1">Contracts · Catalog · Approval chain</p>
+              </div>
+
+              <div class="rounded-2xl border border-sky-200 bg-sky-50 p-4">
+                <p class="text-sm font-semibold text-slate-900">Documents</p>
+                <p class="text-xs text-slate-600 mt-1">PDF/Doc: contract clauses · SOP · policy</p>
+              </div>
+
+              <div class="rounded-2xl border border-sky-200 bg-sky-50 p-4">
+                <p class="text-sm font-semibold text-slate-900">Events / Logs</p>
+                <p class="text-xs text-slate-600 mt-1">Workflow events · timestamps · SLA signals</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- CENTER: TH8 Runtime -->
+          <section class="col-span-12 lg:col-span-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-slate-600 uppercase tracking-wide">TH8 Runtime</p>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-slate-900 text-white font-semibold">Core</span>
+            </div>
+
+            <!-- Row 1: Ingestion & Case model -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold text-slate-900">Ingestion & Normalization</p>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700 font-semibold">ETL-lite</span>
+                </div>
+                <ul class="mt-2 text-xs text-slate-600 space-y-1">
+                  <li>• Map to canonical case schema</li>
+                  <li>• Data quality checks (amount/date/vendor)</li>
+                  <li>• SLA timers + signals</li>
+                </ul>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold text-slate-900">Case & Decision Store</p>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700 font-semibold">System of Record</span>
+                </div>
+                <ul class="mt-2 text-xs text-slate-600 space-y-1">
+                  <li>• Cases (status, amount THB, SLA)</li>
+                  <li>• Decisions (approve/reject/reason)</li>
+                  <li>• Links to evidence (docs, citations)</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Row 2: Orchestration -->
+            <div class="rounded-2xl border border-slate-900 bg-slate-900 p-5 text-white">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <p class="text-base font-semibold">Agent Orchestration (Decision Engine)</p>
+                  <p class="text-xs text-slate-300 mt-1">
+                    Controlled reasoning + tool-use + policy-guardrails (no black box decisions)
+                  </p>
+                </div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white/10 border border-white/15 font-semibold">
+                  Agentic
+                </span>
+              </div>
+
+              <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div class="rounded-xl bg-white/10 border border-white/10 p-3">
+                  <p class="text-sm font-semibold">Intent & Routing</p>
+                  <p class="text-xs text-slate-200 mt-1">Ask · Approve · Audit</p>
+                </div>
+                <div class="rounded-xl bg-white/10 border border-white/10 p-3">
+                  <p class="text-sm font-semibold">Tool Execution</p>
+                  <p class="text-xs text-slate-200 mt-1">Search · Calculate · Validate</p>
+                </div>
+                <div class="rounded-xl bg-white/10 border border-white/10 p-3">
+                  <p class="text-sm font-semibold">Explainability</p>
+                  <p class="text-xs text-slate-200 mt-1">Reasons + evidence links</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 3: Policy + Knowledge -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="rounded-2xl border border-red-200 bg-red-50 p-4">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold text-slate-900">Decision Policy (Admin)</p>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-red-600 text-white font-semibold">Control</span>
+                </div>
+                <ul class="mt-2 text-xs text-slate-700 space-y-1">
+                  <li>• Thresholds (amount/risk → approvals)</li>
+                  <li>• Auto vs Manual decision mode</li>
+                  <li>• Policy versioning & publish</li>
+                </ul>
+              </div>
+
+              <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold text-slate-900">Evidence & Knowledge (RAG)</p>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-emerald-600 text-white font-semibold">Evidence</span>
+                </div>
+                <ul class="mt-2 text-xs text-slate-700 space-y-1">
+                  <li>• Retrieve relevant clauses / SOP</li>
+                  <li>• Citations + document links</li>
+                  <li>• Source governance (allowed sources)</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- RIGHT: Customer UI + Audit -->
+          <section class="col-span-12 lg:col-span-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-slate-600 uppercase tracking-wide">Customer Experience</p>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-600 font-semibold">Output</span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <p class="text-sm font-semibold text-slate-900">Executive Dashboard</p>
+                <p class="text-xs text-slate-600 mt-1">Amount at risk · SLA · hotspots</p>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <p class="text-sm font-semibold text-slate-900">Cases & Decisions</p>
+                <p class="text-xs text-slate-600 mt-1">Approve/Reject + rationale</p>
+              </div>
+
+              <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+                <p class="text-sm font-semibold text-slate-900">Audit Timeline</p>
+                <p class="text-xs text-slate-700 mt-1">Who/When/Why + Evidence links</p>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <p class="text-sm font-semibold text-slate-900">Reports & Export</p>
+                <p class="text-xs text-slate-600 mt-1">CSV/PDF for audit & board</p>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <p class="text-sm font-semibold text-slate-900">Admin Console</p>
+                <p class="text-xs text-slate-600 mt-1">Users/Roles · Policy · Knowledge sources</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Connector lines (SVG overlay) -->
+        <svg class="absolute inset-0 pointer-events-none" viewBox="0 0 1200 560" preserveAspectRatio="none">
+          <!-- arrow marker -->
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f172a"></path>
+            </marker>
+            <marker id="arrowSky" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#0284c7"></path>
+            </marker>
+            <marker id="arrowEmerald" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#059669"></path>
+            </marker>
+            <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626"></path>
+            </marker>
+          </defs>
+
+          <!-- Layout notes:
+               This is an illustrative overlay; it aligns visually in most responsive widths.
+               For exact pixel alignment, keep container width near max-w-7xl.
+          -->
+
+          <!-- Inputs -> Ingestion -->
+          <path d="M 275 155 C 360 155, 365 155, 445 165" stroke="#0284c7" stroke-width="2" fill="none" marker-end="url(#arrowSky)" opacity="0.9"/>
+          <path d="M 275 235 C 360 235, 365 235, 445 220" stroke="#0284c7" stroke-width="2" fill="none" marker-end="url(#arrowSky)" opacity="0.9"/>
+          <path d="M 275 315 C 360 315, 365 315, 445 275" stroke="#0284c7" stroke-width="2" fill="none" marker-end="url(#arrowSky)" opacity="0.9"/>
+          <path d="M 275 395 C 360 395, 365 395, 445 330" stroke="#0284c7" stroke-width="2" fill="none" marker-end="url(#arrowSky)" opacity="0.9"/>
+
+          <!-- Ingestion -> Store -->
+          <path d="M 610 170 C 650 170, 660 170, 695 175" stroke="#0f172a" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity="0.9"/>
+
+          <!-- Store -> Decision Engine -->
+          <path d="M 650 240 C 650 270, 650 280, 650 300" stroke="#0f172a" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity="0.9"/>
+
+          <!-- Policy -> Decision Engine -->
+          <path d="M 520 430 C 560 410, 585 395, 610 380" stroke="#dc2626" stroke-width="2.2" fill="none" marker-end="url(#arrowRed)" opacity="0.95"/>
+
+          <!-- Knowledge -> Decision Engine -->
+          <path d="M 680 430 C 660 410, 650 400, 635 380" stroke="#059669" stroke-width="2.2" fill="none" marker-end="url(#arrowEmerald)" opacity="0.95"/>
+
+          <!-- Decision Engine -> Customer UI -->
+          <path d="M 830 300 C 920 300, 940 300, 1005 275" stroke="#0f172a" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity="0.9"/>
+          <path d="M 830 325 C 920 340, 940 350, 1005 355" stroke="#0f172a" stroke-width="2" fill="none" marker-end="url(#arrow)" opacity="0.9"/>
+
+          <!-- Evidence -> Audit timeline -->
+          <path d="M 760 455 C 900 455, 940 420, 1020 410" stroke="#059669" stroke-width="2" fill="none" marker-end="url(#arrowEmerald)" opacity="0.85"/>
+        </svg>
+
+        <!-- Bottom callouts -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="text-sm font-semibold text-slate-900">What makes it enterprise</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1">
+              <li>• Policy versioning + publish control</li>
+              <li>• Decisions are traceable to evidence</li>
+              <li>• Separation of duties (roles/approvals)</li>
+            </ul>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="text-sm font-semibold text-slate-900">What executives see</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1">
+              <li>• Amount at risk (THB) + SLA signals</li>
+              <li>• Clear decision queue</li>
+              <li>• “Why” with citations and links</li>
+            </ul>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="text-sm font-semibold text-slate-900">What IT/Audit needs</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1">
+              <li>• Audit trail of every action</li>
+              <li>• Evidence governance (allowed sources)</li>
+              <li>• Integration boundaries are explicit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer note -->
+      <div class="text-xs text-slate-500">
+        Tip: สำหรับ demo ผู้บริหาร ให้ชี้ตามลำดับ “Input → Decision Engine → Evidence/Audit → Output” และย้ำว่า Policy ถูก publish/trace ได้ทุกครั้ง
+      </div>
+    </div>
+  </body>
+</html>

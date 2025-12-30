@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI – Reports & Analytics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{font-family:Prompt,sans-serif}</style>
+</head>
+<body class="bg-slate-100 text-slate-900 p-6">
+
+<section class="space-y-6">
+
+  <!-- HEADER -->
+  <div>
+    <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+      Reports & Analytics
+    </p>
+    <h1 class="text-2xl font-semibold mt-1">
+      Decision & Exception Reports
+    </h1>
+    <p class="text-sm text-slate-600 mt-1 max-w-2xl">
+      วิเคราะห์ exception และพฤติกรรมการตัดสินใจจากข้อมูลจริง
+    </p>
+  </div>
+
+  <!-- FILTER -->
+  <div class="bg-white border rounded-2xl p-4 grid grid-cols-1 md:grid-cols-4 gap-3">
+    <input class="px-3 py-2 border rounded-xl text-sm" placeholder="Search PO / Invoice / Vendor" />
+    <select class="px-3 py-2 border rounded-xl text-sm">
+      <option>All Domains</option>
+      <option>Procurement</option>
+      <option>Invoice</option>
+    </select>
+    <select class="px-3 py-2 border rounded-xl text-sm">
+      <option>All Severity</option>
+      <option>High</option>
+      <option>Medium</option>
+    </select>
+    <button class="px-3 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold">
+      Export CSV
+    </button>
+  </div>
+
+  <!-- REPORT TABLE -->
+  <div class="bg-white border rounded-2xl p-6">
+    <p class="text-sm font-semibold mb-4">
+      Exception by Vendor
+    </p>
+
+    <table class="w-full text-sm">
+      <thead class="text-slate-500 border-b">
+        <tr>
+          <th class="text-left py-2">Vendor</th>
+          <th class="text-right py-2">Cases</th>
+          <th class="text-right py-2">Amount at Risk</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-b">
+          <td class="py-2">Thai Packaging Solutions</td>
+          <td class="text-right">6</td>
+          <td class="text-right">฿ 1.1M</td>
+        </tr>
+        <tr>
+          <td class="py-2">Logistics Partner A</td>
+          <td class="text-right">2</td>
+          <td class="text-right">฿ 370k</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</section>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI | Agent Orchestrator View</title>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { th8: { red: '#DC2626', dark: '#0F172A', black: '#020617' } },
+                    fontFamily: { sans: ['Prompt', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    animation: { 'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #020617; color: #e2e8f0; }
+        .node-active { border-color: #DC2626; box-shadow: 0 0 15px rgba(220, 38, 38, 0.5); background: rgba(220, 38, 38, 0.1); }
+        .node-inactive { border-color: #334155; opacity: 0.5; }
+        .connection-line { stroke: #334155; stroke-width: 2; }
+        .connection-active { stroke: #DC2626; stroke-dasharray: 5; animation: dash 1s linear infinite; }
+        @keyframes dash { to { stroke-dashoffset: -10; } }
+        
+        /* Terminal Scrollbar */
+        .terminal-scroll::-webkit-scrollbar { width: 6px; }
+        .terminal-scroll::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        .terminal-scroll::-webkit-scrollbar-track { background: #0F172A; }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+<div id="app" class="h-full flex flex-col">
+
+    <header class="h-16 border-b border-gray-800 bg-[#0F172A] flex items-center justify-between px-6 z-10">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-th8-red rounded flex items-center justify-center font-bold text-white shadow-lg shadow-red-900/50">8</div>
+            <div>
+                <h1 class="font-bold text-lg tracking-tight">TH8 Orchestrator <span class="text-xs text-th8-red border border-th8-red px-1 rounded ml-2">LIVE NODE VIEW</span></h1>
+                <p class="text-[10px] text-gray-500 font-mono">Architecture: LangGraph + Supabase (Simulated)</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 text-xs text-green-500 bg-green-900/20 px-3 py-1 rounded-full border border-green-900">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div> Agent Online
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 flex overflow-hidden">
+        
+        <div class="flex-1 relative bg-th8-black p-6 flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#334155 1px, transparent 1px); background-size: 20px 20px;"></div>
+            
+            <div class="relative w-[600px] h-[500px]">
+                
+                <svg class="absolute inset-0 w-full h-full z-0 pointer-events-none">
+                    <line x1="300" y1="50" x2="300" y2="150" :class="isActive('planner') ? 'connection-active' : 'connection-line'" />
+                    <line x1="300" y1="150" x2="150" y2="280" :class="isActive('erp_tool') ? 'connection-active' : 'connection-line'" />
+                    <line x1="300" y1="150" x2="450" y2="280" :class="isActive('wms_tool') ? 'connection-active' : 'connection-line'" />
+                    <line x1="150" y1="280" x2="300" y2="400" :class="isActive('synthesizer') ? 'connection-active' : 'connection-line'" />
+                    <line x1="450" y1="280" x2="300" y2="400" :class="isActive('synthesizer') ? 'connection-active' : 'connection-line'" />
+                </svg>
+
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-12 bg-gray-900 border border-gray-700 rounded-lg flex items-center justify-center text-xs font-bold text-gray-400 z-10">
+                    <i class="fas fa-user mr-2"></i> User Request
+                </div>
+
+                <div :class="['absolute top-[150px] left-1/2 -translate-x-1/2 w-48 h-16 rounded-xl border-2 flex items-center justify-center gap-3 transition-all duration-300 z-10', currentNode === 'planner' ? 'node-active text-white scale-110' : 'node-inactive bg-gray-900 text-gray-500']">
+                    <i class="fas fa-brain text-xl"></i>
+                    <div class="text-left">
+                        <p class="text-xs font-bold uppercase">Orchestrator</p>
+                        <p class="text-[10px] font-mono">Planner Agent</p>
+                    </div>
+                </div>
+
+                <div :class="['absolute top-[280px] left-[50px] w-40 h-14 rounded-lg border flex items-center justify-center gap-2 transition-all duration-300 z-10', currentNode === 'erp_tool' ? 'node-active text-white scale-105' : 'node-inactive bg-gray-900 text-gray-500']">
+                    <i class="fas fa-database text-blue-500"></i>
+                    <div>
+                        <p class="text-xs font-bold">ERP Connector</p>
+                        <p class="text-[9px]">Check Sales/Cost</p>
+                    </div>
+                </div>
+
+                <div :class="['absolute top-[280px] right-[50px] w-40 h-14 rounded-lg border flex items-center justify-center gap-2 transition-all duration-300 z-10', currentNode === 'wms_tool' ? 'node-active text-white scale-105' : 'node-inactive bg-gray-900 text-gray-500']">
+                    <i class="fas fa-warehouse text-yellow-500"></i>
+                    <div>
+                        <p class="text-xs font-bold">WMS Connector</p>
+                        <p class="text-[9px]">Check Stock/IoT</p>
+                    </div>
+                </div>
+
+                <div :class="['absolute top-[400px] left-1/2 -translate-x-1/2 w-48 h-16 rounded-xl border-2 flex items-center justify-center gap-3 transition-all duration-300 z-10', currentNode === 'synthesizer' ? 'node-active text-white scale-110' : 'node-inactive bg-gray-900 text-gray-500']">
+                    <i class="fas fa-pen-nib text-xl"></i>
+                    <div class="text-left">
+                        <p class="text-xs font-bold uppercase">Synthesizer</p>
+                        <p class="text-[10px] font-mono">Final Response</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="w-[450px] border-l border-gray-800 bg-[#0B1120] flex flex-col shadow-2xl z-20">
+            
+            <div class="h-1/2 border-b border-gray-800 p-4 flex flex-col">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest"><i class="fas fa-terminal mr-1"></i> System Logs (Chain of Thought)</h3>
+                    <span v-if="isProcessing" class="text-[10px] text-green-400 animate-pulse">● Processing...</span>
+                </div>
+                <div class="flex-1 bg-black/50 rounded-lg p-3 font-mono text-[10px] overflow-y-auto terminal-scroll border border-gray-800 text-green-500/80 leading-relaxed" id="logs-container">
+                    <div v-for="(log, i) in logs" :key="i" class="mb-1">
+                        <span class="text-gray-600">[{{ log.time }}]</span> 
+                        <span :class="log.color">{{ log.text }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-1/2 flex flex-col bg-gray-900">
+                <div class="flex-1 p-4 overflow-y-auto terminal-scroll space-y-4" id="chat-container">
+                    <div v-for="(msg, i) in messages" :key="i" :class="['flex flex-col', msg.role === 'user' ? 'items-end' : 'items-start']">
+                        <div :class="['max-w-[90%] px-4 py-3 rounded-xl text-sm shadow-md', msg.role === 'user' ? 'bg-th8-red text-white rounded-br-none' : 'bg-gray-800 text-gray-200 border border-gray-700 rounded-bl-none']">
+                            {{ msg.text }}
+                        </div>
+                        <span class="text-[10px] text-gray-600 mt-1">{{ msg.role === 'user' ? 'You' : 'TH8 Agent' }}</span>
+                    </div>
+                </div>
+
+                <div class="p-4 border-t border-gray-800 bg-[#0B1120]">
+                    <div class="flex gap-2 mb-3 overflow-x-auto pb-2 scrollbar-hide">
+                        <button @click="runScenario('promo')" :disabled="isProcessing" class="whitespace-nowrap px-3 py-1 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded text-[10px] text-gray-300 transition">
+                            🚀 Scenario 1: New Year Promo
+                        </button>
+                        <button @click="runScenario('machine')" :disabled="isProcessing" class="whitespace-nowrap px-3 py-1 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded text-[10px] text-gray-300 transition">
+                            ⚠️ Scenario 2: Machine Breakdown
+                        </button>
+                    </div>
+
+                    <div class="relative">
+                        <input type="text" disabled placeholder="Select a scenario above to run simulation..." 
+                            class="w-full bg-gray-950 border border-gray-700 rounded-lg pl-4 pr-10 py-3 text-sm text-gray-400 focus:outline-none cursor-not-allowed">
+                        <button disabled class="absolute right-2 top-2 w-8 h-8 flex items-center justify-center text-gray-600">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<script>
+    const { createApp, ref, nextTick } = Vue;
+
+    createApp({
+        setup() {
+            // State
+            const currentNode = ref(null); // 'planner', 'erp_tool', 'wms_tool', 'synthesizer'
+            const isProcessing = ref(false);
+            const messages = ref([
+                { role: 'agent', text: 'TH8 Orchestrator พร้อมใช้งานครับ ระบบเชื่อมต่อกับ LangGraph Node แล้ว' }
+            ]);
+            const logs = ref([
+                { time: '00:00:01', text: 'System initialized.', color: 'text-gray-400' },
+                { time: '00:00:02', text: 'Waiting for input stream...', color: 'text-gray-400' }
+            ]);
+
+            // Helper: Scroll to bottom
+            const scrollToBottom = (id) => {
+                nextTick(() => {
+                    const container = document.getElementById(id);
+                    if(container) container.scrollTop = container.scrollHeight;
+                });
+            };
+
+            const addLog = (text, type = 'info') => {
+                const now = new Date();
+                const timeStr = now.toTimeString().split(' ')[0];
+                let color = 'text-green-400';
+                if (type === 'error') color = 'text-red-400';
+                if (type === 'warn') color = 'text-yellow-400';
+                if (type === 'system') color = 'text-blue-400';
+                
+                logs.value.push({ time: timeStr, text: text, color: color });
+                scrollToBottom('logs-container');
+            };
+
+            // Scenarios Logic
+            const runScenario = async (type) => {
+                if(isProcessing.value) return;
+                isProcessing.value = true;
+                
+                // 1. User Input
+                const userText = type === 'promo' 
+                    ? "วางแผนโปรโมชั่นปีใหม่ เพิ่มยอด 20% เช็คสต็อกขวดแก้วให้หน่อย" 
+                    : "ไลน์การผลิต A เสีย ซ่อม 2 วัน กระทบออเดอร์ไหนบ้าง?";
+                
+                messages.value.push({ role: 'user', text: userText });
+                scrollToBottom('chat-container');
+                addLog(`Input received: "${userText}"`, 'info');
+
+                // 2. Planner Node
+                await delay(800);
+                currentNode.value = 'planner';
+                addLog('► Node Activated: ORCHESTRATOR (LangChain Planner)', 'system');
+                addLog('Analyzing intent... Intent detected: "Supply Chain Planning"', 'info');
+                
+                // 3. Tool Execution
+                await delay(1500);
+                if (type === 'promo') {
+                    // Scenario 1: ERP -> WMS -> Synthesis
+                    addLog('Plan created: [1. Query Sales History, 2. Check Inventory]', 'system');
+                    
+                    // ERP Step
+                    currentNode.value = 'erp_tool';
+                    addLog('► Node Activated: ERP_CONNECTOR', 'warn');
+                    addLog('Querying SAP S/4HANA: SELECT * FROM sales_forecast WHERE period="Q4"', 'info');
+                    await delay(1200);
+                    addLog('ERP Result: Forecast Target = 120,000 Units', 'green');
+
+                    // WMS Step
+                    currentNode.value = 'wms_tool';
+                    addLog('► Node Activated: WMS_CONNECTOR', 'warn');
+                    addLog('Checking Material Availability: "Glass Bottle Type A"', 'info');
+                    await delay(1200);
+                    addLog('WMS Alert: Stock = 50,000 (Shortage -70,000)', 'error');
+
+                } else {
+                    // Scenario 2: WMS -> ERP -> Synthesis
+                    addLog('Plan created: [1. Check Machine Status, 2. Identify Impacted Orders]', 'system');
+
+                    // WMS Step
+                    currentNode.value = 'wms_tool';
+                    addLog('► Node Activated: IOT_MONITOR', 'warn');
+                    addLog('Querying IoT Gateway: Line A Status', 'info');
+                    await delay(1200);
+                    addLog('IoT Result: Status=DOWN, Est_Fix_Time=48hrs', 'error');
+
+                    // ERP Step
+                    currentNode.value = 'erp_tool';
+                    addLog('► Node Activated: ERP_CONNECTOR', 'warn');
+                    addLog('Mapping Impacted Orders...', 'info');
+                    await delay(1200);
+                    addLog('ERP Result: 3 Critical Orders Delayed (Lotus, BigC, 7-11)', 'warn');
+                }
+
+                // 4. Synthesis Node
+                currentNode.value = 'synthesizer';
+                addLog('► Node Activated: SYNTHESIZER (GPT-4o)', 'system');
+                addLog('Aggregating tool outputs and generating strategic advice...', 'info');
+                await delay(1500);
+
+                // 5. Final Output
+                currentNode.value = null;
+                isProcessing.value = false;
+                
+                let finalText = "";
+                if (type === 'promo') {
+                    finalText = "⚠️ **แจ้งเตือนแผนงาน:**\nจากเป้ายอดขายปีใหม่ (+20%) เราต้องการขวดแก้ว 120,000 ใบ\nแต่ระบบ WMS แจ้งว่ามีของเพียง 50,000 ใบ (ขาด 70,000)\n\n**ข้อเสนอแนะ:**\n1. สั่งซื้อด่วนจาก Supplier B (Lead time 3 วัน)\n2. ปรับลดโปรโมชั่นลงเหลือ +10% เพื่อไม่ให้ของขาด";
+                } else {
+                    finalText = "🚨 **Critical Alert:**\nไลน์ผลิต A เสียกระทบออเดอร์สำคัญ 3 รายการ (Lotus, BigC, 7-11)\nมูลค่าความเสียหายเบื้องต้น 500,000 บาทหากส่งไม่ทัน\n\n**ข้อเสนอแนะ:**\nโยกกำลังการผลิตไปไลน์ B (OT) จะกู้คืนออเดอร์ได้ 80% ครับ";
+                }
+
+                messages.value.push({ role: 'agent', text: finalText });
+                scrollToBottom('chat-container');
+                addLog('Response sent to user.', 'info');
+            };
+
+            const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+            const isActive = (nodeName) => currentNode.value === nodeName;
+
+            return {
+                currentNode,
+                messages,
+                logs,
+                isProcessing,
+                runScenario,
+                isActive
+            };
+        }
+    }).mount('#app');
+</script>
+
+</body>
+</html>

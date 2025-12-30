@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TH8.AI — UX Flow Diagram + UI Wireframe (Ops / Audit / Executive)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    </style>
+  </head>
+
+  <body class="bg-slate-50 text-slate-900">
+    <!-- Top Bar -->
+    <header class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-xl bg-slate-900 text-white grid place-items-center font-semibold">TH8</div>
+          <div class="leading-tight">
+            <div class="text-sm font-semibold">TH8.AI — Agentic Decision Infrastructure</div>
+            <div class="text-xs text-slate-600">UX Flow Diagram (User → System → AI → Audit) + UI Wireframe</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700">
+            SLM-first · LLM-escalation
+          </span>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700">
+            PII-safe · Audit-ready
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10">
+      <!-- Hero -->
+      <section class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div class="space-y-2">
+            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500 font-semibold">
+              Pitch Asset · UX Flow + Wireframe
+            </p>
+            <h1 class="text-2xl md:text-3xl font-semibold tracking-tight">
+              ทำให้ AI “ทำงานในองค์กรได้จริง” ด้วยโครงสร้างการตัดสินใจที่คุมได้
+            </h1>
+            <p class="text-sm md:text-base text-slate-600 max-w-3xl">
+              ผู้ใช้ทำงานตามปกติ → ระบบคุมข้อมูล/ความเสี่ยง → AI ใช้เท่าที่จำเป็น → ทุกอย่างตรวจสอบย้อนหลังได้
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full md:w-auto">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">Outcome</div>
+              <div class="text-sm font-semibold mt-1">Cycle time ลด</div>
+              <div class="text-xs text-slate-600 mt-1">งาน repetitive เร็วขึ้น</div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">Control</div>
+              <div class="text-sm font-semibold mt-1">Cost คุมได้</div>
+              <div class="text-xs text-slate-600 mt-1">SLM-first</div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">Risk</div>
+              <div class="text-sm font-semibold mt-1">PII-safe</div>
+              <div class="text-xs text-slate-600 mt-1">PDPA/Policy</div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">Audit</div>
+              <div class="text-sm font-semibold mt-1">Traceable</div>
+              <div class="text-xs text-slate-600 mt-1">field-level</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- UX FLOW DIAGRAM -->
+      <section class="space-y-4">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-xl md:text-2xl font-semibold">UX Flow Diagram</h2>
+            <p class="text-sm text-slate-600">User → System → AI → Audit (เหมาะสำหรับอธิบาย CFO/COO/Head of IT)</p>
+          </div>
+          <div class="hidden md:flex items-center gap-2 text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Deterministic → Rule/Tool/SLM</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Ambiguous → LLM</span>
+          </div>
+        </div>
+
+        <!-- Diagram -->
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+          <div class="grid lg:grid-cols-4 gap-4">
+            <!-- Column: User -->
+            <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4 space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">1) User</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-700">Ops / QA</span>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Task Ingestion</div>
+                <div class="text-sm font-semibold mt-1">ส่งงานเข้าระบบ</div>
+                <ul class="mt-2 text-xs text-slate-600 list-disc pl-4 space-y-1">
+                  <li>กรอกฟอร์ม / Line / Ticket</li>
+                  <li>หรือระบบยิง API จาก ERP/MES</li>
+                </ul>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Example (Ovaltin)</div>
+                <div class="text-sm font-semibold mt-1">QC Incident</div>
+                <div class="mt-2 text-xs text-slate-600">
+                  Batch ID, Moisture, Note (อาจมีชื่อ/เบอร์)
+                </div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="hidden lg:flex items-center justify-center">
+              <div class="w-full flex items-center">
+                <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center">→</div>
+                <div class="flex-1 h-px bg-slate-200"></div>
+              </div>
+            </div>
+
+            <!-- Column: System -->
+            <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4 space-y-3 lg:col-span-1">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">2) System</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-700">Governed</span>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">PII Redaction</div>
+                <div class="text-sm font-semibold mt-1">ลบข้อมูลอ่อนไหวก่อนเข้า AI</div>
+                <div class="mt-2 text-xs text-slate-600">
+                  email / phone / ID → [REDACTED]
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Task Routing</div>
+                <div class="text-sm font-semibold mt-1">แยกประเภทงาน</div>
+                <div class="mt-2 grid grid-cols-2 gap-2">
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">Deterministic</div>
+                    <div class="text-[11px] text-slate-600 mt-1">QC spec, SQL query</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">Ambiguous</div>
+                    <div class="text-[11px] text-slate-600 mt-1">Root cause, summary</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Tool Permission</div>
+                <div class="text-sm font-semibold mt-1">อนุญาต tool ตาม policy</div>
+                <div class="mt-2 text-xs text-slate-600">
+                  ตัวอย่าง: batch_filter ใช้ SQL ได้ แต่ qc_check ห้าม
+                </div>
+              </div>
+            </div>
+
+            <!-- Column: AI + Audit (stacked on mobile) -->
+            <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4 space-y-3 lg:col-span-1">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">3) AI Layer</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-700">SLM-first</span>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Specialists</div>
+                <div class="text-sm font-semibold mt-1">ใช้ model ให้เหมาะกับงาน</div>
+                <div class="mt-2 grid grid-cols-1 gap-2">
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">Summarizer (SLM)</div>
+                    <div class="text-[11px] text-slate-600 mt-1">exec_summary</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">Classifier (SLM → gate)</div>
+                    <div class="text-[11px] text-slate-600 mt-1">deviation_classify</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">SQL / Tool Agent</div>
+                    <div class="text-[11px] text-slate-600 mt-1">batch_filter</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Confidence Gate + Schema</div>
+                <div class="text-sm font-semibold mt-1">กัน output หลุดรูปแบบ</div>
+                <ul class="mt-2 text-xs text-slate-600 list-disc pl-4 space-y-1">
+                  <li>schema validation (Pydantic)</li>
+                  <li>targeted retry (ซ่อม JSON เฉพาะจุด)</li>
+                  <li>escalate ไป LLM เมื่อจำเป็น</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4 space-y-3 lg:col-span-1">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">4) Audit & Metrics</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200 text-slate-700">Traceable</span>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Field-level Audit</div>
+                <div class="text-sm font-semibold mt-1">รู้ว่า “ลบอะไรไป”</div>
+                <div class="mt-2 text-xs text-slate-600">
+                  pii_audit: field, type, start/end, length
+                </div>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Metrics / Cost</div>
+                <div class="text-sm font-semibold mt-1">คุม OPEX และ SLA</div>
+                <ul class="mt-2 text-xs text-slate-600 list-disc pl-4 space-y-1">
+                  <li>latency_ms</li>
+                  <li>token usage (ถ้ามี)</li>
+                  <li>% escalation rate</li>
+                </ul>
+              </div>
+
+              <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                <div class="text-xs text-slate-500 font-semibold">Outcome</div>
+                <div class="text-sm font-semibold mt-1">AI ใช้ได้จริงในองค์กร</div>
+                <div class="mt-2 grid grid-cols-2 gap-2">
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">Risk ↓</div>
+                    <div class="text-[11px] text-slate-600 mt-1">PDPA/Audit</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] font-semibold">Cost ↓</div>
+                    <div class="text-[11px] text-slate-600 mt-1">SLM-first</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legend (mobile) -->
+          <div class="mt-4 flex flex-wrap gap-2 lg:hidden text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Deterministic → Rule/Tool/SLM</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Ambiguous → LLM</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">PII Redaction → field audit</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- WIREFRAMES -->
+      <section class="space-y-4">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-xl md:text-2xl font-semibold">UI Wireframes</h2>
+            <p class="text-sm text-slate-600">3 มุมมองหลัก: Ops / Audit / Executive (เอาไปใช้ทำ demo ได้)</p>
+          </div>
+          <div class="text-[11px] hidden md:flex gap-2">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Low friction</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Policy-controlled</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Decision trace</span>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-4">
+          <!-- OPS VIEW -->
+          <section class="bg-white border border-slate-200 rounded-3xl overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50">
+              <div class="flex items-center justify-between">
+                <div class="font-semibold">Ops View</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Work Queue</span>
+              </div>
+              <div class="text-xs text-slate-600 mt-1">งานประจำวัน + action ที่ทำได้ทันที (ไม่ต้องรู้เรื่อง model)</div>
+            </div>
+
+            <div class="p-4 space-y-4">
+              <!-- Filters -->
+              <div class="flex flex-wrap gap-2">
+                <div class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">Filter: Today</div>
+                <div class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">Line: All</div>
+                <div class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">Risk: High first</div>
+              </div>
+
+              <!-- Cards -->
+              <div class="space-y-3">
+                <div class="rounded-2xl border border-slate-200 p-3">
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <div class="text-xs text-slate-500 font-semibold">QC Check (Deterministic)</div>
+                      <div class="text-sm font-semibold mt-1">Batch OVT-2512-05 · Moisture 4.2% → FAIL</div>
+                      <div class="text-xs text-slate-600 mt-1">Suggested action: Hold batch + verify sensor</div>
+                    </div>
+                    <span class="text-[11px] px-2 py-1 rounded-full bg-slate-900 text-white">Now</span>
+                  </div>
+                  <div class="mt-3 flex gap-2">
+                    <button class="px-3 py-2 rounded-xl bg-slate-900 text-white text-xs">Create Hold Ticket</button>
+                    <button class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs">View Evidence</button>
+                  </div>
+                </div>
+
+                <div class="rounded-2xl border border-slate-200 p-3">
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <div class="text-xs text-slate-500 font-semibold">Deviation Classify (SLM → Gate)</div>
+                      <div class="text-sm font-semibold mt-1">“Moisture out of spec after supplier change”</div>
+                      <div class="text-xs text-slate-600 mt-1">
+                        Output: Material · Medium · Confidence 0.71 → Escalated
+                      </div>
+                    </div>
+                    <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Escalated</span>
+                  </div>
+                  <div class="mt-3 flex gap-2">
+                    <button class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs">Approve Label</button>
+                    <button class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs">Send to QA</button>
+                  </div>
+                </div>
+
+                <div class="rounded-2xl border border-slate-200 p-3">
+                  <div class="flex items-start justify-between gap-3">
+                    <div>
+                      <div class="text-xs text-slate-500 font-semibold">Root Cause (LLM)</div>
+                      <div class="text-sm font-semibold mt-1">Batch OVT-2512-05 — Hypothesis & checks ready</div>
+                      <div class="text-xs text-slate-600 mt-1">Next: run checks (humidity log, supplier COA)</div>
+                    </div>
+                    <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Review</span>
+                  </div>
+                  <div class="mt-3 flex gap-2">
+                    <button class="px-3 py-2 rounded-xl bg-slate-900 text-white text-xs">Open Checklist</button>
+                    <button class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs">Export PDF</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- AUDIT VIEW -->
+          <section class="bg-white border border-slate-200 rounded-3xl overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50">
+              <div class="flex items-center justify-between">
+                <div class="font-semibold">Audit View</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Trace</span>
+              </div>
+              <div class="text-xs text-slate-600 mt-1">ตรวจย้อนหลังได้: input → redaction → model routing → output</div>
+            </div>
+
+            <div class="p-4 space-y-4">
+              <!-- Trace header -->
+              <div class="rounded-2xl border border-slate-200 p-3">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-xs text-slate-500 font-semibold">Trace ID</div>
+                    <div class="text-sm font-semibold mt-1">9f3a…c21e</div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs text-slate-500 font-semibold">Task</div>
+                    <div class="text-sm font-semibold mt-1">deviation_classify</div>
+                  </div>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-2">
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] text-slate-500 font-semibold">PII</div>
+                    <div class="text-[11px] font-semibold mt-1">2 fields</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] text-slate-500 font-semibold">Routing</div>
+                    <div class="text-[11px] font-semibold mt-1">SLM → LLM</div>
+                  </div>
+                  <div class="rounded-xl bg-slate-50 border border-slate-200 p-2">
+                    <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+                    <div class="text-[11px] font-semibold mt-1">Validated</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PII Audit Table -->
+              <div class="rounded-2xl border border-slate-200 overflow-hidden">
+                <div class="px-3 py-2 bg-slate-50 border-b border-slate-200 text-xs font-semibold">
+                  PII Redaction Audit (field-level)
+                </div>
+                <div class="p-3 space-y-2">
+                  <div class="grid grid-cols-4 gap-2 text-[11px]">
+                    <div class="text-slate-500 font-semibold">Field</div>
+                    <div class="text-slate-500 font-semibold">Type</div>
+                    <div class="text-slate-500 font-semibold">Range</div>
+                    <div class="text-slate-500 font-semibold">Len</div>
+                  </div>
+                  <div class="grid grid-cols-4 gap-2 text-[11px]">
+                    <div class="font-semibold">text</div>
+                    <div>email</div>
+                    <div>9–28</div>
+                    <div>19</div>
+                  </div>
+                  <div class="grid grid-cols-4 gap-2 text-[11px]">
+                    <div class="font-semibold">text</div>
+                    <div>phone</div>
+                    <div>44–54</div>
+                    <div>10</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Timeline -->
+              <div class="rounded-2xl border border-slate-200 p-3">
+                <div class="text-xs font-semibold">Decision Timeline</div>
+                <div class="mt-3 space-y-3">
+                  <div class="flex gap-3">
+                    <div class="w-2 mt-1.5"><div class="h-2 w-2 rounded-full bg-slate-900"></div></div>
+                    <div class="flex-1">
+                      <div class="text-xs font-semibold">Input received</div>
+                      <div class="text-[11px] text-slate-600">payload captured (encrypted at rest)</div>
+                    </div>
+                    <div class="text-[11px] text-slate-500">t+0ms</div>
+                  </div>
+                  <div class="flex gap-3">
+                    <div class="w-2 mt-1.5"><div class="h-2 w-2 rounded-full bg-slate-900"></div></div>
+                    <div class="flex-1">
+                      <div class="text-xs font-semibold">PII redacted</div>
+                      <div class="text-[11px] text-slate-600">email/phone replaced with [REDACTED]</div>
+                    </div>
+                    <div class="text-[11px] text-slate-500">t+12ms</div>
+                  </div>
+                  <div class="flex gap-3">
+                    <div class="w-2 mt-1.5"><div class="h-2 w-2 rounded-full bg-slate-900"></div></div>
+                    <div class="flex-1">
+                      <div class="text-xs font-semibold">SLM classify</div>
+                      <div class="text-[11px] text-slate-600">confidence 0.71 (below 0.75)</div>
+                    </div>
+                    <div class="text-[11px] text-slate-500">t+480ms</div>
+                  </div>
+                  <div class="flex gap-3">
+                    <div class="w-2 mt-1.5"><div class="h-2 w-2 rounded-full bg-slate-900"></div></div>
+                    <div class="flex-1">
+                      <div class="text-xs font-semibold">Escalate + schema-fix retry</div>
+                      <div class="text-[11px] text-slate-600">LLM returns strict JSON</div>
+                    </div>
+                    <div class="text-[11px] text-slate-500">t+980ms</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- EXECUTIVE VIEW -->
+          <section class="bg-white border border-slate-200 rounded-3xl overflow-hidden">
+            <div class="p-4 border-b border-slate-200 bg-slate-50">
+              <div class="flex items-center justify-between">
+                <div class="font-semibold">Executive View</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Business KPI</span>
+              </div>
+              <div class="text-xs text-slate-600 mt-1">เห็นผลลัพธ์ + ต้นทุน + ความเสี่ยง (ไม่ต้องดูรายละเอียดเทคนิค)</div>
+            </div>
+
+            <div class="p-4 space-y-4">
+              <!-- KPI Tiles -->
+              <div class="grid grid-cols-2 gap-3">
+                <div class="rounded-2xl border border-slate-200 p-3">
+                  <div class="text-[11px] text-slate-500 font-semibold">QC Fail (30D)</div>
+                  <div class="text-2xl font-semibold mt-1">7</div>
+                  <div class="text-xs text-slate-600 mt-1">จาก batch ทั้งหมด</div>
+                </div>
+                <div class="rounded-2xl border border-slate-200 p-3">
+                  <div class="text-[11px] text-slate-500 font-semibold">Low Yield (30D)</div>
+                  <div class="text-2xl font-semibold mt-1">11</div>
+                  <div class="text-xs text-slate-600 mt-1">&lt; 95% yield</div>
+                </div>
+                <div class="rounded-2xl border border-slate-200 p-3">
+                  <div class="text-[11px] text-slate-500 font-semibold">LLM Escalation</div>
+                  <div class="text-2xl font-semibold mt-1">18%</div>
+                  <div class="text-xs text-slate-600 mt-1">งานที่ต้องคิดจริง</div>
+                </div>
+                <div class="rounded-2xl border border-slate-200 p-3">
+                  <div class="text-[11px] text-slate-500 font-semibold">AI Cost (Est.)</div>
+                  <div class="text-2xl font-semibold mt-1">฿ —</div>
+                  <div class="text-xs text-slate-600 mt-1">token-based tracking</div>
+                </div>
+              </div>
+
+              <!-- Cost & Control -->
+              <div class="rounded-2xl border border-slate-200 p-3">
+                <div class="text-xs font-semibold">Cost & Control Levers</div>
+                <div class="mt-3 space-y-2">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-600">SLM-first coverage</span>
+                    <span class="font-semibold">82%</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                    <div class="h-2 w-[82%] bg-slate-900 rounded-full"></div>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs mt-3">
+                    <span class="text-slate-600">Avg latency</span>
+                    <span class="font-semibold">~0.8s</span>
+                  </div>
+                  <div class="w-full h-2 rounded-full bg-slate-100 overflow-hidden">
+                    <div class="h-2 w-[55%] bg-slate-900 rounded-full"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Exec Summary Box -->
+              <div class="rounded-2xl border border-slate-200 p-3">
+                <div class="text-xs font-semibold">Executive Summary (Auto)</div>
+                <div class="mt-2 text-xs text-slate-600 leading-relaxed">
+                  1) Key facts: QC fail 7 batches in last 30 days; low yield 11 batches.<br />
+                  2) Risks: supplier variance and humidity spikes correlate with deviations.<br />
+                  3) Recommended actions: tighten COA checks, verify sensors, run humidity log review this week.
+                </div>
+                <div class="mt-3 flex gap-2">
+                  <button class="px-3 py-2 rounded-xl bg-slate-900 text-white text-xs">Open Drill-down</button>
+                  <button class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-xs">Export</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- BUSINESS OBJECTIVES -->
+      <section class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+          <div class="space-y-2">
+            <h2 class="text-xl md:text-2xl font-semibold">Objective → Benefit (เชิงธุรกิจ)</h2>
+            <p class="text-sm text-slate-600 max-w-3xl">
+              ใช้ส่วนนี้เป็น “บทพูด pitch” เพื่อเชื่อม UX กับ ROI/ความเสี่ยงที่ผู้บริหารสนใจ
+            </p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full md:w-auto">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">CFO</div>
+              <div class="text-sm font-semibold mt-1">OPEX คุมได้</div>
+              <div class="text-xs text-slate-600 mt-1">metrics/cost</div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">COO</div>
+              <div class="text-sm font-semibold mt-1">Cycle time ↓</div>
+              <div class="text-xs text-slate-600 mt-1">Ops queue</div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">IT/Risk</div>
+              <div class="text-sm font-semibold mt-1">Audit ได้</div>
+              <div class="text-xs text-slate-600 mt-1">trace & policy</div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">QA</div>
+              <div class="text-sm font-semibold mt-1">Error ↓</div>
+              <div class="text-xs text-slate-600 mt-1">schema gate</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="rounded-2xl border border-slate-200 p-4">
+            <div class="text-xs text-slate-500 font-semibold">Objective</div>
+            <div class="text-sm font-semibold mt-1">ลดความเสี่ยงข้อมูล</div>
+            <div class="mt-2 text-xs text-slate-600">
+              PII redaction + field audit ทำให้ข้อมูลปลอดภัยก่อนเข้า AI
+            </div>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-4">
+            <div class="text-xs text-slate-500 font-semibold">Objective</div>
+            <div class="text-sm font-semibold mt-1">คุมต้นทุน AI</div>
+            <div class="mt-2 text-xs text-slate-600">
+              routing + SLM-first ลดการเรียก LLM กับงานที่ไม่จำเป็น
+            </div>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-4">
+            <div class="text-xs text-slate-500 font-semibold">Objective</div>
+            <div class="text-sm font-semibold mt-1">เพิ่มความน่าเชื่อถือ</div>
+            <div class="mt-2 text-xs text-slate-600">
+              schema validation + targeted retry ทำให้ output ใช้งานได้จริง
+            </div>
+          </div>
+          <div class="rounded-2xl border border-slate-200 p-4">
+            <div class="text-xs text-slate-500 font-semibold">Objective</div>
+            <div class="text-sm font-semibold mt-1">พร้อมสำหรับ audit</div>
+            <div class="mt-2 text-xs text-slate-600">
+              trace id + decision timeline + metrics ช่วยให้ตรวจย้อนหลังได้
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer note -->
+      <section class="text-xs text-slate-500 pb-8">
+        หมายเหตุ: นี่เป็น wireframe สำหรับ pitch/PoC สามารถนำไปแปลงเป็น Vue/React ได้โดยใช้ layout เดิม
+      </section>
+    </main>
+  </body>
+</html>

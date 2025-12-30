@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8 - Enterprise Procurement Governance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #f8fafc; }
+        .sidebar-item-active { background-color: #eff6ff; color: #1d4ed8; border-right: 4px solid #1d4ed8; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col h-screen sticky top-0">
+        <div class="p-6 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-2xl shadow-indigo-200 shadow-lg">8</div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900 leading-none">TH8</h1>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-widest mt-1">Enterprise Core</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto py-4">
+            <div class="px-4 mb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">Main Modules</div>
+            <a href="#" class="flex items-center gap-3 px-6 py-3 text-slate-600 hover:bg-slate-50 transition">📊 Dashboard</a>
+            <a href="#" class="flex items-center gap-3 px-6 py-3 sidebar-item-active font-semibold">⚖️ Maintain Rules</a>
+            <a href="#" class="flex items-center gap-3 px-6 py-3 text-slate-600 hover:bg-slate-50 transition">📚 RAG Knowledge base</a>
+            <a href="#" class="flex items-center gap-3 px-6 py-3 text-slate-600 hover:bg-slate-50 transition">💳 Transactions</a>
+            <a href="#" class="flex items-center gap-3 px-6 py-3 text-slate-600 hover:bg-slate-50 transition flex justify-between">
+                <span>✅ Approval</span>
+                <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full">5</span>
+            </a>
+            
+            <div class="px-4 mt-8 mb-4 text-[10px] font-bold text-slate-400 uppercase tracking-widest">System Admin</div>
+            <a href="#" class="flex items-center gap-3 px-6 py-3 text-slate-600 hover:bg-slate-50 transition">📑 System Logging</a>
+            <a href="#" class="flex items-center gap-3 px-6 py-3 text-slate-600 hover:bg-slate-50 transition">👥 User Accounts</a>
+            <a href="#" class="flex items-center gap-3 px-6 py-3 text-slate-600 hover:bg-slate-50 transition">⚙️ Configuration</a>
+        </nav>
+
+        <div class="p-4 border-t border-slate-100">
+            <div class="bg-slate-50 rounded-2xl p-4 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">JD</div>
+                <div class="overflow-hidden">
+                    <p class="text-sm font-bold text-slate-900 truncate">John Doe (CFO)</p>
+                    <p class="text-xs text-slate-500 truncate">Administrator</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col">
+        
+        <header class="h-16 bg-white border-b border-slate-200 px-8 flex items-center justify-between">
+            <h2 class="text-lg font-semibold text-slate-800">Rule & Policy Maintenance</h2>
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <input type="text" placeholder="Search data..." class="bg-slate-100 border-none rounded-full px-4 py-1.5 text-sm w-64 focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <button class="p-2 text-slate-400 hover:text-indigo-600 relative">
+                    🔔 <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                </button>
+            </div>
+        </header>
+
+        <div class="p-8 overflow-y-auto">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-2">Total Rules</p>
+                    <div class="flex items-end justify-between">
+                        <span class="text-3xl font-bold text-slate-900">42</span>
+                        <span class="text-emerald-500 text-xs font-bold">▲ 4 New</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-2">RAG Documents</p>
+                    <div class="flex items-end justify-between">
+                        <span class="text-3xl font-bold text-slate-900">128</span>
+                        <span class="text-slate-400 text-xs">PDF/Files</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                    <p class="text-slate-400 text-xs font-bold uppercase mb-2">Pending Approval</p>
+                    <div class="flex items-end justify-between">
+                        <span class="text-3xl font-bold text-red-600">05</span>
+                        <button class="text-indigo-600 text-xs font-bold underline">Review All</button>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm bg-indigo-600 text-white">
+                    <p class="text-indigo-200 text-xs font-bold uppercase mb-2">Total Saving (YTD)</p>
+                    <div class="flex items-end justify-between">
+                        <span class="text-2xl font-bold">฿ 4.2M</span>
+                        <span class="text-indigo-200 text-xs">AI Impact</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-white sticky top-0">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Active Procurement Policies</h3>
+                        <p class="text-sm text-slate-500">จัดการกฎเหล็กเพื่อการอนุมัติอัตโนมัติ</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="px-4 py-2 border border-slate-200 rounded-xl text-sm font-semibold hover:bg-slate-50 transition">Export Log</button>
+                        <button class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 shadow-md shadow-indigo-100 transition">+ Create New Rule</button>
+                    </div>
+                </div>
+                
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-slate-50 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                            <th class="px-8 py-4">Rule Name / Description</th>
+                            <th class="px-8 py-4">Category</th>
+                            <th class="px-8 py-4">Logic Flow</th>
+                            <th class="px-8 py-4">Status</th>
+                            <th class="px-8 py-4 text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="px-8 py-5">
+                                <p class="font-bold text-slate-800">Threshold Price Gap</p>
+                                <p class="text-xs text-slate-400">คุมราคาสินค้าสูงกว่าราคาสัญญา</p>
+                            </td>
+                            <td class="px-8 py-5">
+                                <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-[10px] font-bold uppercase">Manufacturing</span>
+                            </td>
+                            <td class="px-8 py-5">
+                                <p class="text-sm text-slate-600">If <span class="font-bold text-slate-900">>15% Variance</span> then <span class="font-bold text-amber-600">Pending</span></p>
+                            </td>
+                            <td class="px-8 py-5">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                                    <span class="text-sm text-slate-700 font-medium">Active</span>
+                                </div>
+                            </td>
+                            <td class="px-8 py-5 text-right">
+                                <button class="text-slate-400 hover:text-indigo-600 text-sm font-bold">Edit</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition">
+                            <td class="px-8 py-5">
+                                <p class="font-bold text-slate-800">IT Software Compliance</p>
+                                <p class="text-xs text-slate-400">ตรวจสอบความปลอดภัยของซอฟต์แวร์</p>
+                            </td>
+                            <td class="px-8 py-5">
+                                <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-[10px] font-bold uppercase">IT & Tech</span>
+                            </td>
+                            <td class="px-8 py-5">
+                                <p class="text-sm text-slate-600">Non-Standard Spec -> <span class="font-bold text-red-600">Reject</span></p>
+                            </td>
+                            <td class="px-8 py-5">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
+                                    <span class="text-sm text-slate-700 font-medium">Active</span>
+                                </div>
+                            </td>
+                            <td class="px-8 py-5 text-right">
+                                <button class="text-slate-400 hover:text-indigo-600 text-sm font-bold">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-slate-800 mb-4 flex items-center gap-2">📑 System Transaction Logging</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 pb-4 border-b border-slate-50">
+                            <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-xs text-slate-500">09:12</div>
+                            <div>
+                                <p class="text-xs font-bold text-slate-700">Auto-Pass Transaction #TX-9042</p>
+                                <p class="text-[10px] text-slate-400">Requester: Somchai | Item: Spare Parts A</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 pb-4 border-b border-slate-50">
+                            <div class="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center text-xs text-amber-500">08:45</div>
+                            <div>
+                                <p class="text-xs font-bold text-amber-700 font-bold underline">Pending: Rule Violation #4 (Price)</p>
+                                <p class="text-[10px] text-slate-400 text-amber-600">Awaiting CFO Approval</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-indigo-50 p-6 rounded-3xl border border-indigo-100 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-bold text-indigo-900 mb-1">ต้องการเพิ่ม Module หรือไม่?</h3>
+                        <p class="text-xs text-indigo-700">TH8 พร้อมขยายไปสู่โมดูล Inventory และ Supplier Audit</p>
+                    </div>
+                    <button class="bg-indigo-600 text-white px-6 py-3 rounded-2xl text-sm font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Request New Feature</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

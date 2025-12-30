@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI – Audit Timeline (Executive / Auditor)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Prompt", system-ui, sans-serif; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+  <div class="max-w-5xl mx-auto px-6 py-10">
+
+    <!-- HEADER -->
+    <header class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-widest text-slate-500">
+          Procurement Decision Audit
+        </p>
+        <h1 class="text-2xl font-semibold mt-1">
+          CASE-PO-OVT-2025-002
+        </h1>
+        <p class="text-sm text-slate-600 mt-1">
+          Vendor: <span class="font-medium">Thai Packaging Solutions Co., Ltd.</span> ·
+          Amount: <span class="font-medium">฿384,000</span>
+        </p>
+      </div>
+
+      <!-- TOGGLE -->
+      <div class="flex items-center gap-2 bg-white border border-slate-200 rounded-lg p-1">
+        <button id="btnExecutive"
+          class="px-4 py-1.5 text-sm rounded-md bg-slate-900 text-white">
+          Executive View
+        </button>
+        <button id="btnAuditor"
+          class="px-4 py-1.5 text-sm rounded-md text-slate-700 hover:bg-slate-100">
+          Auditor View
+        </button>
+      </div>
+    </header>
+
+    <!-- ================= EXECUTIVE VIEW ================= -->
+    <section id="executiveView" class="space-y-6">
+
+      <!-- SUMMARY CARD -->
+      <div class="bg-white border border-slate-200 rounded-xl p-6">
+        <h2 class="font-semibold text-lg mb-2">Decision Summary</h2>
+        <p class="text-sm text-slate-700 leading-relaxed">
+          รายการจัดซื้อถูก
+          <span class="font-semibold text-amber-600">พักการอนุมัติ (Pending)</span>
+          เนื่องจาก
+          <span class="font-semibold">สัญญาหมดอายุ</span>
+          ณ วันที่ออกใบสั่งซื้อ
+        </p>
+
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div class="bg-slate-50 rounded-lg p-3">
+            <p class="text-slate-500 text-xs">Severity</p>
+            <p class="font-semibold text-red-600">HIGH</p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <p class="text-slate-500 text-xs">Violation</p>
+            <p class="font-semibold">Contract Expired (R-04)</p>
+          </div>
+          <div class="bg-slate-50 rounded-lg p-3">
+            <p class="text-slate-500 text-xs">Status</p>
+            <p class="font-semibold text-amber-600">Pending</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECOMMENDATION -->
+      <div class="bg-white border border-slate-200 rounded-xl p-6">
+        <h2 class="font-semibold text-lg mb-2">Recommended Action</h2>
+        <ul class="text-sm text-slate-700 list-disc pl-5 space-y-1">
+          <li>ต่ออายุสัญญากับ Vendor</li>
+          <li>หรือออก PO ใหม่ภายใต้สัญญาที่ถูกต้อง</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= AUDITOR VIEW ================= -->
+    <section id="auditorView" class="hidden">
+
+      <h2 class="font-semibold text-lg mb-6">Audit Timeline (Rule-by-Rule)</h2>
+
+      <div class="relative border-l border-slate-300 pl-6 space-y-8">
+
+        <!-- CASE LOADED -->
+        <div class="relative">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-slate-400"></div>
+          <div class="bg-white border border-slate-200 rounded-lg p-4">
+            <p class="text-xs text-slate-500">System · Case Loaded</p>
+            <p class="text-sm mt-1">
+              ระบบรับข้อมูล PO และ Contract ที่เกี่ยวข้อง
+            </p>
+          </div>
+        </div>
+
+        <!-- RULE PASS -->
+        <div class="relative">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-emerald-500"></div>
+          <div class="bg-white border border-slate-200 rounded-lg p-4">
+            <p class="text-xs text-slate-500">RULE_EVALUATED</p>
+            <h3 class="font-medium mt-1">R-02 · Amount Threshold</h3>
+            <ul class="text-sm mt-2 list-disc pl-5">
+              <li>Amount: ฿384,000</li>
+              <li>Threshold: ฿500,000</li>
+            </ul>
+            <p class="text-sm font-medium text-emerald-700 mt-2">
+              Result: PASS
+            </p>
+          </div>
+        </div>
+
+        <!-- RULE FAIL -->
+        <div class="relative">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-red-500"></div>
+          <div class="bg-white border border-red-200 rounded-lg p-4">
+            <p class="text-xs text-slate-500">RULE_EVALUATED</p>
+            <h3 class="font-medium mt-1 text-red-700">
+              R-04 · Contract Validity
+            </h3>
+            <ul class="text-sm mt-2 list-disc pl-5">
+              <li>PO Date: 2025-01-11</li>
+              <li>Contract Valid To: 2024-12-31</li>
+            </ul>
+            <p class="text-sm font-medium text-red-700 mt-2">
+              Result: FAIL · Severity HIGH
+            </p>
+          </div>
+        </div>
+
+        <!-- CASE PENDING -->
+        <div class="relative">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-amber-500"></div>
+          <div class="bg-white border border-amber-200 rounded-lg p-4">
+            <p class="text-xs text-slate-500">CASE_PENDING</p>
+            <p class="text-sm mt-1">
+              สถานะถูกตั้งเป็น Pending เนื่องจากสัญญาหมดอายุ
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-12 text-xs text-slate-500">
+      TH8.AI · Explainable & Audit-Ready Decision Timeline
+    </footer>
+
+  </div>
+
+  <!-- TOGGLE SCRIPT -->
+  <script>
+    const execBtn = document.getElementById("btnExecutive");
+    const auditBtn = document.getElementById("btnAuditor");
+    const execView = document.getElementById("executiveView");
+    const auditView = document.getElementById("auditorView");
+
+    execBtn.onclick = () => {
+      execView.classList.remove("hidden");
+      auditView.classList.add("hidden");
+      execBtn.classList.add("bg-slate-900","text-white");
+      auditBtn.classList.remove("bg-slate-900","text-white");
+    };
+
+    auditBtn.onclick = () => {
+      auditView.classList.remove("hidden");
+      execView.classList.add("hidden");
+      auditBtn.classList.add("bg-slate-900","text-white");
+      execBtn.classList.remove("bg-slate-900","text-white");
+    };
+  </script>
+
+</body>
+</html>

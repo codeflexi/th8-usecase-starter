@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI – Procurement Audit Timeline</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Prompt", system-ui, sans-serif; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+  <div class="max-w-5xl mx-auto px-6 py-10">
+
+    <!-- HEADER -->
+    <header class="mb-8">
+      <p class="text-xs uppercase tracking-widest text-slate-500">
+        Procurement Decision Audit · Case Timeline
+      </p>
+      <h1 class="text-2xl font-semibold mt-1">
+        CASE-PO-OVT-2025-002
+      </h1>
+      <p class="text-sm text-slate-600 mt-2">
+        Vendor: <span class="font-medium">Thai Packaging Solutions Co., Ltd.</span> ·
+        Amount: <span class="font-medium">฿384,000</span>
+      </p>
+    </header>
+
+    <!-- SUMMARY CARD (Executive / Compliance) -->
+    <section class="bg-white border border-slate-200 rounded-xl p-5 mb-10">
+      <h2 class="font-semibold text-lg mb-2">Decision Summary</h2>
+      <p class="text-sm text-slate-700 leading-relaxed">
+        รายการจัดซื้อถูก <span class="font-semibold text-amber-600">พักการอนุมัติ (Pending)</span>
+        เนื่องจาก <span class="font-semibold">สัญญาหมดอายุ</span>
+        ณ วันที่ออกใบสั่งซื้อ
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-3 text-sm">
+        <span class="px-3 py-1 rounded-full bg-red-100 text-red-700">
+          Severity: HIGH
+        </span>
+        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700">
+          Violations: R-04
+        </span>
+        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700">
+          Status: Pending
+        </span>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section>
+      <h2 class="font-semibold text-lg mb-6">Audit Timeline</h2>
+
+      <div class="relative border-l border-slate-300 pl-6 space-y-8">
+
+        <!-- CASE LOADED -->
+        <div class="relative">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-slate-400"></div>
+          <div class="bg-white border border-slate-200 rounded-lg p-4">
+            <p class="text-xs text-slate-500">2025-01-11 09:02 · System</p>
+            <h3 class="font-medium mt-1">Case Loaded</h3>
+            <p class="text-sm text-slate-700 mt-1">
+              ระบบรับข้อมูลใบสั่งซื้อ (PO) และสัญญาที่เกี่ยวข้อง
+            </p>
+          </div>
+        </div>
+
+        <!-- RULE EVALUATED - PASS -->
+        <div class="relative">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-emerald-500"></div>
+          <div class="bg-white border border-slate-200 rounded-lg p-4">
+            <p class="text-xs text-slate-500">Rule Evaluation</p>
+            <h3 class="font-medium mt-1">
+              R-02 · Amount Threshold
+            </h3>
+            <p class="text-sm text-slate-700 mt-1">
+              มูลค่า ฿384,000 ต่ำกว่าเกณฑ์ CFO Approval (฿500,000)
+            </p>
+            <p class="text-sm text-emerald-700 mt-1 font-medium">
+              Result: PASS
+            </p>
+          </div>
+        </div>
+
+        <!-- RULE EVALUATED - FAIL -->
+        <div class="relative">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-red-500"></div>
+          <div class="bg-white border border-red-200 rounded-lg p-4">
+            <p class="text-xs text-slate-500">Rule Evaluation</p>
+            <h3 class="font-medium mt-1 text-red-700">
+              R-04 · Contract Validity
+            </h3>
+            <ul class="text-sm text-slate-700 mt-2 list-disc pl-5 space-y-1">
+              <li>PO Date: 2025-01-11</li>
+              <li>Contract Valid To: 2024-12-31</li>
+            </ul>
+            <p class="text-sm text-red-700 mt-2 font-medium">
+              Result: FAIL · Severity HIGH
+            </p>
+          </div>
+        </div>
+
+        <!-- CASE PENDING -->
+        <div class="relative">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-amber-500"></div>
+          <div class="bg-white border border-amber-200 rounded-lg p-4">
+            <p class="text-xs text-slate-500">Decision State</p>
+            <h3 class="font-medium mt-1 text-amber-700">
+              Case Marked as Pending
+            </h3>
+            <p class="text-sm text-slate-700 mt-1">
+              เหตุผล: สัญญาหมดอายุหรือยังไม่อยู่ในช่วงที่มีผล
+            </p>
+            <p class="text-sm text-slate-600 mt-2">
+              Recommendation: ต่ออายุสัญญา หรือออก PO ใหม่ภายใต้สัญญาที่ถูกต้อง
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER NOTE -->
+    <footer class="mt-12 text-xs text-slate-500">
+      TH8.AI · Audit-ready decision trace · Generated for executive & compliance review
+    </footer>
+
+  </div>
+</body>
+</html>

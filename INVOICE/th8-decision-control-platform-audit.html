@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI – Monitoring & Audit Logs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{font-family:Prompt,sans-serif}
+    .mono{font-family:ui-monospace,monospace}
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 p-6">
+
+<section class="space-y-6">
+
+  <!-- HEADER -->
+  <div>
+    <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">
+      Monitoring & Audit
+    </p>
+    <h1 class="text-2xl font-semibold mt-1">
+      System Events & Decision Logs
+    </h1>
+    <p class="text-sm text-slate-600 mt-1 max-w-2xl">
+      ตรวจสอบย้อนหลังได้ทุกขั้นตอนโดยไม่แตะ ERP
+    </p>
+  </div>
+
+  <!-- FILTER -->
+  <div class="bg-white border rounded-2xl p-4 grid grid-cols-1 md:grid-cols-4 gap-3">
+    <input class="px-3 py-2 border rounded-xl text-sm" placeholder="Search Case / Event" />
+    <select class="px-3 py-2 border rounded-xl text-sm">
+      <option>All Event Types</option>
+      <option>Policy Check</option>
+      <option>Decision Made</option>
+    </select>
+    <select class="px-3 py-2 border rounded-xl text-sm">
+      <option>All Users</option>
+      <option>CFO</option>
+      <option>Finance Manager</option>
+    </select>
+    <button class="px-3 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold">
+      Export JSON
+    </button>
+  </div>
+
+  <!-- LOG TABLE -->
+  <div class="bg-white border rounded-2xl p-6">
+    <p class="text-sm font-semibold mb-4">
+      Event Timeline
+    </p>
+
+    <div class="space-y-3 text-sm">
+      <div class="p-4 border rounded-xl bg-slate-50">
+        <p class="font-semibold">decision_made</p>
+        <p class="text-xs text-slate-600 mt-1">
+          CASE-INV-017 · Approve with Exception · CFO
+        </p>
+        <p class="text-[11px] mono text-slate-700 mt-2">
+          2025-01-11T14:32:00Z · Policy v1.0
+        </p>
+      </div>
+
+      <div class="p-4 border rounded-xl bg-slate-50">
+        <p class="font-semibold">rule_violation_detected</p>
+        <p class="text-xs text-slate-600 mt-1">
+          INV-02 · Invoice exceeds Contract
+        </p>
+        <p class="text-[11px] mono text-slate-700 mt-2">
+          Evidence: contract_ovt_raw_2024.pdf:6
+        </p>
+      </div>
+    </div>
+  </div>
+
+</section>
+</body>
+</html>

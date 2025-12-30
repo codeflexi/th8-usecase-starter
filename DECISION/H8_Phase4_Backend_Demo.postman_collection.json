@@ -1,0 +1,80 @@
+{
+  "info": {
+    "name": "TH8 Phase 4 – Backend Demo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Backend-only demo for TH8 Decision Platform (Phase 4)"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000/api"
+    },
+    {
+      "key": "case_id",
+      "value": "CASE-PO-OVT-2025-002"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/cases",
+          "host": ["{{base_url}}"],
+          "path": ["cases"]
+        }
+      }
+    },
+    {
+      "name": "List Cases (Portfolio)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/cases",
+          "host": ["{{base_url}}"],
+          "path": ["cases"]
+        }
+      }
+    },
+    {
+      "name": "Get Case Detail",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/cases/{{case_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["cases", "{{case_id}}"]
+        }
+      }
+    },
+    {
+      "name": "Get Case Timeline (Audit)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/cases/{{case_id}}/timeline",
+          "host": ["{{base_url}}"],
+          "path": ["cases", "{{case_id}}", "timeline"]
+        }
+      }
+    },
+    {
+      "name": "Get Audit Events (Query API)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/audit-events?case_id={{case_id}}",
+          "host": ["{{base_url}}"],
+          "path": ["audit-events"],
+          "query": [
+            {
+              "key": "case_id",
+              "value": "{{case_id}}"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

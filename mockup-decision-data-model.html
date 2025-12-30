@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TH8.AI — Context Architecture (Layered) + System → Context → Agent Diagram</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    </style>
+  </head>
+
+  <body class="bg-slate-50 text-slate-900">
+    <!-- Header -->
+    <header class="sticky top-0 z-30 bg-white/80 backdrop-blur border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-xl bg-slate-900 text-white grid place-items-center font-semibold">TH8</div>
+          <div class="leading-tight">
+            <div class="text-sm font-semibold">TH8.AI — Context Architecture for Agentic Systems</div>
+            <div class="text-xs text-slate-600">Layered Context (เหมือน Data Architecture) + System → Context → Agent</div>
+          </div>
+        </div>
+        <div class="hidden md:flex items-center gap-2">
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700">
+            Deterministic → Rule/Tool/SLM
+          </span>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700">
+            Probabilistic → LLM/Hybrid
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-10">
+      <!-- Hero -->
+      <section class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+          <div class="space-y-2">
+            <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500 font-semibold">
+              Infographic · Pitch / Design Blueprint
+            </p>
+            <h1 class="text-2xl md:text-3xl font-semibold tracking-tight">
+              Context Architecture = ให้ AI เห็น “ถูกชั้น · ถูกเวลา · ถูกงาน”
+            </h1>
+            <p class="text-sm md:text-base text-slate-600 max-w-3xl">
+              แทนที่จะกองข้อมูลทั้งหมดให้โมเดล เราออกแบบ Context เป็นชั้น (layers) แบบ Data Architecture:
+              งาน deterministic ใช้ context สด + กฎชัด / งาน probabilistic ใช้ context ที่ curate + สรุปแล้ว
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full md:w-auto">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">Outcome</div>
+              <div class="text-sm font-semibold mt-1">Cycle time ↓</div>
+              <div class="text-xs text-slate-600 mt-1">งานประจำวันเร็วขึ้น</div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">Control</div>
+              <div class="text-sm font-semibold mt-1">Cost คุมได้</div>
+              <div class="text-xs text-slate-600 mt-1">SLM-first routing</div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">Risk</div>
+              <div class="text-sm font-semibold mt-1">PII-safe</div>
+              <div class="text-xs text-slate-600 mt-1">PDPA-ready</div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3">
+              <div class="text-[11px] text-slate-500 font-semibold">Audit</div>
+              <div class="text-sm font-semibold mt-1">Traceable</div>
+              <div class="text-xs text-slate-600 mt-1">field-level</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Layered Context Architecture -->
+      <section class="space-y-4">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-xl md:text-2xl font-semibold">Layered Context Architecture</h2>
+            <p class="text-sm text-slate-600">ออกแบบเหมือน Data Architecture แต่กำหนดว่า “AI ควรเห็นอะไร” ในแต่ละชั้น</p>
+          </div>
+          <div class="hidden md:flex items-center gap-2 text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">L1–L2 ใช้กับ Deterministic</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">L3–L6 ใช้กับ Probabilistic</span>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+          <!-- Layers -->
+          <div class="grid lg:grid-cols-12 gap-4">
+            <!-- Left: Layer Stack -->
+            <div class="lg:col-span-5 space-y-3">
+              <!-- L6 -->
+              <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-semibold">L6 · Session / Interaction</div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">TTL นาที–ชั่วโมง</span>
+                </div>
+                <div class="mt-2 text-xs text-slate-600">
+                  conversation memory, last decisions, short-lived context
+                </div>
+              </div>
+
+              <!-- L5 -->
+              <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-semibold">L5 · Human / Org</div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Event-based</span>
+                </div>
+                <div class="mt-2 text-xs text-slate-600">
+                  owner/approver, workload/queue, escalation path
+                </div>
+              </div>
+
+              <!-- L4 -->
+              <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-semibold">L4 · Rules / Policy / SOP</div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Rare change</span>
+                </div>
+                <div class="mt-2 text-xs text-slate-600">
+                  QC rules, compliance/PDPA, approval matrix (guardrails)
+                </div>
+              </div>
+
+              <!-- L3 -->
+              <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-semibold">L3 · Historical / Pattern</div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Daily/Weekly</span>
+                </div>
+                <div class="mt-2 text-xs text-slate-600">
+                  QC fail trends, yield patterns, deviation history (ควรสรุปก่อนส่งเข้า LLM)
+                </div>
+              </div>
+
+              <!-- L2 -->
+              <div class="rounded-3xl border border-slate-200 bg-white p-4">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-semibold">L2 · Master / Reference</div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-900 text-white">Deterministic</span>
+                </div>
+                <div class="mt-2 text-xs text-slate-600">
+                  product spec, supplier master, BOM/formula (slow-changing truth)
+                </div>
+              </div>
+
+              <!-- L1 -->
+              <div class="rounded-3xl border border-slate-200 bg-white p-4">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-semibold">L1 · Transactional / Operational</div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-900 text-white">Real-time</span>
+                </div>
+                <div class="mt-2 text-xs text-slate-600">
+                  batch events, sensor/QC results, real-time ops signals
+                </div>
+              </div>
+
+              <div class="text-[11px] text-slate-500">
+                จำง่าย: <span class="font-semibold">สด (L1)</span> → <span class="font-semibold">จริง (L2)</span> → <span class="font-semibold">แบบแผน (L3)</span> → <span class="font-semibold">กฎ (L4)</span> → <span class="font-semibold">คน (L5)</span> → <span class="font-semibold">session (L6)</span>
+              </div>
+            </div>
+
+            <!-- Right: Mapping to tasks/models -->
+            <div class="lg:col-span-7 space-y-4">
+              <!-- Mapping box -->
+              <div class="rounded-3xl border border-slate-200 p-5">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-semibold">Mapping → งานแบบไหนควรใช้ context ชั้นไหน</div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">ออกแบบเพื่อคุม cost + risk</span>
+                </div>
+
+                <div class="mt-4 grid md:grid-cols-2 gap-3">
+                  <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                    <div class="text-xs text-slate-500 font-semibold">Deterministic Tasks</div>
+                    <div class="text-sm font-semibold mt-1">input เดิม → output เดิม</div>
+                    <ul class="mt-2 text-xs text-slate-600 list-disc pl-4 space-y-1">
+                      <li>QC spec check</li>
+                      <li>SQL filter (batch/yield)</li>
+                      <li>rule-based decision</li>
+                    </ul>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                      <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Context: L1 + L2 + L4</span>
+                      <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Model: SLM/Tool</span>
+                    </div>
+                  </div>
+
+                  <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                    <div class="text-xs text-slate-500 font-semibold">Probabilistic Tasks</div>
+                    <div class="text-sm font-semibold mt-1">ต้องใช้ reasoning/judgement</div>
+                    <ul class="mt-2 text-xs text-slate-600 list-disc pl-4 space-y-1">
+                      <li>Root cause analysis</li>
+                      <li>Executive summary</li>
+                      <li>Exception narrative</li>
+                    </ul>
+                    <div class="mt-3 flex flex-wrap gap-2">
+                      <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Context: L2 + L3 + L4 + L5</span>
+                      <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Model: LLM/Hybrid</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+                  <div class="text-xs text-slate-500 font-semibold">Key rule</div>
+                  <div class="text-sm font-semibold mt-1">อย่า dump L1 ดิบเข้า LLM</div>
+                  <div class="mt-2 text-xs text-slate-600">
+                    ต้อง normalize + summarize ให้เป็น “evidence pack” ก่อน (ลด token, ลด hallucination, audit ได้)
+                  </div>
+                </div>
+              </div>
+
+              <!-- Example: Ovaltin context pack -->
+              <div class="rounded-3xl border border-slate-200 p-5">
+                <div class="flex items-center justify-between">
+                  <div class="text-sm font-semibold">ตัวอย่าง “Context Pack” (Ovaltin)</div>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">ส่งเข้า agent ได้ทันที</span>
+                </div>
+
+                <div class="mt-4 grid gap-3">
+                  <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                    <div class="text-xs text-slate-500 font-semibold">L1 · Operational</div>
+                    <pre class="mt-2 text-[11px] leading-relaxed whitespace-pre-wrap text-slate-700">{ "batch_id":"OVT-2512-05","moisture":4.2,"yield_pct":93.8,"qc_status":"FAIL","line_id":"LINE-2" }</pre>
+                  </div>
+
+                  <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                    <div class="text-xs text-slate-500 font-semibold">L2 · Master Spec</div>
+                    <pre class="mt-2 text-[11px] leading-relaxed whitespace-pre-wrap text-slate-700">{ "product_code":"OVALTIN-ORIGINAL","moisture_max":4.0,"yield_min":95.0,"version":"v3.2" }</pre>
+                  </div>
+
+                  <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                    <div class="text-xs text-slate-500 font-semibold">L4 · Rule</div>
+                    <pre class="mt-2 text-[11px] leading-relaxed whitespace-pre-wrap text-slate-700">{ "rule_id":"QC-MOIST-01","condition":"moisture &gt; moisture_max","action":"HOLD_BATCH","severity":"HIGH" }</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile legend -->
+          <div class="mt-5 flex flex-wrap gap-2 md:hidden text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">L1–L2: deterministic base</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">L3–L6: reasoning context</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- System → Context → Agent Architecture Diagram -->
+      <section class="space-y-4">
+        <div class="flex items-end justify-between gap-4">
+          <div>
+            <h2 class="text-xl md:text-2xl font-semibold">Architecture Diagram</h2>
+            <p class="text-sm text-slate-600">System → Context Layer → Agent Layer → Output/Audit (พร้อมสำหรับ pitch และ design)</p>
+          </div>
+          <div class="hidden md:flex items-center gap-2 text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">PII Redaction</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Confidence Gate</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Schema Validation</span>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+          <!-- Diagram Grid -->
+          <div class="grid lg:grid-cols-12 gap-4 items-stretch">
+            <!-- Systems -->
+            <div class="lg:col-span-4 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">A) Systems</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Sources</span>
+              </div>
+
+              <div class="mt-3 space-y-3">
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Real-time Ops</div>
+                  <div class="text-sm font-semibold mt-1">MES / PLC / Sensors</div>
+                  <div class="text-xs text-slate-600 mt-1">batch events, QC signals</div>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Enterprise Records</div>
+                  <div class="text-sm font-semibold mt-1">ERP / MDM / PLM</div>
+                  <div class="text-xs text-slate-600 mt-1">spec, master data, BOM</div>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Analytics</div>
+                  <div class="text-sm font-semibold mt-1">DWH / Data Lake</div>
+                  <div class="text-xs text-slate-600 mt-1">history, trends, patterns</div>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Governance</div>
+                  <div class="text-sm font-semibold mt-1">Docs / GRC</div>
+                  <div class="text-xs text-slate-600 mt-1">rules, policy, SOP</div>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">People & Work</div>
+                  <div class="text-sm font-semibold mt-1">HR / Ticket</div>
+                  <div class="text-xs text-slate-600 mt-1">owner, approvals, queue</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="hidden lg:flex lg:col-span-1 items-center justify-center">
+              <div class="w-full flex items-center">
+                <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center">→</div>
+                <div class="flex-1 h-px bg-slate-200"></div>
+              </div>
+            </div>
+
+            <!-- Context Layer -->
+            <div class="lg:col-span-4 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">B) Context Layer</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Curate</span>
+              </div>
+
+              <div class="mt-3 space-y-3">
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Normalization</div>
+                  <div class="text-sm font-semibold mt-1">Schema + IDs</div>
+                  <div class="text-xs text-slate-600 mt-1">ทำให้ L1/L2 เป็นรูปแบบเดียวกัน</div>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">PII Redaction</div>
+                  <div class="text-sm font-semibold mt-1">Mask ก่อนเข้า AI</div>
+                  <div class="text-xs text-slate-600 mt-1">พร้อม field-level audit trail</div>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Context Packs</div>
+                  <div class="text-sm font-semibold mt-1">Evidence Pack</div>
+                  <div class="text-xs text-slate-600 mt-1">สรุป L3/L4/L5 ให้ใช้ได้จริง</div>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Routing Rules</div>
+                  <div class="text-sm font-semibold mt-1">Task → Model/Tools</div>
+                  <div class="text-xs text-slate-600 mt-1">Deterministic vs Probabilistic</div>
+                </div>
+              </div>
+
+              <div class="mt-3 rounded-2xl border border-slate-200 bg-white p-3">
+                <div class="text-xs text-slate-500 font-semibold">Output of Context Layer</div>
+                <div class="text-xs text-slate-700 mt-1">
+                  “clean + relevant + traceable” context only
+                </div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="hidden lg:flex lg:col-span-1 items-center justify-center">
+              <div class="w-full flex items-center">
+                <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center">→</div>
+                <div class="flex-1 h-px bg-slate-200"></div>
+              </div>
+            </div>
+
+            <!-- Agent Layer -->
+            <div class="lg:col-span-2 rounded-3xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex items-center justify-between">
+                <div class="text-sm font-semibold">C) Agent Layer</div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-slate-200">Execute</span>
+              </div>
+
+              <div class="mt-3 space-y-3">
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">SLM Specialists</div>
+                  <div class="text-sm font-semibold mt-1">Fast + Cheap</div>
+                  <div class="text-xs text-slate-600 mt-1">Summarizer / Classifier / SQL</div>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">LLM Escalation</div>
+                  <div class="text-sm font-semibold mt-1">Deep reasoning</div>
+                  <div class="text-xs text-slate-600 mt-1">เฉพาะงานที่จำเป็น</div>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-3">
+                  <div class="text-xs text-slate-500 font-semibold">Guardrails</div>
+                  <div class="text-sm font-semibold mt-1">Gate + Validate</div>
+                  <div class="text-xs text-slate-600 mt-1">confidence gate + schema validation</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Outputs row -->
+          <div class="mt-6 grid md:grid-cols-3 gap-4">
+            <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+              <div class="text-sm font-semibold">Output (Ops)</div>
+              <div class="mt-2 text-xs text-slate-600">
+                งานเข้าคิว → ได้ action ที่ทำได้ทันที (ticket/hold/checklist)
+              </div>
+              <div class="mt-3 flex flex-wrap gap-2 text-[11px]">
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Queue</span>
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Recommendations</span>
+              </div>
+            </div>
+
+            <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+              <div class="text-sm font-semibold">Audit (Risk/IT)</div>
+              <div class="mt-2 text-xs text-slate-600">
+                trace id, pii audit, decision timeline, tool usage
+              </div>
+              <div class="mt-3 flex flex-wrap gap-2 text-[11px]">
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Trace</span>
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Policy</span>
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Evidence</span>
+              </div>
+            </div>
+
+            <div class="rounded-3xl border border-slate-200 bg-slate-50 p-4">
+              <div class="text-sm font-semibold">Executive (CFO/COO)</div>
+              <div class="mt-2 text-xs text-slate-600">
+                KPI + cost + escalation rate (บริหาร AI เป็น asset)
+              </div>
+              <div class="mt-3 flex flex-wrap gap-2 text-[11px]">
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Cost</span>
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200">SLA</span>
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Risk</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer legend -->
+          <div class="mt-5 flex flex-wrap gap-2 md:hidden text-[11px]">
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Systems → Context → Agent</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">PII-safe</span>
+            <span class="px-2 py-1 rounded-full bg-white border border-slate-200">Audit-ready</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Context Tables + Example Data -->
+      <section class="space-y-4">
+        <div>
+          <h2 class="text-xl md:text-2xl font-semibold">Context Tables (Schema) + Example Data</h2>
+          <p class="text-sm text-slate-600">ชุด schema ขั้นต่ำที่ทำให้ระบบ AI “เห็นข้อมูลถูกชั้น” และใช้งานจริงได้</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-4">
+          <!-- L1 -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5">
+            <div class="flex items-center justify-between">
+              <div class="font-semibold">L1 · batch_events</div>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Real-time</span>
+            </div>
+            <div class="mt-3 text-xs text-slate-600">Transactional / Operational context (per batch / per event)</div>
+
+            <div class="mt-4 grid gap-3">
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">batch_id (string)
+event_time (timestamp)
+moisture (float)
+yield_pct (float)
+qc_status (PASS|FAIL)
+line_id (string)</pre>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Example</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">{ "batch_id":"OVT-2512-05","event_time":"2025-12-18T09:32:00Z","moisture":4.2,"yield_pct":93.8,"qc_status":"FAIL","line_id":"LINE-2" }</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- L2 -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5">
+            <div class="flex items-center justify-between">
+              <div class="font-semibold">L2 · product_spec</div>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Daily / Change-based</span>
+            </div>
+            <div class="mt-3 text-xs text-slate-600">Master / Reference context (slow-changing truth)</div>
+
+            <div class="mt-4 grid gap-3">
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">product_code (string)
+moisture_max (float)
+yield_min (float)
+effective_date (date)
+version (string)</pre>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Example</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">{ "product_code":"OVALTIN-ORIGINAL","moisture_max":4.0,"yield_min":95.0,"effective_date":"2025-10-01","version":"v3.2" }</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- L3 -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5">
+            <div class="flex items-center justify-between">
+              <div class="font-semibold">L3 · qc_history_summary</div>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Daily / Weekly</span>
+            </div>
+            <div class="mt-3 text-xs text-slate-600">Historical / Pattern context (ควรสรุปก่อนใช้กับ LLM)</div>
+
+            <div class="mt-4 grid gap-3">
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">product_code (string)
+period (YYYY-MM)
+fail_count (int)
+avg_yield (float)
+top_cause (string)</pre>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Example</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">{ "product_code":"OVALTIN-ORIGINAL","period":"2025-11","fail_count":6,"avg_yield":94.1,"top_cause":"Material variance" }</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- L4 -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5">
+            <div class="flex items-center justify-between">
+              <div class="font-semibold">L4 · qc_rules</div>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Rare change</span>
+            </div>
+            <div class="mt-3 text-xs text-slate-600">Rule / Policy / SOP context (guardrails)</div>
+
+            <div class="mt-4 grid gap-3">
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">rule_id (string)
+condition (string)
+action (string)
+severity (LOW|MEDIUM|HIGH)
+owner (string)</pre>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Example</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">{ "rule_id":"QC-MOIST-01","condition":"moisture &gt; product_spec.moisture_max","action":"HOLD_BATCH","severity":"HIGH","owner":"QA" }</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- L5 -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5">
+            <div class="flex items-center justify-between">
+              <div class="font-semibold">L5 · process_owner</div>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">Event-based</span>
+            </div>
+            <div class="mt-3 text-xs text-slate-600">Human / Organizational context (owner, approver, SLA)</div>
+
+            <div class="mt-4 grid gap-3">
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">process (string)
+owner (string)
+approver (string)
+sla_hours (int)</pre>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Example</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">{ "process":"QC","owner":"QA Manager","approver":"Plant Manager","sla_hours":24 }</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- L6 -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-5">
+            <div class="flex items-center justify-between">
+              <div class="font-semibold">L6 · agent_session_memory</div>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-slate-100 border border-slate-200">TTL นาที–ชั่วโมง</span>
+            </div>
+            <div class="mt-3 text-xs text-slate-600">Session / Interaction context (short-lived memory)</div>
+
+            <div class="mt-4 grid gap-3">
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Schema</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">session_id (string)
+trace_id (string)
+last_task (string)
+last_decision (string)
+expires_at (timestamp)</pre>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <div class="text-[11px] text-slate-500 font-semibold">Example</div>
+                <pre class="mt-2 text-[11px] whitespace-pre-wrap text-slate-700">{ "session_id":"sess-9f3a","trace_id":"trace-c21e","last_task":"deviation_classify","last_decision":"ESCALATED","expires_at":"2025-12-18T10:32:00Z" }</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-500">
+          หมายเหตุ: ใน production สามารถ map ตารางเหล่านี้ไปเป็น (1) relational DB, (2) document store, (3) vector store ได้ตามลักษณะ context
+          แต่ “ชั้น + SLA + governance” ต้องคงไว้
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <section class="pb-10 text-xs text-slate-500">
+        ใช้ไฟล์นี้เป็น pitch/infographic ได้ทันที หรือแปลงเป็น Vue/React โดยยึด layout เดิม
+      </section>
+    </main>
+  </body>
+</html>

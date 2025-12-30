@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8 Enterprise Decision Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Prompt -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    html, body {
+      font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-100 text-slate-900">
+  <main class="min-h-screen flex items-center justify-center">
+    <div class="max-w-4xl w-full px-6 py-16">
+
+      <!-- Header -->
+      <header class="mb-12">
+        <p class="text-xs uppercase tracking-wide text-red-600 font-medium">
+          TH8 · Enterprise Decision Platform
+        </p>
+
+        <h1 class="text-4xl font-semibold mt-3 leading-tight text-slate-900">
+          Enterprise Decision Center
+        </h1>
+
+        <p class="text-base text-slate-600 mt-3 max-w-2xl">
+          A centralized backoffice for governing high-impact operational and
+          procurement decisions with clarity, consistency, and audit readiness.
+        </p>
+      </header>
+
+      <!-- What this system is -->
+      <section class="bg-white rounded-xl border border-slate-200 p-8 mb-8">
+        <h2 class="text-lg font-medium mb-3 text-slate-900">
+          Purpose of this system
+        </h2>
+
+        <p class="text-sm text-slate-600 leading-relaxed max-w-3xl">
+          This Decision Center supports management teams in reviewing cases
+          that require human judgment — such as pricing deviations,
+          contract exceptions, or elevated risk scenarios.
+          <br /><br />
+          The system consolidates policy rules, historical context,
+          and risk signals into a single, explainable view.
+          Final decisions always remain under human authority.
+        </p>
+      </section>
+
+      <!-- Use Cases -->
+      <section class="grid grid-cols-2 gap-6 mb-10">
+        <div class="bg-white rounded-xl border border-slate-200 p-6">
+          <p class="text-xs text-slate-500 mb-1">Use Case</p>
+          <h3 class="font-medium text-slate-900 mb-1">
+            Procurement & Contract Review
+          </h3>
+          <p class="text-sm text-slate-600">
+            Identify pricing deviations, vendor risks, and policy exceptions
+            before approval.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 p-6">
+          <p class="text-xs text-slate-500 mb-1">Use Case</p>
+          <h3 class="font-medium text-slate-900 mb-1">
+            Risk-Based Prioritization
+          </h3>
+          <p class="text-sm text-slate-600">
+            Surface cases that require immediate attention based on
+            financial and compliance exposure.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 p-6">
+          <p class="text-xs text-slate-500 mb-1">Use Case</p>
+          <h3 class="font-medium text-slate-900 mb-1">
+            Audit & Compliance Oversight
+          </h3>
+          <p class="text-sm text-slate-600">
+            Maintain clear decision trails with timestamps,
+            rationale, and accountable actors.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 p-6">
+          <p class="text-xs text-slate-500 mb-1">Use Case</p>
+          <h3 class="font-medium text-slate-900 mb-1">
+            Executive Visibility
+          </h3>
+          <p class="text-sm text-slate-600">
+            Provide leadership with a transparent overview of
+            pending and resolved decisions.
+          </p>
+        </div>
+      </section>
+
+      <!-- Operating Mode -->
+      <section
+        class="bg-slate-900 rounded-xl p-6 mb-10
+               flex justify-between items-center"
+      >
+        <div>
+          <p class="text-xs uppercase tracking-wide text-red-500 font-medium">
+            Current Operating Mode
+          </p>
+          <p class="text-lg font-medium mt-1 text-white">
+            Explain Mode · Human-in-the-Loop
+          </p>
+          <p class="text-sm text-slate-300 mt-1 max-w-xl">
+            The system provides explanations and recommendations only.
+            No automated execution is enabled at this stage.
+          </p>
+        </div>
+
+        <div class="text-sm text-slate-400">
+          Environment: Sandbox
+        </div>
+      </section>
+
+      <!-- Primary Action -->
+      <div class="flex justify-end">
+        <a
+          href="/cases"
+          class="inline-flex items-center px-6 py-3 rounded-lg
+                 bg-slate-900 text-white text-sm font-medium
+                 hover:bg-black transition"
+        >
+          Enter Decision Workspace →
+        </a>
+      </div>
+
+    </div>
+  </main>
+</body>
+</html>

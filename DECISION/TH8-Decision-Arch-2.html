@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TH8.AI — Enterprise Decision Center (Pitch Deck)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html, body {
+        font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
+      .slide {
+        min-height: 100vh;
+        page-break-after: always;
+      }
+      .watermark {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 120px;
+        font-weight: 800;
+        color: rgba(0,0,0,0.04);
+        transform: rotate(-12deg);
+        pointer-events: none;
+        user-select: none;
+      }
+    </style>
+  </head>
+
+  <body class="bg-black text-slate-900">
+
+    <!-- ================= Slide 0 : Cover ================= -->
+    <section class="slide relative bg-black text-white flex items-center">
+      <div class="watermark">TH8.AI</div>
+
+      <div class="max-w-5xl mx-auto px-8 space-y-6">
+        <p class="text-xs uppercase tracking-widest text-red-500 font-semibold">
+          Enterprise Architecture
+        </p>
+        <h1 class="text-4xl md:text-5xl font-semibold leading-tight">
+          TH8.AI<br />
+          Enterprise Decision Center
+        </h1>
+        <p class="text-lg text-slate-300 max-w-3xl">
+          A decision system designed for executives — not dashboards, not chatbots,
+          but controlled, auditable, policy-driven decisions at enterprise scale.
+        </p>
+
+        <div class="pt-6 flex gap-6 text-sm text-slate-400">
+          <span>Decision</span>
+          <span>Audit</span>
+          <span>Control</span>
+          <span>Trust</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Slide 1 : End-to-End Overview ================= -->
+    <section class="slide relative bg-slate-50">
+      <div class="watermark">TH8</div>
+
+      <div class="max-w-6xl mx-auto px-8 py-16 space-y-8">
+        <header class="space-y-3">
+          <p class="text-xs uppercase tracking-wide text-red-600 font-semibold">
+            End-to-End View
+          </p>
+          <h2 class="text-3xl font-semibold">
+            From Enterprise Data to Executive Decisions
+          </h2>
+          <p class="text-slate-600 max-w-3xl">
+            TH8.AI connects operational data, policies, and documents into
+            a single decision flow that executives can trust and auditors can verify.
+          </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="rounded-2xl bg-white border border-slate-200 p-4">
+            <p class="font-semibold">Inputs</p>
+            <p class="text-sm text-slate-600 mt-1">
+              ERP, contracts, documents, events
+            </p>
+          </div>
+          <div class="rounded-2xl bg-white border border-slate-200 p-4">
+            <p class="font-semibold">Decision Engine</p>
+            <p class="text-sm text-slate-600 mt-1">
+              Agentic orchestration under policy control
+            </p>
+          </div>
+          <div class="rounded-2xl bg-white border border-slate-200 p-4">
+            <p class="font-semibold">Evidence & Audit</p>
+            <p class="text-sm text-slate-600 mt-1">
+              Documents, clauses, and traceable rationale
+            </p>
+          </div>
+          <div class="rounded-2xl bg-white border border-slate-200 p-4">
+            <p class="font-semibold">Outputs</p>
+            <p class="text-sm text-slate-600 mt-1">
+              Decisions, reports, executive insight
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Slide 2 : Inputs ================= -->
+    <section class="slide relative bg-white">
+      <div class="watermark">INPUT</div>
+
+      <div class="max-w-6xl mx-auto px-8 py-16 space-y-8">
+        <header class="space-y-3">
+          <p class="text-xs uppercase tracking-wide text-red-600 font-semibold">
+            Layer 1
+          </p>
+          <h2 class="text-3xl font-semibold">
+            Enterprise Data Sources
+          </h2>
+          <p class="text-slate-600 max-w-3xl">
+            TH8.AI does not replace existing systems.
+            It consumes authoritative data where decisions already originate.
+          </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="rounded-2xl border border-sky-200 bg-sky-50 p-5">
+            <p class="font-semibold">ERP & Finance</p>
+            <p class="text-sm text-slate-700 mt-2">
+              Purchase orders, invoices, payments, vendors, amounts, dates.
+            </p>
+          </div>
+          <div class="rounded-2xl border border-sky-200 bg-sky-50 p-5">
+            <p class="font-semibold">Contracts & Documents</p>
+            <p class="text-sm text-slate-700 mt-2">
+              Contract clauses, SOPs, policies — the “rules on paper”.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Slide 3 : Decision Engine ================= -->
+    <section class="slide relative bg-slate-900 text-white">
+      <div class="watermark">ENGINE</div>
+
+      <div class="max-w-6xl mx-auto px-8 py-16 space-y-8">
+        <header class="space-y-3">
+          <p class="text-xs uppercase tracking-wide text-red-500 font-semibold">
+            Layer 2
+          </p>
+          <h2 class="text-3xl font-semibold">
+            TH8 Decision Engine (Agentic, Not Black Box)
+          </h2>
+          <p class="text-slate-300 max-w-3xl">
+            Decisions are orchestrated, explained, and controlled —
+            not generated blindly.
+          </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="rounded-2xl bg-white/10 border border-white/10 p-5">
+            <p class="font-semibold">Intent Routing</p>
+            <p class="text-sm text-slate-300 mt-2">
+              Ask, Approve, Review, Audit — explicit decision intent.
+            </p>
+          </div>
+          <div class="rounded-2xl bg-white/10 border border-white/10 p-5">
+            <p class="font-semibold">Tool Execution</p>
+            <p class="text-sm text-slate-300 mt-2">
+              Calculations, validations, document checks.
+            </p>
+          </div>
+          <div class="rounded-2xl bg-white/10 border border-white/10 p-5">
+            <p class="font-semibold">Explainability</p>
+            <p class="text-sm text-slate-300 mt-2">
+              Every decision comes with a reason.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Slide 4 : Policy & Control ================= -->
+    <section class="slide relative bg-slate-50">
+      <div class="watermark">POLICY</div>
+
+      <div class="max-w-6xl mx-auto px-8 py-16 space-y-8">
+        <header class="space-y-3">
+          <p class="text-xs uppercase tracking-wide text-red-600 font-semibold">
+            Layer 3
+          </p>
+          <h2 class="text-3xl font-semibold">
+            Policy & Control (What Executives Trust)
+          </h2>
+          <p class="text-slate-600 max-w-3xl">
+            AI decisions follow enterprise policy — not prompts.
+          </p>
+        </header>
+
+        <div class="rounded-2xl border border-red-200 bg-red-50 p-6">
+          <ul class="space-y-2 text-slate-800">
+            <li>• Approval thresholds by amount and risk</li>
+            <li>• Auto vs manual decision boundaries</li>
+            <li>• Policy versioning and publish control</li>
+            <li>• Every decision linked to a policy version</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Slide 5 : Evidence & Audit ================= -->
+    <section class="slide relative bg-white">
+      <div class="watermark">EVIDENCE</div>
+
+      <div class="max-w-6xl mx-auto px-8 py-16 space-y-8">
+        <header class="space-y-3">
+          <p class="text-xs uppercase tracking-wide text-red-600 font-semibold">
+            Layer 4
+          </p>
+          <h2 class="text-3xl font-semibold">
+            Evidence, Not Just Answers
+          </h2>
+          <p class="text-slate-600 max-w-3xl">
+            TH8.AI references the exact documents and clauses used in each decision.
+          </p>
+        </header>
+
+        <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
+          <ul class="space-y-2 text-slate-800">
+            <li>• Relevant clauses and SOPs retrieved on demand</li>
+            <li>• Citations and document links in every case</li>
+            <li>• Full audit trail: who, when, why</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Slide 6 : Customer Experience ================= -->
+    <section class="slide relative bg-slate-50">
+      <div class="watermark">UX</div>
+
+      <div class="max-w-6xl mx-auto px-8 py-16 space-y-8">
+        <header class="space-y-3">
+          <p class="text-xs uppercase tracking-wide text-red-600 font-semibold">
+            Layer 5
+          </p>
+          <h2 class="text-3xl font-semibold">
+            What Customers Actually See
+          </h2>
+          <p class="text-slate-600 max-w-3xl">
+            Different roles, different views — one consistent source of truth.
+          </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="rounded-2xl bg-white border border-slate-200 p-5">
+            <p class="font-semibold">Executives</p>
+            <p class="text-sm text-slate-600 mt-2">
+              Risk exposure, amount at risk, decisions pending.
+            </p>
+          </div>
+          <div class="rounded-2xl bg-white border border-slate-200 p-5">
+            <p class="font-semibold">Operators</p>
+            <p class="text-sm text-slate-600 mt-2">
+              Case queues, recommendations, actions.
+            </p>
+          </div>
+          <div class="rounded-2xl bg-white border border-slate-200 p-5">
+            <p class="font-semibold">Audit & IT</p>
+            <p class="text-sm text-slate-600 mt-2">
+              Logs, reports, evidence, policy traceability.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= Slide 7 : Why TH8 ================= -->
+    <section class="slide relative bg-black text-white">
+      <div class="watermark">TH8.AI</div>
+
+      <div class="max-w-6xl mx-auto px-8 py-16 space-y-8">
+        <h2 class="text-3xl font-semibold">
+          Why Enterprises Buy TH8.AI
+        </h2>
+
+        <ul class="space-y-3 text-slate-300 text-lg">
+          <li>• Decisions, not dashboards</li>
+          <li>• AI under policy, not guesswork</li>
+          <li>• Audit-ready by design</li>
+          <li>• Trust for CFO, COO, and Head of IT</li>
+        </ul>
+
+        <p class="pt-6 text-slate-400 text-sm">
+          TH8.AI turns operational complexity into controlled, explainable decisions.
+        </p>
+      </div>
+    </section>
+
+  </body>
+</html>
