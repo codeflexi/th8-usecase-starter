@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>PlanSphere™ FP&A Flow Mockup – TH8 Light Theme</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Prompt", sans-serif; }
+  </style>
+</head>
+
+<body class="bg-neutral-100 text-neutral-800 min-h-screen p-6">
+
+<!-- Container -->
+<div class="max-w-6xl mx-auto space-y-10">
+
+  <!-- Header -->
+  <header class="space-y-3">
+    <p class="text-xs uppercase tracking-widest text-red-600 flex items-center gap-2">
+      <span class="inline-block w-1.5 h-1.5 rounded-full bg-red-500"></span>
+      PlanSphere™ · FP&A AI Suite
+    </p>
+
+    <h1 class="text-3xl font-semibold text-neutral-900">
+      End-to-End FP&A Flow — จาก Budget → Actual → AI Insight (Light Theme)
+    </h1>
+
+    <p class="text-sm text-neutral-600">
+      Mockup หน้าจอแบบ Light Theme ของ TH8.ai สำหรับใช้นำเสนอ FP&A Suite กับลูกค้า
+    </p>
+  </header>
+
+  <!-- Stepper -->
+  <section class="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-widest text-neutral-500">FP&A User Journey</p>
+        <p class="text-sm text-neutral-600">เส้นทางตั้งแต่ “กรอกข้อมูล” → “ดู Insight” → “ถาม–ตอบและ Scenario”</p>
+      </div>
+
+      <ol class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-[11px]">
+        <li class="flex items-center gap-2">
+          <span class="w-6 h-6 flex items-center justify-center rounded-full bg-red-500 text-white text-xs">1</span>
+          Budget Input
+        </li>
+        <span class="hidden md:block flex-1 h-px bg-neutral-300 mx-2"></span>
+
+        <li class="flex items-center gap-2">
+          <span class="w-6 h-6 flex items-center justify-center rounded-full bg-neutral-200 text-neutral-600 text-xs">2</span>
+          Forecast & Driver
+        </li>
+        <span class="hidden md:block flex-1 h-px bg-neutral-300 mx-2"></span>
+
+        <li class="flex items-center gap-2">
+          <span class="w-6 h-6 flex items-center justify-center rounded-full bg-neutral-200 text-neutral-600 text-xs">3</span>
+          Actual vs Plan
+        </li>
+        <span class="hidden md:block flex-1 h-px bg-neutral-300 mx-2"></span>
+
+        <li class="flex items-center gap-2">
+          <span class="w-6 h-6 flex items-center justify-center rounded-full bg-neutral-200 text-neutral-600 text-xs">4</span>
+          AI Insight
+        </li>
+        <span class="hidden md:block flex-1 h-px bg-neutral-300 mx-2"></span>
+
+        <li class="flex items-center gap-2">
+          <span class="w-6 h-6 flex items-center justify-center rounded-full bg-neutral-200 text-neutral-600 text-xs">5</span>
+          Q&A & Scenario
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Main Layout -->
+  <section class="grid md:grid-cols-[220px,minmax(0,1fr)] gap-6">
+
+    <!-- Sidebar -->
+    <aside class="space-y-4">
+
+      <div class="bg-white border border-neutral-200 rounded-2xl p-4 shadow-sm space-y-2">
+        <p class="text-xs uppercase tracking-widest text-neutral-500">Flow Overview</p>
+        <ul class="text-sm space-y-1 text-neutral-700">
+          <li>1) ทีมกรอก Budget</li>
+          <li>2) ปรับ Forecast ตาม Driver</li>
+          <li>3) Actual vs Plan + Variance</li>
+          <li>4) AI สรุป Insight</li>
+          <li>5) ถาม–ตอบ + Scenario</li>
+        </ul>
+      </div>
+
+      <div class="bg-white border border-neutral-200 rounded-2xl p-4 shadow-sm space-y-2">
+        <p class="text-xs uppercase tracking-widest text-neutral-500">Dataset</p>
+        <p class="text-sm text-neutral-700">ตัวอย่างนี้ใช้ FMCG Data (Snack):</p>
+        <ul class="text-sm text-neutral-700 list-disc list-inside">
+          <li>Revenue / COGS / Marketing / Trade</li>
+          <li>Driver: Volume / Price / Promo</li>
+          <li>Product: CrunchyJoy</li>
+        </ul>
+      </div>
+
+    </aside>
+
+    <!-- Screens -->
+    <div class="space-y-6">
+
+      <!-- Screen 1: Budget Input -->
+      <div class="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-4">
+        <div>
+          <p class="text-xs uppercase tracking-widest text-neutral-500">Step 1 · Budget Input</p>
+          <h2 class="text-base font-semibold text-neutral-900">กรอก Budget / Plan สำหรับปี 2025</h2>
+          <p class="text-sm text-neutral-600">แบบฟอร์ม input มาตรฐานเดียวกันสำหรับทั้งองค์กร</p>
+        </div>
+
+        <div class="overflow-x-auto border border-neutral-200 rounded-lg">
+          <table class="min-w-full text-sm">
+            <thead class="bg-neutral-100">
+              <tr>
+                <th class="px-3 py-2 text-left">Account</th>
+                <th class="px-3 py-2 text-right">Jan</th>
+                <th class="px-3 py-2 text-right">Feb</th>
+                <th class="px-3 py-2 text-right">Mar</th>
+                <th class="px-3 py-2 text-right">Apr</th>
+                <th class="px-3 py-2 text-right">…</th>
+                <th class="px-3 py-2 text-right">Dec</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-200">
+              <tr>
+                <td class="px-3 py-2">Revenue</td>
+                <td class="px-3 py-1 text-right"><input class="w-full bg-white border border-neutral-300 rounded px-2 text-right" value="12000000"/></td>
+                <td class="px-3 py-1 text-right"><input class="w-full bg-white border border-neutral-300 rounded px-2 text-right" value="11800000"/></td>
+                <td class="px-3 py-1 text-right"><input class="w-full bg-white border border-neutral-300 rounded px-2 text-right" value="12200000"/></td>
+                <td class="px-3 py-1 text-right"><input class="w-full bg-white border border-neutral-300 rounded px-2 text-right" value="13000000"/></td>
+                <td class="px-3 py-1 text-right text-neutral-400">…</td>
+                <td class="px-3 py-1 text-right"><input class="w-full bg-white border border-neutral-300 rounded px-2 text-right" value="14500000"/></td>
+              </tr>
+              <tr>
+                <td class="px-3 py-2">COGS</td>
+                <td class="px-3 py-1 text-right"><input class="w-full border border-neutral-300 rounded px-2 text-right" value="6480000"/></td>
+                <td class="px-3 py-1 text-right"><input class="w-full border border-neutral-300 rounded px-2 text-right" value="6372000"/></td>
+                <td class="px-3 py-1 text-right"><input class="w-full border border-neutral-300 rounded px-2 text-right" value="6588000"/></td>
+                <td class="px-3 py-1 text-right text-neutral-400">…</td>
+                <td class="px-3 py-1 text-right text-neutral-400">…</td>
+                <td class="px-3 py-1 text-right"><input class="w-full border border-neutral-300 rounded px-2 text-right" value="7830000"/></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="flex justify-between items-center text-sm text-neutral-600">
+          <p>Budget นี้ถูกบันทึกเป็น <strong class="text-red-600">Budget_2025_v1</strong></p>
+          <div class="flex gap-2">
+            <button class="px-3 py-1 border border-neutral-300 rounded-full bg-white">Import Excel</button>
+            <button class="px-3 py-1 border border-red-500 bg-red-500 text-white rounded-full">Save</button>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Screen 2: Forecast -->
+      <div class="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-4">
+        <p class="text-xs uppercase tracking-widest text-neutral-500">Step 2 · Forecast & Driver</p>
+        <h2 class="text-base font-semibold text-neutral-900">Forecast ปรับตาม Driver</h2>
+
+        <div class="grid md:grid-cols-2 gap-4">
+
+          <div class="bg-neutral-50 border border-neutral-200 rounded-xl p-4 space-y-3">
+            <p class="text-sm font-semibold text-neutral-800">
+              Driver Assumptions (2025)
+            </p>
+
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <p class="text-neutral-600">Volume Growth</p>
+                <div class="flex items-center gap-2">
+                  <input class="w-20 px-2 py-1 border border-neutral-300 rounded text-right" value="8"/>
+                  <span>%</span>
+                </div>
+              </div>
+
+              <div>
+                <p class="text-neutral-600">Price Change</p>
+                <div class="flex items-center gap-2">
+                  <input class="w-20 px-2 py-1 border border-neutral-300 rounded text-right" value="3"/>
+                  <span>%</span>
+                </div>
+              </div>
+
+              <div>
+                <p class="text-neutral-600">Promo Depth</p>
+                <div class="flex items-center gap-2">
+                  <input class="w-20 px-2 py-1 border border-neutral-300 rounded text-right" value="-2"/>
+                  <span>pp</span>
+                </div>
+              </div>
+
+              <div>
+                <p class="text-neutral-600">Raw Material Cost</p>
+                <div class="flex items-center gap-2">
+                  <input class="w-20 px-2 py-1 border border-neutral-300 rounded text-right" value="4"/>
+                  <span>%</span>
+                </div>
+              </div>
+            </div>
+
+            <button class="px-4 py-1.5 bg-red-500 text-white rounded-full text-xs">Update Forecast</button>
+          </div>
+
+          <div class="bg-neutral-50 border border-neutral-200 rounded-xl p-4 text-sm space-y-1">
+            <p class="font-semibold text-neutral-800">Forecast Summary</p>
+            <p class="flex justify-between"><span>Revenue</span><span class="text-neutral-700">+3.8%</span></p>
+            <p class="flex justify-between"><span>COGS</span><span class="text-neutral-700">+2.1%</span></p>
+            <p class="flex justify-between"><span>EBITDA</span><span class="text-emerald-600 font-semibold">+4.5 M</span></p>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- Screen 3: Actual vs Plan -->
+      <div class="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-4">
+        <p class="text-xs uppercase tracking-widest text-neutral-500">Step 3 · Actual vs Plan</p>
+        <h2 class="text-base font-semibold text-neutral-900">Variance Analysis — Flag จุดผิดปกติ</h2>
+
+        <div class="overflow-x-auto border border-neutral-200 rounded-xl">
+          <table class="min-w-full text-sm">
+            <thead class="bg-neutral-100">
+              <tr>
+                <th class="px-3 py-2 text-left">Metric</th>
+                <th class="px-3 py-2 text-right">Actual</th>
+                <th class="px-3 py-2 text-right">Plan</th>
+                <th class="px-3 py-2 text-right">Var</th>
+                <th class="px-3 py-2 text-right">Var %</th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-neutral-200">
+              <tr>
+                <td class="px-3 py-2">Revenue</td>
+                <td class="px-3 py-2 text-right">38,200,000</td>
+                <td class="px-3 py-2 text-right">36,800,000</td>
+                <td class="px-3 py-2 text-right text-emerald-600">+1,400,000</td>
+                <td class="px-3 py-2 text-right text-emerald-600">+3.8%</td>
+              </tr>
+
+              <tr>
+                <td class="px-3 py-2">COGS</td>
+                <td class="px-3 py-2 text-right">20,920,000</td>
+                <td class="px-3 py-2 text-right">19,872,000</td>
+                <td class="px-3 py-2 text-right text-red-600">-1,048,000</td>
+                <td class="px-3 py-2 text-right text-red-600">-5.3%</td>
+              </tr>
+
+              <tr>
+                <td class="px-3 py-2">Marketing</td>
+                <td class="px-3 py-2 text-right">3,550,000</td>
+                <td class="px-3 py-2 text-right">3,200,000</td>
+                <td class="px-3 py-2 text-right text-red-600">-350,000</td>
+                <td class="px-3 py-2 text-right text-red-600">-10.9%</td>
+              </tr>
+
+              <tr>
+                <td class="px-3 py-2">EBITDA</td>
+                <td class="px-3 py-2 text-right">6,980,000</td>
+                <td class="px-3 py-2 text-right">6,100,000</td>
+                <td class="px-3 py-2 text-right text-emerald-600">+880,000</td>
+                <td class="px-3 py-2 text-right text-emerald-600">+14.4%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <!-- Screen 4–5: AI & Scenario -->
+      <div class="bg-white border border-neutral-200 rounded-2xl p-5 shadow-sm space-y-5">
+        <p class="text-xs uppercase tracking-widest text-neutral-500">Step 4–5 · AI Insight & Scenario</p>
+        <h2 class="text-base font-semibold text-neutral-900">AI วิเคราะห์ให้ + เล่น What-if Scenario</h2>
+
+        <div class="grid md:grid-cols-2 gap-4">
+
+          <!-- AI Insight -->
+          <div class="bg-neutral-50 border border-neutral-200 rounded-xl p-4 text-sm space-y-2">
+            <p class="font-semibold text-neutral-800">
+              AI FP&A Insight (Q2 2025)
+            </p>
+            <p>1) EBITDA ดีกว่า Budget +14% เพราะ mix ช่วง MT/Online</p>
+            <p>2) COGS สูงขึ้นจากต้นทุนวัตถุดิบ แต่ชดเชยด้วยการขึ้นราคาเฉลี่ย</p>
+            <p>3) Marketing overspend แต่มี impact ต่อยอดขายจริง</p>
+          </div>
+
+          <!-- Scenario Engine -->
+          <div class="bg-neutral-50 border border-neutral-200 rounded-xl p-4 text-sm space-y-3">
+            <p class="font-semibold text-neutral-800">Scenario Engine</p>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <p class="text-neutral-600">ขึ้นราคา</p>
+                <div class="flex items-center gap-2">
+                  <input class="w-20 border border-neutral-300 rounded px-2 text-right" value="2"/>
+                  <span>%</span>
+                </div>
+              </div>
+
+              <div>
+                <p class="text-neutral-600">ลด Trade Spend</p>
+                <div class="flex items-center gap-2">
+                  <input class="w-20 border border-neutral-300 rounded px-2 text-right" value="-10"/>
+                  <span>%</span>
+                </div>
+              </div>
+            </div>
+
+            <button class="px-4 py-1.5 bg-red-500 text-white rounded-full text-xs">Run Scenario</button>
+
+            <p class="text-neutral-700">
+              • EBITDA เพิ่ม +3.6M  
+              • Margin ขยับ 18% → 19.4%  
+              • Risk: Volume อาจลด -2%
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

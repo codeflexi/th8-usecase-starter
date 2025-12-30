@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8 · Pillar 3 – AI Knowledge & Analytics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 p-4 md:p-8">
+
+  <div class="max-w-6xl mx-auto space-y-8">
+
+    <!-- Global Header + Pillar Tabs -->
+    <header class="space-y-4">
+      <div class="flex items-center justify-between gap-4">
+        <div class="space-y-1">
+          <h1 class="text-2xl md:text-3xl font-semibold">
+            TH8 · AI Knowledge &amp; Analytics
+          </h1>
+          <p class="text-sm text-slate-600 max-w-2xl">
+            เปลี่ยนเอกสารกองใหญ่ สัญญา SOP และรายงาน ให้กลายเป็นฐานความรู้ที่ค้นหา–ถามตอบได้จริง  
+            ทั้งพนักงานหน้างานและผู้บริหารเห็น “ภาพเดียวกัน” ใช้ข้อมูลจริงในการตัดสินใจ
+          </p>
+        </div>
+      </div>
+
+      <!-- Pillar Tabs (รองรับทั้ง 3 เสา) -->
+      <div class="inline-flex items-center gap-1 rounded-full bg-white border border-slate-200 p-1 text-xs">
+        <button class="px-3 py-1 rounded-full text-slate-500 hover:text-slate-800">
+          Pillar 1 · AI Agent Suite
+        </button>
+        <button class="px-3 py-1 rounded-full text-slate-500 hover:text-slate-800">
+          Pillar 2 · Workflow Automation
+        </button>
+        <button class="px-3 py-1 rounded-full bg-slate-900 text-white">
+          Pillar 3 · Knowledge &amp; Analytics
+        </button>
+      </div>
+    </header>
+
+    <!-- ================== FRONTLINE VIEW ================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 md:p-6 space-y-5">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            หน้าจอสำหรับพนักงานทั่วไป
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold text-slate-900">
+            Knowledge Copilot · ให้พนักงานถาม–ค้น–เช็ก SOP ได้ในหน้าจอเดียว
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600 mt-1">
+            ใช้งานง่ายเหมือนแชท แต่ผูกกับ SOP, Policy และเอกสารจริงขององค์กร
+          </p>
+        </div>
+
+        <!-- Mini diagram Icon -->
+        <div class="flex items-center gap-2 text-[11px] text-slate-500">
+          <div class="flex -space-x-1">
+            <div class="h-7 w-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[10px]">
+              SOP
+            </div>
+            <div class="h-7 w-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[10px]">
+              Policy
+            </div>
+            <div class="h-7 w-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px]">
+              AI
+            </div>
+          </div>
+          <span>Docs → AI → คำตอบที่อ้างอิงได้</span>
+        </div>
+      </div>
+
+      <!-- Layout: Ask + Answer + Docs -->
+      <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-5 text-xs md:text-sm">
+
+        <!-- Left: Ask AI + Conversation -->
+        <div class="space-y-3">
+          <!-- Search / Ask bar -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2">
+            <label class="text-[11px] font-medium text-slate-600">
+              ถาม AI เกี่ยวกับ SOP / ขั้นตอนการทำงาน
+            </label>
+            <div class="flex items-center gap-2">
+              <div class="flex items-center flex-1 bg-white border border-slate-300 rounded-full px-3 py-2">
+                <svg viewBox="0 0 24 24" class="h-4 w-4 text-slate-400 mr-2">
+                  <circle cx="11" cy="11" r="5" class="fill-none stroke-current" stroke-width="1.4"/>
+                  <path d="M15 15l3 3" class="stroke-current" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                <input
+                  type="text"
+                  placeholder="เช่น “ขั้นตอนอนุมัติ Credit Note สำหรับลูกค้าเก่าเป็นอย่างไร?”"
+                  class="flex-1 bg-transparent text-[11px] md:text-xs focus:outline-none placeholder:text-slate-400"
+                />
+              </div>
+              <button class="px-3 py-2 rounded-full bg-slate-900 text-white text-[11px] font-medium">
+                ถาม AI
+              </button>
+            </div>
+
+            <!-- Quick chips -->
+            <div class="flex flex-wrap gap-2 mt-1">
+              <button class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-[11px]">
+                วิธีเปิด PO ใหม่
+              </button>
+              <button class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-[11px]">
+                ขั้นตอนเคลมสินค้าเสีย
+              </button>
+              <button class="px-2.5 py-1 rounded-full bg-white border border-slate-200 text-[11px]">
+                Policy ส่วนลดลูกค้า
+              </button>
+            </div>
+          </div>
+
+          <!-- Chat / Answer view -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[11px] font-medium text-slate-600">บทสนทนาล่าสุด</span>
+              <span class="text-[11px] text-emerald-600">ตอบจาก SOP ที่ผ่านการอนุมัติแล้ว</span>
+            </div>
+
+            <!-- User question -->
+            <div class="flex items-start gap-2">
+              <div class="h-7 w-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] font-semibold">
+                ME
+              </div>
+              <div class="bg-slate-50 rounded-2xl px-3 py-2 max-w-xs">
+                <p class="text-[11px] md:text-xs text-slate-800">
+                  ถ้าลูกค้าขอส่วนลดเพิ่มเกินกว่า 10% จากราคามาตรฐาน ต้องขออนุมัติใคร?
+                </p>
+              </div>
+            </div>
+
+            <!-- AI answer -->
+            <div class="flex items-start gap-2">
+              <div class="h-7 w-7 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center text-[11px]">
+                AI
+              </div>
+              <div class="bg-slate-900 text-slate-50 rounded-2xl px-3 py-2 max-w-xs space-y-2">
+                <p class="text-[11px] md:text-xs">
+                  สำหรับส่วนลดเกิน 10% แต่ไม่เกิน 20%  
+                  ให้ส่งขออนุมัติหัวหน้าฝ่ายขายประจำ Region ก่อนทุกครั้ง
+                </p>
+                <ul class="list-disc list-inside text-[11px] space-y-0.5 text-slate-100/90">
+                  <li>ส่วนลด &lt;= 10% · อนุมัติได้ในระดับ Sales Supervisor</li>
+                  <li>10–20% · ต้องมีอนุมัติจาก Regional Sales Manager</li>
+                  <li>&gt; 20% · ส่งต่อ Finance &amp; Commercial Team</li>
+                </ul>
+                <p class="text-[10px] text-emerald-300">
+                  อ้างอิงจากเอกสาร: <span class="underline">Discount_Policy_v3.2.pdf</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Escalate / feedback -->
+            <div class="flex items-center gap-3 text-[10px] text-slate-500 pt-1">
+              <span>คำตอบไม่ตรง?</span>
+              <button class="px-2 py-1 rounded-full border border-slate-300 bg-slate-50">
+                ส่งให้ Back Office ตรวจสอบ
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Knowledge Shortcuts / Related Docs -->
+        <div class="space-y-3">
+          <!-- Related docs -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <p class="text-[11px] font-medium text-slate-700">เอกสารที่เกี่ยวข้อง</p>
+              <span class="text-[10px] text-slate-500">ดึงจาก Knowledge Base</span>
+            </div>
+
+            <div class="space-y-2">
+              <!-- Row -->
+              <div class="flex items-start gap-2">
+                <div class="mt-0.5">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 text-slate-500">
+                    <path d="M7 4h8l3 4v10H7z" class="fill-current opacity-70"/>
+                    <path d="M7 4a2 2 0 0 0-2 2v12" class="stroke-current opacity-70" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[11px] font-medium text-slate-800">
+                    Discount_Policy_v3.2.pdf
+                  </p>
+                  <p class="text-[10px] text-slate-500">
+                    Policy ส่วนลดลูกค้า · แก้ไขล่าสุด 12 ก.ย. 2025
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2">
+                <div class="mt-0.5">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 text-slate-500">
+                    <rect x="5" y="4" width="12" height="16" rx="1.5" class="fill-current opacity-70"/>
+                    <path d="M8 9h6M8 12h4" class="stroke-current opacity-95" stroke-width="1.3" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[11px] font-medium text-slate-800">
+                    SOP_Approval_Flow_Sales_2025.xlsx
+                  </p>
+                  <p class="text-[10px] text-slate-500">
+                    ผังกระบวนการอนุมัติส่วนลด · เชื่อมกับ ERP
+                  </p>
+                </div>
+              </div>
+
+              <button class="mt-1 text-[11px] text-slate-600 underline">
+                ดูเอกสารทั้งหมดที่เกี่ยวข้อง (12)
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick area / tag -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 space-y-2">
+            <p class="text-[11px] font-medium text-slate-700">พื้นที่งานยอดนิยม</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 rounded-full bg-slate-100 text-[11px] text-slate-700">
+                การขาย &amp; ส่วนลด
+              </span>
+              <span class="px-2.5 py-1 rounded-full bg-slate-100 text-[11px] text-slate-700">
+                การรับ–จ่ายสินค้า
+              </span>
+              <span class="px-2.5 py-1 rounded-full bg-slate-100 text-[11px] text-slate-700">
+                การวางบิล &amp; เครดิต
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ================== BACK OFFICE VIEW ================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 md:p-6 space-y-5">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            หน้าจอสำหรับ Back Office / Owner ของ Knowledge
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold text-slate-900">
+            Knowledge &amp; Analytics Console · เห็นทั้งเอกสาร การใช้งาน และช่องโหว่
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600 mt-1">
+            ใช้บริหารฐานความรู้, ติดตามคำถามที่ตอบไม่ได้, และดู Insight การใช้งานจากทั้งองค์กร
+          </p>
+        </div>
+
+        <!-- Mini KPI strip -->
+        <div class="flex flex-wrap gap-2 text-[11px]">
+          <div class="px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700">
+            82% คำถามตอบจากเอกสารล่าสุด
+          </div>
+          <div class="px-3 py-1.5 rounded-full bg-amber-50 border border-amber-100 text-amber-700">
+            14 เคส ต้องอัปเดต SOP
+          </div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-5 text-xs md:text-sm">
+
+        <!-- Left: Document Pipeline + Exception Library -->
+        <div class="space-y-4">
+          <!-- Document Pipeline -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="h-8 w-8 rounded-lg bg-slate-900 text-white flex items-center justify-center text-[11px]">
+                  DOC
+                </div>
+                <div>
+                  <p class="text-[11px] font-medium text-slate-800">Document Pipeline</p>
+                  <p class="text-[10px] text-slate-500">สถานะเอกสารในฐานความรู้</p>
+                </div>
+              </div>
+              <button class="px-2.5 py-1 rounded-full border border-slate-300 bg-white text-[10px]">
+                เพิ่มเอกสารใหม่
+              </button>
+            </div>
+
+            <!-- mini status bar -->
+            <div class="flex items-center gap-2 text-[10px]">
+              <span class="text-slate-500">ทั้งหมด 312 เอกสาร</span>
+              <div class="flex-1 h-1.5 rounded-full bg-slate-200 overflow-hidden">
+                <div class="h-full w-2/4 bg-emerald-500"></div>
+              </div>
+              <span class="text-emerald-600 font-medium">48% Ready</span>
+            </div>
+
+            <!-- Table-ish rows -->
+            <div class="space-y-2 pt-1">
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="text-slate-600">Ingest แล้ว · รอ QA</span>
+                <span class="text-slate-800 font-medium">96</span>
+              </div>
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="text-slate-600">ผ่าน QA แล้ว · ใช้งานใน Agent</span>
+                <span class="text-emerald-700 font-semibold">150</span>
+              </div>
+              <div class="flex items-center justify-between text-[11px]">
+                <span class="text-slate-600">ยังไม่ Mapping กับ Process</span>
+                <span class="text-amber-700 font-medium">66</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exception / Gap Library -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="h-8 w-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 text-amber-700">
+                    <path d="M12 4l8 14H4z" class="fill-current opacity-30"/>
+                    <path d="M12 9v4.5" class="stroke-current" stroke-width="1.5" stroke-linecap="round"/>
+                    <circle cx="12" cy="15.5" r="0.7" class="fill-current"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[11px] font-medium text-slate-800">Exception / Gap Library</p>
+                  <p class="text-[10px] text-slate-500">คำถามที่ AI ตอบไม่ได้ หรือคำตอบไม่มั่นใจ</p>
+                </div>
+              </div>
+              <button class="px-2.5 py-1 rounded-full border border-slate-300 bg-slate-50 text-[10px]">
+                เปิดในมุมมองเต็ม
+              </button>
+            </div>
+
+            <div class="space-y-2">
+              <!-- row -->
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <p class="text-[11px] font-medium text-slate-800">
+                    เงื่อนไขให้ส่วนลด “ลูกค้าราชการ”
+                  </p>
+                  <p class="text-[10px] text-slate-500">
+                    ไม่มีเอกสาร Policy กำกับ · ระบบอ้างอิงจากเมลเก่า ๆ
+                  </p>
+                </div>
+                <button class="px-2 py-1 rounded-full bg-slate-900 text-white text-[10px]">
+                  สร้าง SOP
+                </button>
+              </div>
+
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <p class="text-[11px] font-medium text-slate-800">
+                    ขั้นตอน Handling เคสลูกค้าขอคืนสินค้าเกิน 30 วัน
+                  </p>
+                  <p class="text-[10px] text-slate-500">
+                    ระบบตอบไม่ได้ · แนะให้ escalate ไป Supervisor
+                  </p>
+                </div>
+                <button class="px-2 py-1 rounded-full border border-slate-300 text-[10px]">
+                  ผูกกับ SOP ที่มีอยู่
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Usage Analytics -->
+        <div class="space-y-4">
+          <!-- Usage Analytics -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="h-8 w-8 rounded-lg bg-sky-50 border border-sky-200 flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" class="h-4 w-4 text-sky-700">
+                    <path d="M4 18h16" class="stroke-current" stroke-width="1.4" stroke-linecap="round"/>
+                    <rect x="5" y="11" width="3" height="5" class="fill-current opacity-40"/>
+                    <rect x="10.5" y="9" width="3" height="7" class="fill-current opacity-70"/>
+                    <rect x="16" y="7" width="3" height="9" class="fill-current"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-[11px] font-medium text-slate-800">Usage Analytics</p>
+                  <p class="text-[10px] text-slate-500">การใช้งาน AI Knowledge ทั้งองค์กร</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 text-[10px]">
+              <div class="bg-white rounded-lg border border-slate-200 p-2">
+                <p class="text-slate-500">คำถามต่อวัน</p>
+                <p class="text-base font-semibold text-slate-900">328</p>
+                <p class="text-[10px] text-emerald-600 mt-0.5">+18% vs last week</p>
+              </div>
+              <div class="bg-white rounded-lg border border-slate-200 p-2">
+                <p class="text-slate-500">Self-service</p>
+                <p class="text-base font-semibold text-slate-900">72%</p>
+                <p class="text-[10px] text-slate-500 mt-0.5">ไม่ต้องถามคน</p>
+              </div>
+              <div class="bg-white rounded-lg border border-slate-200 p-2">
+                <p class="text-slate-500">ทีมที่ใช้เยอะสุด</p>
+                <p class="text-[11px] font-semibold text-slate-900 mt-0.5">
+                  Sales / CS
+                </p>
+              </div>
+            </div>
+
+            <!-- Top topics -->
+            <div class="space-y-1 pt-1">
+              <p class="text-[11px] font-medium text-slate-700">หัวข้อที่ถูกถามบ่อย</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200 text-[10px]">
+                  ส่วนลด &amp; โปรโมชั่น (82)
+                </span>
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200 text-[10px]">
+                  การคืนสินค้า (54)
+                </span>
+                <span class="px-2 py-1 rounded-full bg-white border border-slate-200 text-[10px]">
+                  การวางบิล / เครดิต (47)
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Governance note -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 space-y-2">
+            <p class="text-[11px] font-medium text-slate-800">
+              Governance &amp; Owner ชัดเจน
+            </p>
+            <p class="text-[11px] text-slate-600">
+              แต่ละ SOP / Policy มีเจ้าของชัดเจน (Owner) และวันที่ต้องทบทวน (Review date)  
+              ระบบเตือน Back Office ล่วงหน้า ถ้าเอกสารใกล้หมดอายุ หรือมี Exception ซ้ำ ๆ เกิดขึ้น
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

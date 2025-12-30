@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8 · Pillar 1 & 2 – Agent & Workflow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 p-4 md:p-8">
+
+  <div class="max-w-6xl mx-auto space-y-10">
+
+    <!-- GLOBAL HEADER -->
+    <header class="space-y-3">
+      <h1 class="text-2xl md:text-3xl font-semibold">
+        TH8 · Agentic System Screens
+      </h1>
+      <p class="text-sm text-slate-600 max-w-2xl">
+        ตัวอย่างหน้าจอการใช้งานสำหรับพนักงานทั่วไป และ Back Office / Owner  
+        ออกแบบให้รองรับ 3 Pillars ของ TH8.AI: Agent Suite, Workflow Automation และ Knowledge &amp; Analytics
+      </p>
+
+      <!-- Pillar Tabs (Concept) -->
+      <div class="inline-flex items-center gap-1 rounded-full bg-white border border-slate-200 p-1 text-xs mt-1">
+        <button class="px-3 py-1 rounded-full bg-slate-900 text-white">
+          Pillar 1 · AI Agent Suite
+        </button>
+        <button class="px-3 py-1 rounded-full text-slate-600 hover:text-slate-900">
+          Pillar 2 · Workflow Automation
+        </button>
+        <button class="px-3 py-1 rounded-full text-slate-600 hover:text-slate-900">
+          Pillar 3 · Knowledge &amp; Analytics
+        </button>
+      </div>
+    </header>
+
+    <!-- ===================================== -->
+    <!-- PILLAR 1 – AI AGENT SUITE -->
+    <!-- ===================================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 md:p-6 space-y-5">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            Pillar 1 · AI Agent Suite
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold text-slate-900">
+            หน้าจอใช้งาน Agent Suite · ให้ AI ช่วยงานหลักของทีมขาย การเงิน และปฏิบัติการ
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600 mt-1 max-w-xl">
+            ชุดผู้ช่วย AI สำหรับทีมการตลาด, ขาย, การเงิน, ปฏิบัติการ และโลจิสติกส์  
+            เช่น FP&amp;A Copilot, Inventory &amp; Replenishment, Route Planner, Document QC
+          </p>
+        </div>
+
+        <!-- Pillar 1 mini icon -->
+        <div class="flex items-center gap-2 text-[11px] text-slate-500">
+          <div class="flex -space-x-1">
+            <div class="h-7 w-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px]">
+              AG
+            </div>
+            <div class="h-7 w-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[10px]">
+              OPS
+            </div>
+            <div class="h-7 w-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[10px]">
+              FIN
+            </div>
+          </div>
+          <span>แยก Agent ตามหน้าที่งาน</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-5 text-xs md:text-sm">
+
+        <!-- FRONTLINE: AGENT HUB -->
+        <div class="space-y-4">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-[11px] font-medium text-slate-700">Agent Hub · สำหรับพนักงานหน้างาน</p>
+                <p class="text-[10px] text-slate-500">
+                  เลือก Agent ตามงาน · ให้ AI ช่วยเตรียมข้อมูล / เช็กความถูกต้อง / แนะนำขั้นตอนถัดไป
+                </p>
+              </div>
+              <!-- big TH8 icon -->
+              <div class="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[11px] font-semibold">
+                TH8
+              </div>
+            </div>
+
+            <!-- Agent list -->
+            <div class="grid grid-cols-2 gap-3 text-[11px]">
+              <button class="bg-white rounded-xl border border-slate-200 p-3 text-left space-y-1 hover:border-slate-400">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">FP&amp;A Copilot</span>
+                  <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+                    Active
+                  </span>
+                </div>
+                <p class="text-[10px] text-slate-500">
+                  สรุปตัวเลข · ทำ Scenario · เตรียม Insight ให้ผู้บริหาร
+                </p>
+              </button>
+
+              <button class="bg-white rounded-xl border border-slate-200 p-3 text-left space-y-1 hover:border-slate-400">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">Inventory Agent</span>
+                  <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+                    Active
+                  </span>
+                </div>
+                <p class="text-[10px] text-slate-500">
+                  เช็กสต็อก · เตือน Replenishment · แนะนำ Order ปรับสมดุล
+                </p>
+              </button>
+
+              <button class="bg-white rounded-xl border border-slate-200 p-3 text-left space-y-1 hover:border-slate-400">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">Route Planner</span>
+                  <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-100">
+                    High load
+                  </span>
+                </div>
+                <p class="text-[10px] text-slate-500">
+                  แนะนำเส้นทาง · รวม Drop · ลดระยะทางและค่าน้ำมัน
+                </p>
+              </button>
+
+              <button class="bg-white rounded-xl border border-slate-200 p-3 text-left space-y-1 hover:border-slate-400">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-slate-800">Document QC Agent</span>
+                  <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                    On duty
+                  </span>
+                </div>
+                <p class="text-[10px] text-slate-500">
+                  ตรวจ PO / Invoice / Contract ให้ตรงเงื่อนไข
+                </p>
+              </button>
+            </div>
+          </div>
+
+          <!-- Agent interaction example -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <p class="text-[11px] font-medium text-slate-700">
+                ตัวอย่างการใช้งาน · Inventory Agent
+              </p>
+              <span class="text-[10px] text-slate-500">View as: พนักงานคลังสินค้า</span>
+            </div>
+
+            <div class="space-y-2">
+              <!-- prompt row -->
+              <div class="bg-slate-50 rounded-xl px-3 py-2 text-[11px]">
+                <p class="text-slate-800">
+                  “ช่วยเช็กให้หน่อยว่าสินค้า Top 20 ที่ใกล้หมดในสาขาเชียงใหม่ มีตัวไหนต้องสั่งภายใน 3 วัน?”
+                </p>
+              </div>
+
+              <!-- agent response summary -->
+              <div class="bg-slate-900 text-slate-50 rounded-xl px-3 py-2 space-y-2">
+                <p class="text-[11px]">
+                  พบสินค้าที่ควรสั่งเพิ่มภายใน 3 วันจำนวน <span class="font-semibold">7 รายการ</span> จาก Top 20:
+                </p>
+                <ul class="list-disc list-inside text-[11px] space-y-0.5 text-slate-100/90">
+                  <li>3 รายการ Stock ต่ำกว่า Safety stock</li>
+                  <li>2 รายการติด Promotion · Demand สูงกว่าปกติ</li>
+                  <li>2 รายการ Lead time นาน · ต้องสั่งล่วงหน้า</li>
+                </ul>
+                <p class="text-[10px] text-emerald-300">
+                  ระบบเตรียม Draft PO ให้แล้ว · ส่งให้หัวหน้าอนุมัติก่อนยิงเข้า ERP
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BACK OFFICE: AGENT MANAGEMENT -->
+        <div class="space-y-4">
+          <!-- Agent Performance Panel -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[11px]">
+                  MG
+                </div>
+                <div>
+                  <p class="text-[11px] font-medium text-slate-800">Agent Performance Console</p>
+                  <p class="text-[10px] text-slate-500">สำหรับ Owner / Back Office</p>
+                </div>
+              </div>
+              <button class="px-2.5 py-1 rounded-full border border-slate-300 bg-white text-[10px]">
+                ตั้งค่า Agent
+              </button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 text-[10px]">
+              <div class="bg-white rounded-lg border border-slate-200 p-2">
+                <p class="text-slate-500">งานที่ Agent จัดการ</p>
+                <p class="text-base font-semibold text-slate-900">1,284</p>
+                <p class="text-[10px] text-emerald-600 mt-0.5">+22% vs last week</p>
+              </div>
+              <div class="bg-white rounded-lg border border-slate-200 p-2">
+                <p class="text-slate-500">งานเข้า Human loop</p>
+                <p class="text-base font-semibold text-slate-900">96</p>
+                <p class="text-[10px] text-slate-500 mt-0.5">7.5% ของทั้งหมด</p>
+              </div>
+              <div class="bg-white rounded-lg border border-slate-200 p-2">
+                <p class="text-slate-500">Use case ที่ใช้เยอะสุด</p>
+                <p class="text-[11px] font-semibold text-slate-900 mt-0.5">
+                  Inventory &amp; Route
+                </p>
+              </div>
+            </div>
+
+            <!-- mini list per agent -->
+            <div class="space-y-1 pt-1">
+              <p class="text-[11px] font-medium text-slate-700">สรุปตาม Agent</p>
+              <div class="space-y-1">
+                <div class="flex items-center justify-between text-[10px]">
+                  <span class="text-slate-600">FP&amp;A Copilot</span>
+                  <span class="text-slate-900 font-medium">92 เคส/วัน · 3% Escalation</span>
+                </div>
+                <div class="flex items-center justify-between text-[10px]">
+                  <span class="text-slate-600">Inventory Agent</span>
+                  <span class="text-slate-900 font-medium">148 เคส/วัน · 5% Escalation</span>
+                </div>
+                <div class="flex items-center justify-between text-[10px]">
+                  <span class="text-slate-600">Route Planner</span>
+                  <span class="text-amber-700 font-medium">สูง · 11% Manual override</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Agent Configuration / Guardrail -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 space-y-2">
+            <p class="text-[11px] font-medium text-slate-800">
+              ขอบเขตการตัดสินใจของ Agent (Guardrail)
+            </p>
+            <p class="text-[11px] text-slate-600">
+              สามารถกำหนดได้ว่า Agent แต่ละตัว “อนุมัติเองได้แค่ไหน”  
+              เช่น FP&amp;A Copilot ทำ Scenario ได้เต็มที่ แต่การ Post ตัวเลขเข้า ERP ยังต้องผ่านคนอนุมัติ
+            </p>
+            <div class="mt-2 grid grid-cols-2 gap-2 text-[10px]">
+              <div class="bg-slate-50 rounded-lg border border-slate-200 p-2">
+                <p class="font-medium text-slate-700">FP&amp;A Copilot</p>
+                <p class="text-slate-500">อ่าน/เขียนใน Data mart ได้ · ห้าม Post เข้า GL ตรง</p>
+              </div>
+              <div class="bg-slate-50 rounded-lg border border-slate-200 p-2">
+                <p class="font-medium text-slate-700">Inventory Agent</p>
+                <p class="text-slate-500">สร้าง Draft PO ได้ · ต้องมีคนกดอนุมัติก่อนยิงเข้า ERP</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================== -->
+    <!-- PILLAR 2 – WORKFLOW AUTOMATION -->
+    <!-- ===================================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 md:p-6 space-y-5">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            Pillar 2 · AI Workflow Automation
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold text-slate-900">
+            หน้าจอ Workflow Automation · ทำให้ระบบ “คุยกันเอง” ลดคีย์มือ ลดเช็กข้ามระบบ
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600 mt-1 max-w-xl">
+            เชื่อมระบบ ERP, WMS, CRM, Sheet, Email, LINE OA  
+            ทำให้ข้อมูลไหลอัตโนมัติ ลดเคสตกหล่น และเห็นสถานะงานปลายทางชัดขึ้นทั้งทีมหน้า–หลังบ้าน
+          </p>
+        </div>
+
+        <!-- Pillar 2 mini icon -->
+        <div class="flex items-center gap-2 text-[11px] text-slate-500">
+          <div class="flex -space-x-1">
+            <div class="h-7 w-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[10px]">
+              ERP
+            </div>
+            <div class="h-7 w-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-[10px]">
+              WMS
+            </div>
+            <div class="h-7 w-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px]">
+              FLOW
+            </div>
+          </div>
+          <span>ระบบเดิม + Flow ใหม่</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-5 text-xs md:text-sm">
+
+        <!-- FRONTLINE: MY WORKFLOWS -->
+        <div class="space-y-4">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-[11px] font-medium text-slate-700">My Workflows · หน้าจอพนักงาน</p>
+                <p class="text-[10px] text-slate-500">
+                  ให้พนักงานเห็นว่า Automation ทำอะไรแทนอยู่แล้ว และตรงไหนที่ยังต้องกดเอง
+                </p>
+              </div>
+              <div class="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[11px]">
+                WF
+              </div>
+            </div>
+
+            <!-- list workflows -->
+            <div class="space-y-2">
+              <div class="bg-white rounded-lg border border-slate-200 p-2.5 flex items-start justify-between gap-2">
+                <div>
+                  <p class="text-[11px] font-semibold text-slate-800">
+                    Auto Create Invoice จาก Delivery Note
+                  </p>
+                  <p class="text-[10px] text-slate-500">
+                    เมื่อ WMS ปิดงานส่งของ · ระบบสร้าง Draft Invoice ใน ERP ให้โดยอัตโนมัติ
+                  </p>
+                  <p class="text-[10px] text-emerald-600 mt-0.5">
+                    ทำงานอัตโนมัติ · 186 ครั้งใน 7 วันที่ผ่านมา
+                  </p>
+                </div>
+                <div class="flex flex-col items-end gap-1">
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-100 text-[10px] text-emerald-700">
+                    Active
+                  </span>
+                  <button class="text-[10px] underline text-slate-500">
+                    ดูตัวอย่าง Invoice
+                  </button>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-lg border border-slate-200 p-2.5 flex items-start justify-between gap-2">
+                <div>
+                  <p class="text-[11px] font-semibold text-slate-800">
+                    Sync Order จาก LINE OA → ERP
+                  </p>
+                  <p class="text-[10px] text-slate-500">
+                    เมื่อมีคำสั่งซื้อจาก LINE OA · ระบบแปลงเป็น Sales Order โดยใช้ Mapping ที่กำหนดไว้
+                  </p>
+                  <p class="text-[10px] text-amber-600 mt-0.5">
+                    มี 9 เคสล่าสุดที่ต้องตรวจสอบข้อมูลลูกค้า
+                  </p>
+                </div>
+                <div class="flex flex-col items-end gap-1">
+                  <span class="px-2 py-0.5 rounded-full bg-amber-50 border border-amber-100 text-[10px] text-amber-700">
+                    Human check
+                  </span>
+                  <button class="text-[10px] underline text-slate-500">
+                    เปิดเคสค้าง
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline / Activity -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <p class="text-[11px] font-medium text-slate-700">วันนี้ Automation ทำอะไรไปแล้วบ้าง?</p>
+              <span class="text-[10px] text-slate-500">Activity Timeline</span>
+            </div>
+
+            <div class="space-y-2 text-[10px]">
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></div>
+                <div>
+                  <p class="text-slate-800">
+                    09:12 · สร้าง Draft Invoice 24 ใบ จาก Delivery Note ของเมื่อวาน
+                  </p>
+                  <p class="text-slate-500">
+                    Workflow: Auto Create Invoice · ไม่มี Error
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2 w-2 rounded-full bg-amber-500"></div>
+                <div>
+                  <p class="text-slate-800">
+                    10:03 · พบ 3 Order จาก LINE OA ที่ไม่มี Tax ID
+                  </p>
+                  <p class="text-slate-500">
+                    Workflow: Sync Order LINE → ERP · ส่งแจ้งเตือนให้ทีม CS ผ่าน Email
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-2">
+                <div class="mt-1 h-2 w-2 rounded-full bg-slate-400"></div>
+                <div>
+                  <p class="text-slate-800">
+                    10:45 · อัปเดตสถานะ “จัดส่งแล้ว” ใน CRM จากข้อมูลขนส่ง
+                  </p>
+                  <p class="text-slate-500">
+                    Workflow: Delivery Status Sync · 58 เคส
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BACK OFFICE: WORKFLOW DESIGN & MONITOR -->
+        <div class="space-y-4">
+          <!-- Designer / Catalog -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[11px]">
+                  DW
+                </div>
+                <div>
+                  <p class="text-[11px] font-medium text-slate-800">Workflow Catalog &amp; Designer</p>
+                  <p class="text-[10px] text-slate-500">สำหรับ IT / Process Owner</p>
+                </div>
+              </div>
+              <button class="px-2.5 py-1 rounded-full border border-slate-300 bg-white text-[10px]">
+                + สร้าง Workflow ใหม่
+              </button>
+            </div>
+
+            <!-- simple flow view (concept) -->
+            <div class="bg-white border border-slate-200 rounded-lg p-2.5 space-y-2 text-[10px]">
+              <p class="text-slate-600 font-medium">ตัวอย่าง Flow: Sync Order จาก LINE → ERP</p>
+              <div class="flex items-center justify-between gap-1">
+                <div class="flex-1 flex items-center justify-center">
+                  <div class="px-2 py-1 rounded-lg bg-slate-900 text-white text-[10px]">
+                    LINE Webhook
+                  </div>
+                </div>
+                <span class="text-slate-400">→</span>
+                <div class="flex-1 flex items-center justify-center">
+                  <div class="px-2 py-1 rounded-lg bg-slate-100 border border-slate-200 text-[10px]">
+                    Data Mapping &amp; Validation
+                  </div>
+                </div>
+                <span class="text-slate-400">→</span>
+                <div class="flex-1 flex items-center justify-center">
+                  <div class="px-2 py-1 rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-700 text-[10px]">
+                    Create Sales Order (ERP)
+                  </div>
+                </div>
+              </div>
+              <p class="text-slate-500 mt-1">
+                สามารถกำหนดได้ว่า ถ้าข้อมูลไม่ครบ · ให้ส่งเคสไปให้ทีม CS หรือย้อนกลับไปหา Agent Suite ช่วยถามเพิ่ม
+              </p>
+            </div>
+          </div>
+
+          <!-- Monitoring & Error Panel -->
+          <div class="bg-white border border-slate-200 rounded-xl p-3 space-y-3">
+            <div class="flex items-center justify-between">
+              <p class="text-[11px] font-medium text-slate-800">Monitoring &amp; Error Tracking</p>
+              <span class="text-[10px] text-slate-500">มุมมองรวมทุก Workflow</span>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 text-[10px]">
+              <div class="bg-slate-50 rounded-lg border border-slate-200 p-2">
+                <p class="text-slate-500">Workflow ที่ Active</p>
+                <p class="text-base font-semibold text-slate-900">27</p>
+              </div>
+              <div class="bg-slate-50 rounded-lg border border-slate-200 p-2">
+                <p class="text-slate-500">Success rate</p>
+                <p class="text-base font-semibold text-emerald-700">96.4%</p>
+              </div>
+              <div class="bg-slate-50 rounded-lg border border-slate-200 p-2">
+                <p class="text-slate-500">Error/วัน</p>
+                <p class="text-base font-semibold text-amber-700">18</p>
+              </div>
+            </div>
+
+            <!-- table-ish per flow -->
+            <div class="space-y-1 pt-1">
+              <div class="flex items-center justify-between text-[10px]">
+                <span class="text-slate-600">
+                  Auto Create Invoice
+                </span>
+                <span class="text-emerald-700 font-medium">
+                  99.2% · 2 Error
+                </span>
+              </div>
+              <div class="flex items-center justify-between text-[10px]">
+                <span class="text-slate-600">
+                  Sync Order LINE → ERP
+                </span>
+                <span class="text-amber-700 font-medium">
+                  91.3% · 11 Error (ข้อมูลลูกค้าไม่ครบ)
+                </span>
+              </div>
+              <div class="flex items-center justify-between text-[10px]">
+                <span class="text-slate-600">
+                  Delivery Status Sync
+                </span>
+                <span class="text-slate-800 font-medium">
+                  97.8% · 5 Error (Tracking หาย)
+                </span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-1 text-[10px]">
+              <p class="text-slate-500">
+                Error สามารถโยนเข้า Exception Library (Pillar 3) เพื่อให้อัปเดต SOP / Flow ต่อไป
+              </p>
+              <button class="px-2.5 py-1 rounded-full border border-slate-300 bg-slate-50">
+                ดู Log รายละเอียด
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

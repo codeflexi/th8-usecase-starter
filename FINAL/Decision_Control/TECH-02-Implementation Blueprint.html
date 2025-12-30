@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TH8.AI – Technical Architecture & Implementation Blueprint</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    html, body {
+      font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    ::selection { background: rgba(220,38,38,.18); }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+  <div class="max-w-7xl mx-auto px-4 py-10 space-y-12">
+
+    <!-- Header -->
+    <header class="space-y-3">
+      <p class="text-[11px] uppercase tracking-wide text-red-600 font-semibold">
+        TH8.AI · Enterprise Decision Control Layer
+      </p>
+      <h1 class="text-3xl font-semibold">
+        Technical Implementation Blueprint
+      </h1>
+      <p class="text-sm text-slate-600 max-w-4xl">
+        เอกสารนี้อธิบายว่า <span class="font-semibold">TH8 ต้อง implement อะไรบ้าง</span>
+        เพื่อให้ demo เห็นภาพ end-to-end จริง ทั้งเชิงเทคนิคและเชิงธุรกิจ
+        โดยไม่แทนที่ SAP / Workflow เดิม
+      </p>
+    </header>
+
+    <!-- ========================= -->
+    <!-- PART A: Technical Checklist -->
+    <!-- ========================= -->
+    <section class="space-y-6">
+      <h2 class="text-xl font-semibold">Part A — Technical Implementation Checklist (Backoffice)</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+
+        <!-- Integration -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-sm font-semibold">1) Integration & Event Ingestion</p>
+          <ul class="mt-3 text-sm text-slate-700 space-y-1">
+            <li>• Standard Event API (/events)</li>
+            <li>• Event schema versioned</li>
+            <li>• Idempotency (กัน event ซ้ำ)</li>
+            <li>• Source system tagging (SAP / WF / MANUAL)</li>
+          </ul>
+          <p class="mt-3 text-xs text-slate-500">
+            Business goal: TH8 “รู้ทุกอย่างที่เกิดขึ้น” โดยไม่ execute workflow
+          </p>
+        </div>
+
+        <!-- Correlation -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-sm font-semibold">2) Case Correlation Engine</p>
+          <ul class="mt-3 text-sm text-slate-700 space-y-1">
+            <li>• Map PO / Invoice / Workflow → 1 Case</li>
+            <li>• Business key correlation</li>
+            <li>• Unified case lifecycle</li>
+          </ul>
+          <p class="mt-3 text-xs text-slate-500">
+            Business goal: ผู้บริหารคิดเป็น “เรื่องเดียว”
+          </p>
+        </div>
+
+        <!-- State -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-sm font-semibold">3) Decision State Machine</p>
+          <ul class="mt-3 text-sm text-slate-700 space-y-1">
+            <li>• OPEN / PENDING / ESCALATED</li>
+            <li>• OVERRIDDEN / RESOLVED</li>
+            <li>• Decision ≠ Transaction</li>
+          </ul>
+          <p class="mt-3 text-xs text-slate-500">
+            Business goal: แยก “ทำอะไร” ออกจาก “ตัดสินใจอย่างไร”
+          </p>
+        </div>
+
+        <!-- Policy -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-sm font-semibold">4) Policy Evaluation Engine</p>
+          <ul class="mt-3 text-sm text-slate-700 space-y-1">
+            <li>• Authority threshold</li>
+            <li>• Contract clause rules</li>
+            <li>• SLA & override logic</li>
+            <li>• Policy version binding</li>
+          </ul>
+          <p class="mt-3 text-xs text-slate-500">
+            Business goal: AI ทำตาม policy ไม่ใช่คิดเอง
+          </p>
+        </div>
+
+        <!-- Evidence -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-sm font-semibold">5) Evidence / RAG as Evidence</p>
+          <ul class="mt-3 text-sm text-slate-700 space-y-1">
+            <li>• Allowed document sources</li>
+            <li>• Clause / page citation</li>
+            <li>• Evidence linked to decision</li>
+          </ul>
+          <p class="mt-3 text-xs text-slate-500">
+            Business goal: ทุก decision มีหลักฐาน
+          </p>
+        </div>
+
+        <!-- Audit -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-sm font-semibold">6) Audit Timeline Engine</p>
+          <ul class="mt-3 text-sm text-slate-700 space-y-1">
+            <li>• Cross-system timeline</li>
+            <li>• Source-tagged events</li>
+            <li>• Immutable audit log</li>
+          </ul>
+          <p class="mt-3 text-xs text-slate-500">
+            Business goal: audit จบใน TH8
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================= -->
+    <!-- PART B: ERD -->
+    <!-- ========================= -->
+    <section class="space-y-6">
+      <h2 class="text-xl font-semibold">Part B — ERD (Decision & Audit Model)</h2>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6">
+        <pre class="text-sm text-slate-800 leading-relaxed">
+Case
+ ├─&lt; CaseEvent
+ ├─&lt; Decision
+ ├─&lt; Evidence &gt;─ Document
+ └─&lt; AuditLog
+
+Policy
+ └─ referenced by → Decision / CaseEvent
+        </pre>
+
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+            <p class="text-sm font-semibold">Case</p>
+            <p class="text-sm text-slate-700 mt-1">
+              หน่วยธุรกิจหลักที่ผู้บริหารมองเป็น 1 เรื่อง
+            </p>
+          </div>
+
+          <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+            <p class="text-sm font-semibold">Decision</p>
+            <p class="text-sm text-slate-700 mt-1">
+              การตัดสินใจเชิงบริหาร (approve / override / reject)
+            </p>
+          </div>
+
+          <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+            <p class="text-sm font-semibold">CaseEvent</p>
+            <p class="text-sm text-slate-700 mt-1">
+              Event จากทุกระบบที่ถูก normalize
+            </p>
+          </div>
+
+          <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+            <p class="text-sm font-semibold">AuditLog</p>
+            <p class="text-sm text-slate-700 mt-1">
+              Log สำหรับ audit แบบ immutable
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================= -->
+    <!-- PART C: API Contract -->
+    <!-- ========================= -->
+    <section class="space-y-6">
+      <h2 class="text-xl font-semibold">Part C — API Contract (Demo-Ready)</h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-sm font-semibold">POST /api/v1/events</p>
+          <pre class="mt-3 text-xs bg-slate-50 border border-slate-200 rounded-xl p-3 overflow-x-auto">
+{
+  "event_type": "APPROVED",
+  "source_system": "SAP",
+  "business_ref": { "po_number": "PO-2025-0182" },
+  "actor": "cfo@company.com",
+  "occurred_at": "2025-01-15T10:32:00Z",
+  "payload": { "amount": 2450000 },
+  "idempotency_key": "sap-po-0182-approved"
+}
+          </pre>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-sm font-semibold">POST /api/v1/decisions</p>
+          <pre class="mt-3 text-xs bg-slate-50 border border-slate-200 rounded-xl p-3 overflow-x-auto">
+{
+  "case_id": "case_456",
+  "decision_type": "APPROVE",
+  "decision_reason": "Override per policy v1.8",
+  "policy_version": "v1.8"
+}
+          </pre>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-sm font-semibold">GET /api/v1/cases/{id}/timeline</p>
+          <pre class="mt-3 text-xs bg-slate-50 border border-slate-200 rounded-xl p-3 overflow-x-auto">
+[
+  { "time": "09:14", "source": "SAP", "action": "PO created" },
+  { "time": "09:18", "source": "TH8", "action": "Policy violation detected" },
+  { "time": "10:02", "source": "WF", "action": "Approval pending" }
+]
+          </pre>
+        </div>
+
+        <div class="bg-white border border-slate-200 rounded-2xl p-5">
+          <p class="text-sm font-semibold">GET /api/v1/cases/{id}/evidence</p>
+          <pre class="mt-3 text-xs bg-slate-50 border border-slate-200 rounded-xl p-3 overflow-x-auto">
+[
+  {
+    "document": "Contract Office Supply 2024",
+    "citation": "Clause 4.2",
+    "reason": "Price cap exceeded"
+  }
+]
+          </pre>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================= -->
+    <!-- PART D: Executive Message -->
+    <!-- ========================= -->
+    <section class="bg-slate-900 text-white rounded-3xl p-8 space-y-4">
+      <p class="text-xs uppercase tracking-wide text-slate-300 font-semibold">
+        Executive & IT Takeaway
+      </p>
+      <p class="text-lg font-semibold">
+        TH8 ไม่ได้มาแทน SAP หรือ Workflow
+      </p>
+      <p class="text-sm text-slate-200 max-w-4xl">
+        แต่ทำให้ทุกการอนุมัติ “มีข้อมูลครบก่อนกด”
+        และทุกการตัดสินใจ “ตรวจสอบย้อนหลังได้”
+        แม้ action จะเกิดในระบบเดิมก็ตาม
+      </p>
+    </section>
+
+    <footer class="text-xs text-slate-500">
+      ใช้เอกสารนี้เป็น blueprint สำหรับ demo, internal alignment และ enterprise IT discussion
+    </footer>
+
+  </div>
+</body>
+</html>

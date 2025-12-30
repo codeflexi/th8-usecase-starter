@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TH8.AI – Interactive KPI (JS) · Procurement Decision Center (Ovaltine)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      html, body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    </style>
+  </head>
+
+  <body class="bg-slate-50 text-slate-900">
+    <!-- HEADER -->
+    <header class="sticky top-0 z-40 bg-white/85 backdrop-blur border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center font-semibold">TH8</div>
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Procurement Decision Center · Interactive KPI</p>
+            <h1 class="text-base md:text-lg font-semibold">Ovaltine Dataset · KPI ขยับตาม Decision (JS-only)</h1>
+          </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-2">
+          <span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">Policy v1.0</span>
+          <span class="text-[11px] px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100 font-semibold">Decision → KPI</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-6 space-y-8">
+
+      <!-- =========================================================
+        TOP CONTROLS
+      ========================================================== -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-5 md:p-6">
+        <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+          <div class="max-w-3xl">
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Demo Controls</p>
+            <h2 class="text-xl md:text-2xl font-semibold mt-1">Reset / Replay / SLA Clock</h2>
+            <p class="text-sm text-slate-600 mt-2">
+              เป้าหมาย: ให้ผู้บริหาร “เห็นต่อหน้า” ว่า KPI ไม่ใช่ตัวเลขตั้งเอง
+              แต่ derive จาก <span class="font-semibold">pending + decisions + deltas + SLA</span>.
+            </p>
+          </div>
+
+          <div class="w-full md:w-auto flex flex-col sm:flex-row gap-2">
+            <button id="btnReset" class="px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-sm font-semibold">
+              Reset Demo
+            </button>
+            <button id="btnReplay" class="px-3 py-2 rounded-xl bg-slate-900 text-white hover:opacity-90 text-sm font-semibold">
+              Replay Scenarios
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-5 grid grid-cols-1 lg:grid-cols-12 gap-3">
+          <div class="lg:col-span-8 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">SLA Clock (for demo)</p>
+            <div class="mt-3 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+              <div>
+                <p class="text-sm font-semibold">เวลาปัจจุบันในเดโม</p>
+                <p class="text-xs text-slate-600 mt-1">ใช้เพื่อคำนวณ Decision SLA (within 8 ชั่วโมง)</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="px-3 py-2 rounded-xl border border-slate-200 bg-white">
+                  <p class="text-[11px] text-slate-500 font-semibold">Demo Time</p>
+                  <p id="demoTime" class="text-sm font-semibold mt-1">—</p>
+                </div>
+                <button id="btnPlus1h" class="px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-sm font-semibold">+1h</button>
+                <button id="btnPlus4h" class="px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-sm font-semibold">+4h</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 rounded-2xl border border-slate-200 bg-white p-4">
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Assumptions (transparent)</p>
+            <ul class="mt-3 text-xs text-slate-700 space-y-2 list-disc pl-4">
+              <li><span class="font-semibold">Amount at Risk</span> = Σ pending PO totals</li>
+              <li><span class="font-semibold">Prevented Leakage</span> = Σ avoided delta (Reject/Correct)</li>
+              <li><span class="font-semibold">Auto-pass Rate</span> = auto-pass / total</li>
+              <li><span class="font-semibold">Decision SLA</span> = decisions within 8h / total pending decided</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+        KPI CARDS
+      ========================================================== -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-5 md:p-6">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Executive KPI</p>
+            <h2 class="text-xl md:text-2xl font-semibold mt-1">KPI ขยับตาม Decision แบบ Real-time</h2>
+            <p class="text-sm text-slate-600 mt-2">
+              ตัวเลขด้านล่างคำนวณจาก dataset และสถานะ decision ของแต่ละเคส
+            </p>
+          </div>
+
+          <div class="hidden md:flex items-center gap-2">
+            <span id="badgePolicy" class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">Policy v1.0</span>
+            <span id="badgeDataset" class="text-[11px] px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100 font-semibold">Ovaltine</span>
+          </div>
+        </div>
+
+        <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Amount at Risk</p>
+            <p id="kpiRisk" class="text-2xl font-semibold mt-2">—</p>
+            <p id="kpiRiskNote" class="text-xs text-slate-600 mt-1">Σ pending PO totals</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Prevented Leakage</p>
+            <p id="kpiLeakage" class="text-2xl font-semibold mt-2">—</p>
+            <p id="kpiLeakageNote" class="text-xs text-slate-600 mt-1">Σ avoided deltas</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Auto-pass Rate</p>
+            <p id="kpiAutoPass" class="text-2xl font-semibold mt-2">—</p>
+            <p id="kpiAutoPassNote" class="text-xs text-slate-600 mt-1">auto-pass / total</p>
+          </div>
+
+          <div class="rounded-2xl border border-slate-200 p-5">
+            <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">Decision SLA</p>
+            <p id="kpiSLA" class="text-2xl font-semibold mt-2">—</p>
+            <p id="kpiSLANote" class="text-xs text-slate-600 mt-1">within 8h / decided</p>
+          </div>
+        </div>
+
+        <div class="mt-5 grid grid-cols-1 lg:grid-cols-12 gap-3">
+          <div class="lg:col-span-7 rounded-2xl border border-slate-200 p-5">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Distribution</p>
+                <h3 class="text-sm font-semibold mt-1">Amount at Risk by Rule (จาก pending)</h3>
+              </div>
+              <button id="btnExport" class="px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-xs font-semibold">
+                Export KPI JSON
+              </button>
+            </div>
+
+            <div id="ruleBreakdown" class="mt-4 space-y-3"></div>
+          </div>
+
+          <div class="lg:col-span-5 rounded-2xl border border-slate-200 p-5 bg-slate-50">
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">KPI Formulas (shown)</p>
+
+            <div class="mt-3 space-y-2 text-xs text-slate-700">
+              <div class="p-3 rounded-xl bg-white border border-slate-200">
+                <p class="font-semibold">Amount at Risk</p>
+                <p class="mt-1 mono text-[11px]">Σ (cases where status = PENDING).po_total_amount</p>
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-slate-200">
+                <p class="font-semibold">Prevented Leakage</p>
+                <p class="mt-1 mono text-[11px]">Σ (decision = REJECT or CORRECT).avoided_delta_amount</p>
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-slate-200">
+                <p class="font-semibold">Auto-pass Rate</p>
+                <p class="mt-1 mono text-[11px]">auto_pass / total_cases</p>
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-slate-200">
+                <p class="font-semibold">Decision SLA</p>
+                <p class="mt-1 mono text-[11px]">decisions_within_8h / total_pending_decided</p>
+              </div>
+            </div>
+
+            <div class="mt-4 p-4 rounded-2xl border border-slate-200 bg-white">
+              <p class="text-sm font-semibold">Demo Tips (พูดกับ CFO)</p>
+              <ul class="mt-2 text-xs text-slate-700 space-y-1 list-disc pl-4">
+                <li>กด Reject แล้วโชว์ Prevented Leakage ขยับทันที</li>
+                <li>กด Approve with Exception แล้ว Amount at Risk ลด (เคสปิด) แต่ Leakage ไม่เพิ่ม</li>
+                <li>เลื่อนเวลา +4h เพื่อให้ SLA เปลี่ยน (ภายใน/เกิน 8 ชั่วโมง)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+        CASES + DECISION PANEL
+      ========================================================== -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+        <!-- Case list -->
+        <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-5 md:p-6">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Pending Queue</p>
+              <h2 class="text-xl md:text-2xl font-semibold mt-1">Cases (เลือกเคส แล้วตัดสินใจ)</h2>
+              <p class="text-sm text-slate-600 mt-2">คลิก Open เพื่อดู Decision Card</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[11px] text-slate-500 font-semibold">Total cases</p>
+              <p id="totalCases" class="text-lg font-semibold">—</p>
+            </div>
+          </div>
+
+          <div id="caseList" class="mt-5 space-y-3"></div>
+
+          <div class="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="text-sm font-semibold">Auto-pass (A)</p>
+            <p class="text-xs text-slate-600 mt-1">
+              เคสที่ไม่ trigger rule จะผ่านอัตโนมัติ และนับใน Auto-pass Rate
+            </p>
+          </div>
+        </div>
+
+        <!-- Decision card -->
+        <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-5 md:p-6">
+          <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Decision Center</p>
+          <h2 id="dcTitle" class="text-xl md:text-2xl font-semibold mt-1">เลือกเคสจากซ้าย</h2>
+          <p id="dcSubtitle" class="text-sm text-slate-600 mt-2">—</p>
+
+          <div id="dcBody" class="mt-5">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="text-sm font-semibold">ยังไม่ได้เลือกเคส</p>
+              <p class="text-xs text-slate-600 mt-1">คลิก Open ที่เคสใดก็ได้เพื่อแสดง decision card</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+        AUDIT SNAPSHOT
+      ========================================================== -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-5 md:p-6">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Audit Snapshot</p>
+            <h2 class="text-xl md:text-2xl font-semibold mt-1">Decision Log (last 10 events)</h2>
+            <p class="text-sm text-slate-600 mt-2">ทุก decision จะถูกเก็บเป็น event พร้อม policy version + reason</p>
+          </div>
+          <button id="btnExportAudit" class="px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-sm font-semibold">
+            Export Audit JSON
+          </button>
+        </div>
+
+        <div id="auditList" class="mt-5 grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+      </section>
+
+      <!-- FOOTER -->
+      <section class="rounded-2xl border border-slate-200 bg-white p-5">
+        <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold">Minimum to be “Sellable”</p>
+        <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-semibold">KPI ขยับตาม decision</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1 list-disc pl-4">
+              <li>เห็น cause → effect ต่อหน้า</li>
+              <li>คำนวณจาก state จริง</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-semibold">Decision reason (บังคับ)</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1 list-disc pl-4">
+              <li>มาตรฐาน audit</li>
+              <li>กัน “อนุมัติแบบเงียบ”</li>
+            </ul>
+          </div>
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p class="font-semibold">Export ได้</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1 list-disc pl-4">
+              <li>KPI JSON</li>
+              <li>Audit JSON</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      /******************************************************************
+       * MOCK DATASET (SAP-like) + POLICY OUTPUT (for demo)
+       ******************************************************************/
+      const POLICY = {
+        name: "Procurement Contract Compliance",
+        version: "v1.0",
+        sla_hours: 8,
+        assumptions: {
+          prevented_leakage_rules: ["REJECT", "CORRECT"], // count avoided delta
+          approve_exception_does_not_prevent: true
+        }
+      };
+
+      // Base demo time (you can change)
+      const DEMO_TIME_BASE = new Date("2025-01-11T10:00:00");
+
+      // Cases = scenarios A-F (Ovaltine)
+      // status: AUTO_PASS | PENDING | CLOSED
+      // decision: null | APPROVE_EXCEPTION | APPROVE | REJECT | REQUEST_INFO | CORRECT
+      // avoided_delta_amount: value that contributes to Prevented Leakage if decision in prevented_leakage_rules
+      // pending_created_at: used for SLA check
+      const CASES_SEED = [
+        {
+          case_id: "CASE-OVT-2025-001",
+          po_id: "PO-OVT-2025-001",
+          po_date: "2025-01-10",
+          vendor_code: "V-TPACK",
+          vendor_name: "Thai Packaging Solutions Co., Ltd.",
+          contract_id: "C-OVT-RAW-2024",
+          amount: 250000,
+          currency: "THB",
+          status: "AUTO_PASS",
+          severity: "—",
+          rules: [],
+          deltas: [],
+          pending_reason: "ไม่พบ violation",
+          evidence: [],
+          pending_created_at: null,
+          decision: null,
+          decision_reason: "",
+          decided_at: null,
+          avoided_delta_amount: 0
+        },
+        {
+          case_id: "CASE-OVT-2025-002",
+          po_id: "PO-OVT-2025-002",
+          po_date: "2025-01-10",
+          vendor_code: "V-TPACK",
+          vendor_name: "Thai Packaging Solutions Co., Ltd.",
+          contract_id: "C-OVT-RAW-2024",
+          amount: 384000,
+          currency: "THB",
+          status: "PENDING",
+          severity: "Medium",
+          rules: ["R-01"],
+          deltas: [{ type: "PRICE_DEVIATION", delta_pct: 2.4, delta_amount: 9000, contract_unit: 12.50, po_unit: 12.80 }],
+          pending_reason: "ราคาต่อหน่วยสูงกว่าสัญญา 2.4% (สัญญา ฿12.50 → ขอซื้อ ฿12.80)",
+          evidence: [{ doc: "contract_ovaltine_raw_2024.pdf", page: 6, snippet: "Metal Can 400g – Unit Price ฿12.50" }],
+          pending_created_at: "2025-01-11T10:12:00",
+          decision: null,
+          decision_reason: "",
+          decided_at: null,
+          avoided_delta_amount: 9000 // if rejected or corrected, assume avoided leakage equals delta
+        },
+        {
+          case_id: "CASE-OVT-2025-003",
+          po_id: "PO-OVT-2025-003",
+          po_date: "2025-01-11",
+          vendor_code: "V-TPACK",
+          vendor_name: "Thai Packaging Solutions Co., Ltd.",
+          contract_id: "C-OVT-RAW-2024",
+          amount: 552000,
+          currency: "THB",
+          status: "PENDING",
+          severity: "High",
+          rules: ["R-01", "R-02"],
+          deltas: [{ type: "PRICE_DEVIATION", delta_pct: 8.2, delta_amount: 0, contract_unit: 85.00, po_unit: 92.00 }],
+          pending_reason: "ราคาต่อหน่วยสูงกว่าสัญญา 8.2% และวงเงินเกินเกณฑ์ CFO (฿552,000)",
+          evidence: [{ doc: "contract_ovaltine_raw_2024.pdf", page: 7, snippet: "Malt Powder – Unit Price ฿85.00" }],
+          pending_created_at: "2025-01-11T10:20:00",
+          decision: null,
+          decision_reason: "",
+          decided_at: null,
+          avoided_delta_amount: 0 // optional: set if you want leakage; keeping 0 for demo simplicity
+        },
+        {
+          case_id: "CASE-OVT-2025-004",
+          po_id: "PO-OVT-2025-004",
+          po_date: "2025-01-11",
+          vendor_code: "V-OTHER",
+          vendor_name: "Other Supplier Co., Ltd.",
+          contract_id: "C-OVT-RAW-2024",
+          amount: 160000,
+          currency: "THB",
+          status: "PENDING",
+          severity: "High",
+          rules: ["R-03"],
+          deltas: [],
+          pending_reason: "Vendor ใน PO ไม่ตรงกับคู่สัญญา",
+          evidence: [{ doc: "contract_ovaltine_raw_2024.pdf", page: 1, snippet: "Vendor: Thai Packaging Solutions Co., Ltd." }],
+          pending_created_at: "2025-01-11T10:25:00",
+          decision: null,
+          decision_reason: "",
+          decided_at: null,
+          avoided_delta_amount: 0
+        },
+        {
+          case_id: "CASE-OVT-2025-005",
+          po_id: "PO-OVT-2025-005",
+          po_date: "2025-01-11",
+          vendor_code: "V-TPACK",
+          vendor_name: "Thai Packaging Solutions Co., Ltd.",
+          contract_id: "C-OVT-RAW-2024",
+          amount: 185000,
+          currency: "THB",
+          status: "PENDING",
+          severity: "Medium",
+          rules: ["R-04"],
+          deltas: [],
+          pending_reason: "รายการสินค้าไม่อยู่ในขอบเขตสัญญา (SKU: PKG-CAN-800G)",
+          evidence: [{ doc: "contract_ovaltine_raw_2024.pdf", page: 6, snippet: "Price table does not include PKG-CAN-800G" }],
+          pending_created_at: "2025-01-11T10:30:00",
+          decision: null,
+          decision_reason: "",
+          decided_at: null,
+          avoided_delta_amount: 0
+        },
+        {
+          case_id: "CASE-OVT-2026-001",
+          po_id: "PO-OVT-2026-001",
+          po_date: "2026-01-05",
+          vendor_code: "V-TPACK",
+          vendor_name: "Thai Packaging Solutions Co., Ltd.",
+          contract_id: "C-OVT-RAW-2024",
+          amount: 187500,
+          currency: "THB",
+          status: "PENDING",
+          severity: "High",
+          rules: ["R-05"],
+          deltas: [],
+          pending_reason: "วันที่ PO อยู่นอกช่วงสัญญา (สัญญาสิ้นสุด 2024-12-31)",
+          evidence: [{ doc: "contract_ovaltine_raw_2024.pdf", page: 2, snippet: "Validity: 2024-01-01 to 2024-12-31" }],
+          pending_created_at: "2025-01-11T10:35:00",
+          decision: null,
+          decision_reason: "",
+          decided_at: null,
+          avoided_delta_amount: 0
+        }
+      ];
+
+      /******************************************************************
+       * STATE
+       ******************************************************************/
+      let demoTime = new Date(DEMO_TIME_BASE);
+      let cases = [];
+      let selectedCaseId = null;
+      let auditEvents = [];
+
+      /******************************************************************
+       * HELPERS
+       ******************************************************************/
+      const fmtTHB = (n) => {
+        const num = Number(n || 0);
+        return "฿ " + num.toLocaleString("th-TH", { maximumFractionDigits: 0 });
+      };
+
+      const fmtPct = (n) => {
+        if (n === null || n === undefined) return "—";
+        return (Math.round(n * 10) / 10).toFixed(1).replace(".0", "") + "%";
+      };
+
+      const fmtDT = (d) => {
+        if (!d) return "—";
+        const dt = (d instanceof Date) ? d : new Date(d);
+        const yyyy = dt.getFullYear();
+        const mm = String(dt.getMonth() + 1).padStart(2, "0");
+        const dd = String(dt.getDate()).padStart(2, "0");
+        const hh = String(dt.getHours()).padStart(2, "0");
+        const mi = String(dt.getMinutes()).padStart(2, "0");
+        return `${yyyy}-${mm}-${dd} ${hh}:${mi}`;
+      };
+
+      const sum = (arr) => arr.reduce((a, b) => a + b, 0);
+
+      const byId = (id) => document.getElementById(id);
+
+      const getCase = (caseId) => cases.find(c => c.case_id === caseId);
+
+      const isPending = (c) => c.status === "PENDING";
+
+      const isClosed = (c) => c.status === "CLOSED";
+
+      const isAutoPass = (c) => c.status === "AUTO_PASS";
+
+      const ensureReason = (text) => (text || "").trim().length >= 10; // simple minimum
+
+      const withinSLA = (c) => {
+        if (!c.pending_created_at || !c.decided_at) return null;
+        const start = new Date(c.pending_created_at);
+        const end = new Date(c.decided_at);
+        const hours = (end - start) / (1000 * 60 * 60);
+        return hours <= POLICY.sla_hours;
+      };
+
+      const ruleSeverityBadge = (sev) => {
+        if (sev === "High") return `<span class="text-[11px] px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100 font-semibold">High</span>`;
+        if (sev === "Medium") return `<span class="text-[11px] px-2 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-100 font-semibold">Medium</span>`;
+        if (sev === "Low") return `<span class="text-[11px] px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 font-semibold">Low</span>`;
+        return `<span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">—</span>`;
+      };
+
+      const statusBadge = (status) => {
+        if (status === "AUTO_PASS") return `<span class="text-[11px] px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 font-semibold">Auto-pass</span>`;
+        if (status === "PENDING") return `<span class="text-[11px] px-2 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-100 font-semibold">Pending</span>`;
+        if (status === "CLOSED") return `<span class="text-[11px] px-2 py-1 rounded-full bg-slate-900 text-white font-semibold">Closed</span>`;
+        return `<span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">${status}</span>`;
+      };
+
+      /******************************************************************
+       * KPI COMPUTATION
+       ******************************************************************/
+      function computeKPIs() {
+        const total = cases.length;
+        const autoPassCount = cases.filter(isAutoPass).length;
+
+        // Amount at Risk = sum of pending amounts
+        const pendingCases = cases.filter(isPending);
+        const amountAtRisk = sum(pendingCases.map(c => c.amount));
+
+        // Prevented Leakage = sum avoided_delta_amount for decisions REJECT or CORRECT
+        const prevented = sum(
+          cases
+            .filter(c => c.decision && POLICY.assumptions.prevented_leakage_rules.includes(c.decision))
+            .map(c => c.avoided_delta_amount || 0)
+        );
+
+        // Decision SLA = within SLA among decided pending cases
+        const decidedPending = cases.filter(c => c.decision && (c.status === "CLOSED") && (c.pending_created_at));
+        const slaOk = decidedPending.filter(c => withinSLA(c) === true).length;
+        const slaTotal = decidedPending.length;
+        const slaPct = slaTotal === 0 ? null : (slaOk / slaTotal) * 100;
+
+        // Auto-pass rate
+        const autoPct = total === 0 ? 0 : (autoPassCount / total) * 100;
+
+        // Rule breakdown of pending amounts
+        const ruleMap = {};
+        pendingCases.forEach(c => {
+          (c.rules || ["—"]).forEach(r => {
+            ruleMap[r] = (ruleMap[r] || 0) + (c.amount || 0);
+          });
+        });
+
+        return {
+          total,
+          autoPassCount,
+          autoPct,
+          pendingCount: pendingCases.length,
+          amountAtRisk,
+          prevented,
+          slaOk,
+          slaTotal,
+          slaPct,
+          ruleMap
+        };
+      }
+
+      /******************************************************************
+       * RENDER: KPI + RULE BREAKDOWN
+       ******************************************************************/
+      function renderKPIs() {
+        const k = computeKPIs();
+
+        byId("kpiRisk").textContent = fmtTHB(k.amountAtRisk);
+        byId("kpiRiskNote").textContent = `Σ pending (${k.pendingCount} เคส)`;
+
+        byId("kpiLeakage").textContent = fmtTHB(k.prevented);
+        byId("kpiLeakageNote").textContent = `Σ avoided delta (จาก Reject/Correct)`;
+
+        byId("kpiAutoPass").textContent = `${Math.round(k.autoPct)}%`;
+        byId("kpiAutoPassNote").textContent = `${k.autoPassCount} auto-pass / ${k.total} cases`;
+
+        if (k.slaPct === null) {
+          byId("kpiSLA").textContent = "—";
+          byId("kpiSLANote").textContent = `ยังไม่มีเคส pending ที่ตัดสินใจแล้ว`;
+        } else {
+          byId("kpiSLA").textContent = `${Math.round(k.slaPct)}%`;
+          byId("kpiSLANote").textContent = `${k.slaOk} within SLA / ${k.slaTotal} decided`;
+        }
+
+        // Rule breakdown UI
+        const entries = Object.entries(k.ruleMap).sort((a, b) => b[1] - a[1]);
+        const totalRisk = k.amountAtRisk || 1;
+        const container = byId("ruleBreakdown");
+        if (entries.length === 0) {
+          container.innerHTML = `
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-sm">
+              <p class="font-semibold">ไม่มี pending</p>
+              <p class="text-xs text-slate-600 mt-1">Rule breakdown จะปรากฏเมื่อมี pending case</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = entries.map(([rule, amt]) => {
+          const pct = Math.max(2, Math.round((amt / totalRisk) * 100));
+          return `
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="flex items-start justify-between">
+                <div>
+                  <p class="font-semibold">${rule}</p>
+                  <p class="text-xs text-slate-600 mt-1">Pending amount</p>
+                </div>
+                <p class="font-semibold">${fmtTHB(amt)}</p>
+              </div>
+              <div class="mt-3 h-2 bg-slate-100 rounded-full overflow-hidden">
+                <div class="h-2 bg-slate-900" style="width:${pct}%"></div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      /******************************************************************
+       * RENDER: DEMO TIME
+       ******************************************************************/
+      function renderDemoTime() {
+        byId("demoTime").textContent = fmtDT(demoTime);
+      }
+
+      /******************************************************************
+       * RENDER: CASE LIST
+       ******************************************************************/
+      function renderCaseList() {
+        byId("totalCases").textContent = String(cases.length);
+
+        const list = byId("caseList");
+        const sorted = [...cases].sort((a, b) => {
+          // pending first, then high severity
+          const prio = (c) => (c.status === "PENDING" ? 0 : (c.status === "AUTO_PASS" ? 2 : 1));
+          const sev = (s) => (s === "High" ? 0 : (s === "Medium" ? 1 : 2));
+          const p = prio(a) - prio(b);
+          if (p !== 0) return p;
+          const ss = sev(a.severity) - sev(b.severity);
+          if (ss !== 0) return ss;
+          return a.po_id.localeCompare(b.po_id);
+        });
+
+        list.innerHTML = sorted.map(c => {
+          const selected = c.case_id === selectedCaseId;
+          const decisionTag = c.decision
+            ? `<span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">${c.decision}</span>`
+            : "";
+
+          const sla = (c.decision && c.pending_created_at) ? withinSLA(c) : null;
+          const slaTag = (sla === true)
+            ? `<span class="text-[11px] px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 font-semibold">SLA OK</span>`
+            : (sla === false)
+              ? `<span class="text-[11px] px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100 font-semibold">SLA Breach</span>`
+              : "";
+
+          const ruleLine = (c.rules && c.rules.length)
+            ? `<p class="text-xs text-slate-600 mt-1">${c.rules.join(", ")} · ${c.pending_reason}</p>`
+            : `<p class="text-xs text-slate-600 mt-1">${c.pending_reason}</p>`;
+
+          const amountLine = `<p class="text-xs text-slate-500 mt-1">Amount: ${fmtTHB(c.amount)} · PO Date: ${c.po_date}</p>`;
+
+          return `
+            <div class="rounded-2xl border ${selected ? "border-slate-900" : "border-slate-200"} p-4 hover:bg-slate-50">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    ${statusBadge(c.status)}
+                    ${ruleSeverityBadge(c.severity)}
+                    <p class="text-sm font-semibold">${c.po_id}</p>
+                    ${decisionTag}
+                    ${slaTag}
+                  </div>
+                  ${ruleLine}
+                  ${amountLine}
+                </div>
+                <button class="px-3 py-2 rounded-xl ${selected ? "bg-slate-900 text-white" : "bg-white border border-slate-200 hover:bg-slate-100"} text-xs font-semibold"
+                  onclick="window.__openCase('${c.case_id}')"
+                >
+                  ${selected ? "Opened" : "Open"}
+                </button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      /******************************************************************
+       * RENDER: DECISION CARD
+       ******************************************************************/
+      function renderDecisionCenter() {
+        const c = selectedCaseId ? getCase(selectedCaseId) : null;
+
+        if (!c) {
+          byId("dcTitle").textContent = "เลือกเคสจากซ้าย";
+          byId("dcSubtitle").textContent = "—";
+          byId("dcBody").innerHTML = `
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="text-sm font-semibold">ยังไม่ได้เลือกเคส</p>
+              <p class="text-xs text-slate-600 mt-1">คลิก Open ที่เคสใดก็ได้เพื่อแสดง decision card</p>
+            </div>
+          `;
+          return;
+        }
+
+        const deltaCards = (c.deltas || []).map(d => {
+          return `
+            <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs">
+              <p class="text-slate-500">${d.type}</p>
+              <p class="font-semibold mt-1">Δ ${fmtPct(d.delta_pct)} · ${fmtTHB(d.delta_amount || 0)}</p>
+              ${d.contract_unit ? `<p class="text-slate-600 mt-1">Contract: ฿${d.contract_unit} → PO: ฿${d.po_unit}</p>` : ""}
+            </div>
+          `;
+        }).join("");
+
+        const evidenceUI = (c.evidence || []).map(e => {
+          return `
+            <a href="#" onclick="event.preventDefault(); alert('Demo: Open ${e.doc} page ${e.page}\\n\\nSnippet: ${e.snippet}');"
+              class="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 font-semibold text-xs"
+            >
+              Open PDF · ${e.doc} · Page ${e.page}
+              <span class="text-slate-400 font-normal">(snippet)</span>
+            </a>
+          `;
+        }).join("");
+
+        const isDecided = !!c.decision;
+        const decisionDisabled = (c.status === "AUTO_PASS");
+
+        // Decision options: for pending or closed (allow change for demo)
+        const decisionOptions = [
+          { id: "APPROVE_EXCEPTION", label: "Approve with Exception", note: "ยอมรับความเสี่ยงพร้อมเหตุผล" },
+          { id: "REJECT", label: "Reject", note: "ให้แก้ PO / ต่อรองใหม่" },
+          { id: "CORRECT", label: "Correct & Resubmit", note: "แก้ราคา/แก้ vendor แล้วส่งใหม่" },
+          { id: "REQUEST_INFO", label: "Request More Info", note: "หลักฐานไม่พอ" },
+          { id: "APPROVE", label: "Approve", note: "อนุมัติปกติ (ใช้กับบาง rule)" }
+        ];
+
+        byId("dcTitle").textContent = `${c.po_id}`;
+        byId("dcSubtitle").textContent = `${c.pending_reason} · Amount ${fmtTHB(c.amount)} · Vendor ${c.vendor_code}`;
+
+        byId("dcBody").innerHTML = `
+          <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-4">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="text-sm font-semibold">Case Summary</p>
+                <p class="text-xs text-slate-600 mt-1">Status: ${c.status} · Severity: ${c.severity} · Rules: ${(c.rules || []).join(", ") || "—"}</p>
+              </div>
+              <div class="text-right">
+                <p class="text-[11px] text-slate-500 font-semibold">Pending created</p>
+                <p class="text-sm font-semibold mt-1">${c.pending_created_at ? fmtDT(c.pending_created_at) : "—"}</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs">
+                <p class="text-slate-500">Policy</p>
+                <p class="font-semibold mt-1">${POLICY.name} · ${POLICY.version}</p>
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-slate-200 text-xs">
+                <p class="text-slate-500">SLA</p>
+                <p class="font-semibold mt-1">${POLICY.sla_hours} ชั่วโมง (Decision time)</p>
+              </div>
+            </div>
+
+            <div>
+              <p class="text-xs text-slate-500 font-semibold">Delta / Differences</p>
+              <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-2">
+                ${deltaCards || `<div class="p-3 rounded-xl bg-white border border-slate-200 text-xs"><p class="text-slate-500">No delta</p><p class="font-semibold mt-1">—</p></div>`}
+              </div>
+            </div>
+
+            <div>
+              <p class="text-xs text-slate-500 font-semibold">Evidence (mandatory to view)</p>
+              <div class="mt-2 flex flex-col gap-2">
+                ${evidenceUI || `<div class="p-3 rounded-xl bg-white border border-slate-200 text-xs"><p class="text-slate-500">No evidence</p><p class="font-semibold mt-1">—</p></div>`}
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-200">
+              <p class="text-xs text-slate-500 font-semibold">Decision (mandatory)</p>
+              <div class="mt-2 grid grid-cols-1 gap-2">
+                ${decisionOptions.map(opt => {
+                  const checked = c.decision === opt.id ? "checked" : "";
+                  const disabled = decisionDisabled ? "disabled" : "";
+                  return `
+                    <label class="flex items-center gap-2 p-3 rounded-xl bg-white border border-slate-200 ${decisionDisabled ? "opacity-60" : ""}">
+                      <input type="radio" name="decision" value="${opt.id}" ${checked} ${disabled} />
+                      <span class="text-sm font-semibold">${opt.label}</span>
+                      <span class="text-xs text-slate-500">${opt.note}</span>
+                    </label>
+                  `;
+                }).join("")}
+              </div>
+              ${decisionDisabled ? `<p class="text-xs text-slate-600 mt-2">เคสนี้เป็น Auto-pass (ไม่ต้องตัดสินใจ)</p>` : ""}
+            </div>
+
+            <div>
+              <p class="text-xs text-slate-500 font-semibold">Decision Reason (mandatory)</p>
+              <textarea id="dcReason" class="mt-2 w-full px-3 py-2 rounded-xl border border-slate-200 bg-white text-sm"
+                rows="3" placeholder="ระบุเหตุผลที่ audit ได้ (อย่างน้อย 10 ตัวอักษร)">${c.decision_reason || ""}</textarea>
+              <p class="text-[11px] text-slate-500 mt-2">ตัวอย่าง: “อนุมัติครั้งเดียวเพื่อไม่กระทบแผนการผลิต แต่ให้จัดซื้อเจรจาราคาใน PO ถัดไป”</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <button id="btnSubmitDecision" class="px-3 py-2 rounded-xl bg-slate-900 text-white text-sm font-semibold ${decisionDisabled ? "opacity-60 cursor-not-allowed" : ""}" ${decisionDisabled ? "disabled" : ""}>
+                Submit Decision
+              </button>
+              <button id="btnCloseCase" class="px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-sm font-semibold">
+                ${isDecided ? "Re-open (Demo)" : "Save Draft"}
+              </button>
+            </div>
+
+            <div class="rounded-2xl border border-slate-200 bg-white p-4 text-xs">
+              <p class="font-semibold">Current State</p>
+              <p class="mt-2 mono text-[11px] leading-relaxed" id="dcStateJson"></p>
+            </div>
+          </div>
+        `;
+
+        // Bind buttons
+        const btnSubmit = document.getElementById("btnSubmitDecision");
+        if (btnSubmit) btnSubmit.onclick = () => submitDecision(c.case_id);
+
+        const btnClose = document.getElementById("btnCloseCase");
+        if (btnClose) btnClose.onclick = () => toggleCaseDemo(c.case_id);
+
+        // Render JSON snippet
+        const dcJson = document.getElementById("dcStateJson");
+        if (dcJson) dcJson.textContent = JSON.stringify({
+          case_id: c.case_id,
+          po_id: c.po_id,
+          status: c.status,
+          decision: c.decision,
+          policy_version: POLICY.version,
+          rules: c.rules,
+          pending_created_at: c.pending_created_at,
+          decided_at: c.decided_at
+        }, null, 0);
+      }
+
+      /******************************************************************
+       * DECISION ACTIONS
+       ******************************************************************/
+      function submitDecision(caseId) {
+        const c = getCase(caseId);
+        if (!c || c.status === "AUTO_PASS") return;
+
+        const radios = document.querySelectorAll('input[name="decision"]');
+        let decision = null;
+        radios.forEach(r => { if (r.checked) decision = r.value; });
+
+        const reason = (document.getElementById("dcReason")?.value || "").trim();
+
+        if (!decision) {
+          alert("กรุณาเลือก Decision");
+          return;
+        }
+        if (!ensureReason(reason)) {
+          alert("กรุณากรอกเหตุผล (อย่างน้อย 10 ตัวอักษร)");
+          return;
+        }
+
+        c.decision = decision;
+        c.decision_reason = reason;
+        c.decided_at = demoTime.toISOString();
+
+        // Close case when decided (demo)
+        c.status = "CLOSED";
+
+        // Add audit event
+        auditEvents.unshift({
+          event: "decision_made",
+          time: c.decided_at,
+          case_id: c.case_id,
+          po_id: c.po_id,
+          decision,
+          reason,
+          policy_version: POLICY.version,
+          rules: c.rules,
+          severity: c.severity
+        });
+
+        // Keep last 50
+        auditEvents = auditEvents.slice(0, 50);
+
+        renderAll();
+      }
+
+      function toggleCaseDemo(caseId) {
+        const c = getCase(caseId);
+        if (!c) return;
+
+        // If already decided, allow "re-open" to show KPI changes
+        if (c.status === "CLOSED") {
+          c.status = "PENDING";
+          c.decision = null;
+          c.decision_reason = "";
+          c.decided_at = null;
+
+          auditEvents.unshift({
+            event: "case_reopened_demo",
+            time: demoTime.toISOString(),
+            case_id: c.case_id,
+            po_id: c.po_id,
+            policy_version: POLICY.version
+          });
+        } else {
+          // Save draft (no-op for demo)
+          auditEvents.unshift({
+            event: "draft_saved_demo",
+            time: demoTime.toISOString(),
+            case_id: c.case_id,
+            po_id: c.po_id,
+            policy_version: POLICY.version
+          });
+        }
+
+        auditEvents = auditEvents.slice(0, 50);
+        renderAll();
+      }
+
+      /******************************************************************
+       * RENDER: AUDIT LIST
+       ******************************************************************/
+      function renderAudit() {
+        const container = byId("auditList");
+        const items = auditEvents.slice(0, 10);
+
+        if (items.length === 0) {
+          container.innerHTML = `
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="text-sm font-semibold">ยังไม่มี audit event</p>
+              <p class="text-xs text-slate-600 mt-1">เมื่อมีการ submit decision ระบบจะแสดง event ที่นี่</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = items.map(ev => {
+          const tag = ev.event === "decision_made"
+            ? `<span class="text-[11px] px-2 py-1 rounded-full bg-slate-900 text-white font-semibold">decision_made</span>`
+            : `<span class="text-[11px] px-2 py-1 rounded-full border border-slate-200 bg-white font-semibold">${ev.event}</span>`;
+
+          const detail = ev.event === "decision_made"
+            ? `
+              <p class="text-xs text-slate-600 mt-1">Decision: <span class="font-semibold">${ev.decision}</span> · Severity: ${ev.severity}</p>
+              <p class="text-xs text-slate-600 mt-1">Rules: ${(ev.rules || []).join(", ") || "—"}</p>
+              <div class="mt-2 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                <p class="text-slate-500">Reason</p>
+                <p class="text-slate-900 mt-1">${ev.reason}</p>
+              </div>
+            `
+            : `<p class="text-xs text-slate-600 mt-1">Policy: ${ev.policy_version}</p>`;
+
+          return `
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex flex-wrap items-center gap-2">
+                  ${tag}
+                  <p class="text-sm font-semibold">${ev.po_id}</p>
+                </div>
+                <p class="text-xs text-slate-500">${fmtDT(ev.time)}</p>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">Case: ${ev.case_id}</p>
+              ${detail}
+            </div>
+          `;
+        }).join("");
+      }
+
+      /******************************************************************
+       * EXPORT
+       ******************************************************************/
+      function exportKPIJson() {
+        const k = computeKPIs();
+        const payload = {
+          policy: { name: POLICY.name, version: POLICY.version, sla_hours: POLICY.sla_hours },
+          demo_time: demoTime.toISOString(),
+          kpi: {
+            total_cases: k.total,
+            pending_count: k.pendingCount,
+            auto_pass_count: k.autoPassCount,
+            auto_pass_rate_pct: Math.round(k.autoPct),
+            amount_at_risk: k.amountAtRisk,
+            prevented_leakage: k.prevented,
+            decision_sla: { ok: k.slaOk, total: k.slaTotal, pct: k.slaPct === null ? null : Math.round(k.slaPct) },
+            amount_at_risk_by_rule: k.ruleMap
+          }
+        };
+        alert("KPI JSON (copy from console)");
+        console.log("KPI_EXPORT_JSON", payload);
+      }
+
+      function exportAuditJson() {
+        const payload = {
+          policy: { version: POLICY.version },
+          demo_time: demoTime.toISOString(),
+          events: auditEvents
+        };
+        alert("Audit JSON (copy from console)");
+        console.log("AUDIT_EXPORT_JSON", payload);
+      }
+
+      /******************************************************************
+       * INIT / RESET / REPLAY
+       ******************************************************************/
+      function resetDemo() {
+        demoTime = new Date(DEMO_TIME_BASE);
+        cases = JSON.parse(JSON.stringify(CASES_SEED)); // deep clone seed
+        selectedCaseId = null;
+        auditEvents = [];
+        renderAll();
+      }
+
+      function replayScenarios() {
+        // Simulate a "policy run" event for all pending creation (demo)
+        auditEvents.unshift({
+          event: "replay_scenarios",
+          time: demoTime.toISOString(),
+          policy_version: POLICY.version,
+          note: "Re-evaluated dataset with policy v1.0"
+        });
+        auditEvents = auditEvents.slice(0, 50);
+        renderAll();
+      }
+
+      /******************************************************************
+       * GLOBAL RENDER
+       ******************************************************************/
+      function renderAll() {
+        renderDemoTime();
+        renderKPIs();
+        renderCaseList();
+        renderDecisionCenter();
+        renderAudit();
+      }
+
+      /******************************************************************
+       * EXPOSE OPEN CASE (for inline onclick)
+       ******************************************************************/
+      window.__openCase = function(caseId) {
+        selectedCaseId = caseId;
+        renderCaseList();
+        renderDecisionCenter();
+      };
+
+      /******************************************************************
+       * UI EVENTS
+       ******************************************************************/
+      byId("btnReset").addEventListener("click", resetDemo);
+      byId("btnReplay").addEventListener("click", replayScenarios);
+      byId("btnPlus1h").addEventListener("click", () => { demoTime = new Date(demoTime.getTime() + 1 * 60 * 60 * 1000); renderAll(); });
+      byId("btnPlus4h").addEventListener("click", () => { demoTime = new Date(demoTime.getTime() + 4 * 60 * 60 * 1000); renderAll(); });
+      byId("btnExport").addEventListener("click", exportKPIJson);
+      byId("btnExportAudit").addEventListener("click", exportAuditJson);
+
+      /******************************************************************
+       * BOOT
+       ******************************************************************/
+      resetDemo();
+    </script>
+  </body>
+</html>

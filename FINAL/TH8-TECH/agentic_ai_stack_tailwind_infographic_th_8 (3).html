@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agentic AI Stack – Simple & Professional (TH8.AI)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    html,body{font-family:"Prompt",sans-serif}
+    .brand-bg{background:linear-gradient(180deg,#0b0b0b 0%,#111 60%,#161616 100%)}
+    .brand-red{color:#ef4444}
+    .card{background:#0f0f10;border:1px solid #1f2937}
+    .chip{background:#111827;border:1px solid #1f2937}
+    img.icon-white{filter:invert(1) brightness(2)}
+  </style>
+</head>
+<body class="brand-bg text-gray-100">
+  <main class="mx-auto max-w-6xl px-5 py-8">
+    <header class="mb-8">
+      <h1 class="text-4xl font-extrabold"><span class="brand-red">Agentic AI Stack</span> — Knowledge Map</h1>
+      <p class="text-gray-300 mt-2 max-w-3xl">A simplified business-friendly explanation of how Agentic AI systems operate — from collecting data to making secure autonomous decisions.</p>
+    </header>
+
+    <section class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div class="lg:col-span-3 space-y-5">
+        <div class="card rounded-2xl p-6">
+          <h2 class="text-2xl font-bold mb-2">1) Tool / Retrieval Layer <span class="text-gray-400 text-base">— The Eyes & Ears</span></h2>
+          <p class="text-gray-300 mb-3">Connects to data and tools to fetch what the agent needs: documents, APIs, SaaS apps, and vector databases.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="chip rounded-full px-3 py-1 text-xs inline-flex items-center gap-1"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/notion.svg"> Notion</span>
+            <span class="chip rounded-full px-3 py-1 text-xs inline-flex items-center gap-1"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/slack.svg"> Slack</span>
+            <span class="chip rounded-full px-3 py-1 text-xs inline-flex items-center gap-1"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/fastapi.svg"> FastAPI</span>
+            <span class="chip rounded-full px-3 py-1 text-xs inline-flex items-center gap-1"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/singlestore.svg"> SingleStore</span>
+          </div>
+        </div>
+
+        <div class="flex justify-center"><div class="h-6 w-1 bg-red-600 rounded-full"></div></div>
+
+        <div class="card rounded-2xl p-6">
+          <h2 class="text-2xl font-bold mb-2">2) Reasoning Layer <span class="text-gray-400 text-base">— The Brain</span></h2>
+          <p class="text-gray-300 mb-3">Understands language, context, and plans actions using powerful language models and reasoning frameworks.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="chip rounded-full px-3 py-1 text-xs inline-flex items-center gap-1"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/openai.svg"> ChatGPT</span>
+            <span class="chip rounded-full px-3 py-1 text-xs inline-flex items-center gap-1"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/anthropic.svg"> Claude</span>
+            <span class="chip rounded-full px-3 py-1 text-xs inline-flex items-center gap-1"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/huggingface.svg"> Transformers</span>
+            <span class="chip rounded-full px-3 py-1 text-xs inline-flex items-center gap-1"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/python.svg"> spaCy</span>
+          </div>
+        </div>
+
+        <div class="flex justify-center"><div class="h-6 w-1 bg-red-600 rounded-full"></div></div>
+
+        <div class="card rounded-2xl p-6">
+          <h2 class="text-2xl font-bold mb-2">3) Action / Orchestration Layer <span class="text-gray-400 text-base">— The Hands & Feet</span></h2>
+          <p class="text-gray-300 mb-3">Runs workflows and coordinates multiple tasks seamlessly across systems.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="chip rounded-full px-3 py-1 text-xs">LangGraph</span>
+            <span class="chip rounded-full px-3 py-1 text-xs">CrewAI</span>
+            <span class="chip rounded-full px-3 py-1 text-xs inline-flex items-center gap-1"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/microsoft.svg"> AutoGen</span>
+          </div>
+        </div>
+
+        <div class="flex justify-center"><div class="h-6 w-1 bg-red-600 rounded-full"></div></div>
+
+        <div class="card rounded-2xl p-6">
+          <h2 class="text-2xl font-bold mb-2">4) Feedback / Learning Layer <span class="text-gray-400 text-base">— The Heart</span></h2>
+          <p class="text-gray-300 mb-3">Measures performance, captures user feedback, and continuously improves over time.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="chip rounded-full px-3 py-1 text-xs">LangSmith</span>
+            <span class="chip rounded-full px-3 py-1 text-xs">Evaluations</span>
+            <span class="chip rounded-full px-3 py-1 text-xs">Telemetry</span>
+          </div>
+        </div>
+
+        <div class="flex justify-center"><div class="h-6 w-1 bg-red-600 rounded-full"></div></div>
+
+        <div class="card rounded-2xl p-6">
+          <h2 class="text-2xl font-bold mb-2">5) Security / Compliance Layer <span class="text-gray-400 text-base">— The Sentinel</span></h2>
+          <p class="text-gray-300 mb-3">Applies guardrails and ensures data protection, privacy, and compliance with regulations.</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="chip rounded-full px-3 py-1 text-xs">Access Control</span>
+            <span class="chip rounded-full px-3 py-1 text-xs">Audit Logs</span>
+            <span class="chip rounded-full px-3 py-1 text-xs">Sumo Logic</span>
+          </div>
+        </div>
+
+        <div class="mt-5 rounded-2xl border border-red-500/30 bg-red-600/10 px-5 py-4">
+          <p class="text-sm text-gray-200"><span class="font-semibold text-white">Knowledge Share:</span> Collect → Think → Act → Learn → Protect. Reuse freely for learning and collaboration.</p>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-1">
+        <div class="card rounded-2xl p-6 sticky top-6">
+          <h3 class="text-xl font-bold mb-2">Integration Frameworks <span class="text-gray-400 text-sm">— The Glue</span></h3>
+          <p class="text-gray-300 mb-4">Connects layers and tools to enable coordination and reasoning across systems.</p>
+          <ul class="space-y-2">
+            <li class="chip rounded-xl px-3 py-2 text-sm flex items-center gap-2"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/langchain.svg"> LangChain</li>
+            <li class="chip rounded-xl px-3 py-2 text-sm flex items-center gap-2"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/microsoft.svg"> Semantic Kernel</li>
+            <li class="chip rounded-xl px-3 py-2 text-sm flex items-center gap-2"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/huggingface.svg"> Haystack</li>
+            <li class="chip rounded-xl px-3 py-2 text-sm flex items-center gap-2"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/python.svg"> DSPy</li>
+            <li class="chip rounded-xl px-3 py-2 text-sm flex items-center gap-2">🤝 CrewAI</li>
+            <li class="chip rounded-xl px-3 py-2 text-sm flex items-center gap-2"><img class="h-4 icon-white" src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/microsoft.svg"> AutoGen</li>
+            <li class="chip rounded-xl px-3 py-2 text-sm flex items-center gap-2">🦙 LlamaIndex</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <footer class="mt-10 text-xs text-gray-400 text-center">© TH8.AI • Agentic AI Knowledge Infographic • Built with TailwindCSS + Prompt font</footer>
+  </main>
+</body>
+</html>

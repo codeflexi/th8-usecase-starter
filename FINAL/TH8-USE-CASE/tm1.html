@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', sans-serif; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 p-6">
+  <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 md:p-8 space-y-6">
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <h1 class="text-2xl md:text-3xl font-bold text-slate-900">
+          Cognos TM1 vs TH8 · AI FP&A Suite
+        </h1>
+        <p class="text-sm text-slate-600 mt-1">
+          TM1 = ระบบวางแผนการเงินระดับ Enterprise<br>
+          TH8 · AI FP&A = ชั้น AI ที่มาช่วยคิด วิเคราะห์ และแปลตัวเลขเป็น Insight
+        </p>
+      </div>
+      <div class="text-xs md:text-sm bg-red-50 text-red-500 px-3 py-2 rounded-xl border border-red-100">
+        ไม่ต้องทิ้ง TM1 · แค่เพิ่มชั้น AI ด้านบน
+      </div>
+    </div>
+
+    <!-- 2-Column Compare -->
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <!-- TM1 Column -->
+      <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200">
+        <h2 class="text-lg font-semibold text-slate-800 mb-2">
+          Cognos TM1<br><span class="text-xs font-normal text-slate-500">IBM Planning Analytics</span>
+        </h2>
+        <ul class="text-sm text-slate-700 space-y-2">
+          <li><span class="font-semibold text-slate-900">✓ Budget & Forecast Engine</span><br>เก่งด้านการทำ Budget, Forecast, Driver-based Model</li>
+          <li><span class="font-semibold text-slate-900">✓ In-memory OLAP</span><br>คำนวณเร็ว แม้มีมิติและข้อมูลจำนวนมาก</li>
+          <li><span class="font-semibold text-slate-900">✓ Single Source of Truth</span><br>เป็นที่เก็บตัวเลขที่องค์กรเชื่อถือ</li>
+        </ul>
+        <p class="mt-3 text-xs text-slate-500">
+          แต่การหาคำตอบว่า “ทำไมกำไรหาย?” หรือ “ควรทำอะไรต่อ?” ยังต้องใช้คนทำ Excel / Report เพิ่มเอง
+        </p>
+      </div>
+
+      <!-- TH8 Column -->
+      <div class="bg-red-50 rounded-2xl p-4 border border-red-100">
+        <h2 class="text-lg font-semibold text-red-600 mb-2">
+          TH8 · AI FP&A Suite<br><span class="text-xs font-normal text-red-500">AI Insight & Decision Layer</span>
+        </h2>
+        <ul class="text-sm text-red-900 space-y-2">
+          <li><span class="font-semibold">🔥 วิเคราะห์สาเหตุให้อัตโนมัติ</span><br>Margin ลดเพราะ Mix? Cost? Price? AI สรุปให้ทันที</li>
+          <li><span class="font-semibold">🔥 Scenario แบบ Real-time</span><br>ลอง “ถ้าขายโต 5% / ลด cost 10%” ได้ในไม่กี่วินาที</li>
+          <li><span class="font-semibold">🔥 สร้าง Insight & Report Pack ให้เลย</span><br>แปลงตัวเลข TM1 เป็นสรุปสำหรับ CFO/CEO</li>
+          <li><span class="font-semibold">🔥 Data Quality & Exception Alerts</span><br>เตือน outlier, mapping ผิด, ตัวเลขกระโดด</li>
+        </ul>
+        <p class="mt-3 text-xs text-red-600">
+          ใช้ TM1 เป็นฐานตัวเลข · ให้ TH8 เป็น “สมอง AI” ที่นั่งอยู่ด้านบน
+        </p>
+      </div>
+    </div>
+
+    <!-- KPI & Value -->
+    <div class="grid md:grid-cols-3 gap-4 mt-4">
+      <div class="bg-white rounded-xl border border-slate-200 p-3">
+        <div class="text-xs font-semibold text-slate-500 mb-1">Time Saving</div>
+        <div class="text-xl font-bold text-slate-900">60–90%</div>
+        <p class="text-xs text-slate-500 mt-1">ลดเวลาปิดงบ + เตรียมรายงาน เทียบกับทำมือบน Excel/TM1 ล้วน ๆ</p>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-3">
+        <div class="text-xs font-semibold text-slate-500 mb-1">Error Reduction</div>
+        <div class="text-xl font-bold text-slate-900">70–95%</div>
+        <p class="text-xs text-slate-500 mt-1">AI ช่วยตรวจ data quality ก่อนวิเคราะห์</p>
+      </div>
+      <div class="bg-white rounded-xl border border-slate-200 p-3">
+        <div class="text-xs font-semibold text-slate-500 mb-1">Faster Insight</div>
+        <div class="text-xl font-bold text-slate-900">5–10×</div>
+        <p class="text-xs text-slate-500 mt-1">จาก “รอรายงาน 1–2 สัปดาห์” → “เห็น insight ได้ใน 1 วันหรือ real-time”</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <p class="text-sm text-slate-700">
+        ถ้าบริษัทมี TM1 อยู่แล้ว · TH8 สามารถต่อเป็น AI Layer ด้านบนโดยไม่ต้องรื้อระบบเดิม
+      </p>
+      <button class="px-4 py-2 rounded-full bg-red-500 text-white text-sm font-semibold shadow hover:bg-red-600">
+        ขอ Session 60 นาที: ดู TM1 + AI FP&A ในบริบทบริษัทคุณ
+      </button>
+    </div>
+
+  </div>
+</body>
+</html>

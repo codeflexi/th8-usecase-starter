@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8 · Pillar 2 – LINE → ERP Order Sync Journey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 p-4 md:p-8">
+
+  <div class="max-w-6xl mx-auto space-y-6 text-xs md:text-sm">
+    <!-- HEADER -->
+    <header class="space-y-3">
+      <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+        Pillar 2 · AI Workflow Automation
+      </p>
+      <h1 class="text-2xl md:text-3xl font-semibold">
+        Flow: Sync Order จาก LINE OA → ERP  
+        <span class="text-slate-500 text-base md:text-lg block md:inline">
+          พร้อมจุดที่ AI Agent เข้าไปช่วยทำงานแทนคน
+        </span>
+      </h1>
+      <p class="text-sm text-slate-600 max-w-2xl">
+        ตัวอย่าง Journey ที่ลูกค้าสั่งของผ่าน LINE OA → TH8 Order Intake Agent → ตรวจสอบ / เติมข้อมูล → 
+        ส่งเข้า ERP พร้อมแจ้งเตือนทีมที่เกี่ยวข้อง โดยไม่ต้องคีย์มือซ้ำ.
+      </p>
+    </header>
+
+    <!-- OVERVIEW FLOW -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 md:p-5 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <p class="text-[11px] font-medium text-slate-700">
+            Overview · Journey จากมุมมองระบบ
+          </p>
+          <p class="text-[11px] text-slate-500">
+            เห็นลำดับจาก Channel (LINE) → Agent → Workflow Engine → ERP &amp; Notification
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="inline-flex items-center gap-1 rounded-full bg-slate-900 text-white px-2.5 py-1 text-[10px]">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span> AI Agent Node
+          </span>
+          <span class="inline-flex items-center gap-1 rounded-full bg-slate-100 text-slate-700 px-2.5 py-1 text-[10px]">
+            <span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span> Workflow / Integration
+          </span>
+        </div>
+      </div>
+
+      <!-- Flow line -->
+      <div class="mt-1 grid grid-cols-4 gap-3 text-[11px]">
+        <!-- LINE -->
+        <div class="flex flex-col items-center text-center">
+          <div class="h-9 w-9 rounded-xl bg-emerald-500 text-white flex items-center justify-center text-[13px] font-semibold shadow-sm">
+            L
+          </div>
+          <p class="mt-2 font-medium text-slate-800">LINE OA</p>
+          <p class="text-[11px] text-slate-500">ลูกค้าพิมพ์สั่งของ / กดเมนู</p>
+        </div>
+
+        <!-- Agent -->
+        <div class="flex flex-col items-center text-center">
+          <div class="h-9 w-9 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[13px] font-semibold shadow-sm">
+            A
+          </div>
+          <p class="mt-2 font-medium text-slate-800">TH8 Order Agent</p>
+          <p class="text-[11px] text-slate-500">อ่านข้อความ → แปลงเป็น Order ที่มีโครงสร้าง</p>
+        </div>
+
+        <!-- Workflow -->
+        <div class="flex flex-col items-center text-center">
+          <div class="h-9 w-9 rounded-xl bg-sky-500 text-white flex items-center justify-center text-[13px] font-semibold shadow-sm">
+            W
+          </div>
+          <p class="mt-2 font-medium text-slate-800">Workflow Engine</p>
+          <p class="text-[11px] text-slate-500">ตรวจ stock / credit / route · จัดการ exception</p>
+        </div>
+
+        <!-- ERP -->
+        <div class="flex flex-col items-center text-center">
+          <div class="h-9 w-9 rounded-xl bg-amber-500 text-white flex items-center justify-center text-[13px] font-semibold shadow-sm">
+            E
+          </div>
+          <p class="mt-2 font-medium text-slate-800">ERP + แจ้งเตือน</p>
+          <p class="text-[11px] text-slate-500">โพสต์เข้า ERP + แจ้งทีมที่เกี่ยวข้องอัตโนมัติ</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRONTLINE vs AGENT VIEW -->
+    <section class="grid md:grid-cols-2 gap-5">
+      <!-- LEFT: FRONTLINE / STAFF VIEW -->
+      <div class="space-y-4">
+        <!-- Chat -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-[11px] font-medium text-slate-700">
+                1) ลูกค้าสั่งของผ่าน LINE OA
+              </p>
+              <p class="text-[11px] text-slate-500">
+                ตัวอย่างข้อความที่ลูกค้าพิมพ์จริง (ไม่ได้เรียงตามฟอร์มสวย ๆ)
+              </p>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-100 text-[10px] text-emerald-700">
+              Channel: LINE
+            </span>
+          </div>
+
+          <!-- LINE chat mock -->
+          <div class="bg-emerald-50 rounded-xl p-3 space-y-2 text-[11px]">
+            <div class="text-[10px] text-emerald-900/70 mb-1">
+              LINE Chat ตัวอย่าง
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <div class="self-start max-w-[80%] bg-white rounded-2xl rounded-bl-sm px-3 py-2 shadow-sm">
+                <p class="text-[11px] text-slate-800">
+                  สวัสดีครับ ขอเปิดบิลส่งของพรุ่งนี้ให้สาขาเชียงใหม่
+                  <br/>- แผ่นเมทัลชีท หนา 0.35 ยาว 6 ม. สีขาว 120 แผ่น
+                  <br/>- ครอบสันโค้ง สีขาว 40 เส้น
+                </p>
+              </div>
+              <div class="self-end max-w-[80%] bg-emerald-500 text-white rounded-2xl rounded-br-sm px-3 py-2 shadow-sm">
+                <p class="text-[11px]">
+                  รับรายการแล้วครับ เดี๋ยวระบบช่วยจัดทำใบสั่งขายให้ และส่งยืนยันอีกครั้งครับ
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick summary card for CS -->
+          <div class="bg-slate-50 rounded-xl border border-slate-200 p-3 text-[11px] space-y-1.5">
+            <div class="flex items-center justify-between">
+              <p class="font-medium text-slate-800">
+                สรุปรายการ (มุมมองพนักงานหน้า LINE / Call Center)
+              </p>
+              <span class="px-2 py-0.5 rounded-full bg-slate-900 text-white text-[10px]">
+                Generated by Agent
+              </span>
+            </div>
+            <ul class="list-disc list-inside text-slate-600">
+              <li>ลูกค้า: บจก. ตัวอย่างวัสดุก่อสร้าง (รหัสลูกค้า: C-10234)</li>
+              <li>สาขาปลายทาง: คลังเชียงใหม่</li>
+              <li>วันส่งของ: พรุ่งนี้ (ระบบแปลงเป็นวันที่จริง)</li>
+            </ul>
+          </div>
+
+          <!-- Product summary table -->
+          <div class="bg-white rounded-xl border border-slate-200 p-3 text-[11px]">
+            <div class="flex items-center justify-between mb-1">
+              <p class="font-medium text-slate-800">
+                รายการสินค้า (ก่อนส่งเข้า ERP)
+              </p>
+              <span class="text-[10px] text-slate-500">
+                Extracted Line Items
+              </span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="min-w-full border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-200 text-slate-500">
+                    <th class="text-left py-1 pr-2">สินค้า (จากข้อความ)</th>
+                    <th class="text-right py-1 px-2">Qty</th>
+                    <th class="text-right py-1 px-2">หน่วย</th>
+                    <th class="text-right py-1 pl-2">หมายเหตุ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-slate-100">
+                    <td class="py-1 pr-2 text-slate-800">
+                      แผ่นเมทัลชีท หนา 0.35 ยาว 6 ม. สีขาว
+                    </td>
+                    <td class="py-1 px-2 text-right text-slate-900">120</td>
+                    <td class="py-1 px-2 text-right text-slate-700">แผ่น</td>
+                    <td class="py-1 pl-2 text-right text-slate-500">TEXT → Product Code</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1 pr-2 text-slate-800">
+                      ครอบสันโค้ง สีขาว
+                    </td>
+                    <td class="py-1 px-2 text-right text-slate-900">40</td>
+                    <td class="py-1 px-2 text-right text-slate-700">เส้น</td>
+                    <td class="py-1 pl-2 text-right text-slate-500">TEXT → Product Code</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: AGENT & WORKFLOW / BACK-OFFICE VIEW -->
+      <div class="space-y-4">
+        <!-- Agent Node -->
+        <div class="bg-slate-900 text-slate-50 rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <p class="text-[11px] font-medium">
+              2) TH8 Order Intake Agent · จุดที่ AI เข้าไปช่วย
+            </p>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-100 text-[10px] border border-emerald-400/60">
+              AI Agent Node
+            </span>
+          </div>
+
+          <p class="text-[11px] text-slate-100/90">
+            Agent อ่านข้อความจาก LINE แล้ว:
+          </p>
+          <ul class="list-disc list-inside text-[11px] space-y-1 text-slate-100/90">
+            <li>แยก Intent ว่าเป็น “เปิดออเดอร์ใหม่”</li>
+            <li>ดึง Customer Profile จากเบอร์ / LINE ID → ระบุรหัสลูกค้า + เงื่อนไขเครดิต</li>
+            <li>แปลงข้อความสินค้าเป็น Product Code ของ ERP</li>
+            <li>ตรวจความครบถ้วน: ปลายทางส่งของ, วันที่, เงื่อนไขพิเศษ</li>
+          </ul>
+
+          <div class="bg-slate-800/80 rounded-xl p-3 text-[11px] space-y-1">
+            <p class="text-[10px] text-slate-300 mb-1">
+              ตัวอย่าง Payload ที่ Agent ส่งเข้า Workflow:
+            </p>
+            <pre class="text-[10px] leading-snug text-emerald-100 overflow-x-auto">
+{
+  "order_source": "LINE_OA",
+  "customer_code": "C-10234",
+  "ship_to": "BR-CNX",
+  "delivery_date": "2025-03-02",
+  "lines": [
+    { "product_code": "MS-035-6M-WH", "qty": 120, "uom": "SHEET" },
+    { "product_code": "CRV-RIDGE-WH", "qty": 40,  "uom": "PCS" }
+  ]
+}
+            </pre>
+          </div>
+        </div>
+
+        <!-- Workflow & ERP Node -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <p class="text-[11px] font-medium text-slate-800">
+              3) Workflow &amp; ERP Integration · หลังจาก Agent แปลงข้อมูลเสร็จ
+            </p>
+            <span class="px-2 py-0.5 rounded-full bg-sky-50 text-sky-700 text-[10px] border border-sky-100">
+              Workflow Node
+            </span>
+          </div>
+
+          <!-- Steps -->
+          <div class="grid gap-2 text-[11px]">
+            <div class="bg-slate-50 rounded-xl border border-slate-200 p-2.5">
+              <p class="font-medium text-slate-800 mb-0.5">
+                Step 1 · ตรวจ Stock &amp; Credit Limit
+              </p>
+              <p class="text-slate-600">
+                Workflow เรียก API เช็ค stock แต่ละสินค้า + วงเงินเครดิตลูกค้า ถ้าไม่พอ → ส่งเข้า queue ให้คนอนุมัติ.
+              </p>
+            </div>
+            <div class="bg-slate-50 rounded-xl border border-slate-200 p-2.5">
+              <p class="font-medium text-slate-800 mb-0.5">
+                Step 2 · สร้าง Sales Order ใน ERP
+              </p>
+              <p class="text-slate-600">
+                เมื่อผ่านเงื่อนไข → สร้างเอกสาร Sales Order (SO) ใน ERP พร้อม line รายการสินค้า.
+              </p>
+            </div>
+            <div class="bg-slate-50 rounded-xl border border-slate-200 p-2.5">
+              <p class="font-medium text-slate-800 mb-0.5">
+                Step 3 · แจ้งเตือนทีมคลัง &amp; ลูกค้า
+              </p>
+              <p class="text-slate-600">
+                ส่งแจ้งเตือนเข้า LINE กลุ่มคลัง / ขนส่ง + ส่งข้อความยืนยันกลับหาลูกค้าใน LINE OA อัตโนมัติ.
+              </p>
+            </div>
+          </div>
+
+          <!-- ERP Table Sample -->
+          <div class="mt-2 bg-white rounded-xl border border-slate-200 p-3 text-[11px]">
+            <div class="flex items-center justify-between mb-1">
+              <p class="font-medium text-slate-800">
+                ตัวอย่างข้อมูลใน ERP (Sales Order Line)
+              </p>
+              <span class="text-[10px] text-slate-500">table: so_line</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="min-w-full border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-200 text-slate-500">
+                    <th class="text-left py-1 pr-2">SO No.</th>
+                    <th class="text-left py-1 px-2">Product Code</th>
+                    <th class="text-left py-1 px-2">Description</th>
+                    <th class="text-right py-1 px-2">Qty</th>
+                    <th class="text-right py-1 px-2">UOM</th>
+                    <th class="text-right py-1 pl-2">Line Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-slate-100">
+                    <td class="py-1 pr-2 text-slate-800">SO-2025-000121</td>
+                    <td class="py-1 px-2 text-slate-800">MS-035-6M-WH</td>
+                    <td class="py-1 px-2 text-slate-700">Metal Sheet 0.35x6m White</td>
+                    <td class="py-1 px-2 text-right text-slate-900">120</td>
+                    <td class="py-1 px-2 text-right text-slate-700">SHEET</td>
+                    <td class="py-1 pl-2 text-right text-slate-900">฿216,000</td>
+                  </tr>
+                  <tr>
+                    <td class="py-1 pr-2 text-slate-800">SO-2025-000121</td>
+                    <td class="py-1 px-2 text-slate-800">CRV-RIDGE-WH</td>
+                    <td class="py-1 px-2 text-slate-700">Curved Ridge Cap White</td>
+                    <td class="py-1 px-2 text-right text-slate-900">40</td>
+                    <td class="py-1 px-2 text-right text-slate-700">PCS</td>
+                    <td class="py-1 pl-2 text-right text-slate-900">฿28,000</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-[10px] text-slate-500 mt-1">
+              * Mapping Product Code / Price / Discount ถูกเตรียมจาก Master Data · Agent ไม่แก้ราคาเอง แต่ช่วย mapping และตรวจความครบถ้วนก่อนโพสต์เข้า ERP
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA JOURNEY (LINE → AGENT → ERP) -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 md:p-5 space-y-3">
+      <div class="flex items-center justify-between">
+        <p class="text-[11px] font-medium text-slate-800">
+          Data Journey · ตัวอย่างข้อมูลสินค้าในแต่ละจุดของ Flow
+        </p>
+        <span class="text-[10px] text-slate-500">
+          Focus: 1 รายการสินค้าเดียวกันเปลี่ยนหน้าตาอย่างไร
+        </span>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-3 text-[11px]">
+        <!-- LINE Raw -->
+        <div class="bg-slate-50 rounded-xl border border-slate-200 p-3 space-y-1.5">
+          <p class="font-medium text-slate-800">1) LINE Raw Text</p>
+          <p class="text-[11px] text-slate-600">
+            ข้อความที่ลูกค้าพิมพ์จริง
+          </p>
+          <pre class="mt-1 text-[10px] leading-snug bg-white rounded-lg border border-slate-200 p-2 overflow-x-auto">
+"เอาแผ่นเมทัลชีท 0.35 หนา 6 เมตร สีขาว 120 แผ่น
+พร้อมครอบสันโค้งสีขาว 40 เส้น ส่งเชียงใหม่พรุ่งนี้"
+          </pre>
+        </div>
+
+        <!-- Agent Structured -->
+        <div class="bg-slate-900 text-slate-50 rounded-xl border border-slate-800 p-3 space-y-1.5">
+          <p class="font-medium">2) Agent Structured Order</p>
+          <p class="text-[11px] text-slate-200">
+            ข้อมูลที่ Agent แปลงแล้ว · พร้อมใช้ใน Workflow
+          </p>
+          <pre class="mt-1 text-[10px] leading-snug bg-slate-800 rounded-lg p-2 overflow-x-auto">
+{
+  "customer_code": "C-10234",
+  "ship_to": "BR-CNX",
+  "delivery_date": "2025-03-02",
+  "line": {
+    "raw_text": "แผ่นเมทัลชีท 0.35 หนา 6 เมตร สีขาว 120 แผ่น",
+    "product_code": "MS-035-6M-WH",
+    "qty": 120,
+    "uom": "SHEET"
+  }
+}
+          </pre>
+        </div>
+
+        <!-- ERP Final -->
+        <div class="bg-slate-50 rounded-xl border border-slate-200 p-3 space-y-1.5">
+          <p class="font-medium text-slate-800">3) ERP Line Item</p>
+          <p class="text-[11px] text-slate-600">
+            บันทึกจริงใน ERP หลัง Workflow ทำงานครบ
+          </p>
+          <table class="mt-1 w-full text-[10px] border-collapse">
+            <tbody>
+              <tr>
+                <td class="py-0.5 pr-2 text-slate-500">so_no</td>
+                <td class="py-0.5 text-slate-900">SO-2025-000121</td>
+              </tr>
+              <tr>
+                <td class="py-0.5 pr-2 text-slate-500">product_code</td>
+                <td class="py-0.5 text-slate-900">MS-035-6M-WH</td>
+              </tr>
+              <tr>
+                <td class="py-0.5 pr-2 text-slate-500">qty</td>
+                <td class="py-0.5 text-slate-900">120</td>
+              </tr>
+              <tr>
+                <td class="py-0.5 pr-2 text-slate-500">uom</td>
+                <td class="py-0.5 text-slate-900">SHEET</td>
+              </tr>
+              <tr>
+                <td class="py-0.5 pr-2 text-slate-500">unit_price</td>
+                <td class="py-0.5 text-slate-900">฿1,800</td>
+              </tr>
+              <tr>
+                <td class="py-0.5 pr-2 text-slate-500">line_amount</td>
+                <td class="py-0.5 text-slate-900">฿216,000</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="mt-1 text-[10px] text-slate-500">
+            * ตารางราคา / ส่วนลดมาจาก Master Data ใน ERP · Agent ไม่แกะราคาเอง แต่ช่วย mapping code ให้ถูก
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXCEPTION / ERROR HANDLING -->
+    <section class="bg-slate-50 border border-slate-200 rounded-2xl p-4 md:p-5 space-y-3">
+      <div class="flex items-center justify-between">
+        <p class="text-[11px] font-medium text-slate-800">
+          Exception &amp; Human-in-the-loop · ถ้า Agent หรือ Workflow เจอเคสผิดปกติ
+        </p>
+        <span class="text-[10px] text-slate-500">
+          ตัวอย่าง: สินค้าไม่มีใน Master / เกิน Credit Limit
+        </span>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-3 text-[11px]">
+        <div class="bg-white rounded-xl border border-slate-200 p-3 space-y-1.5">
+          <p class="font-medium text-slate-800">Queue สำหรับ Back Office</p>
+          <p class="text-slate-600">
+            ถ้า Agent mapping ไม่ได้ เช่น สินค้าใหม่ยังไม่มีใน ERP → ส่งเข้าคิวให้เจ้าหน้าที่เลือกสินค้าให้ถูกต้อง.
+          </p>
+          <ul class="mt-1 list-disc list-inside text-slate-600 space-y-0.5">
+            <li>แจ้งข้อความดั้งเดิมจาก LINE</li>
+            <li>เสนอ Product Code ที่ใกล้เคียงให้เลือก</li>
+            <li>เมื่อเลือกแล้ว · Agent จำ mapping นี้ไว้ใช้รอบถัดไป</li>
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-xl border border-slate-200 p-3 space-y-1.5">
+          <p class="font-medium text-slate-800">Audit Log &amp; Monitoring</p>
+          <p class="text-slate-600">
+            ทุกครั้งที่ Agent สร้าง / แก้ไขข้อมูลก่อนเข้า ERP จะมี Log ให้ทีม Audit / IT ตรวจสอบย้อนหลังได้.
+          </p>
+          <ul class="mt-1 list-disc list-inside text-slate-600 space-y-0.5">
+            <li>เก็บ LINE Message ID, เวลา, ผู้ใช้</li>
+            <li>เก็บ Payload ก่อน-หลัง Agent แปลงข้อมูล</li>
+            <li>เก็บ SO Number ที่สร้างใน ERP เพื่อ trace ย้อนกลับ</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</body>
+</html>

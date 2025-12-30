@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI x FCS iMF – Defect Alert Flow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900">
+  <div class="max-w-7xl mx-auto px-4 py-8 space-y-8">
+
+    <!-- HEADER -->
+    <header class="space-y-3">
+      <p class="text-[11px] uppercase tracking-wide text-red-500 font-semibold">
+        TH8.AI x FCS iMF 4.0 · Defect Alert Flow
+      </p>
+      <h1 class="text-2xl md:text-3xl font-semibold">
+        End-to-End Flow: Defect สูงผิดปกติ → Alert → Dashboard → SOP Copilot + LINE
+      </h1>
+      <p class="text-sm md:text-base text-slate-600 max-w-3xl">
+        หน้าจอตัวอย่างสำหรับเล่า Flow จริงให้ลูกค้าเห็นภาพ: จาก Defect สูงใน Mold CC-24
+        ระบบตรวจจับอัตโนมัติ → ยิง Alert → แนะนำการตรวจ Cooling → เปิด SOP ภาษาไทย → ปิดเคสและเก็บเป็น Case Library
+      </p>
+    </header>
+
+    <!-- MAIN GRID -->
+    <section class="grid lg:grid-cols-[1.1fr_0.9fr] gap-6 items-start">
+
+      <!-- LEFT: TIMELINE (1–6) -->
+      <div class="space-y-4">
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-5 md:p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+                Data Flow Example
+              </p>
+              <h2 class="text-lg font-semibold text-slate-900">
+                Defect สูงผิดปกติ · Scrapt rate Mold CC-24 &gt; 4% ติดต่อกัน 3 ชั่วโมง
+              </h2>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-slate-900 text-white text-[11px]">
+              End-to-End View
+            </span>
+          </div>
+
+          <ol class="space-y-4 text-[13px]">
+            <!-- Step 1 -->
+            <li class="flex gap-3">
+              <div class="flex flex-col items-center">
+                <div class="h-7 w-7 rounded-full bg-sky-500 text-white flex items-center justify-center text-[11px] font-semibold">
+                  1
+                </div>
+                <div class="flex-1 w-px bg-slate-200"></div>
+              </div>
+              <div>
+                <p class="font-semibold text-slate-900">
+                  iMF ส่งข้อมูล Shot + Defect (NG) เข้า Time-series DB แบบ Real-time
+                </p>
+                <p class="text-slate-600">
+                  เครื่องฉีด CC-24 ส่งข้อมูลทุก Shot: Cycle time, Cavity OK/NG, Defect code, Parameter snapshot
+                  เข้าสู่ TH8 Data Platform เพื่อเก็บ Timeline รายเครื่อง/กะการผลิต
+                </p>
+                <p class="mt-1 text-[11px] text-slate-500">
+                  Source: iMF Real-time API / Historian → Time-series DB
+                </p>
+              </div>
+            </li>
+
+            <!-- Step 2 -->
+            <li class="flex gap-3">
+              <div class="flex flex-col items-center">
+                <div class="h-7 w-7 rounded-full bg-red-500 text-white flex items-center justify-center text-[11px] font-semibold">
+                  2
+                </div>
+                <div class="flex-1 w-px bg-slate-200"></div>
+              </div>
+              <div>
+                <p class="font-semibold text-slate-900">
+                  Quality &amp; Scrap Agent ตรวจ Scrap rate &gt; 4% ติดต่อกัน 3 ชั่วโมง
+                </p>
+                <p class="text-slate-600">
+                  Agent รัน Rule + Model วิเคราะห์ Scrap rate ตาม Machine, Mold, Product, Shift
+                  ถ้าเกิน Threshold ที่กำหนด จะ Mark ว่าเป็น “High Defect Episode” และเตรียม Context แนะนำ
+                </p>
+                <p class="mt-1 text-[11px] text-red-600">
+                  Trigger: mold_id = CC-24 · scrap_rate 4.8% · 3 hours
+                </p>
+              </div>
+            </li>
+
+            <!-- Step 3 -->
+            <li class="flex gap-3">
+              <div class="flex flex-col items-center">
+                <div class="h-7 w-7 rounded-full bg-amber-500 text-white flex items-center justify-center text-[11px] font-semibold">
+                  3
+                </div>
+                <div class="flex-1 w-px bg-slate-200"></div>
+              </div>
+              <div>
+                <p class="font-semibold text-slate-900">
+                  Agent ยิง Alert → Dashboard + LINE กลุ่มหัวหน้ากะ + สร้าง Ticket QC
+                </p>
+                <p class="text-slate-600">
+                  ระบบสร้าง “Quality Alert” บน Dashboard, ส่งข้อความเข้า LINE กลุ่มหัวหน้ากะ และเปิด Ticket ในระบบ QC/CMMS
+                  เพื่อให้ทีมคุณภาพตรวจสอบทันที
+                </p>
+                <p class="mt-1 text-[11px] text-slate-500">
+                  Output: Alert card + LINE แจ้งเตือน + Ticket ID (QA-2025-00457)
+                </p>
+              </div>
+            </li>
+
+            <!-- Step 4 -->
+            <li class="flex gap-3">
+              <div class="flex flex-col items-center">
+                <div class="h-7 w-7 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[11px] font-semibold">
+                  4
+                </div>
+                <div class="flex-1 w-px bg-slate-200"></div>
+              </div>
+              <div>
+                <p class="font-semibold text-slate-900">
+                  Maintenance Agent ตรวจ Alarm/Trend อุณหภูมิ → แนะนำให้ตรวจ Cooling line ก่อน
+                </p>
+                <p class="text-slate-600">
+                  Agent ดู Trend ของอุณหภูมิ, Pressure, Alarm ที่เกี่ยวข้องกับ Mold CC-24
+                  แล้วสรุปเป็น Insight ภาษาไทยว่า “มีแนวโน้มปัญหาด้าน Cooling” และเสนอ Step เบื้องต้นให้ช่างทำตาม
+                </p>
+                <p class="mt-1 text-[11px] text-emerald-600">
+                  Insight: “อุณหภูมิ Mold สูงผิดปกติในช่วง 2 ชั่วโมงหลังสุด · แนะนำตรวจ Cooling line”
+                </p>
+              </div>
+            </li>
+
+            <!-- Step 5 -->
+            <li class="flex gap-3">
+              <div class="flex flex-col items-center">
+                <div class="h-7 w-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[11px] font-semibold">
+                  5
+                </div>
+                <div class="flex-1 w-px bg-slate-200"></div>
+              </div>
+              <div>
+                <p class="font-semibold text-slate-900">
+                  Knowledge Copilot เปิด SOP การตรวจ Cooling + Safety ภาษาไทย
+                </p>
+                <p class="text-slate-600">
+                  Agent เปิด SOP, Work Instruction, Check list ที่เกี่ยวข้องกับ “Cooling problem on CC-24”
+                  พร้อมสรุป Step ภาษาไทยง่าย ๆ ให้หัวหน้ากะเห็นทั้งบน Dashboard และ LINE
+                </p>
+                <p class="mt-1 text-[11px] text-slate-500">
+                  RAG: Manual + SOP + เคสเก่า ๆ ที่เคยเกิดปัญหา Cooling
+                </p>
+              </div>
+            </li>
+
+            <!-- Step 6 -->
+            <li class="flex gap-3">
+              <div class="flex flex-col items-center">
+                <div class="h-7 w-7 rounded-full bg-emerald-700 text-white flex items-center justify-center text-[11px] font-semibold">
+                  6
+                </div>
+              </div>
+              <div>
+                <p class="font-semibold text-slate-900">
+                  ปิดเคส → เก็บ Root cause &amp; Action plan เข้า Case Library
+                </p>
+                <p class="text-slate-600">
+                  หลังแก้ไขเสร็จ · หัวหน้ากะ/ช่างเลือก Root cause, วิธีแก้, Spare parts ที่ใช้
+                  และบันทึกลง Case Library เพื่อให้ AI ใช้เป็นตัวอย่างตอบคำถามในอนาคต
+                </p>
+                <p class="mt-1 text-[11px] text-slate-500">
+                  Result: Scrap rate กลับมาต่ำกว่า 2% ภายใน 4 ชั่วโมง · Case นี้กลายเป็น Blueprint สำหรับครั้งถัดไป
+                </p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- RIGHT: UI PANELS (DASHBOARD + LINE + SOP COPILOT) -->
+      <div class="space-y-4">
+        <!-- 1) QUALITY ALERT DASHBOARD CARD -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+                Control Room Dashboard
+              </p>
+              <h2 class="text-sm md:text-base font-semibold text-slate-900">
+                Quality Alert · Mold CC-24 · Defect สูงผิดปกติ
+              </h2>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-red-50 text-red-700 text-[11px] border border-red-100">
+              🔔 Critical
+            </span>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 text-[11px]">
+            <div class="bg-slate-50 rounded-lg border border-slate-200 p-2">
+              <p class="text-slate-500">Mold</p>
+              <p class="font-semibold text-slate-900">CC-24</p>
+              <p class="text-[10px] text-slate-500 mt-0.5">Product: Housing-24G</p>
+            </div>
+            <div class="bg-slate-50 rounded-lg border border-slate-200 p-2">
+              <p class="text-slate-500">Scrap rate</p>
+              <p class="font-semibold text-red-600">4.8%</p>
+              <p class="text-[10px] text-slate-500 mt-0.5">&gt; Target 2.0%</p>
+            </div>
+            <div class="bg-slate-50 rounded-lg border border-slate-200 p-2">
+              <p class="text-slate-500">Duration</p>
+              <p class="font-semibold text-slate-900">3 ชั่วโมง</p>
+              <p class="text-[10px] text-slate-500 mt-0.5">Shift B (14:00–22:00)</p>
+            </div>
+          </div>
+
+          <div class="border border-dashed border-slate-200 rounded-lg p-2.5 text-[11px] space-y-1">
+            <p class="font-semibold text-slate-800">
+              AI Summary (Quality &amp; Maintenance Agent)
+            </p>
+            <p class="text-slate-700">
+              • Scrap defect เด่น: Short shot, Burn mark<br/>
+              • Parameter ช่วงเกิดปัญหา: Mold temp สูงกว่าปกติ 3–5°C<br/>
+              • Alarm ที่พบร่วม: Cooling flow low (ALM-CC24-013)
+            </p>
+          </div>
+
+          <div class="flex justify-between items-center pt-1 text-[11px]">
+            <span class="text-slate-500">
+              Ticket: <span class="font-mono text-slate-800">QA-2025-00457</span>
+            </span>
+            <button class="px-3 py-1 rounded-full bg-slate-900 text-white text-[11px]">
+              เปิดใน SOP Copilot →
+            </button>
+          </div>
+        </div>
+
+        <!-- 2) LINE UI MOCKUP -->
+        <div class="bg-gradient-to-br from-emerald-50 to-slate-50 border border-slate-200 rounded-2xl shadow-sm p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="h-8 w-8 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[11px] font-semibold">
+                TH8
+              </div>
+              <div>
+                <p class="text-[11px] font-semibold text-slate-800">TH8 · Factory Agent</p>
+                <p class="text-[10px] text-slate-500">LINE กลุ่มหัวหน้ากะ · Production &amp; QC</p>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px]">
+              LIVE
+            </span>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-slate-200 p-3 space-y-2 text-[11px]">
+            <!-- Agent message -->
+            <div class="flex items-start gap-2">
+              <div class="h-7 w-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] mt-0.5">
+                A
+              </div>
+              <div class="bg-slate-900 text-slate-50 rounded-2xl rounded-tl-sm px-3 py-2 max-w-[80%]">
+                <p class="mb-1">
+                  🔔 <span class="font-semibold">Quality Alert: Mold CC-24</span>
+                </p>
+                <p class="text-slate-100/90">
+                  Scrap rate ล่าสุดอยู่ที่ <span class="font-semibold">4.8%</span> (> Target 2.0%) 
+                  ติดต่อกัน 3 ชั่วโมง ใน Shift B
+                </p>
+                <p class="mt-1 text-[10px] text-emerald-200">
+                  สาเหตุที่เป็นไปได้: Cooling ทำงานไม่เต็มประสิทธิภาพ · Temp Mold สูงกว่าปกติ 3–5°C
+                </p>
+                <p class="mt-1 text-[10px] text-slate-300">
+                  Ticket: QA-2025-00457 · กดที่นี่เพื่อดู SOP การตรวจ Cooling
+                </p>
+              </div>
+            </div>
+
+            <!-- Quick actions -->
+            <div class="flex flex-wrap gap-1 pl-9">
+              <button class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 text-[10px]">
+                เปิด SOP ตรวจ Cooling
+              </button>
+              <button class="px-2.5 py-1 rounded-full bg-slate-50 text-slate-700 border border-slate-200 text-[10px]">
+                ขอดู Trend พารามิเตอร์ 4 ชั่วโมงล่าสุด
+              </button>
+            </div>
+
+            <!-- Supervisor reply -->
+            <div class="flex flex-row-reverse items-start gap-2 mt-1">
+              <div class="h-7 w-7 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-[10px] mt-0.5">
+                TL
+              </div>
+              <div class="bg-emerald-50 text-slate-800 rounded-2xl rounded-tr-sm px-3 py-1.5 max-w-[70%]">
+                <p>
+                  รับทราบครับ เดี๋ยวให้ช่างเช็ค Cooling line ตาม SOP และอัปเดตผลใน Ticket
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3) SOP COPILOT PANEL -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+                SOP Copilot · Cooling Issue
+              </p>
+              <h2 class="text-sm md:text-base font-semibold text-slate-900">
+                ขั้นตอนตรวจ Cooling line สำหรับ Mold CC-24 (ภาษาไทย)
+              </h2>
+            </div>
+            <span class="px-2.5 py-1 rounded-full bg-slate-900 text-white text-[11px]">
+              Powered by RAG
+            </span>
+          </div>
+
+          <div class="grid gap-3 text-[12px]">
+            <div class="bg-slate-50 rounded-lg border border-slate-200 p-3">
+              <p class="text-[11px] uppercase tracking-wide text-slate-500 mb-1">
+                AI Summary
+              </p>
+              <p class="text-slate-800">
+                คำแนะนำเบื้องต้น: ปิดเครื่องตามขั้นตอน Safety, ตรวจสอบการไหลของน้ำหล่อเย็นที่ In/Out,
+                ทำความสะอาด Filter และตรวจรอยพับ/อุดตันของท่อ ก่อนเริ่มปรับ Parameter อื่น ๆ
+              </p>
+            </div>
+
+            <div class="bg-white rounded-lg border border-slate-200 p-3">
+              <p class="text-[11px] uppercase tracking-wide text-slate-500 mb-1">
+                SOP Step-by-step (ย่อ)
+              </p>
+              <ol class="list-decimal list-inside text-slate-700 space-y-1">
+                <li>ปิดเครื่องตามขั้นตอน Lockout/Tagout ที่กำหนด</li>
+                <li>ตรวจสอบอุณหภูมิน้ำหล่อเย็น In/Out เทียบกับค่ามาตรฐาน</li>
+                <li>เช็คอัตราการไหลของน้ำหล่อเย็นต่อจุด (L/min) สำหรับ CC-24</li>
+                <li>ถอดและทำความสะอาด Filter หรือ Strainer ที่ทางเข้า</li>
+                <li>ตรวจสอบท่อ Cooling ว่ามีการพับ/รั่ว/อุดตันหรือไม่</li>
+                <li>จดบันทึกค่าก่อน-หลังปรับปรุง เพื่อเก็บเป็น Case สำหรับครั้งถัดไป</li>
+              </ol>
+            </div>
+
+            <div class="bg-slate-50 rounded-lg border border-dashed border-slate-300 p-3 text-[11px] text-slate-600 space-y-1">
+              <p class="font-semibold text-slate-800">Context ที่ใช้ตอบ</p>
+              <p>- SOP-MAINT-COOLING-CC24-v2.pdf (ข้อ 3–5)</p>
+              <p>- Case Library: 3 เคส Cooling line อุดตันในปี 2024</p>
+              <p>- Alarm log: ALM-CC24-013 “Cooling flow low”</p>
+            </div>
+
+            <div class="flex items-center justify-between text-[11px]">
+              <p class="text-slate-500">
+                หลังปิดเคส · กด “สรุปเคสนี้” เพื่อเก็บเป็น Case Library ให้ AI ใช้ต่อ
+              </p>
+              <button class="px-3 py-1 rounded-full bg-emerald-600 text-white">
+                สรุปเคส &amp; ปิด Ticket
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI x FCS iMF 4.0 – System Architecture</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900">
+  <div class="max-w-7xl mx-auto px-4 py-8 space-y-8">
+
+    <!-- HEADER -->
+    <header class="space-y-3">
+      <p class="text-[11px] uppercase tracking-wide text-red-500 font-semibold">
+        TH8.AI x FCS iMF 4.0
+      </p>
+      <h1 class="text-2xl md:text-3xl font-semibold">
+        System Architecture · AI Agent Suite สำหรับโรงงาน Injection Molding
+      </h1>
+      <p class="text-sm md:text-base text-slate-600 max-w-3xl">
+        ภาพใหญ่ของสถาปัตยกรรมระบบ (SA) ที่ใช้เชื่อม FCS iMF 4.0 เข้ากับ TH8.AI Agent Platform, 
+        ERP/MES/WMS และ Knowledge Layer เพื่อให้ได้ข้อมูลครบทุก Module:
+        Production/OEE, Quality &amp; Scrap, Maintenance, Workflow และ Manual/SOP Copilot
+      </p>
+    </header>
+
+    <!-- =========================
+         SECTION 1 – HIGH-LEVEL ARCHITECTURE
+    ========================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 space-y-6">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Overview
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold">
+            ภาพรวมสถาปัตยกรรม · จากเครื่อง iMF → Data Platform → AI Agent → Dashboard
+          </h2>
+        </div>
+      </div>
+
+      <!-- Architecture "diagram" -->
+      <div class="space-y-4 text-xs md:text-sm">
+        <!-- Layer 1: Shop Floor -->
+        <div class="flex flex-col md:flex-row items-stretch gap-4">
+          <div class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+            <p class="font-semibold text-slate-800">1. Shop Floor &amp; iMF Layer</p>
+            <p class="text-slate-600">
+              • เครื่องฉีดพลาสติก FCS + Controller<br/>
+              • FCS iMF 4.0 (Industrial 4.0 Platform)<br/>
+              • ข้อมูล Real-time: Shot, Cycle, Temp, Pressure, Alarm, Cavity OK/NG
+            </p>
+          </div>
+
+          <div class="flex items-center justify-center">
+            <span class="px-3 py-1 rounded-full bg-slate-900 text-white text-[11px]">
+              OPC UA / API / Message Broker
+            </span>
+          </div>
+
+          <div class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+            <p class="font-semibold text-slate-800">2. Data Ingestion &amp; Streaming</p>
+            <p class="text-slate-600">
+              • iMF Connector / Edge Gateway<br/>
+              • MQTT / Kafka / REST API<br/>
+              • Normalization + Tag mapping ต่อเครื่อง/ไลน์/ Mold / Product
+            </p>
+          </div>
+        </div>
+
+        <!-- Layer 2: Data Platform -->
+        <div class="flex flex-col md:flex-row items-stretch gap-4">
+          <div class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+            <p class="font-semibold text-slate-800">3. TH8 Data Platform</p>
+            <p class="text-slate-600">
+              • Time-series DB (Machine timeline)<br/>
+              • Production DB (Order, Plan, Actual)<br/>
+              • Quality DB (Inspection, Scrap, Defect code)<br/>
+              • Maintenance DB (Alarm, Work order, Spare parts)<br/>
+              • Integration DB (ERP/MES/WMS sync)
+            </p>
+          </div>
+
+          <div class="flex items-center justify-center">
+            <span class="px-3 py-1 rounded-full bg-slate-900 text-white text-[11px]">
+              Data Model &amp; Semantic Layer
+            </span>
+          </div>
+
+          <div class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+            <p class="font-semibold text-slate-800">4. Knowledge &amp; Document Store</p>
+            <p class="text-slate-600">
+              • Manual / SOP / Maintenance guide<br/>
+              • Training document, Work instruction<br/>
+              • จัดเก็บใน Object Storage + Vector DB<br/>
+              • Index ตามเครื่อง, Mold, Defect, Alarm code
+            </p>
+          </div>
+        </div>
+
+        <!-- Layer 3: Agent & Apps -->
+        <div class="flex flex-col md:flex-row items-stretch gap-4">
+          <div class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+            <p class="font-semibold text-slate-800">5. TH8 AI Agent Layer</p>
+            <p class="text-slate-600">
+              • Production/OEE Copilot<br/>
+              • Quality &amp; Scrap Agent<br/>
+              • Maintenance &amp; Downtime Agent<br/>
+              • Workflow Agent (iMF ↔ ERP/MES/WMS)<br/>
+              • Knowledge Copilot (Manual/SOP TH)
+            </p>
+          </div>
+
+          <div class="flex items-center justify-center">
+            <span class="px-3 py-1 rounded-full bg-slate-900 text-white text-[11px]">
+              API / gRPC / GraphQL
+            </span>
+          </div>
+
+          <div class="flex-1 bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+            <p class="font-semibold text-slate-800">6. Experience &amp; Dashboard Layer</p>
+            <p class="text-slate-600">
+              • Web Dashboard (PC/Tablet ในห้องควบคุม)<br/>
+              • Mobile / Tablet สำหรับหัวหน้ากะ<br/>
+              • LINE OA / Chat interface สำหรับช่าง<br/>
+              • Report ส่ง Email / PDF สำหรับผู้บริหาร
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         SECTION 2 – COMPONENT BREAKDOWN
+    ========================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 space-y-6">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Components
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold">
+            Component หลักในสถาปัตยกรรม
+          </h2>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 text-xs md:text-sm">
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+          <p class="font-semibold text-slate-800">A. Field &amp; Device Layer</p>
+          <ul class="text-slate-600 mt-1 space-y-1">
+            <li>• FCS Injection Molding Machine</li>
+            <li>• iMF Controller / HMI</li>
+            <li>• Sensor: Temp, Pressure, Flow, Position</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+          <p class="font-semibold text-slate-800">B. Data &amp; Integration Layer</p>
+          <ul class="text-slate-600 mt-1 space-y-1">
+            <li>• iMF Data Gateway (OPC UA / API)</li>
+            <li>• Message Broker (Kafka/MQTT)</li>
+            <li>• ETL/ELT + Data Quality Rules</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+          <p class="font-semibold text-slate-800">C. TH8 Data Platform</p>
+          <ul class="text-slate-600 mt-1 space-y-1">
+            <li>• Time-series &amp; Event DB</li>
+            <li>• Relational DB (Production, Quality, Maintenance)</li>
+            <li>• Data Mart สำหรับ OEE / KPI</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+          <p class="font-semibold text-slate-800">D. Agent Orchestration</p>
+          <ul class="text-slate-600 mt-1 space-y-1">
+            <li>• Agent Runtime (LangGraph / Orchestrator)</li>
+            <li>• Tooling: DB query, iMF API, ERP API</li>
+            <li>• Guardrail &amp; Policy Engine</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+          <p class="font-semibold text-slate-800">E. Knowledge &amp; Document Layer</p>
+          <ul class="text-slate-600 mt-1 space-y-1">
+            <li>• Object Storage (PDF, Doc, รูป)</li>
+            <li>• Vector DB (Embedding Manual/SOP)</li>
+            <li>• Metadata: Machine, Mold, Defect Code</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1">
+          <p class="font-semibold text-slate-800">F. Apps &amp; Channel Layer</p>
+          <ul class="text-slate-600 mt-1 space-y-1">
+            <li>• Web Portal / Dashboard</li>
+            <li>• Mobile view + Tablet ใน Shop floor</li>
+            <li>• LINE OA / Chat Ops สำหรับช่าง</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         SECTION 3 – DATASET PER MODULE
+    ========================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 space-y-6">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Datasets
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold">
+            Dataset ที่ต้องมีสำหรับแต่ละ Module
+          </h2>
+        </div>
+      </div>
+
+      <!-- 3.1 Production/OEE -->
+      <div class="space-y-3">
+        <p class="text-sm font-semibold text-slate-800">
+          1) Production / OEE Copilot
+        </p>
+        <div class="overflow-x-auto text-[11px]">
+          <table class="min-w-full text-left border border-slate-200 rounded-lg overflow-hidden">
+            <thead class="bg-slate-50 text-slate-600">
+              <tr>
+                <th class="py-2 px-3">Dataset</th>
+                <th class="py-2 px-3">ตัวอย่าง Field</th>
+                <th class="py-2 px-3">แหล่งที่มา</th>
+                <th class="py-2 px-3">ใช้ทำอะไร</th>
+              </tr>
+            </thead>
+            <tbody class="text-slate-700">
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Machine Runtime &amp; Shot Log</td>
+                <td class="py-2 px-3">
+                  machine_id, timestamp, cycle_time, shot_count, status, cavity_ok, cavity_ng
+                </td>
+                <td class="py-2 px-3">iMF Real-time / Historian</td>
+                <td class="py-2 px-3">คำนวณ OEE, Output, Utilization</td>
+              </tr>
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Production Plan / Order</td>
+                <td class="py-2 px-3">
+                  order_no, product_code, qty_plan, route, shift, due_date
+                </td>
+                <td class="py-2 px-3">ERP / MES</td>
+                <td class="py-2 px-3">เทียบแผน vs ผล, หา delay / bottleneck</td>
+              </tr>
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Machine Master</td>
+                <td class="py-2 px-3">
+                  machine_id, tonnage, line, model, capacity_per_hour
+                </td>
+                <td class="py-2 px-3">Master Data</td>
+                <td class="py-2 px-3">กำหนด constraint / limit ในการวิเคราะห์</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3.2 Quality & Scrap -->
+      <div class="space-y-3">
+        <p class="text-sm font-semibold text-slate-800">
+          2) Quality &amp; Scrap Agent
+        </p>
+        <div class="overflow-x-auto text-[11px]">
+          <table class="min-w-full text-left border border-slate-200 rounded-lg overflow-hidden">
+            <thead class="bg-slate-50 text-slate-600">
+              <tr>
+                <th class="py-2 px-3">Dataset</th>
+                <th class="py-2 px-3">ตัวอย่าง Field</th>
+                <th class="py-2 px-3">แหล่งที่มา</th>
+                <th class="py-2 px-3">ใช้ทำอะไร</th>
+              </tr>
+            </thead>
+            <tbody class="text-slate-700">
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Quality Inspection / Scrap Log</td>
+                <td class="py-2 px-3">
+                  timestamp, machine_id, mold_id, defect_code, scrap_qty, reason
+                </td>
+                <td class="py-2 px-3">QMS / iMF / Manual input</td>
+                <td class="py-2 px-3">คำนวณ Scrap rate, Top defect, Trend</td>
+              </tr>
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Parameter Snapshot</td>
+                <td class="py-2 px-3">
+                  barrel_temp, mold_temp, injection_speed, holding_pressure
+                </td>
+                <td class="py-2 px-3">iMF Historian</td>
+                <td class="py-2 px-3">Correlation ระหว่าง Defect กับ Parameter</td>
+              </tr>
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Defect Master</td>
+                <td class="py-2 px-3">
+                  defect_code, defect_name_th, description, typical_cause
+                </td>
+                <td class="py-2 px-3">Quality Master</td>
+                <td class="py-2 px-3">ให้ AI อธิบาย defect เป็นภาษาคน + root cause</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3.3 Maintenance Agent -->
+      <div class="space-y-3">
+        <p class="text-sm font-semibold text-slate-800">
+          3) Maintenance &amp; Downtime Agent
+        </p>
+        <div class="overflow-x-auto text-[11px]">
+          <table class="min-w-full text-left border border-slate-200 rounded-lg overflow-hidden">
+            <thead class="bg-slate-50 text-slate-600">
+              <tr>
+                <th class="py-2 px-3">Dataset</th>
+                <th class="py-2 px-3">ตัวอย่าง Field</th>
+                <th class="py-2 px-3">แหล่งที่มา</th>
+                <th class="py-2 px-3">ใช้ทำอะไร</th>
+              </tr>
+            </thead>
+            <tbody class="text-slate-700">
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Alarm &amp; Event Log</td>
+                <td class="py-2 px-3">
+                  timestamp, machine_id, alarm_code, severity, duration
+                </td>
+                <td class="py-2 px-3">iMF Alarm log</td>
+                <td class="py-2 px-3">ทำนาย Downtime, หา Alarm pattern</td>
+              </tr>
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Maintenance Work Order</td>
+                <td class="py-2 px-3">
+                  wo_no, machine_id, type (PM/CM), status, start/end_time, cost
+                </td>
+                <td class="py-2 px-3">CMMS / Excel / ERP</td>
+                <td class="py-2 px-3">วิเคราะห์ MTBF, MTTR, Plan PM</td>
+              </tr>
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Spare Parts Inventory</td>
+                <td class="py-2 px-3">
+                  part_code, part_name, stock_qty, min_qty, lead_time
+                </td>
+                <td class="py-2 px-3">ERP / WMS</td>
+                <td class="py-2 px-3">แจ้งเตือน stock อะไหล่เสี่ยงขาด · แนะนำ reorder</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3.4 Workflow Layer -->
+      <div class="space-y-3">
+        <p class="text-sm font-semibold text-slate-800">
+          4) Workflow Layer (iMF ↔ ERP/MES/WMS/Accounting)
+        </p>
+        <div class="overflow-x-auto text-[11px]">
+          <table class="min-w-full text-left border border-slate-200 rounded-lg overflow-hidden">
+            <thead class="bg-slate-50 text-slate-600">
+              <tr>
+                <th class="py-2 px-3">Dataset</th>
+                <th class="py-2 px-3">ตัวอย่าง Field</th>
+                <th class="py-2 px-3">แหล่งที่มา</th>
+                <th class="py-2 px-3">ใช้ทำอะไร</th>
+              </tr>
+            </thead>
+            <tbody class="text-slate-700">
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Integration Mapping</td>
+                <td class="py-2 px-3">
+                  source_system, source_field, target_system, target_field, rule
+                </td>
+                <td class="py-2 px-3">Integration DB</td>
+                <td class="py-2 px-3">กำหนด rule การ map ข้อมูลระหว่างระบบ</td>
+              </tr>
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Workflow Run Log</td>
+                <td class="py-2 px-3">
+                  workflow_name, run_id, status, start_time, end_time, error_detail
+                </td>
+                <td class="py-2 px-3">TH8 Workflow Engine</td>
+                <td class="py-2 px-3">Monitoring, Error tracking, SLA</td>
+              </tr>
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">ERP / MES Transactions</td>
+                <td class="py-2 px-3">
+                  production_report, inventory_txn, cost_posting
+                </td>
+                <td class="py-2 px-3">ERP / MES</td>
+                <td class="py-2 px-3">เชื่อมตัวเลขจาก Shop floor → การเงิน / สต็อก</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3.5 Knowledge Copilot -->
+      <div class="space-y-3">
+        <p class="text-sm font-semibold text-slate-800">
+          5) Knowledge Layer &amp; SOP Copilot (ภาษาไทย)
+        </p>
+        <div class="overflow-x-auto text-[11px]">
+          <table class="min-w-full text-left border border-slate-200 rounded-lg overflow-hidden">
+            <thead class="bg-slate-50 text-slate-600">
+              <tr>
+                <th class="py-2 px-3">Dataset</th>
+                <th class="py-2 px-3">ตัวอย่าง Field</th>
+                <th class="py-2 px-3">แหล่งที่มา</th>
+                <th class="py-2 px-3">ใช้ทำอะไร</th>
+              </tr>
+            </thead>
+            <tbody class="text-slate-700">
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Manual / SOP Index</td>
+                <td class="py-2 px-3">
+                  doc_id, title, section, machine_id, alarm_code, language
+                </td>
+                <td class="py-2 px-3">Document Management</td>
+                <td class="py-2 px-3">ใช้ค้นเอกสารที่ตรงกับคำถาม/เครื่อง/Alarm</td>
+              </tr>
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Vector Embedding Store</td>
+                <td class="py-2 px-3">
+                  doc_id, chunk_id, embedding_vector, metadata
+                </td>
+                <td class="py-2 px-3">Vector DB</td>
+                <td class="py-2 px-3">ใช้ RAG เรียกเนื้อหาที่เกี่ยวข้องมาช่วยตอบ</td>
+              </tr>
+              <tr class="border-t border-slate-200">
+                <td class="py-2 px-3">Q&amp;A / Case Library</td>
+                <td class="py-2 px-3">
+                  question_th, answer_th, machine_id, tag (cooling, hydraulic)
+                </td>
+                <td class="py-2 px-3">Log จากช่าง + AI</td>
+                <td class="py-2 px-3">สร้างฐานความรู้จากเคสจริงให้ AI ใช้ตอบ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         SECTION 4 – DATA FLOW EXAMPLE
+    ========================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 space-y-4">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Data Flow Example
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold">
+            ตัวอย่าง Flow จริง: Defect สูงผิดปกติ → Alert → Dashboard → SOP Copilot
+          </h2>
+        </div>
+      </div>
+
+      <ol class="space-y-3 text-xs md:text-sm text-slate-700">
+        <li>
+          <span class="font-semibold text-slate-900">1)</span>
+          iMF ส่งข้อมูล Shot + Defect (NG) เข้ามาใน Time-series DB แบบ Real-time
+        </li>
+        <li>
+          <span class="font-semibold text-slate-900">2)</span>
+          Quality &amp; Scrap Agent ตรวจพบว่า Scrap rate ของ Mold CC-24 &gt; 4% ติดต่อกัน 3 ชั่วโมง
+        </li>
+        <li>
+          <span class="font-semibold text-slate-900">3)</span>
+          Agent ยิง Alert ไปที่ Dashboard + LINE กลุ่มหัวหน้ากะ และสร้าง Ticket ให้ทีม QC
+        </li>
+        <li>
+          <span class="font-semibold text-slate-900">4)</span>
+          Maintenance Agent ตรวจ Alarm/Trend อุณหภูมิและแนะนำว่า “ควรตรวจ Cooling line ก่อน”
+        </li>
+        <li>
+          <span class="font-semibold text-slate-900">5)</span>
+          Knowledge Copilot เปิด SOP ที่เกี่ยวข้อง พร้อม Step การตรวจ Cooling และ Safety
+        </li>
+        <li>
+          <span class="font-semibold text-slate-900">6)</span>
+          เมื่อเคสปิดแล้ว · ข้อมูลงานซ่อม + Root cause จะถูกเก็บใน Case Library เพื่อให้ AI ฉลาดขึ้น
+        </li>
+      </ol>
+    </section>
+
+  </div>
+</body>
+</html>

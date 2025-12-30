@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8 · Pillar 2 — Confirm SO → Prepare Material → Stock & Loading</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-100 text-slate-900">
+  <div class="min-h-screen p-4 md:p-8">
+    <div class="max-w-6xl mx-auto space-y-6">
+
+      <!-- Page Header -->
+      <header class="space-y-2">
+        <p class="text-[11px] uppercase tracking-wide text-slate-500">
+          TH8 · Pillar 2 — AI Workflow Automation
+        </p>
+        <h1 class="text-xl md:text-2xl font-semibold text-slate-900">
+          Flow: Confirm Sale Order → เตรียมวัตถุดิบ → ตัด Stock → เตรียมลานโหลด / ส่งมอบ
+        </h1>
+        <p class="text-sm text-slate-600 max-w-3xl">
+          ใช้ระบบเดิมของบริษัท (ERP / WMS) ร่วมกับ AI Agent
+          เพื่อวางแผนวัตถุดิบ ออก Pick List ตัด Stock และสรุปการโหลดของให้ทีมหน้างานและลูกค้าเห็นภาพเดียวกัน
+        </p>
+        <div class="flex flex-wrap gap-2 text-[10px]">
+          <span class="inline-flex items-center gap-1 rounded-full bg-slate-900 text-white px-2.5 py-1">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+            AI Agent Support
+          </span>
+          <span class="inline-flex items-center gap-1 rounded-full bg-white text-slate-700 px-2.5 py-1 border border-slate-200">
+            <span class="h-1.5 w-1.5 rounded-full bg-sky-400"></span>
+            Company System (ERP / WMS)
+          </span>
+        </div>
+      </header>
+
+      <!-- FLOW: CONFIRM SO → PREP MATERIAL → CUT STOCK → LOADING BAY -->
+      <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 md:p-5 space-y-4">
+        <!-- Overview Flow -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-[11px]">
+          <!-- SO Confirm -->
+          <div class="flex flex-col items-center text-center">
+            <div class="h-10 w-10 rounded-xl bg-sky-500 text-white flex items-center justify-center text-[13px] font-semibold shadow-sm">
+              SO
+            </div>
+            <p class="mt-2 font-medium text-slate-800">ERP · Sales Order</p>
+            <p class="text-[11px] text-slate-500">ยืนยันออเดอร์ / วันที่ส่ง / เงื่อนไขเครดิต</p>
+            <span class="mt-1 inline-flex px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-[10px]">
+              Company System
+            </span>
+          </div>
+
+          <!-- Material Planning Agent -->
+          <div class="flex flex-col items-center text-center">
+            <div class="h-10 w-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[13px] font-semibold shadow-sm">
+              MP
+            </div>
+            <p class="mt-2 font-medium text-slate-800">Material Planning Agent</p>
+            <p class="text-[11px] text-slate-500">แตก BOM · คำนวณปริมาณวัตถุดิบ · แนะนำล็อตตัด</p>
+            <span class="mt-1 inline-flex px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-200 text-[10px]">
+              AI Agent
+            </span>
+          </div>
+
+          <!-- WMS / Pick List -->
+          <div class="flex flex-col items-center text-center">
+            <div class="h-10 w-10 rounded-xl bg-sky-500 text-white flex items-center justify-center text-[13px] font-semibold shadow-sm">
+              WMS
+            </div>
+            <p class="mt-2 font-medium text-slate-800">WMS / Pick List</p>
+            <p class="text-[11px] text-slate-500">สร้างใบหยิบของ · งานให้ทีมคลัง / Forklift</p>
+            <span class="mt-1 inline-flex px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-[10px]">
+              Company System
+            </span>
+          </div>
+
+          <!-- Loading & Handover Agent -->
+          <div class="flex flex-col items-center text-center">
+            <div class="h-10 w-10 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[13px] font-semibold shadow-sm">
+              LB
+            </div>
+            <p class="mt-2 font-medium text-slate-800">Loading &amp; Handover Agent</p>
+            <p class="text-[11px] text-slate-500">ติดตามสถานะโหลด · Check-list · แจ้งลูกค้ารับของ</p>
+            <span class="mt-1 inline-flex px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-200 text-[10px]">
+              AI Agent
+            </span>
+          </div>
+        </div>
+
+        <!-- 2-column: Company System vs AI Agent Support -->
+        <div class="grid md:grid-cols-2 gap-4 mt-3 text-[11px] md:text-[12px]">
+          <!-- LEFT: Company Systems View -->
+          <div class="space-y-3">
+            <!-- ERP SO -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <p class="font-medium text-slate-800">
+                  1) ERP · Sales Order ที่ยืนยันแล้ว
+                </p>
+                <span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-[10px]">
+                  Company System
+                </span>
+              </div>
+              <p class="text-slate-600">
+                ข้อมูลจากระบบ ERP ที่บริษัทใช้อยู่แล้ว เช่น SAP / Oracle / Microsoft / ระบบ in-house.
+              </p>
+              <div class="mt-1 overflow-x-auto">
+                <table class="min-w-full border-collapse text-[10px]">
+                  <thead>
+                    <tr class="border-b border-slate-200 text-slate-500">
+                      <th class="text-left py-1 pr-2">SO No.</th>
+                      <th class="text-left py-1 px-2">Customer</th>
+                      <th class="text-left py-1 px-2">Delivery Date</th>
+                      <th class="text-right py-1 px-2">Total Qty</th>
+                      <th class="text-right py-1 pl-2">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="py-1 pr-2 text-slate-800">SO-2025-000121</td>
+                      <td class="py-1 px-2 text-slate-800">บจก. ตัวอย่างวัสดุก่อสร้าง</td>
+                      <td class="py-1 px-2 text-slate-700">02/03/2025</td>
+                      <td class="py-1 px-2 text-right text-slate-900">160</td>
+                      <td class="py-1 pl-2 text-right text-amber-700">Released</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- WMS Pick List -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <p class="font-medium text-slate-800">
+                  2) WMS · Pick List &amp; งานให้ทีมคลัง
+                </p>
+                <span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-200 text-[10px]">
+                  Company System
+                </span>
+              </div>
+              <p class="text-slate-600">
+                ระบบ WMS หรือโมดูลคลังของ ERP สร้างใบหยิบของ / Job ให้ทีมปฏิบัติการ.
+              </p>
+              <div class="mt-1 overflow-x-auto">
+                <table class="min-w-full border-collapse text-[10px]">
+                  <thead>
+                    <tr class="border-b border-slate-200 text-slate-500">
+                      <th class="text-left py-1 pr-2">Pick No.</th>
+                      <th class="text-left py-1 px-2">Location</th>
+                      <th class="text-left py-1 px-2">Product Code</th>
+                      <th class="text-right py-1 px-2">Qty</th>
+                      <th class="text-right py-1 pl-2">UOM</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b border-slate-100">
+                      <td class="py-1 pr-2 text-slate-800">PK-2025-00451</td>
+                      <td class="py-1 px-2 text-slate-800">RACK-A-01</td>
+                      <td class="py-1 px-2 text-slate-800">MS-035-6M-WH</td>
+                      <td class="py-1 px-2 text-right text-slate-900">120</td>
+                      <td class="py-1 pl-2 text-right text-slate-700">SHEET</td>
+                    </tr>
+                    <tr>
+                      <td class="py-1 pr-2 text-slate-800">PK-2025-00452</td>
+                      <td class="py-1 px-2 text-slate-800">RACK-B-03</td>
+                      <td class="py-1 px-2 text-slate-800">CRV-RIDGE-WH</td>
+                      <td class="py-1 px-2 text-right text-slate-900">40</td>
+                      <td class="py-1 pl-2 text-right text-slate-700">PCS</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Stock & Delivery Update -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 space-y-1.5">
+              <p class="font-medium text-slate-800">
+                3) ตัด Stock &amp; อัปเดต Delivery ใน ERP
+              </p>
+              <p class="text-slate-600">
+                เมื่อของถูกหยิบและโหลดขึ้นลานแล้ว ระบบ WMS/ERP จะสร้างเอกสารตัดสต็อก (Delivery / Issue)
+                และสามารถสร้าง Invoice ต่อได้.
+              </p>
+              <ul class="mt-1 list-disc list-inside text-slate-600 space-y-0.5">
+                <li>ใช้ข้อมูลจริงจากการสแกนบาร์โค้ด / QR ในลานโหลด</li>
+                <li>อัปเดตสถานะ Delivery, Remaining Qty ใน ERP</li>
+                <li>ข้อมูลเหล่านี้กลายเป็นฐานข้อมูลสำหรับ Analytics ต่อไป</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- RIGHT: AI Agent Support View -->
+          <div class="space-y-3">
+            <!-- Material Planning Agent -->
+            <div class="bg-slate-900 text-slate-50 rounded-2xl p-3 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <p class="font-medium text-[11px]">
+                  4) Material Planning Agent · ช่วยวางแผนวัตถุดิบจาก SO
+                </p>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-100 border border-emerald-400/70 text-[10px]">
+                  AI Agent
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-100/90">
+                Agent ดึงข้อมูลจาก ERP / BOM / Stock ปัจจุบัน แล้วเสนอแผนการใช้วัตถุดิบ:
+              </p>
+              <ul class="list-disc list-inside text-[11px] text-slate-100/90 space-y-1">
+                <li>แตก BOM จาก Product Code → วัตถุดิบหลัก (เช่น Coil / แผ่นยาว)</li>
+                <li>เช็ค stock แต่ละลอท เพื่อแนะนำลอทที่ควรใช้ก่อน (FEFO / FIFO)</li>
+                <li>ประเมินว่า “ควรตัดเผื่อ” เท่าไหร่ เพื่อลดเศษวัสดุเหลือ</li>
+              </ul>
+              <div class="bg-slate-800 rounded-xl p-2.5 text-[10px] mt-1">
+                <p class="text-slate-300 mb-1">
+                  ตัวอย่าง Output (ให้ Planner / WMS ใช้ตัดสินใจ):
+                </p>
+                <pre class="text-[10px] leading-snug text-emerald-100 overflow-x-auto">
+{
+  "so_no": "SO-2025-000121",
+  "material_plan": [
+    {
+      "raw_material": "COIL-035-WH",
+      "recommend_qty_kg": 1450,
+      "from_location": ["RM-RACK-01", "RM-RACK-02"],
+      "note": "ใช้ลอทใกล้หมดอายุก่อน · ลดเศษปลาย"
+    }
+  ]
+}
+                </pre>
+              </div>
+            </div>
+
+            <!-- Loading Bay Agent -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-3 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <p class="font-medium text-slate-800">
+                  5) Loading &amp; Handover Agent · ช่วยหน้างานลานโหลด
+                </p>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 border border-emerald-200 text-[10px]">
+                  AI Agent
+                </span>
+              </div>
+              <p class="text-slate-600">
+                Agent คอยดึงสถานะจาก WMS/ERP มาสรุปให้ง่ายสำหรับหัวหน้าลานโหลด และลูกค้าที่มารับของ.
+              </p>
+              <ul class="list-disc list-inside text-slate-600 space-y-0.5">
+                <li>เช็คว่ารายการใน Pick List ครบหรือยัง / ขาดอะไร</li>
+                <li>ทำ Check-list ให้ทีมโหลดติ๊กผ่านมือถือ / แท็บเล็ต</li>
+                <li>สร้างข้อความสรุปส่งให้ลูกค้าใน LINE OA ว่า “ของพร้อมรับแล้ว / เหลืออีกกี่รายการ”</li>
+              </ul>
+              <div class="bg-slate-50 rounded-xl border border-slate-200 p-2.5 text-[11px] mt-1">
+                <p class="font-medium text-slate-800 mb-0.5">
+                  ตัวอย่างข้อความที่ Agent ส่งไปยังลูกค้า:
+                </p>
+                <p class="text-slate-700">
+                  ✔️ ออเดอร์ SO-2025-000121 เตรียมสินค้าเรียบร้อยแล้ว<br />
+                  - แผ่นเมทัลชีท 0.35x6m สีขาว 120 แผ่น<br />
+                  - ครอบสันโค้งสีขาว 40 เส้น<br />
+                  สามารถเข้ามาตรวจรับและโหลดสินค้าได้ที่ลาน A ช่อง 3 ระหว่างเวลา 13.00–16.00 น.
+                </p>
+              </div>
+            </div>
+
+            <!-- Exception & Monitoring Agent -->
+            <div class="bg-white border border-slate-200 rounded-2xl p-3 space-y-1.5">
+              <p class="font-medium text-slate-800">
+                6) Exception &amp; Monitoring · เวลามีเคสผิดปกติระหว่างเตรียมของ
+              </p>
+              <p class="text-slate-600">
+                ถ้า stock ไม่พอ / วัตถุดิบไม่ตรงลอท / มีของเสียระหว่างผลิต Agent จะ:
+              </p>
+              <ul class="list-disc list-inside text-slate-600 space-y-0.5">
+                <li>แจ้งเตือนทีม Planner / Sales ผ่าน LINE หรือ Email</li>
+                <li>เสนอ Option แก้ไข เช่น “ลดจำนวนส่งรอบนี้” หรือ “เปลี่ยนสี/สเปกใกล้เคียง”</li>
+                <li>เก็บ Log ไว้ใน Exception Library เพื่อใช้เรียนรู้ในเคสถัดไป</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Journey: 1 Product from SO → Stock → Loading -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 mt-3">
+          <p class="text-[11px] font-medium text-slate-800 mb-1.5">
+            Data Journey · 1 สินค้าตัวเดียวกัน ตั้งแต่ SO → แผนวัตถุดิบ → ตัด Stock → สรุปโหลดของ
+          </p>
+          <div class="grid md:grid-cols-4 gap-3 text-[10px] md:text-[11px]">
+            <div class="bg-white rounded-xl border border-slate-200 p-2.5">
+              <p class="font-medium text-slate-800 mb-0.5">1) ERP · SO Line</p>
+              <p class="text-slate-600">
+                product_code: <span class="font-mono text-slate-800">MS-035-6M-WH</span><br />
+                qty: <span class="text-slate-800">120 SHEET</span>
+              </p>
+            </div>
+            <div class="bg-slate-900 rounded-xl border border-slate-700 p-2.5 text-slate-50">
+              <p class="font-medium mb-0.5">2) Material Plan (Agent)</p>
+              <p class="text-slate-200">
+                raw_material: <span class="font-mono">COIL-035-WH</span><br />
+                recommend_qty_kg: <span class="text-emerald-200">1450</span>
+              </p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-2.5">
+              <p class="font-medium text-slate-800 mb-0.5">3) WMS · Pick &amp; Issue</p>
+              <p class="text-slate-600">
+                issue_qty: 120 SHEET<br />
+                stock_balance: 430 SHEET
+              </p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-2.5">
+              <p class="font-medium text-slate-800 mb-0.5">4) Loading Summary (Agent)</p>
+              <p class="text-slate-600">
+                ส่งลูกค้าทาง LINE: “สินค้า 120/120 แผ่นครบถ้วน · ตรวจรับเรียบร้อย · รอออกใบแจ้งหนี้”
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>

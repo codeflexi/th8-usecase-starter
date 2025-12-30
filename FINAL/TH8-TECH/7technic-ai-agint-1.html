@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-neutral-900 text-white p-6">
+
+  <!-- Container -->
+  <div class="max-w-3xl mx-auto bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-700">
+
+    <!-- Title -->
+    <h1 class="text-2xl md:text-3xl font-semibold text-red-400 mb-3">
+      7 Techniques of Real AI Agents
+      <span class="block text-white text-base md:text-lg">
+        For CTOs who want more than just <span class="font-semibold">LLM + API</span>
+      </span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-neutral-300 text-sm md:text-base mb-6">
+      <span class="font-medium text-white">AI Agent = LLM + Graph + Tools + Memory + Governance</span><br>
+      If you want AI to run in production, not just in a demo, you need all seven.
+    </p>
+
+    <!-- 2-Column Techniques Grid -->
+    <div class="grid md:grid-cols-2 gap-4">
+
+      <!-- 1 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <p class="text-xs uppercase tracking-wide text-neutral-400 mb-1">01</p>
+        <h2 class="text-red-300 font-semibold mb-1">Multi-step Reasoning</h2>
+        <p class="text-neutral-300 text-xs md:text-sm leading-relaxed">
+          Use <span class="text-white font-medium">LangGraph</span> as a state machine so the LLM makes
+          decisions <span class="font-medium text-white">step-by-step</span>, not in one big guess.
+        </p>
+      </div>
+
+      <!-- 2 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <p class="text-xs uppercase tracking-wide text-neutral-400 mb-1">02</p>
+        <h2 class="text-red-300 font-semibold mb-1">Memory</h2>
+        <p class="text-neutral-300 text-xs md:text-sm leading-relaxed">
+          Persist workflow state in <span class="text-white font-medium">Supabase / DB</span> so runs can
+          stop, wait for humans, and resume later without losing context.
+        </p>
+      </div>
+
+      <!-- 3 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <p class="text-xs uppercase tracking-wide text-neutral-400 mb-1">03</p>
+        <h2 class="text-red-300 font-semibold mb-1">Tools Layer</h2>
+        <p class="text-neutral-300 text-xs md:text-sm leading-relaxed">
+          Function calling into <span class="text-white font-medium">ERP / WMS / TMS / DB</span>. Combine
+          deterministic business logic with LLM reasoning in one flow.
+        </p>
+      </div>
+
+      <!-- 4 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <p class="text-xs uppercase tracking-wide text-neutral-400 mb-1">04</p>
+        <h2 class="text-red-300 font-semibold mb-1">Exception Handling</h2>
+        <p class="text-neutral-300 text-xs md:text-sm leading-relaxed">
+          Classify + route broken cases instead of crashing.  
+          The system survives missing data, bad inputs, and partial documents.
+        </p>
+      </div>
+
+      <!-- 5 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <p class="text-xs uppercase tracking-wide text-neutral-400 mb-1">05</p>
+        <h2 class="text-red-300 font-semibold mb-1">Semantic Understanding</h2>
+        <p class="text-neutral-300 text-xs md:text-sm leading-relaxed">
+          <span class="text-white font-medium">OCR → structural extraction</span>.  
+          Let the Agent understand invoices, GR, PO across messy real-world formats—no rigid templates.
+        </p>
+      </div>
+
+      <!-- 6 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <p class="text-xs uppercase tracking-wide text-neutral-400 mb-1">06</p>
+        <h2 class="text-red-300 font-semibold mb-1">Data-driven Decisions</h2>
+        <p class="text-neutral-300 text-xs md:text-sm leading-relaxed">
+          EOQ, Safety Stock, SLA, Thresholds → computed in <span class="text-white font-medium">Python</span>.  
+          The LLM focuses on explanation and contextual trade-offs, not raw math.
+        </p>
+      </div>
+
+      <!-- 7 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600 md:col-span-2">
+        <p class="text-xs uppercase tracking-wide text-neutral-400 mb-1">07</p>
+        <h2 class="text-red-300 font-semibold mb-1">Multi-agent Orchestration</h2>
+        <p class="text-neutral-300 text-xs md:text-sm leading-relaxed">
+          Use subgraphs to connect <span class="text-white font-medium">Inventory → Purchasing → Dispatch → QC</span>  
+          in an <span class="text-white font-medium">event-driven</span> architecture.  
+          Each Agent does one job well, and the system works like a real operations team.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-7 bg-neutral-700/30 p-4 rounded-xl text-neutral-300 text-xs md:text-sm border border-neutral-600">
+      <p class="mb-1">
+        <span class="font-semibold text-white">Why this beats RPA:</span>  
+        RPA assumes a perfect world. AI Agents are built for noise, delay, missing data, and human-in-the-loop.
+      </p>
+      <p>
+        If you want LLMs to become a <span class="font-semibold text-white">real production system</span>,  
+        not just a chatbot, these 7 techniques are the minimum.
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>

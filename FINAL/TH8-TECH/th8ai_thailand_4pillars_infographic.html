@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TH8.AI — THAILAND: 4 Pillars Infographic (Tailwind)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{ --th8-red:#E20000; --th8-black:#0E0E0E; }
+    html,body{ background:#0E0E0E; color:#fff; font-family:'Prompt',sans-serif; }
+    .canvas{ width:1920px; height:1080px; }
+    .ring-red{ box-shadow:0 0 0 2px rgba(226,0,0,.35) inset; }
+    .grad{ background: radial-gradient(700px 700px at 5% 0%, rgba(226,0,0,.18), rgba(226,0,0,0)); }
+    .grad2{ background: radial-gradient(600px 600px at 95% 100%, rgba(226,0,0,.18), rgba(226,0,0,0)); }
+    .card{ background: rgba(24,24,27,.82); border:1px solid rgba(63,63,70,.9); border-radius:1rem; }
+  </style>
+</head>
+<body class="antialiased">
+  <main class="canvas mx-auto relative overflow-hidden">
+    <div class="absolute inset-0 grad pointer-events-none"></div>
+    <div class="absolute inset-0 grad2 pointer-events-none"></div>
+
+    <!-- Header -->
+    <header class="px-16 pt-12">
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-[44px] font-extrabold leading-tight">
+            THAILAND — <span class="text-[var(--th8-red)]">4 Pillars of TH8.AI</span>
+          </h1>
+          <p class="text-xl text-gray-300 -mt-1">Condensed Brand DNA: Think Human • Act Integrated • Learn Fast • Nurture by Data</p>
+        </div>
+        <div class="hidden md:flex items-center gap-3 text-sm text-gray-400">
+          <span>Horizontal</span><span>•</span><span>1920×1080</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 4 Pillars Grid -->
+    <section class="px-16 mt-8 grid grid-cols-12 gap-8">
+      <!-- Pillar 1: T+H -->
+      <div class="col-span-6 card p-8">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <!-- Icon: user/heart -->
+            <div class="w-12 h-12 rounded-lg ring-red flex items-center justify-center" style="background:#121212">
+              <svg class="w-7 h-7 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="8" r="3.5"/><path d="M4 20c0-4 3-7 8-7s8 3 8 7"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-sm uppercase tracking-wider text-gray-400">Pillar 1</div>
+              <h2 class="text-2xl font-bold">T + H — Think Human First</h2>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-[var(--th8-red)] font-extrabold text-xl">TH</span>
+          </div>
+        </div>
+        <p class="text-gray-200 mt-4">เริ่มจากความเข้าใจมนุษย์ก่อนเทคโนโลยี — ออกแบบ AI ที่ช่วยคน ไม่ใช่แทนที่คน</p>
+        <ul class="text-gray-300 mt-4 space-y-2 text-sm">
+          <li>• Human-Centered Design ที่เข้ากับ Workflow ขององค์กรไทย</li>
+          <li>• ภาษา/บริบทไทย ใช้งานง่าย ลดแรงต้านการนำไปใช้</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 2: A+I -->
+      <div class="col-span-6 card p-8">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <!-- Icon: plug/integration -->
+            <div class="w-12 h-12 rounded-lg ring-red flex items-center justify-center" style="background:#121212">
+              <svg class="w-7 h-7 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M9 3v6m6-6v6M3 9h6m6 0h6M8 16l8-8"/><rect x="3" y="15" width="6" height="6" rx="1.5"/><rect x="15" y="3" width="6" height="6" rx="1.5"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-sm uppercase tracking-wider text-gray-400">Pillar 2</div>
+              <h2 class="text-2xl font-bold">A + I — Act with Integration</h2>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-[var(--th8-red)] font-extrabold text-xl">AI</span>
+          </div>
+        </div>
+        <p class="text-gray-200 mt-4">แปลงความคิดให้เป็นการกระทำ — Agent ทำงานในระบบจริง (ERP • CRM • POS • LINE OA)</p>
+        <ul class="text-gray-300 mt-4 space-y-2 text-sm">
+          <li>• จาก Insight → Process → Profit</li>
+          <li>• ไม่หยุดที่เดโม เชื่อมระบบก่อนโชว์</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 3: L+A -->
+      <div class="col-span-6 card p-8">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <!-- Icon: lightning/loop -->
+            <div class="w-12 h-12 rounded-lg ring-red flex items-center justify-center" style="background:#121212">
+              <svg class="w-7 h-7 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M13 2L3 14h7l-1 8 11-12h-7l1-8z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-sm uppercase tracking-wider text-gray-400">Pillar 3</div>
+              <h2 class="text-2xl font-bold">L + A — Learn & Adapt Fast</h2>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-[var(--th8-red)] font-extrabold text-xl">LA</span>
+          </div>
+        </div>
+        <p class="text-gray-200 mt-4">ปรับไว เรียนรู้ไว เติบโตไปพร้อมลูกค้า — ใช้ข้อมูลจริงในการปรับปรุง Agent ต่อเนื่อง</p>
+        <ul class="text-gray-300 mt-4 space-y-2 text-sm">
+          <li>• วงจร Think → Act → Evaluate → Scale</li>
+          <li>• Agile Delivery เห็นผลเป็นสัปดาห์ ไม่ใช่เป็นไตรมาส</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 4: N+D -->
+      <div class="col-span-6 card p-8">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <!-- Icon: chart/check -->
+            <div class="w-12 h-12 rounded-lg ring-red flex items-center justify-center" style="background:#121212">
+              <svg class="w-7 h-7 text-red-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 3v18h18"/><path d="M7 15l3 3 7-7"/><rect x="6" y="10" width="3" height="8"/><rect x="11" y="7" width="3" height="11"/><rect x="16" y="12" width="3" height="6"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-sm uppercase tracking-wider text-gray-400">Pillar 4</div>
+              <h2 class="text-2xl font-bold">N + D — Nurture with Data</h2>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-[var(--th8-red)] font-extrabold text-xl">ND</span>
+          </div>
+        </div>
+        <p class="text-gray-200 mt-4">วัดผลลัพธ์จริง และเติบโตระยะยาว — ทุกโครงการต้องมีข้อมูลยืนยันผล</p>
+        <ul class="text-gray-300 mt-4 space-y-2 text-sm">
+          <li>• KPI ชัด (Revenue, Cost, Efficiency)</li>
+          <li>• Monitor / Retrain / Evaluate เป็นวัฏจักร</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Footer strip with full THAILAND -->
+    <footer class="absolute bottom-0 left-0 right-0">
+      <div class="px-16 py-6 flex items-center justify-between bg-black/40 backdrop-blur border-t border-zinc-800">
+        <div class="flex items-center gap-2 text-gray-300 text-sm">
+          <span class="font-extrabold tracking-wider text-white">THAILAND</span>
+          <span>= Think Human • Act Integrated • Learn Fast • Nurture by Data</span>
+        </div>
+        <div class="text-xs text-gray-500">TailwindCSS • Prompt font • 1920×1080</div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Export tip (outside canvas) -->
+  <div class="text-center text-gray-400 text-xs mt-2 opacity-80">
+    *เปิดไฟล์นี้ในเบราว์เซอร์เพื่อแคปจอ 1920×1080 หรือ Print เป็น PDF/PNG ได้ทันที*
+  </div>
+</body>
+</html>

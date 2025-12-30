@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI · Sangthai AI Agent Dashboards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900">
+  <div class="min-h-screen">
+
+    <!-- Top Bar -->
+    <header class="border-b border-slate-200 bg-white">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-xl bg-red-600 flex items-center justify-center text-white text-xs font-semibold shadow-sm">
+            TH8
+          </div>
+          <div>
+            <p class="text-xs uppercase tracking-wide text-slate-500">TH8.AI Agent Suite</p>
+            <p class="text-sm font-semibold">ตัวอย่าง Dashboard สำหรับ แสงไทย เมทัลชีท &amp; Solarwing</p>
+          </div>
+        </div>
+        <div class="hidden md:flex flex-col items-end text-xs">
+          <span class="px-2 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200">
+            Pilot Concept · 4 Use Cases
+          </span>
+          <span class="text-slate-500 mt-1">
+            โฟกัส: กำไรโปรเจกต์ · ต้นทุนจริง · งานติดตั้ง · QC & Complaint
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="max-w-6xl mx-auto px-4 py-6 space-y-6">
+
+      <!-- Intro -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-4 md:p-6 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 class="text-lg md:text-xl font-semibold mb-1">
+              ทำไมต้อง AI Agent ถ้า ERP ก็มีแล้ว?
+            </h1>
+            <p class="text-xs md:text-sm text-slate-600">
+              หน้านี้คือ “ตัวอย่างหน้าจอ” ที่ ERP ทั่วไปทำไม่ได้ เพราะต้องใช้ AI อ่านแบบ, วิเคราะห์ต้นทุนจริง,
+              รวมข้อมูลจากหลายระบบ แล้วสรุปเป็นภาพให้ผู้บริหารเห็นว่า <span class="font-semibold text-slate-800">
+              โปรเจกต์ไหนกำลังขาดทุน, งานไหนเสี่ยง, จุดไหนควรแก้</span>
+            </p>
+          </div>
+          <div class="text-xs text-slate-500 space-y-1">
+            <p>4 ใช้งานหลักในหน้านี้:</p>
+            <ul class="list-disc list-inside">
+              <li>AI Auto-Quoting จากแบบจริง</li>
+              <li>งานติดตั้ง &amp; Stock เสี่ยงขาดล่วงหน้า</li>
+              <li>Complaint + QC Root Cause จากข้อมูลจริง</li>
+              <li>กำไรต่อโปรเจกต์ (จริง) ที่รวม Rework & ส่วนลด</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD 1: AI Auto-Quoting -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between gap-2 flex-wrap">
+          <h2 class="text-lg font-semibold">1) AI Auto-Quoting Dashboard</h2>
+          <p class="text-[11px] text-slate-500">
+            ใช้กับ: ทีมขาย / ทีมประเมินราคา · Metal Sheet &amp; Solar
+          </p>
+        </div>
+
+        <p class="text-xs text-slate-600 mb-2">
+          AI อ่านไฟล์แบบ (PDF/รูปถ่าย) → คำนวณความยาวตาม slope จริง → เลือกรุ่นเมทัลชีท/อุปกรณ์ของแสงไทย →
+          สรุปต้นทุนจริง + ราคาขายที่ควรเป็น พร้อมเตือนงานเสี่ยง defect
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-4 text-sm">
+          <!-- Input Summary -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+            <p class="font-semibold mb-2">📐 ข้อมูลจากแบบ</p>
+            <ul class="space-y-1 text-xs">
+              <li>• ความยาวสโลปจริง: <span class="font-semibold">18.4 เมตร</span></li>
+              <li>• ความชัน: 16°</li>
+              <li>• รุ่นเมทัลชีท: <span class="font-semibold">SMPL-0.47</span></li>
+              <li>• พื้นที่ติดตั้ง: 152 ตร.ม.</li>
+            </ul>
+            <p class="text-xs text-slate-500 mt-2">
+              AI อ่านจากไฟล์ PDF/รูปถ่ายแบบจริง + rule ของแสงไทยที่กำหนดไว้
+            </p>
+          </div>
+
+          <!-- AI Pricing -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+            <p class="font-semibold mb-2">💰 ราคาคำนวณอัตโนมัติ</p>
+            <ul class="space-y-1 text-xs">
+              <li>• ราคาวัสดุรวม: <span class="font-semibold">฿48,200</span></li>
+              <li>• ค่าแรงติดตั้ง: ฿17,000</li>
+              <li>• ค่าอุปกรณ์เสริม: ฿4,100</li>
+              <li>• รวมต้นทุนจริง: <span class="font-semibold text-red-600">฿69,300</span></li>
+            </ul>
+            <div class="mt-2 text-xs space-y-0.5">
+              <p>Margin ที่แนะนำ: <span class="font-semibold text-emerald-600">+22%</span></p>
+              <p>ราคาขายแนะนำ: <span class="font-semibold text-blue-600">฿84,500</span></p>
+            </div>
+            <p class="text-[11px] text-slate-500 mt-2">
+              *AI ใช้ประวัติราคาเดิม + ต้นทุนปัจจุบัน + policy margin ของบริษัท
+            </p>
+          </div>
+
+          <!-- Risk Check -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+            <p class="font-semibold mb-2">⚠ ความเสี่ยง &amp; คำเตือน</p>
+            <ul class="space-y-2 text-xs">
+              <li class="flex justify-between">
+                ลอนเบี้ยวเสี่ยงสูง
+                <span class="text-red-600 font-semibold">High</span>
+              </li>
+              <li class="flex justify-between">
+                ระยะซ้อนทับไม่พอ
+                <span class="text-amber-600 font-semibold">Medium</span>
+              </li>
+              <li class="flex justify-between">
+                ราคาต้นทุนคลาดเคลื่อนเดือนก่อน
+                <span class="text-slate-700 font-semibold">Check</span>
+              </li>
+            </ul>
+            <p class="text-xs text-slate-500 mt-2">
+              AI cross-check กับข้อมูล QC งานเก่าที่เคยมีปัญหา เพื่อลดโอกาส “งานแก้ซ้ำ”
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD 2: Warehouse & Install Risk -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between gap-2 flex-wrap">
+          <h2 class="text-lg font-semibold">2) Installation &amp; Warehouse Risk Dashboard</h2>
+          <p class="text-[11px] text-slate-500">
+            ใช้กับ: ผู้จัดการคลัง · ทีมวางแผนติดตั้ง · ทีมโลจิสติกส์
+          </p>
+        </div>
+
+        <p class="text-xs text-slate-600 mb-2">
+          รวมข้อมูล stock + คิวงานติดตั้ง + พยากรณ์อากาศ + ประวัติทีม
+          เพื่อบอกล่วงหน้าว่า “7 วันข้างหน้า งานไหนเสี่ยงล่มเพราะของไม่ครบ / ฝน / ทีมใหม่”
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-4 text-sm">
+
+          <!-- Today -->
+          <div class="bg-slate-50 border rounded-xl p-4">
+            <p class="font-semibold mb-2">📆 งานติดตั้งวันนี้</p>
+            <ul class="text-xs space-y-1">
+              <li>• งาน Solar โรงงาน: <span class="font-semibold">4 งาน</span></li>
+              <li>• งานหลังคา Metal Sheet: <span class="font-semibold">12 งาน</span></li>
+              <li>• On-time: <span class="font-semibold text-emerald-600">92%</span></li>
+            </ul>
+            <p class="text-[11px] text-slate-500 mt-2">
+              *ข้อมูลดึงจากระบบงานติดตั้ง + ตารางคิวทีม
+            </p>
+          </div>
+
+          <!-- Stock Alert -->
+          <div class="bg-slate-50 border rounded-xl p-4">
+            <p class="font-semibold mb-2">📦 อุปกรณ์เสี่ยงขาดใน 7 วัน</p>
+            <ul class="text-xs space-y-2">
+              <li class="flex justify-between">
+                Inverter 10kW
+                <span class="font-semibold text-red-600">เหลือ 3 ชุด</span>
+              </li>
+              <li class="flex justify-between">
+                น็อตหลังคา 55mm
+                <span class="font-semibold text-amber-600">เหลือ 22 กล่อง</span>
+              </li>
+              <li class="flex justify-between">
+                Metal Sheet Coil 0.47
+                <span class="font-semibold text-red-600">ต้องสั่งเพิ่ม</span>
+              </li>
+            </ul>
+            <p class="text-[11px] text-slate-500 mt-2">
+              AI forecast จากการใช้จริง 90 วันย้อนหลัง + คิวงาน 2 สัปดาห์หน้า
+            </p>
+          </div>
+
+          <!-- Install Risk Prediction -->
+          <div class="bg-slate-50 border rounded-xl p-4">
+            <p class="font-semibold mb-2">⚠ งานเสี่ยง Delay (7 วันข้างหน้า)</p>
+            <ul class="text-xs space-y-2">
+              <li>• โครงการโรงงาน A – ขาดน็อต (Delay 1 วันถ้าไม่สั่งของเพิ่มวันนี้)</li>
+              <li>• บ้านเดี่ยวโซนเหนือ – พยากรณ์ฝน 70% ในวันติดตั้ง</li>
+              <li>• โรงงาน B – ทีมงานมีช่างใหม่ 2 คน · defect risk สูงกว่าปกติ</li>
+            </ul>
+            <p class="text-xs text-slate-500 mt-2">
+              AI รวม: stock · ตารางทีม · พยากรณ์อากาศ · ประวัติ defect ของแต่ละทีม
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- DASHBOARD 3: Complaint & QC Root Cause -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between gap-2 flex-wrap">
+          <h2 class="text-lg font-semibold">3) Complaint &amp; QC Root Cause Dashboard</h2>
+          <p class="text-[11px] text-slate-500">
+            ใช้กับ: ฝ่ายบริการลูกค้า · ทีม QC · ผู้บริหาร
+          </p>
+        </div>
+
+        <p class="text-xs text-slate-600 mb-2">
+          AI อ่านแชท, โทรศัพท์, ticket, รูป QC → สรุปสาเหตุหลักของปัญหา · ดูเคสซ้ำ · แนะนำ Action ป้องกันไม่ให้เกิดอีก
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-4 text-sm">
+
+          <!-- Summary -->
+          <div class="bg-slate-50 border rounded-xl p-4">
+            <p class="font-semibold mb-2">สรุป 30 วัน</p>
+            <ul class="text-xs space-y-1">
+              <li>• เคสทั้งหมด: <span class="font-semibold">82 เคส</span></li>
+              <li>• ปิดภายใน 3 วัน: <span class="font-semibold text-emerald-600">76%</span></li>
+              <li>• เคสซ้ำ (กลับมา 2 ครั้งขึ้นไป): <span class="font-semibold text-red-600">14 เคส</span></li>
+            </ul>
+            <p class="text-[11px] text-slate-500 mt-2">
+              *ERP เก็บได้แค่ ticket แต่ AI ช่วยอ่าน + จัดกลุ่ม + หา pattern
+            </p>
+          </div>
+
+          <!-- Root Cause -->
+          <div class="bg-slate-50 border rounded-xl p-4">
+            <p class="font-semibold mb-2">👀 สาเหตุหลักที่พบ</p>
+            <ul class="text-xs space-y-2">
+              <li>1) น้ำรั่วจาก overlap – 28%</li>
+              <li>2) เสียงดังเพราะยิงสกรูไม่สม่ำเสมอ – 17%</li>
+              <li>3) Solar ไม่จ่ายไฟ (Inverter fault) – 12%</li>
+            </ul>
+            <p class="text-[11px] text-slate-500 mt-2">
+              AI ทำ text mining จากคำบรรยายปัญหา · รูป · comment ช่าง
+            </p>
+          </div>
+
+          <!-- Preventive Actions -->
+          <div class="bg-slate-50 border rounded-xl p-4">
+            <p class="font-semibold mb-2">🛠 คำแนะนำลดปัญหา (AI Recommend)</p>
+            <ul class="text-xs space-y-2">
+              <li>• ทีมกะกลางคืน defect สูงกว่าปกติ +13% → เพิ่ม QC checklist ก่อนปล่อยงาน</li>
+              <li>• แนะนำฝึกยิงสกรูเส้นตรงสำหรับช่างใหม่ทุกคน (Module training 2 ชม.)</li>
+              <li>• สาขา B ควรเปลี่ยนรุ่น Z-bracket เพื่อลดเคสซ้ำเรื่องน้ำรั่ว</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- DASHBOARD 4: Profitability by Project -->
+      <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-4 mb-8">
+        <div class="flex items-center justify-between gap-2 flex-wrap">
+          <h2 class="text-lg font-semibold">4) Profitability by Project (AI Analyst)</h2>
+          <p class="text-[11px] text-slate-500">
+            ใช้กับ: ผู้บริหาร · ทีมการเงิน · FP&amp;A
+          </p>
+        </div>
+
+        <p class="text-xs text-slate-600 mb-2">
+          รวมข้อมูล “ต้นทุนจริง” (แรงงาน · เวลา · ของที่ใช้ · งานแก้ซ้ำ · ส่วนลด) จากหลายระบบ
+          ให้ผู้บริหารเห็นว่าโปรเจกต์ไหนกำลังขายถูกไป / ขาดทุน โดยไม่รู้ตัว
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-4 text-sm">
+
+          <!-- Overview -->
+          <div class="bg-slate-50 border rounded-xl p-4">
+            <p class="font-semibold mb-2">สรุปกำไรประจำเดือน</p>
+            <ul class="text-xs space-y-1">
+              <li>• โปรเจกต์ทั้งหมด: 214 งาน</li>
+              <li>• กำไรเฉลี่ยต่อโปรเจกต์: <span class="font-semibold">฿32,800</span></li>
+              <li>• โปรเจกต์กำไรต่ำกว่า 10%: <span class="text-red-600 font-semibold">7 งาน</span></li>
+            </ul>
+            <p class="text-[11px] text-slate-500 mt-2">
+              *ERP เก็บข้อมูลรายการ แต่ AI ดึงไปคิดรวมเป็นกำไรจริงต่อโปรเจกต์
+            </p>
+          </div>
+
+          <!-- Low Margin -->
+          <div class="bg-slate-50 border rounded-xl p-4">
+            <p class="font-semibold mb-2">⚠ งานกำไรต่ำ (AI Flag)</p>
+            <ul class="text-xs space-y-2">
+              <li>• โรงงาน ABC – กำไร 4.8% (ให้ส่วนลดสูงกว่าปกติ + ใช้แรงงานเกินแผน)</li>
+              <li>• บ้านเดี่ยวโซนเหนือ – กำไร 7.3% (ทีมติดตั้งใช้เวลา 2 วัน แทน 1 วัน)</li>
+              <li>• รีสอร์ท Z – กำไร 6.1% (มีงานแก้ซ้ำ 2 รอบ)</li>
+            </ul>
+            <p class="text-[11px] text-slate-500 mt-2">
+              ผู้บริหารกดเข้าไปดูรายละเอียดแต่ละโปรเจกต์ได้ทันที
+            </p>
+          </div>
+
+          <!-- AI Insight -->
+          <div class="bg-slate-50 border rounded-xl p-4">
+            <p class="font-semibold mb-2">📌 AI Finding</p>
+            <p class="text-xs leading-relaxed">
+              “งานกำไรต่ำส่วนใหญ่เกิดจากสาขาเชียงราย เพราะ<br>
+              1) ให้ส่วนลดเฉลี่ยสูงกว่าสาขาอื่น 8.2pt<br>
+              2) ทีมช่างใช้เวลาติดตั้งมากกว่าปกติ 1.3 วัน<br>
+              3) งานแก้ซ้ำเพิ่มขึ้น 22% ใน 3 เดือนหลังสุด”  
+            </p>
+            <p class="text-[11px] text-slate-500 mt-2">
+              ทำให้ผู้บริหารตัดสินใจได้เร็ว ว่าควรปรับ pricing, training หรือโฟกัสลูกค้ากลุ่มไหน
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>

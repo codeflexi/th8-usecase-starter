@@ -1,0 +1,87 @@
+<div class="min-h-screen bg-neutral-50 font-[Prompt] text-slate-800 p-6">
+
+  <!-- Header -->
+  <div class="max-w-6xl mx-auto mb-8">
+    <h1 class="text-3xl font-bold">PlanSphere™ FP&A Agent</h1>
+    <p class="text-slate-500">AI Decision Engine for FP&A, Data Science & Operations</p>
+  </div>
+
+  <!-- Layout -->
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <!-- Left Sidebar -->
+    <div class="bg-white border rounded-2xl p-4 shadow-sm space-y-4 h-fit">
+      <h2 class="text-sm font-semibold text-slate-500">Quick Actions</h2>
+      <ul class="space-y-2 text-sm">
+        <li class="p-2 bg-red-50 text-red-700 rounded-lg border border-red-200 cursor-pointer">
+          📊 Generate Monthly P&L Review
+        </li>
+        <li class="p-2 bg-slate-100 rounded-lg cursor-pointer">
+          🔮 Build 3 Scenarios (Base / Stress / Worst)
+        </li>
+        <li class="p-2 bg-slate-100 rounded-lg cursor-pointer">
+          💡 Analyze Promotion ROI
+        </li>
+        <li class="p-2 bg-slate-100 rounded-lg cursor-pointer">
+          🏭 Optimize Production Plan
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Chat Section -->
+    <div class="md:col-span-2 bg-white border rounded-2xl p-6 shadow-sm">
+
+      <!-- Chat Display -->
+      <div class="space-y-6 mb-6">
+
+        <!-- Agent Message -->
+        <div class="bg-neutral-100 p-4 rounded-xl text-sm border">
+          <p class="font-semibold text-red-700 mb-2">AI Agent</p>
+          <p class="text-slate-700">
+            สวัสดีครับ Nat — วันนี้อยากให้ผมช่วยเรื่องอะไรดีครับ?
+            ผมสามารถสรุป P&L, สร้าง Scenario, วิเคราะห์ Promo หรือทำ Production Plan ได้ครับ
+          </p>
+        </div>
+
+        <!-- User Message -->
+        <div class="text-right">
+          <div class="inline-block bg-red-600 text-white p-4 rounded-xl text-sm">
+            ช่วยวิเคราะห์ EBITDA เดือนล่าสุดให้หน่อย พร้อม root cause และ action plan 30 วัน
+          </div>
+        </div>
+
+        <!-- Agent Response -->
+        <div class="bg-neutral-100 p-4 rounded-xl text-sm border space-y-4">
+          <p class="font-semibold text-red-700">AI Agent</p>
+
+          <p class="font-semibold">🔎 Summary</p>
+          <p>EBITDA ลดลง 8.4% MoM … (ตัวอย่าง insight)</p>
+
+          <p class="font-semibold">📉 Root Causes</p>
+          <ul class="list-disc ml-6">
+            <li>GM% ลดลงจาก Mix shift → ชาเขียวขายมากขึ้น</li>
+            <li>Trade Spend เพิ่มขึ้น 12% ใน CVS</li>
+            <li>RM cost เพิ่ม 6% เพราะ contract หมด</li>
+          </ul>
+
+          <p class="font-semibold">🚀 Action Plan (30 Days)</p>
+          <ul class="list-disc ml-6">
+            <li>ลด promo depth ช่องทาง CVS 2 pts → GM ดีขึ้น +1.2 pts</li>
+            <li>เจรจา supplier วัตถุดิบลอตใหม่ → ลดราคา 3%</li>
+            <li>Push SKU high-margin ใน MT → เพิ่มกำไร 1.8M</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Input Box -->
+      <div class="mt-4">
+        <input 
+          type="text" 
+          placeholder="Ask PlanSphere Agent…" 
+          class="w-full p-4 border rounded-xl shadow focus:ring-2 focus:ring-red-500"
+        />
+      </div>
+
+    </div>
+  </div>
+</div>

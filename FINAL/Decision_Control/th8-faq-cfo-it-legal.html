@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TH8.AI — FAQ (CFO / IT / Legal)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>body{font-family:"Prompt",system-ui,-apple-system,Segoe UI,Roboto,sans-serif}</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-10 w-10 rounded-2xl bg-slate-900 text-white grid place-items-center font-semibold">TH8</div>
+        <div class="leading-tight">
+          <div class="text-sm font-semibold">TH8.AI FAQ</div>
+          <div class="text-xs text-slate-600">CFO / IT / Legal — ข้อกังวลหลักและคำตอบแบบใช้งานจริง</div>
+        </div>
+      </div>
+      <a href="./th8-roi-calculator.html" class="text-xs px-3 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50">← กลับ ROI Calculator</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-8 space-y-8">
+    <section class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+      <p class="text-[11px] uppercase tracking-[0.22em] text-slate-500 font-semibold">Enterprise-ready · Control + Audit + Cost</p>
+      <h1 class="text-2xl md:text-3xl font-semibold mt-2">FAQ — คำถามที่ต้องตอบให้ผ่านการอนุมัติ</h1>
+      <p class="text-sm text-slate-600 mt-2 max-w-4xl">
+        โฟกัส 2 use case: (1) Complaint/Brand Protection (2) FP&A Variance & Executive Briefing
+        และหลักการของ TH8: SLM-first, confidence gate, schema validation, tool permission, PII redaction, field-level audit, metrics/cost tracking
+      </p>
+
+      <div class="mt-5 grid md:grid-cols-3 gap-4">
+        <a href="#cfo" class="rounded-2xl border border-slate-200 p-4 hover:bg-slate-50">
+          <div class="text-sm font-semibold">CFO</div>
+          <div class="text-xs text-slate-600 mt-1">ROI, payback, cost control</div>
+        </a>
+        <a href="#it" class="rounded-2xl border border-slate-200 p-4 hover:bg-slate-50">
+          <div class="text-sm font-semibold">IT</div>
+          <div class="text-xs text-slate-600 mt-1">Architecture, integration, security</div>
+        </a>
+        <a href="#legal" class="rounded-2xl border border-slate-200 p-4 hover:bg-slate-50">
+          <div class="text-sm font-semibold">Legal</div>
+          <div class="text-xs text-slate-600 mt-1">PDPA, PII, audit, retention</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CFO -->
+    <section id="cfo" class="space-y-4">
+      <div class="flex items-end justify-between">
+        <div>
+          <h2 class="text-xl md:text-2xl font-semibold">CFO — ROI / Payback / Cost Control</h2>
+          <p class="text-sm text-slate-600 mt-1">ตอบให้ชัด: ลงทุนเท่าไร ได้คืนจากไหน คุมต้นทุน AI ยังไง</p>
+        </div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-3xl p-6">
+        <div class="space-y-3">
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">ROI มาจากอะไรบ้าง? (ไม่ใช่แค่ “เพิ่มรายได้”)</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <p><span class="font-semibold">Complaint Agent:</span> ลด cost handling + ลด escalation ที่ไม่จำเป็น + ลดความเสี่ยง brand จากการตอบช้า/ตอบผิด</p>
+              <p><span class="font-semibold">FP&A Agent:</span> ลดวันคนทำงาน + ลด rework/meeting + ปรับแผน/forecast ได้เร็วขึ้น</p>
+              <p class="text-xs text-slate-600">หมายเหตุ: brand upside เป็น “option value” — CFO มักใส่เป็น conservative (ไม่นับ) ก็ยังคุ้ม</p>
+            </div>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">คุมต้นทุน AI อย่างไร? จะไม่บานปลายเหรอ?</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <p>TH8 ใช้แนวทาง <span class="font-semibold">SLM-first</span>: งาน routine ให้ SLM ทำก่อน (เร็ว/ถูก) แล้วค่อย escalate ไป LLM เมื่อจำเป็น</p>
+              <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1">
+                <li>มี <span class="font-semibold">routing rules</span> แยก task type</li>
+                <li>มี <span class="font-semibold">confidence gate</span> + <span class="font-semibold">schema validation</span> ลด retry ที่ไม่จำเป็น</li>
+                <li>มี <span class="font-semibold">metrics/cost tracking</span> ราย task / ราย channel</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">Payback ควรคาดหวังกี่เดือน?</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <p>โดยทั่วไปสำหรับ 2 use case นี้ ถ้าใช้ตัวเลข conservative: <span class="font-semibold">~9–12 เดือน</span></p>
+              <p class="text-xs text-slate-600">ตัวเลขจริงขึ้นอยู่กับ volume complaint, cost per case และ effort ต่อเดือนของทีม FP&A</p>
+            </div>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">ถ้าไม่ทำอะไรเลย จะเกิดอะไรใน 6–12 เดือน?</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Complaint: ตอบช้า/ไม่สม่ำเสมอ → escalation มาก → brand risk สูงขึ้น</li>
+                <li>FP&A: variance cycle ยังช้า → forecast ปรับไม่ทัน → margin management ยาก</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- IT -->
+    <section id="it" class="space-y-4">
+      <div>
+        <h2 class="text-xl md:text-2xl font-semibold">IT — Architecture / Integration / Security</h2>
+        <p class="text-sm text-slate-600 mt-1">ตอบให้ชัด: ต่อระบบอย่างไร คุมสิทธิ์อย่างไร ตรวจสอบอย่างไร</p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-3xl p-6">
+        <div class="space-y-3">
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">ต้อง integrate อะไรบ้าง? เริ่มแบบเบา ๆ ได้ไหม?</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <p>เริ่มแบบเบาได้: ใช้ export รายวัน/รายสัปดาห์ (CSV/DB view) ก่อน แล้วค่อยขยับเป็น API/stream</p>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Complaint: contact center/CRM/LINE OA export + policy docs</li>
+                <li>FP&A: plan/actual table + promo calendar + driver tables</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">Tool Permission คืออะไร? ทำไมต้องมี?</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <p>TH8 ใช้ <span class="font-semibold">allow-list</span> ต่อ task type ว่า agent ใช้ tool อะไรได้บ้าง</p>
+              <p class="text-xs text-slate-600">ตัวอย่าง: complaint_pipeline อนุญาต “sql lookup” ได้ แต่ห้าม “write back” โดยไม่ผ่าน approval</p>
+            </div>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">Observability มีอะไรบ้าง? (debug / audit / cost)</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Trace ID ต่อ request</li>
+                <li>Latency ต่อ node (SLM/LLM/tool)</li>
+                <li>Retry reason (schema-invalid vs transient)</li>
+                <li>Cost/usage summary ต่อเดือน</li>
+              </ul>
+              <p class="text-xs text-slate-600">เริ่มจาก jsonl logs แล้วค่อย push ไป OTEL/Prometheus ได้</p>
+            </div>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">Deploy แบบไหน? Cloud / VPC / On-prem?</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <p>รองรับได้หลายแบบตาม policy: Cloud, VPC, หรือ on-prem</p>
+              <p class="text-xs text-slate-600">Enterprise มักเริ่มใน VPC + private networking + restricted egress</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Legal -->
+    <section id="legal" class="space-y-4">
+      <div>
+        <h2 class="text-xl md:text-2xl font-semibold">Legal — PDPA / PII / Audit Trail</h2>
+        <p class="text-sm text-slate-600 mt-1">ตอบให้ชัด: ข้อมูลส่วนบุคคลไปไหน เก็บอะไร บันทึกอย่างไร</p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-3xl p-6">
+        <div class="space-y-3">
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">TH8 จัดการ PII อย่างไร?</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <p>ก่อนส่งเข้าโมเดล TH8 ทำ <span class="font-semibold">PII redaction</span> (mask) และเก็บ <span class="font-semibold">audit trail ต่อ field</span></p>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Mask: เบอร์โทร, อีเมล, ชื่อ/นามสกุล (ตาม rule)</li>
+                <li>Audit: field ไหนถูก mask, ด้วย rule อะไร, เวลาไหน</li>
+                <li>Default: ไม่ส่ง PII ออกนอก boundary ที่ลูกค้ากำหนด</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">Data Retention / Deletion ทำได้ไหม?</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <p>ทำได้ โดยแยกข้อมูลเป็น 2 ส่วน:</p>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Business logs (trace/decision) เก็บตาม policy</li>
+                <li>PII source data เก็บตามระบบต้นทาง และลบตาม retention rule</li>
+              </ul>
+              <p class="text-xs text-slate-600">สิ่งที่ TH8 ต้องเก็บเพื่อ audit คือ “เหตุผล/หลักฐาน” ไม่จำเป็นต้องเก็บ PII ดิบ</p>
+            </div>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">ถ้าโมเดลตอบผิด ใครรับผิดชอบ?</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <p>TH8 วางเป็น <span class="font-semibold">Decision Support + Controlled Automation</span> ไม่ใช่ autonomous สุ่มทำเอง</p>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>มี confidence gate: ต่ำกว่ากำหนด → escalate / human approval</li>
+                <li>มี policy guardrails: ห้าม action บางประเภทโดยอัตโนมัติ</li>
+                <li>มี audit trail: trace ได้ว่าใช้ context อะไร ตัดสินใจเพราะอะไร</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="group rounded-2xl border border-slate-200 p-4">
+            <summary class="cursor-pointer list-none flex items-center justify-between">
+              <span class="text-sm font-semibold">Model training ใช้ข้อมูลลูกค้าไหม?</span>
+              <span class="text-slate-500 group-open:rotate-180 transition">⌄</span>
+            </summary>
+            <div class="mt-3 text-sm text-slate-700 space-y-2">
+              <p>ค่าเริ่มต้น: <span class="font-semibold">ไม่ใช้ข้อมูลลูกค้าไป train model กลาง</span></p>
+              <p>ถ้าจะทำ fine-tune/SLM specialist: ใช้เฉพาะ <span class="font-semibold">data ที่ anonymized</span> และอยู่ใน environment ของลูกค้า</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white border border-slate-200 rounded-3xl p-6 md:p-8">
+      <h2 class="text-lg font-semibold">Checklist ที่ควรได้ก่อน Go-live</h2>
+      <div class="mt-4 grid md:grid-cols-3 gap-4">
+        <div class="rounded-2xl border border-slate-200 p-4">
+          <div class="text-sm font-semibold">CFO</div>
+          <ul class="mt-2 text-[11px] text-slate-600 list-disc pl-4 space-y-1">
+            <li>ROI assumptions agreed</li>
+            <li>Cost cap / routing policy</li>
+            <li>Monthly outcome report</li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-slate-200 p-4">
+          <div class="text-sm font-semibold">IT</div>
+          <ul class="mt-2 text-[11px] text-slate-600 list-disc pl-4 space-y-1">
+            <li>RBAC / network boundary</li>
+            <li>Logging + monitoring</li>
+            <li>Rollback plan</li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-slate-200 p-4">
+          <div class="text-sm font-semibold">Legal</div>
+          <ul class="mt-2 text-[11px] text-slate-600 list-disc pl-4 space-y-1">
+            <li>PDPA mapping</li>
+            <li>Retention policy</li>
+            <li>Audit trail scope</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="pb-10 text-xs text-slate-500">
+      สามารถนำ FAQ นี้ไปใส่ appendix ของ proposal ได้ทันที
+    </footer>
+  </main>
+</body>
+</html>

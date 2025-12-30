@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI · Investment & ROI – ตามอุตสาหกรรม</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+  <div class="max-w-7xl mx-auto px-4 py-10 space-y-10">
+
+    <!-- GLOBAL HEADER -->
+    <header class="space-y-4">
+      <p class="text-[11px] uppercase tracking-wide text-red-500 font-semibold">
+        TH8.AI Agentic System · Investment & ROI Summary by Industry
+      </p>
+      <h1 class="text-2xl md:text-3xl font-semibold">
+        ลงทุน TH8.AI Agent Suite ให้คุ้มค่า  
+        แยกตามประเภทอุตสาหกรรมของลูกค้า
+      </h1>
+      <p class="text-sm md:text-base text-slate-600 max-w-3xl">
+        หน้านี้ใช้เล่าให้ผู้บริหารเห็นภาพว่า  
+        ถ้าเป็นโรงงาน, โลจิสติกส์, ดีลเลอร์วัสดุก่อสร้าง, ค้าปลีก, ธุรกิจบริการ หรือการเงิน  
+        จะลงทุนกับ TH8.AI อย่างไร และหวังผล ROI ประมาณเท่าไร
+      </p>
+
+      <!-- INDUSTRY DROPDOWN -->
+      <div class="flex flex-col md:flex-row md:items-center gap-3">
+        <label class="text-xs text-slate-600">
+          เลือกอุตสาหกรรมที่ต้องการดู Investment & ROI:
+        </label>
+        <select
+          id="industrySelector"
+          class="w-full md:w-80 rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500/60"
+        >
+          <option value="manufacturing">Manufacturing / โรงงานผลิต</option>
+          <option value="logistics">Logistics / Warehouse / Distribution</option>
+          <option value="dealer">Dealer / Construction Material</option>
+          <option value="retail">Retail / Multi-store / Franchise</option>
+          <option value="service">Service / Installation / Engineering</option>
+          <option value="financial">Financial Services / Leasing / Insurance</option>
+        </select>
+      </div>
+    </header>
+
+    <!-- ===================================================== -->
+    <!-- COMMON: 3 PILLARS SECTION (เหมือนกันทุกอุตสาหกรรม) -->
+    <!-- ===================================================== -->
+    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-5">
+      <h2 class="text-xl font-semibold">1) 3 เสาหลักของ TH8.AI Agentic System</h2>
+      <p class="text-xs md:text-sm text-slate-600 max-w-3xl">
+        ทุกอุตสาหกรรมใช้ Stack เดียวกัน: Agent Suite + Workflow Automation + Knowledge & Analytics  
+        ต่างกันที่ Data, Rule, SOP, KPI และ Flow การทำงานของแต่ละบริษัท
+      </p>
+      <div class="grid md:grid-cols-3 gap-4 text-sm">
+
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2">
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Pillar 1 · AI Agent Suite
+          </p>
+          <p class="font-semibold">Agent ช่วยงานหลักของทีมปฏิบัติการ / การเงิน / ขาย</p>
+          <p class="text-slate-600 text-xs">
+            ตัวอย่าง: FP&A Copilot, Inventory Agent, Production/OEE Copilot, Quality & Scrap Agent, Route Planner, Claim Agent
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2">
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Pillar 2 · Workflow Automation
+          </p>
+          <p class="font-semibold">ทำให้ระบบ “คุยกันเอง” ลดคีย์มือ ข้ามระบบ</p>
+          <p class="text-slate-600 text-xs">
+            ตัวอย่าง: LINE OA / Web Form → ERP / WMS / MES, PO → GR → Invoice, Delivery → Status, Ticket → Billing
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2">
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Pillar 3 · Knowledge & Analytics
+          </p>
+          <p class="font-semibold">แปลง SOP + Report เป็น Knowledge Copilot & Dashboard</p>
+          <p class="text-slate-600 text-xs">
+            Manual, Warranty, Credit & Discount Policy, Incident, Case Library, KPI Dashboard  
+            ให้ถาม–ตอบได้ภาษาไทย และเห็น Insight แบบรวมศูนย์
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- INDUSTRY: MANUFACTURING                             -->
+    <!-- ===================================================== -->
+    <section
+      id="industry-manufacturing"
+      class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6"
+    >
+      <!-- HEADER -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Industry #1 · Manufacturing / โรงงานผลิต
+          </p>
+          <h2 class="text-xl font-semibold">
+            TH8.AI สำหรับ “โรงงานผลิต” – จาก Production Line → Quality → Warehouse → Finance
+          </h2>
+          <p class="text-sm text-slate-600 max-w-2xl">
+            เหมาะกับโรงงานฉีดพลาสติก, ปั๊มโลหะ, Die-casting, บรรจุภัณฑ์, Food & Beverage ฯลฯ  
+            โฟกัส OEE, Scrap, Downtime, คุณภาพ และการเชื่อมข้อมูลไปยัง ERP/MES/WMS
+          </p>
+        </div>
+        <div class="text-xs bg-slate-900 text-slate-50 rounded-xl px-4 py-3 space-y-1 max-w-xs">
+          <p class="font-semibold text-sm">ภาพรวมการลงทุน (Manufacturing)</p>
+          <p>• Setup + Integration: 450k – 850k</p>
+          <p>• รายเดือน (AI + Hosting): 80k – 150k / เดือน</p>
+        </div>
+      </div>
+
+      <!-- MODULES GRID -->
+      <div class="grid lg:grid-cols-2 gap-6 text-sm">
+        <!-- LEFT: Agent Layer -->
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Production & OEE Copilot</p>
+            <p class="text-slate-600 text-xs">
+              ดึงข้อมูล Cycle time, Output, Downtime จากเครื่องจักร / MES / iMF → คำนวณ OEE แบบ Real-time  
+              แนะนำคอขวด (bottleneck), Shift/Model ที่มีประสิทธิภาพต่ำกว่ามาตรฐาน
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Quality & Scrap Agent</p>
+            <p class="text-slate-600 text-xs">
+              เก็บข้อมูล NG/Defect พร้อมสาเหตุ, Mold/Tool, Operator, Shift  
+              แจ้งเตือน Scrap rate ผิดปกติ และเสนอ Action ตามประวัติ Case Library
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Maintenance & Alarm Agent</p>
+            <p class="text-slate-600 text-xs">
+              อ่าน Alarm / Trend จากเครื่องจักร → เสนอ Plan ตรวจเช็ก, PM, หรือหยุดเครื่อง  
+              ลด Downtime ไม่พึงประสงค์ และบันทึก Root cause เพื่อใช้ซ้ำ
+            </p>
+          </div>
+        </div>
+
+        <!-- RIGHT: Workflow + Knowledge -->
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+            <p class="font-semibold text-emerald-800">⚙ Workflow Automation (Manufacturing)</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1">
+              <li>• Production order จาก ERP → ลงเครื่อง → ส่งผลการผลิตกลับไปที่ ERP อัตโนมัติ</li>
+              <li>• NG/Defect → สร้าง Ticket ให้ QC/Engineer พร้อมข้อมูลครบ</li>
+              <li>• เมื่อผลิตเสร็จ → Update สต็อกเข้า WMS / Warehouse แบบ real-time</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <p class="font-semibold text-blue-800">📚 Manual / SOP / Troubleshooting Copilot</p>
+            <p class="text-xs text-slate-700 mt-1">
+              รวม SOP การ Set-up เครื่อง, Standard parameter, Cooling/Heating, Cleaning, Safety, คู่มือเครื่อง  
+              ให้หัวหน้ากะ, ช่าง, QC ถามได้เป็นภาษาไทยจากมือถือ/แท็บเล็ต
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROI BOX -->
+      <div class="border rounded-2xl p-5 bg-slate-900 text-slate-50 space-y-4 text-sm">
+        <h3 class="text-lg font-semibold">ROI สำหรับโรงงานผลิต (ประมาณการ)</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Scrap & Rework ลดลง</p>
+            <p class="text-2xl font-bold">5–12%</p>
+            <p class="text-[11px] text-slate-300">จากการตรวจ Defect เร็วขึ้น และมี SOP ชัดเจน</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Downtime ไม่พึงประสงค์</p>
+            <p class="text-2xl font-bold">ลด 10–20%</p>
+            <p class="text-[11px] text-slate-300">จาก Maintenance Agent & Alarm Monitoring</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">เวลารวมในการตามข้อมูล</p>
+            <p class="text-2xl font-bold">ลด 30–50%</p>
+            <p class="text-[11px] text-slate-300">หัวหน้ากะ/ผู้บริหารเห็น Dashboard เดียวกัน</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 pt-3">
+          <div>
+            <p class="text-xs text-slate-300">Benefit ต่อปี (ลดต้นทุน + เพิ่มประสิทธิภาพ)</p>
+            <p class="text-2xl font-bold text-emerald-400">~ 2.0 – 4.0 ล้านบาท / ปี</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-300">ค่าใช้จ่ายรวมปีแรก (ประมาณ)</p>
+            <p class="text-2xl font-bold text-red-300">~ 1.2 – 2.0 ล้านบาท</p>
+          </div>
+        </div>
+
+        <div class="mt-2 rounded-xl bg-emerald-600 text-white text-center py-3">
+          <p class="text-lg font-semibold">Payback period ประมาณ 4–8 เดือน</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- INDUSTRY: LOGISTICS                                   -->
+    <!-- ===================================================== -->
+    <section
+      id="industry-logistics"
+      class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6"
+    >
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Industry #2 · Logistics / Warehouse / Distribution
+          </p>
+          <h2 class="text-xl font-semibold">
+            TH8.AI สำหรับ “Logistics & Warehouse” – จาก Order → Picking → Delivery → Billing
+          </h2>
+          <p class="text-sm text-slate-600 max-w-2xl">
+            เหมาะกับศูนย์กระจายสินค้า, คลังสินค้า, 3PL, Fleet ขนส่ง  
+            โฟกัสลดเคสตกหล่น, Drop cost, ระยะทางวิ่ง, และเวลาจัดการ Claim/Incident
+          </p>
+        </div>
+        <div class="text-xs bg-slate-900 text-slate-50 rounded-xl px-4 py-3 space-y-1 max-w-xs">
+          <p class="font-semibold text-sm">ภาพรวมการลงทุน (Logistics/WMS)</p>
+          <p>• Setup + Integration: 350k – 650k</p>
+          <p>• รายเดือน (AI + Hosting): 70k – 120k / เดือน</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6 text-sm">
+        <!-- LEFT: Agents -->
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Order Routing & Load Planning Agent</p>
+            <p class="text-xs text-slate-700">
+              รับ Order จากหลายช่องทาง → เสนอ Route / Wave / Load Plan  
+              ลดเที่ยวเปล่า, ลดเวลาวางแผน และให้เห็น Utilization ต่อรถ
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Delivery Incident & Claim Agent</p>
+            <p class="text-xs text-slate-700">
+              เก็บ incident (ของเสีย, ส่งช้า, ส่งผิด) → สร้างเคสอัตโนมัติ  
+              แนะนำ Root cause ที่น่าจะเป็น และ Action ตาม Incident Library
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Cost & SLA Performance Agent</p>
+            <p class="text-xs text-slate-700">
+              วิเคราะห์ Drop cost, Route cost, SLA per client → สรุปให้ผู้บริหาร  
+              รู้ว่าลูกค้ากลุ่มไหน, เส้นทางไหน กำไร/ขาดทุน
+            </p>
+          </div>
+        </div>
+
+        <!-- RIGHT: Workflow & Knowledge -->
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+            <p class="font-semibold text-emerald-800">⚙ Workflow Automation (Logistics)</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1">
+              <li>• Order → WMS → Picking → Loading → Delivery status → Billing เชื่อมกันอัตโนมัติ</li>
+              <li>• POD / Proof-of-delivery เชื่อมกลับเข้า CRM/ERP เพื่อลดงานตามเอกสาร</li>
+              <li>• เคส Delay/Failed delivery → สร้าง Ticket + แจ้งเตือนทีมที่เกี่ยวข้อง</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <p class="font-semibold text-blue-800">📚 SOP & Incident Playbook Copilot</p>
+            <p class="text-xs text-slate-700 mt-1">
+              รวม SOP การโหลด, การจัดเก็บ, มาตรฐานอุณหภูมิ, การจัดการเคสเสียหาย/หาย  
+              ให้หัวหน้าคลัง, Supervisor, CS ถามเป็นภาษาไทยได้จากหน้า Dashboard หรือ LINE OA
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border rounded-2xl p-5 bg-slate-900 text-slate-50 space-y-4 text-sm">
+        <h3 class="text-lg font-semibold">ROI สำหรับ Logistics / Warehouse (ประมาณการ)</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Drop cost / ค่าขนส่งต่อจุด</p>
+            <p class="text-2xl font-bold">ลด 5–12%</p>
+            <p class="text-[11px] text-slate-300">จาก Route & Load Planning Agent</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">เคสตกหล่น / เคสไม่มีการปิดจบ</p>
+            <p class="text-2xl font-bold">ลด 15–30%</p>
+            <p class="text-[11px] text-slate-300">จาก Workflow + Incident Agent</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Manual follow-up time</p>
+            <p class="text-2xl font-bold">ลด 30–40%</p>
+            <p class="text-[11px] text-slate-300">จากการเชื่อม status ข้ามระบบ</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 pt-3">
+          <div>
+            <p class="text-xs text-slate-300">Benefit ต่อปี (ลดต้นทุน + เพิ่ม capacity)</p>
+            <p class="text-2xl font-bold text-emerald-400">~ 1.5 – 3.0 ล้านบาท / ปี</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-300">ค่าใช้จ่ายรวมปีแรก (ประมาณ)</p>
+            <p class="text-2xl font-bold text-red-300">~ 1.0 – 1.6 ล้านบาท</p>
+          </div>
+        </div>
+
+        <div class="mt-2 rounded-xl bg-emerald-600 text-white text-center py-3">
+          <p class="text-lg font-semibold">Payback period ประมาณ 5–9 เดือน</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- INDUSTRY: DEALER / CONSTRUCTION MATERIAL              -->
+    <!-- ===================================================== -->
+    <section
+      id="industry-dealer"
+      class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6"
+    >
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Industry #3 · Dealer / Construction Material / หลังคา / เหล็ก
+          </p>
+          <h2 class="text-xl font-semibold">
+            TH8.AI สำหรับ “ดีลเลอร์วัสดุก่อสร้าง” – จากใบเสนอราคา → Order → ส่งของ → เก็บเงิน
+          </h2>
+          <p class="text-sm text-slate-600 max-w-2xl">
+            ใช้เล่าให้ลูกค้าประเภทวัสดุก่อสร้าง, หลังคา, เหล็ก, โครงสร้าง, Solar structure  
+            โฟกัสที่ speed การตอบราคา, การคุม Margin และการจัดการ Stock & Delivery
+          </p>
+        </div>
+        <div class="text-xs bg-slate-900 text-slate-50 rounded-xl px-4 py-3 space-y-1 max-w-xs">
+          <p class="font-semibold text-sm">ภาพรวมการลงทุน (Dealer/Construction)</p>
+          <p>• Setup + Integration: 350k – 600k</p>
+          <p>• รายเดือน (AI + Hosting): 65k – 110k / เดือน</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6 text-sm">
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Sales & Quotation Copilot</p>
+            <p class="text-xs text-slate-700">
+              อ่าน LINE/Email/ใบ Spec จากลูกค้า → แนะนำ Option, ราคา, ส่วนลดที่เหมาะสม  
+              ช่วยให้ทีมขายตอบราคาเร็วขึ้น และสอดคล้องกับ Policy
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Inventory & Branch Replenishment Agent</p>
+            <p class="text-xs text-slate-700">
+              ดูยอดขาย + Stock ต่อสาขา → แนะนำการย้ายสินค้า/เติมสินค้า  
+              ปรับ Safety stock ตาม seasonality และ promotion
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Credit & Discount Policy Agent</p>
+            <p class="text-xs text-slate-700">
+              ให้เซลล์ถาม Policy เครดิต / ส่วนลด เป็นภาษาไทย  
+              ช่วยคุม Margin และไม่ให้เงื่อนไขหลุดจากสิทธิ์ที่กำหนด
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+            <p class="font-semibold text-emerald-800">⚙ Workflow Automation (Dealer/Construction)</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1">
+              <li>• รายการจาก LINE OA / Call → แปลงเป็น Quotation / Sales Order ใน ERP อัตโนมัติ</li>
+              <li>• เชื่อมโหลดของ/จัดส่งจาก WMS/Transport → แจ้งสถานะให้ลูกค้า</li>
+              <li>• Reconcile ใบส่งของ – Invoice – ใบเสร็จ ช่วยบัญชีปิดยอดเร็วขึ้น</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <p class="font-semibold text-blue-800">📚 Product, Spec & Installation Knowledge Copilot</p>
+            <p class="text-xs text-slate-700 mt-1">
+              รวม Spec แผ่น, โครง, น็อต, ระบบติดตั้ง, Warranty, วิธีเคลม  
+              ให้เซลล์/ช่างภายนอกถามข้อมูลได้ภายในไม่กี่วินาที
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border rounded-2xl p-5 bg-slate-900 text-slate-50 space-y-4 text-sm">
+        <h3 class="text-lg font-semibold">ROI สำหรับ Dealer / Construction (ประมาณการ)</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Speed to Quote</p>
+            <p class="text-2xl font-bold">เร็วขึ้น 30–50%</p>
+            <p class="text-[11px] text-slate-300">ลูกค้าไม่ต้องรอนานจนไปปิดกับเจ้าอื่น</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">ส่วนลดเกินสิทธิ์</p>
+            <p class="text-2xl font-bold">ลด 10–30%</p>
+            <p class="text-[11px] text-slate-300">ควบคุม Margin รวมให้ดีขึ้น</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">เวลาไล่เอกสาร</p>
+            <p class="text-2xl font-bold">ลด 30–40%</p>
+            <p class="text-[11px] text-slate-300">ทีม Back-office กันหลุดงานเอกสาร</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 pt-3">
+          <div>
+            <p class="text-xs text-slate-300">Benefit ต่อปี (รวมด้านยอดขาย+ต้นทุน)</p>
+            <p class="text-2xl font-bold text-emerald-400">~ 1.2 – 2.5 ล้านบาท / ปี</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-300">ค่าใช้จ่ายรวมปีแรก (ประมาณ)</p>
+            <p class="text-2xl font-bold text-red-300">~ 0.9 – 1.5 ล้านบาท</p>
+          </div>
+        </div>
+
+        <div class="mt-2 rounded-xl bg-emerald-600 text-white text-center py-3">
+          <p class="text-lg font-semibold">Payback period ประมาณ 6–9 เดือน</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- INDUSTRY: RETAIL / FRANCHISE                          -->
+    <!-- ===================================================== -->
+    <section
+      id="industry-retail"
+      class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6"
+    >
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Industry #4 · Retail / Multi-store / Franchise
+          </p>
+          <h2 class="text-xl font-semibold">
+            TH8.AI สำหรับ “ค้าปลีก & แฟรนไชส์” – จากยอดขายหน้าร้าน → Stock → Supplier → P&L
+          </h2>
+          <p class="text-sm text-slate-600 max-w-2xl">
+            เหมาะกับร้านอาหาร chain, minimart, beauty, service shop, kiosk หลายสาขา  
+            โฟกัส stock ขาด/เกิน, Replenishment, Training และ Loss prevention
+          </p>
+        </div>
+        <div class="text-xs bg-slate-900 text-slate-50 rounded-xl px-4 py-3 space-y-1 max-w-xs">
+          <p class="font-semibold text-sm">ภาพรวมการลงทุน (Retail/Franchise)</p>
+          <p>• Setup + Integration: 300k – 550k</p>
+          <p>• รายเดือน (AI + Hosting): 60k – 100k / เดือน</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6 text-sm">
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Store Performance & Replenishment Agent</p>
+            <p class="text-xs text-slate-700">
+              ดึงยอดขาย POS + Stock ต่อสาขา → แนะนำ Order/Transfer ที่เหมาะสม  
+              ปรับตาม promotion / season / event พิเศษ
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Loss Prevention & Exception Agent</p>
+            <p class="text-xs text-slate-700">
+              ตรวจจับ pattern แปลก เช่น Void เยอะ, Discount แปลก, Stock loss ผิดปกติ  
+              แจ้งเตือนให้ Supervisor ตรวจสอบก่อนเสียหายเยอะ
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Training & SOP Copilot สำหรับสาขา</p>
+            <p class="text-xs text-slate-700">
+              ให้พนักงานสาขาใหม่ถามขั้นตอน, เมนู, โปรโมชั่น, วิธีแก้เคสลูกค้า  
+              ลดเวลา Training และให้มาตรฐานบริการใกล้เคียงกันทุกสาขา
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+            <p class="font-semibold text-emerald-800">⚙ Workflow Automation (Retail)</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1">
+              <li>• POS → Replenishment → PO → Receiving เชื่อมกันอัตโนมัติ</li>
+              <li>• Promotion setup → ตรวจ valid/invalid บน POS โดย Agent</li>
+              <li>• Incident front store → สร้าง Ticket และเชื่อมกลับ HQ</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <p class="font-semibold text-blue-800">📚 Brand Manual & Service Script Copilot</p>
+            <p class="text-xs text-slate-700 mt-1">
+              รวมคู่มือแบรนด์, Guideline, Service script → ให้หัวหน้าสาขา/พนักงานค้นหาอย่างรวดเร็วทั้งภาษาไทย/อังกฤษ
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border rounded-2xl p-5 bg-slate-900 text-slate-50 space-y-4 text-sm">
+        <h3 class="text-lg font-semibold">ROI สำหรับ Retail / Franchise (ประมาณการ)</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Stock ขาด/เกิน</p>
+            <p class="text-2xl font-bold">ลด 12–25%</p>
+            <p class="text-[11px] text-slate-300">จาก Replenishment Agent</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Training & ramp-up time</p>
+            <p class="text-2xl font-bold">ลด 30–50%</p>
+            <p class="text-[11px] text-slate-300">พนักงานใหม่ถาม Copilot ได้ทันที</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Service คงที่มากขึ้น</p>
+            <p class="text-2xl font-bold">NPS ดีขึ้น</p>
+            <p class="text-[11px] text-slate-300">ลดความต่างระหว่างสาขา</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 pt-3">
+          <div>
+            <p class="text-xs text-slate-300">Benefit ต่อปี (ประหยัด+เพิ่มยอดขาย)</p>
+            <p class="text-2xl font-bold text-emerald-400">~ 1.0 – 2.0 ล้านบาท / ปี</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-300">ค่าใช้จ่ายรวมปีแรก (ประมาณ)</p>
+            <p class="text-2xl font-bold text-red-300">~ 0.8 – 1.4 ล้านบาท</p>
+          </div>
+        </div>
+
+        <div class="mt-2 rounded-xl bg-emerald-600 text-white text-center py-3">
+          <p class="text-lg font-semibold">Payback period ประมาณ 4–7 เดือน</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- INDUSTRY: SERVICE / INSTALLATION                      -->
+    <!-- ===================================================== -->
+    <section
+      id="industry-service"
+      class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6"
+    >
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Industry #5 · Service / Installation / Engineering
+          </p>
+          <h2 class="text-xl font-semibold">
+            TH8.AI สำหรับ “Solar / AC / CCTV / Automation / Service Contract”
+          </h2>
+          <p class="text-sm text-slate-600 max-w-2xl">
+            ใช้เล่าให้ลูกค้าที่มี Process แบบ Project + On-site service  
+            เช่น Solar, งานติดตั้งระบบ, งาน Maintenance รายปี ฯลฯ
+          </p>
+        </div>
+        <div class="text-xs bg-slate-900 text-slate-50 rounded-xl px-4 py-3 space-y-1 max-w-xs">
+          <p class="font-semibold text-sm">ภาพรวมการลงทุน (Service/Installation)</p>
+          <p>• Setup + Integration: 320k – 600k</p>
+          <p>• รายเดือน (AI + Hosting): 60k – 110k / เดือน</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6 text-sm">
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Lead & Qualification Agent</p>
+            <p class="text-xs text-slate-700">
+              ดึง Lead จากหลายช่องทาง → ถามคำถามพื้นฐาน, ประเมินโอกาส, จัดลำดับความสำคัญ  
+              ส่งต่อให้ทีมขายโฟกัส Lead ที่มีคุณภาพก่อน
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Site Survey & Proposal Copilot</p>
+            <p class="text-xs text-slate-700">
+              สร้าง Checklist สำรวจหน้างาน, สรุปข้อมูล, แนะนำ BOQ & ราคาที่เหมาะสม  
+              ลดเวลาเตรียมข้อเสนอ และควบคุม Margin ได้ดีขึ้น
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Service & Ticket Agent</p>
+            <p class="text-xs text-slate-700">
+              รับเคสจากลูกค้า → เปิด Ticket → เสนอวิธีแก้เบื้องต้นจาก Knowledge  
+              และตามงานจนปิดเคส พร้อมเก็บ Root cause กลับเข้าระบบ
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+            <p class="font-semibold text-emerald-800">⚙ Workflow Automation (Service)</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1">
+              <li>• Lead → Survey → Proposal → Contract → Install → Invoice เชื่อมใน Flow เดียว</li>
+              <li>• Service request → Ticket → Technician assignment → Close & Billing อัตโนมัติ</li>
+              <li>• SLA & Contract obligation → แจ้งเตือนก่อนครบกำหนด</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <p class="font-semibold text-blue-800">📚 Installation Manual & Safety SOP Copilot</p>
+            <p class="text-xs text-slate-700 mt-1">
+              ให้ทีมหน้างานและ Call center ถามคู่มือติดตั้ง, Safety, FAQ ลูกค้า และวิธีแก้ไขเบื้องต้น  
+              ลดการต้องขอคำปรึกษาจาก Senior engineer ตลอดเวลา
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border rounded-2xl p-5 bg-slate-900 text-slate-50 space-y-4 text-sm">
+        <h3 class="text-lg font-semibold">ROI สำหรับ Service / Installation (ประมาณการ)</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Lead Conversion</p>
+            <p class="text-2xl font-bold">+10–20%</p>
+            <p class="text-[11px] text-slate-300">จากการตอบเร็ว และไม่ให้ Lead ตกหล่น</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Cycle time (Lead → Contract)</p>
+            <p class="text-2xl font-bold">สั้นลง 25–40%</p>
+            <p class="text-[11px] text-slate-300">จาก Survey & Proposal Copilot</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Service cost / เคส</p>
+            <p class="text-2xl font-bold">ลด 15–25%</p>
+            <p class="text-[11px] text-slate-300">ลูกค้าบางส่วนแก้เองได้ และ dispatch ทีมเหมาะสม</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 pt-3">
+          <div>
+            <p class="text-xs text-slate-300">Benefit ต่อปี (รวมรายได้+ต้นทุน)</p>
+            <p class="text-2xl font-bold text-emerald-400">~ 1.8 – 3.0 ล้านบาท / ปี</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-300">ค่าใช้จ่ายรวมปีแรก (ประมาณ)</p>
+            <p class="text-2xl font-bold text-red-300">~ 1.1 – 1.6 ล้านบาท</p>
+          </div>
+        </div>
+
+        <div class="mt-2 rounded-xl bg-emerald-600 text-white text-center py-3">
+          <p class="text-lg font-semibold">Payback period ประมาณ 6–10 เดือน</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- INDUSTRY: FINANCIAL / INSURANCE                       -->
+    <!-- ===================================================== -->
+    <section
+      id="industry-financial"
+      class="hidden bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-6"
+    >
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Industry #6 · Financial Services / Leasing / Insurance / Call Center
+          </p>
+          <h2 class="text-xl font-semibold">
+            TH8.AI สำหรับ “บริการการเงิน / ประกัน / Call Center”
+          </h2>
+          <p class="text-sm text-slate-600 max-w-2xl">
+            เน้นเรื่อง SLA, Compliance, Fraud pattern, Claim handling และการใช้ Agent ช่วยลด Handle time  
+            โดยยังรักษามาตรฐานการกำกับดูแล (Regulation) ที่เคร่งครัด
+          </p>
+        </div>
+        <div class="text-xs bg-slate-900 text-slate-50 rounded-xl px-4 py-3 space-y-1 max-w-xs">
+          <p class="font-semibold text-sm">ภาพรวมการลงทุน (Financial/Insurance)</p>
+          <p>• Setup + Integration: 450k – 900k</p>
+          <p>• รายเดือน (AI + Hosting): 80k – 130k / เดือน</p>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6 text-sm">
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Claim & Case Handling Agent</p>
+            <p class="text-xs text-slate-700">
+              ดึง Policy, Case history, เอกสารที่ลูกค้าส่ง → แนะนำ Next step  
+              ช่วยให้ Agent หน้าเคสตอบได้เร็วขึ้นและตรง Policy
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Credit Policy / Underwriting Agent</p>
+            <p class="text-xs text-slate-700">
+              ช่วยอธิบาย Policy, Condition, ข้อยกเว้น ให้ทีมภายใน และสรุป Decision logic แบบเข้าใจง่าย  
+              โดยไม่ให้ Agent ตัดสินใจเกินขอบเขต
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-semibold">✔ Fraud Pattern & Exception Agent</p>
+            <p class="text-xs text-slate-700">
+              วิเคราะห์ pattern เคสที่ผิดปกติ → แจ้งเตือนทีม Fraud / Risk  
+              เพื่อตรวจเพิ่มเติมก่อนอนุมัติหรือจ่ายเงิน
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+            <p class="font-semibold text-emerald-800">⚙ Workflow Automation (Financial)</p>
+            <ul class="mt-2 text-xs text-slate-700 space-y-1">
+              <li>• Front channel (Call, Chat, LINE) → Case/Ticket → Backoffice decision → Payment/Resolution</li>
+              <li>• Automate document checklist & chasing เอกสารจากลูกค้า</li>
+              <li>• Integration กับ Core system / LOS / Claim system / Payment system</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <p class="font-semibold text-blue-800">📚 Policy & Procedure Copilot</p>
+            <p class="text-xs text-slate-700 mt-1">
+              รวม Policy, Guideline, SOP ภายใน, Script สนทนา, Compliance rule  
+              เพื่อให้ Agent/Backoffice ถามเป็นภาษาไทยและได้คำตอบที่ align กับกติกาองค์กร
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border rounded-2xl p-5 bg-slate-900 text-slate-50 space-y-4 text-sm">
+        <h3 class="text-lg font-semibold">ROI สำหรับ Financial / Insurance (ประมาณการ)</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Average handle time</p>
+            <p class="text-2xl font-bold">ลด 20–35%</p>
+            <p class="text-[11px] text-slate-300">Agent ได้ข้อมูลครบเร็วขึ้น</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Escalation / Rework</p>
+            <p class="text-2xl font-bold">ลด 15–20%</p>
+            <p class="text-[11px] text-slate-300">Policy Copilot เคลียร์ upfront</p>
+          </div>
+          <div class="bg-slate-800 rounded-xl p-3 space-y-1">
+            <p class="text-xs text-slate-300 uppercase">Compliance risk</p>
+            <p class="text-2xl font-bold">ลดลง</p>
+            <p class="text-[11px] text-slate-300">Script & Rule ถูก embed ใน Agent</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 pt-3">
+          <div>
+            <p class="text-xs text-slate-300">Benefit ต่อปี (ประหยัด+คุณภาพบริการ)</p>
+            <p class="text-2xl font-bold text-emerald-400">~ 2.0 – 5.0 ล้านบาท / ปี</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-300">ค่าใช้จ่ายรวมปีแรก (ประมาณ)</p>
+            <p class="text-2xl font-bold text-red-300">~ 1.3 – 2.0 ล้านบาท</p>
+          </div>
+        </div>
+
+        <div class="mt-2 rounded-xl bg-emerald-600 text-white text-center py-3">
+          <p class="text-lg font-semibold">Payback period ประมาณ 6–9 เดือน</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA (ใช้ร่วมกันทุกอุตสาหกรรม) -->
+    <section class="text-center py-8 space-y-3">
+      <h2 class="text-xl md:text-2xl font-bold">
+        เลือก 1–2 Use case ที่ “คุ้มสุด” สำหรับอุตสาหกรรมของคุณ แล้วเริ่มจากตรงนั้น
+      </h2>
+      <p class="text-sm md:text-base text-slate-600 max-w-xl mx-auto">
+        TH8.AI ช่วยทีมผู้บริหารทำ “Agent & Workflow ROI Snapshot”  
+        เพื่อดูว่าในอุตสาหกรรมของคุณ ควรเริ่ม Agent ตัวไหนก่อน และคุ้มทุนเมื่อไร
+      </p>
+      <button class="mt-4 px-6 py-3 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800">
+        นัดคุยโจทย์ + ขอ ROI Snapshot สำหรับอุตสาหกรรมของคุณ →
+      </button>
+    </section>
+
+  </div>
+
+  <!-- SIMPLE JS: toggle industry sections -->
+  <script>
+    const selector = document.getElementById('industrySelector');
+    const sections = {
+      manufacturing: document.getElementById('industry-manufacturing'),
+      logistics: document.getElementById('industry-logistics'),
+      dealer: document.getElementById('industry-dealer'),
+      retail: document.getElementById('industry-retail'),
+      service: document.getElementById('industry-service'),
+      financial: document.getElementById('industry-financial'),
+    };
+
+    selector.addEventListener('change', (e) => {
+      const value = e.target.value;
+      Object.keys(sections).forEach(key => {
+        if (sections[key]) {
+          sections[key].classList.toggle('hidden', key !== value);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

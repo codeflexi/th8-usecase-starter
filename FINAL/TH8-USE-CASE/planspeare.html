@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8 · PlanSphere — Budget & FP&A Views</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-50">
+  <div class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+
+    <!-- HEADER -->
+    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div>
+        <p class="text-[11px] uppercase tracking-[0.2em] text-red-400 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span>
+          TH8 · PlanSphere™
+        </p>
+        <h1 class="text-2xl md:text-3xl font-semibold text-slate-50 mt-1">
+          FP&A Budget · Workflow · Actual vs Plan
+        </h1>
+        <p class="text-xs text-slate-400 mt-1">
+          Mock หน้าจอหลักสำหรับ PlanSphere — ใช้สาธิต Flow: Budget Input → Workflow → Actual vs Plan + AI Insight
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2 text-xs">
+        <button class="px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white font-medium shadow-lg shadow-red-500/40">
+          + New Budget Version
+        </button>
+        <button class="px-4 py-2 rounded-full border border-slate-600 hover:border-slate-400 text-slate-200">
+          Export Demo Screenshot
+        </button>
+      </div>
+    </header>
+
+    <!-- 1) BUDGET INPUT VIEW -->
+    <section class="bg-slate-900/80 border border-slate-700 rounded-3xl p-5 space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400">
+            1 · Budget Input View
+          </p>
+          <h2 class="text-sm md:text-base font-semibold text-slate-50">
+            ใส่ Budget แบบ Bottom-up ต่อ BU / Hospital / Cost Center
+          </h2>
+        </div>
+        <div class="flex flex-wrap gap-2 text-[11px]">
+          <select class="bg-slate-900 border border-slate-700 rounded-full px-3 py-1.5 text-slate-200">
+            <option>ปีงบประมาณ: 2026</option>
+            <option>ปีงบประมาณ: 2025</option>
+          </select>
+          <select class="bg-slate-900 border border-slate-700 rounded-full px-3 py-1.5 text-slate-200">
+            <option>เวอร์ชัน: Base Case</option>
+            <option>เวอร์ชัน: Stretch</option>
+            <option>เวอร์ชัน: Worst</option>
+          </select>
+          <select class="bg-slate-900 border border-slate-700 rounded-full px-3 py-1.5 text-slate-200">
+            <option>BU: Hospital A</option>
+            <option>BU: Hospital B</option>
+            <option>BU: Hospital C</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="bg-slate-950/70 border border-slate-800 rounded-2xl overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-slate-800 text-[11px] text-slate-400">
+          <span>Budget Line Items</span>
+          <span>หน่วย: ล้านบาท</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-xs">
+            <thead class="bg-slate-900 text-slate-300">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium">Account</th>
+                <th class="px-4 py-2 text-right font-medium">Q1</th>
+                <th class="px-4 py-2 text-right font-medium">Q2</th>
+                <th class="px-4 py-2 text-right font-medium">Q3</th>
+                <th class="px-4 py-2 text-right font-medium">Q4</th>
+                <th class="px-4 py-2 text-right font-medium">รวมทั้งปี</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <tr class="hover:bg-slate-900/60">
+                <td class="px-4 py-2 text-slate-200">Revenue – OPD</td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="120" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="130" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="140" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="150" />
+                </td>
+                <td class="px-4 py-2 text-right text-slate-100 font-semibold">540</td>
+              </tr>
+              <tr class="hover:bg-slate-900/60">
+                <td class="px-4 py-2 text-slate-200">Revenue – IPD</td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="180" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="190" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="200" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="210" />
+                </td>
+                <td class="px-4 py-2 text-right text-slate-100 font-semibold">780</td>
+              </tr>
+              <tr class="hover:bg-slate-900/60">
+                <td class="px-4 py-2 text-slate-200">Doctor Fee</td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="80" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="85" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="90" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="95" />
+                </td>
+                <td class="px-4 py-2 text-right text-slate-100 font-semibold">350</td>
+              </tr>
+              <tr class="hover:bg-slate-900/60">
+                <td class="px-4 py-2 text-slate-200">Nurse Cost</td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="60" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="62" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="64" />
+                </td>
+                <td class="px-4 py-2 text-right">
+                  <input class="w-20 bg-transparent border border-slate-700 rounded-md px-2 py-1 text-right" value="66" />
+                </td>
+                <td class="px-4 py-2 text-right text-slate-100 font-semibold">252</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-3 border-t border-slate-800 text-[11px]">
+          <p class="text-slate-400">
+            * นี้เป็น mock — ในของจริงจะเชื่อม PlanSphere Cube + Rule และทำ Aggregate ให้อัตโนมัติ
+          </p>
+          <div class="flex gap-2">
+            <button class="px-3 py-1.5 rounded-full bg-slate-800 text-slate-100 border border-slate-600">
+              Save Draft
+            </button>
+            <button class="px-3 py-1.5 rounded-full bg-emerald-500 text-slate-950 font-semibold">
+              Submit for Approval
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2) WORKFLOW VIEW -->
+    <section class="bg-slate-900/80 border border-slate-700 rounded-3xl p-5 space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400">
+            2 · Budget Workflow Status
+          </p>
+          <h2 class="text-sm md:text-base font-semibold text-slate-50">
+            สถานะการส่งงบประมาณจากแต่ละ BU / โรงพยาบาล
+          </h2>
+        </div>
+        <div class="flex flex-wrap gap-2 text-[11px]">
+          <span class="px-3 py-1.5 rounded-full bg-slate-800 text-slate-200 border border-slate-600">
+            รวม BU: 8
+          </span>
+          <span class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/40">
+            ส่งแล้ว: 5
+          </span>
+          <span class="px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/40">
+            รอส่ง: 2
+          </span>
+          <span class="px-3 py-1.5 rounded-full bg-red-500/10 text-red-300 border border-red-500/40">
+            Rework: 1
+          </span>
+        </div>
+      </div>
+
+      <div class="bg-slate-950/70 border border-slate-800 rounded-2xl overflow-hidden text-xs">
+        <table class="min-w-full">
+          <thead class="bg-slate-900 text-slate-300">
+            <tr>
+              <th class="px-4 py-2 text-left font-medium">BU / Hospital</th>
+              <th class="px-4 py-2 text-left font-medium">Owner</th>
+              <th class="px-4 py-2 text-left font-medium">Version</th>
+              <th class="px-4 py-2 text-left font-medium">Status</th>
+              <th class="px-4 py-2 text-left font-medium">Last Update</th>
+              <th class="px-4 py-2 text-left font-medium">AI Comment</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800">
+            <tr class="hover:bg-slate-900/60">
+              <td class="px-4 py-2 text-slate-100">Hospital A</td>
+              <td class="px-4 py-2 text-slate-300">สมชาย · FP&A</td>
+              <td class="px-4 py-2 text-slate-300">Base Case</td>
+              <td class="px-4 py-2">
+                <span class="inline-flex items-center px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/40">
+                  ● Approved
+                </span>
+              </td>
+              <td class="px-4 py-2 text-slate-400">12 ก.พ. 2026 · 14:32</td>
+              <td class="px-4 py-2 text-slate-300">
+                ตัวเลขเติบโตใกล้เคียง Trend 3 ปีหลัง ไม่มี Outlier ผิดปกติ
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-900/60">
+              <td class="px-4 py-2 text-slate-100">Hospital B</td>
+              <td class="px-4 py-2 text-slate-300">อรพิน · Finance</td>
+              <td class="px-4 py-2 text-slate-300">Stretch</td>
+              <td class="px-4 py-2">
+                <span class="inline-flex items-center px-2 py-1 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/40">
+                  ● Under Review
+                </span>
+              </td>
+              <td class="px-4 py-2 text-slate-400">12 ก.พ. 2026 · 11:05</td>
+              <td class="px-4 py-2 text-slate-300">
+                Revenue เติบโตสูงกว่ากลุ่มอื่น แนะนำทบทวน Assumption ของ Case Growth
+              </td>
+            </tr>
+            <tr class="hover:bg-slate-900/60">
+              <td class="px-4 py-2 text-slate-100">Hospital C</td>
+              <td class="px-4 py-2 text-slate-300">ณัฐ · Controller</td>
+              <td class="px-4 py-2 text-slate-300">Base Case</td>
+              <td class="px-4 py-2">
+                <span class="inline-flex items-center px-2 py-1 rounded-full bg-red-500/10 text-red-300 border border-red-500/40">
+                  ● Rework
+                </span>
+              </td>
+              <td class="px-4 py-2 text-slate-400">11 ก.พ. 2026 · 18:47</td>
+              <td class="px-4 py-2 text-slate-300">
+                COGS/Case กระโดด +22% เทียบปีที่แล้ว · ขอให้ตรวจสอบ Data Source
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3) ACTUAL vs PLAN VIEW -->
+    <section class="bg-slate-900/80 border border-slate-700 rounded-3xl p-5 space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        <div>
+          <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400">
+            3 · Actual vs Plan + Variance & AI Insight
+          </p>
+          <h2 class="text-sm md:text-base font-semibold text-slate-50">
+            ภาพรวมผลจริงเทียบงบประมาณ พร้อมสรุปเหตุผลแบบ FP&A
+          </h2>
+        </div>
+        <div class="flex flex-wrap gap-2 text-[11px]">
+          <select class="bg-slate-900 border border-slate-700 rounded-full px-3 py-1.5 text-slate-200">
+            <option>งวด: Q2 2026</option>
+            <option>งวด: Q1 2026</option>
+          </select>
+          <select class="bg-slate-900 border border-slate-700 rounded-full px-3 py-1.5 text-slate-200">
+            <option>มุมมอง: Consolidated</option>
+            <option>Hospital A</option>
+            <option>Hospital B</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 text-xs">
+        <!-- Summary Cards -->
+        <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 space-y-2">
+          <p class="text-[11px] text-slate-400">Revenue (Actual vs Plan)</p>
+          <p class="text-lg font-semibold text-slate-50">+3.8% vs Plan</p>
+          <p class="text-[11px] text-slate-400">Actual: 1,220M · Plan: 1,175M</p>
+        </div>
+        <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 space-y-2">
+          <p class="text-[11px] text-slate-400">Gross Margin</p>
+          <p class="text-lg font-semibold text-amber-300">-1.4 pts vs Plan</p>
+          <p class="text-[11px] text-slate-400">Actual: 34.6% · Plan: 36.0%</p>
+        </div>
+        <div class="bg-slate-950/70 border border-slate-800 rounded-2xl p-4 space-y-2">
+          <p class="text-[11px] text-slate-400">EBITDA</p>
+          <p class="text-lg font-semibold text-red-400">-6.2% vs Plan</p>
+          <p class="text-[11px] text-slate-400">Actual: 210M · Plan: 224M</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 text-xs">
+        <!-- Variance Table -->
+        <div class="md:col-span-2 bg-slate-950/70 border border-slate-800 rounded-2xl overflow-hidden">
+          <div class="px-4 py-2 border-b border-slate-800 flex items-center justify-between">
+            <span class="text-[11px] text-slate-400">Variance by Driver</span>
+            <span class="text-[11px] text-slate-500">หน่วย: ล้านบาท</span>
+          </div>
+          <table class="min-w-full">
+            <thead class="bg-slate-900 text-slate-300">
+              <tr>
+                <th class="px-4 py-2 text-left font-medium text-[11px]">Driver</th>
+                <th class="px-4 py-2 text-right font-medium text-[11px]">Impact</th>
+                <th class="px-4 py-2 text-left font-medium text-[11px]">Inference</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <tr class="hover:bg-slate-900/60">
+                <td class="px-4 py-2 text-slate-200">Volume Effect</td>
+                <td class="px-4 py-2 text-right text-emerald-400 font-semibold">+ 35.0</td>
+                <td class="px-4 py-2 text-slate-300">จำนวนเคสโดยรวมสูงกว่าที่ตั้ง Budget โดยเฉพาะกลุ่มตรวจสุขภาพ</td>
+              </tr>
+              <tr class="hover:bg-slate-900/60">
+                <td class="px-4 py-2 text-slate-200">Price / Mix Effect</td>
+                <td class="px-4 py-2 text-right text-amber-300 font-semibold">- 18.5</td>
+                <td class="px-4 py-2 text-slate-300">สัดส่วนรายได้เอียงไปที่แพ็กเกจราคาต่ำกว่าที่คาด</td>
+              </tr>
+              <tr class="hover:bg-slate-900/60">
+                <td class="px-4 py-2 text-slate-200">Cost per Case</td>
+                <td class="px-4 py-2 text-right text-red-400 font-semibold">- 22.8</td>
+                <td class="px-4 py-2 text-slate-300">ค่ายาและเวชภัณฑ์เพิ่มขึ้นต่อเคส โดยเฉพาะเคส IPD ความซับซ้อนสูง</td>
+              </tr>
+              <tr class="hover:bg-slate-900/60">
+                <td class="px-4 py-2 text-slate-200">Doctor Fee</td>
+                <td class="px-4 py-2 text-right text-red-300 font-semibold">- 7.2</td>
+                <td class="px-4 py-2 text-slate-300">โครงสร้างค่าตอบแทนแพทย์บางแผนกต่างจาก Assumption เดิม</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- AI Insight -->
+        <div class="bg-slate-950/70 border border-red-500/60 rounded-2xl p-4 space-y-2">
+          <p class="text-[11px] text-red-300 uppercase tracking-[0.18em]">
+            AI FP&A Insight (สรุปให้ผู้บริหาร)
+          </p>
+          <p class="text-[11px] text-slate-100 leading-relaxed">
+            กำไรโดยรวมต่ำกว่าแผนแม้รายได้สูงกว่าคาด สาเหตุหลักมาจาก
+            <span class="font-semibold text-slate-50">Cost per Case ที่เพิ่มขึ้น + การขยับไปกลุ่มเคสราคาต่ำ</span>.
+            แนะนำให้:
+          </p>
+          <ul class="list-disc list-inside text-[11px] text-slate-200 space-y-1">
+            <li>ทบทวน Pricing / Package สำหรับเคสความซับซ้อนสูง</li>
+            <li>เจรจาต้นทุนเวชภัณฑ์กับ Supplier หลัก</li>
+            <li>ทดลอง Scenario ลด Cost per Case 5% และดู Impact ต่อ EBITDA</li>
+          </ul>
+          <div class="pt-1 flex flex-wrap gap-2">
+            <button class="px-3 py-1.5 rounded-full bg-red-500 text-slate-50 text-[11px] font-semibold">
+              รัน Scenario: ลด Cost per Case 5%
+            </button>
+            <button class="px-3 py-1.5 rounded-full border border-slate-600 text-slate-200 text-[11px]">
+              Export Executive Pack
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI x FCS iMF 4.0 – AI Agent Suite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900">
+  <div class="max-w-7xl mx-auto px-4 py-8 space-y-8">
+
+    <!-- HEADER -->
+    <header class="space-y-3">
+      <p class="text-[11px] uppercase tracking-wide text-red-500 font-semibold">
+        TH8.AI x FCS iMF 4.0
+      </p>
+      <h1 class="text-2xl md:text-3xl font-semibold">
+        AI Agent Suite สำหรับโรงงาน Injection Molding
+      </h1>
+      <p class="text-sm md:text-base text-slate-600 max-w-3xl">
+        ตัวอย่างหน้าจอและ Dashboard ที่ได้จากการเชื่อม FCS iMF 4.0 กับ TH8.AI Agent Layer
+        ครอบคลุม Production/OEE, Quality &amp; Scrap, Maintenance, Workflow Integration, 
+        และ Knowledge Copilot ภาษาไทย
+      </p>
+    </header>
+
+    <!-- =========================
+         MODULE 1 – PRODUCTION / OEE COPILOT (สรุปสั้น ๆ)
+    ========================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 space-y-5">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Module 1 · Production &amp; OEE Copilot
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold">
+            ภาพรวมการผลิต + OEE จากข้อมูล iMF แบบ Real-time
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600 mt-1 max-w-xl">
+            ดึงข้อมูล Cycle time, Shot, Cavity OK/NG, Downtime จาก iMF
+            แล้วสรุปเป็น OEE, Output และ Bottleneck ให้ผู้จัดการกะผลิตดูในหน้าจอเดียว
+          </p>
+        </div>
+        <span class="inline-flex items-center rounded-full bg-slate-900 text-white px-3 py-1 text-[11px]">
+          Powered by iMF + TH8.AI
+        </span>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-4 text-sm">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <p class="text-[11px] uppercase text-slate-500">OEE (Today)</p>
+          <p class="text-2xl font-bold mt-1">81.7%</p>
+          <p class="text-[11px] text-emerald-600 mt-1">+3.1% vs last week</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <p class="text-[11px] uppercase text-slate-500">Output</p>
+          <p class="text-2xl font-bold mt-1">14,280 pcs</p>
+          <p class="text-[11px] text-slate-600 mt-1">12 Machines · 3 Lines</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <p class="text-[11px] uppercase text-slate-500">Downtime</p>
+          <p class="text-2xl font-bold mt-1">4.6 hr</p>
+          <p class="text-[11px] text-amber-600 mt-1">Cooling · Mold change</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-900 text-white">
+          <p class="text-[11px] uppercase text-slate-300">AI Insight</p>
+          <ul class="mt-2 text-xs space-y-1">
+            <li>• เครื่อง #7 เป็น bottleneck หลักของไลน์ 2</li>
+            <li>• Mold CC-24 มี Scrap สูงกว่าค่าเฉลี่ย 7 วัน</li>
+            <li>• ถ้าปรับ Cycle time ลดลง 0.3 วินาที → Output เพิ่ม ~3%</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         MODULE 2 – QUALITY & SCRAP AGENT
+    ========================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 space-y-6">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-sky-600 font-semibold">
+            Module 2 · Quality &amp; Scrap Agent
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold">
+            วิเคราะห์ Defect &amp; Scrap อัตโนมัติจากข้อมูล iMF
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600 mt-1 max-w-xl">
+            ผูกข้อมูล Defect ราย shot/ราย cavity กับ Parameter เครื่อง, Mold, วัตถุดิบ
+            ให้ AI ช่วยหา Root cause และแจ้งเตือนล่วงหน้า ลด Scrap ได้จริง
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+          <p class="text-sm font-semibold">Scrap Rate (Today)</p>
+          <p class="text-3xl font-bold text-slate-900">2.8%</p>
+          <p class="text-xs text-emerald-600">↓ -1.1% vs last week</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+          <p class="text-sm font-semibold">Top Defects</p>
+          <ul class="text-xs text-slate-700 space-y-1 mt-1">
+            <li>• Short Shot – 18 เคส</li>
+            <li>• Flash – 11 เคส</li>
+            <li>• Burn Mark – 7 เคส</li>
+          </ul>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900 text-white space-y-1">
+          <p class="text-sm font-semibold">AI Alerts</p>
+          <ul class="text-xs space-y-1 mt-1">
+            <li>• Mold #CC-24 Flash เกินค่าเฉลี่ย 3 วันติด</li>
+            <li>• Short shot ในเครื่อง #7 เกิดหลัง barrel temp drop 8°C</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4 text-xs">
+        <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl">
+          <p class="font-semibold text-slate-800 mb-1">Parameter Correlation</p>
+          <ul class="space-y-1 text-slate-700">
+            <li>• Injection Speed ↑ → Flash ↑</li>
+            <li>• Mold temp ↓ → Short shot ↑</li>
+            <li>• Nozzle temp drop → Black spot ↑</li>
+          </ul>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl">
+          <p class="font-semibold text-slate-800 mb-1">Scrap by Mold</p>
+          <ul class="space-y-1 text-slate-700">
+            <li>• Mold CC-24 → 4.2% (สูงผิดปกติ)</li>
+            <li>• Mold BL-11 → 1.8%</li>
+            <li>• Mold TR-05 → 1.2%</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         MODULE 3 – MAINTENANCE & DOWNTIME AGENT
+    ========================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 space-y-6">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-emerald-600 font-semibold">
+            Module 3 · Maintenance &amp; Downtime Agent
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold">
+            ทำนาย Downtime · จัดลำดับงานซ่อม · ผูกกับ Stock อะไหล่
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600 mt-1 max-w-xl">
+            ใช้ข้อมูล Alarm, Trend อุณหภูมิ/แรงดัน, Log การซ่อม มาสร้าง Maintenance Plan อัตโนมัติ
+            ลด Unexpected Stop ที่กระทบแผนผลิต
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <p class="text-sm font-semibold">Downtime Risk (Next 48 hr)</p>
+          <ul class="mt-2 space-y-1 text-slate-700">
+            <li>• Machine #7 → <span class="text-red-600 font-semibold">HIGH</span> (Cooling unstable)</li>
+            <li>• Machine #5 → MED (Hydraulic pressure drop)</li>
+            <li>• Machine #11 → LOW</li>
+          </ul>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <p class="text-sm font-semibold">Spare Parts Alert</p>
+          <ul class="mt-2 space-y-1 text-slate-700">
+            <li>• O-ring #OR-24 → Stock only 2 pcs</li>
+            <li>• Thermocouple T-05 → Lead time 3 days</li>
+            <li>• Filter HYD-07 → ใกล้ถึงรอบเปลี่ยน</li>
+          </ul>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900 text-white">
+          <p class="text-sm font-semibold">AI Recommended Maintenance</p>
+          <ul class="mt-2 space-y-1">
+            <li>• ตรวจ cooling line เครื่อง #7 ก่อนกะกลางคืน</li>
+            <li>• เปลี่ยน filter hydraulic เครื่อง #5 ภายในวันนี้</li>
+            <li>• วางแผน PM เครื่อง #3 ในช่วง product changeover</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl text-xs">
+        <p class="text-sm font-semibold text-slate-800 mb-1">Job Scheduling (ตัวอย่าง)</p>
+        <ul class="space-y-1 text-slate-700">
+          <li>• 10:00 — PM for Machine #7 (2 ชม.)</li>
+          <li>• 13:00 — Replace Cooling Valve #M7</li>
+          <li>• 15:30 — Check hydraulic pressure Machine #5</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- =========================
+         MODULE 4 – WORKFLOW LAYER (iMF ↔ ERP/MES/WMS)
+    ========================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 space-y-6">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-indigo-600 font-semibold">
+            Module 4 · Workflow Layer
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold">
+            ทำให้ข้อมูลจาก iMF ไหลเข้า ERP / MES / WMS อัตโนมัติ
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600 mt-1 max-w-xl">
+            ลดคีย์มือและไฟล์ Excel โดยออกแบบ Flow ระหว่าง iMF, ERP, MES, WMS, Accounting
+            ให้ระบบ “คุยกันเอง” แต่ยังคุมจุดที่ต้องให้คนอนุมัติได้
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-4 text-xs">
+        <p class="font-semibold text-slate-800">ตัวอย่าง Flow: Production Completion → ERP</p>
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="px-3 py-1.5 rounded-lg bg-slate-900 text-white">
+            iMF Real-time (Shot, OK/NG)
+          </div>
+          <span class="text-slate-400">→</span>
+          <div class="px-3 py-1.5 rounded-lg bg-white border border-slate-200">
+            AI Validation (Cycle time, Scrap reason)
+          </div>
+          <span class="text-slate-400">→</span>
+          <div class="px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700">
+            Auto Create Production Report (ERP)
+          </div>
+          <span class="text-slate-400">→</span>
+          <div class="px-3 py-1.5 rounded-lg bg-white border border-slate-200">
+            Inventory Update (WMS)
+          </div>
+        </div>
+        <p class="text-slate-500 mt-2">
+          หากข้อมูลไม่ครบหรือผิดปกติ Flow สามารถหยุดไว้ให้คนตรวจสอบ หรือส่งต่อให้ Agent อื่นถามข้อมูลเพิ่มก่อน Post เข้าระบบจริง
+        </p>
+      </div>
+    </section>
+
+    <!-- =========================
+         MODULE 5 – KNOWLEDGE COPILOT (MANUAL/SOP THAI)
+    ========================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 space-y-6">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-sky-600 font-semibold">
+            Module 5 · Knowledge Copilot (Manual/SOP ภาษาไทย)
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold">
+            ให้ช่าง / หัวหน้ากะถามคู่มือเครื่องฉีดได้ใน 3 วินาที
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600 mt-1 max-w-xl">
+            รวม Manual ของ FCS, SOP การซ่อม, Check list และเอกสาร Training
+            แล้วให้ AI ตอบเป็นภาษาไทย พร้อมอ้างอิงเอกสารต้นฉบับ
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4 text-xs">
+        <div class="rounded-xl bg-slate-50 border border-slate-200 p-4">
+          <p class="font-semibold text-slate-800">ถาม:</p>
+          <p class="text-slate-700 mt-1">
+            “เครื่องโชว์ Alarm E-024 Cooling Flow ต่ำ ต้องแก้ยังไง?”
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-slate-900 text-white p-4 space-y-2">
+          <p class="font-semibold">AI Copilot ตอบ:</p>
+          <ul class="space-y-1">
+            <li>1) ตรวจว่าปั๊มน้ำทำงานปกติหรือไม่</li>
+            <li>2) เปิดวาล์วน้ำเข้า–ออกให้สุด และเช็กว่ามีการอุดตันหรือไม่</li>
+            <li>3) ดูค่าจริงใน iMF: Cooling Flow &lt; 15 L/min → ถือว่าต่ำกว่าค่าแนะนำ</li>
+            <li>4) ถ้า &lt; 10 L/min ติดต่อทีม Maintenance เพื่อล้าง chiller line</li>
+          </ul>
+          <p class="text-[10px] text-slate-300">
+            อ้างอิง: FCS Manual Section 3.4 / SOP-MAINT-07 / Log เคสซ่อม 12 เคสล่าสุด
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
+         MODULE 6 – EXECUTIVE SUMMARY DASHBOARD
+    ========================== -->
+    <section class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 space-y-6">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-[11px] uppercase tracking-wide text-slate-500 font-semibold">
+            Module 6 · Executive Dashboard
+          </p>
+          <h2 class="text-lg md:text-xl font-semibold">
+            Dashboard สำหรับผู้บริหารโรงงาน · OEE, Scrap, Output, Downtime
+          </h2>
+          <p class="text-xs md:text-sm text-slate-600 mt-1 max-w-xl">
+            สรุปตัวเลขสำคัญจาก iMF + ERP ให้ผู้บริหารเห็นภาพรวมทั้งโรงงานในหน้าจอเดียว
+            พร้อม Insight จาก AI ว่าควรโฟกัสตรงไหนก่อน
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-4 text-sm">
+        <div class="p-4 bg-slate-50 border rounded-lg">
+          <p class="text-[11px] uppercase text-slate-500">OEE (Weekly)</p>
+          <p class="text-2xl font-bold mt-1">83.1%</p>
+          <p class="text-[11px] text-emerald-600 mt-1">↑ +3.4%</p>
+        </div>
+
+        <div class="p-4 bg-slate-50 border rounded-lg">
+          <p class="text-[11px] uppercase text-slate-500">Scrap</p>
+          <p class="text-2xl font-bold mt-1">2.8%</p>
+          <p class="text-[11px] text-emerald-600 mt-1">↓ -1.1%</p>
+        </div>
+
+        <div class="p-4 bg-slate-50 border rounded-lg">
+          <p class="text-[11px] uppercase text-slate-500">Output</p>
+          <p class="text-2xl font-bold mt-1">14,280 pcs</p>
+          <p class="text-[11px] text-slate-600 mt-1">12 Machines</p>
+        </div>
+
+        <div class="p-4 bg-slate-50 border rounded-lg">
+          <p class="text-[11px] uppercase text-slate-500">Downtime</p>
+          <p class="text-2xl font-bold mt-1">4.6 hr</p>
+          <p class="text-[11px] text-amber-600 mt-1">Cooling line issue</p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4 text-xs">
+        <div class="p-4 bg-slate-50 border rounded-lg">
+          <p class="font-semibold text-slate-900">AI Analysis</p>
+          <ul class="mt-2 space-y-1 text-slate-700">
+            <li>• เครื่อง #7 ทำให้สูญเสียเวลา 1.8 hr (Downtime สูงสุด)</li>
+            <li>• Mold CC-24 เพิ่ม Scrap 1.1% ของโรงงาน</li>
+            <li>• หากแก้สองจุดนี้ → คาดว่า OEE เพิ่มได้อีก ~2–3%</li>
+          </ul>
+        </div>
+
+        <div class="p-4 bg-slate-50 border rounded-lg">
+          <p class="font-semibold text-slate-900">Bottleneck Monitor</p>
+          <ul class="mt-2 space-y-1 text-slate-700">
+            <li>• Line 2 มี Utilization สูงสุด 92% → เสี่ยงเป็น bottleneck</li>
+            <li>• Mold changeover ใช้เวลาเกินเป้าเฉลี่ย +12 นาที</li>
+            <li>• แนะนำ: ย้ายงานบางส่วนไป Line 3 ช่วงกะกลางคืน</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

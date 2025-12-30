@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8 – Case Review</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: "Prompt", sans-serif; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+
+  <div class="max-w-7xl mx-auto px-6 py-10 space-y-8">
+
+    <!-- ================= HEADER ================= -->
+    <div>
+      <p class="text-xs uppercase tracking-wide text-red-600 font-semibold">
+        Enterprise Decision Center
+      </p>
+      <h1 class="text-3xl font-semibold mt-1">
+        Case Review
+      </h1>
+    </div>
+
+    <!-- ================= CASE HEADER ================= -->
+    <div class="bg-white border border-slate-200 rounded-xl p-6 flex justify-between items-center">
+      <div>
+        <p class="text-xs text-slate-500 uppercase">Case ID</p>
+        <h2 class="text-xl font-medium mt-1">CASE-PO-OVT-2025-002</h2>
+        <p class="text-sm text-slate-600 mt-1">Domain: Procurement</p>
+      </div>
+
+      <span class="px-3 py-1 text-sm rounded-full bg-slate-100 text-slate-700">
+        Pending Review
+      </span>
+    </div>
+
+    <!-- ================= MAIN GRID ================= -->
+    <div class="grid grid-cols-3 gap-6">
+
+      <!-- ========== LEFT: DECISION CONTEXT ========== -->
+      <div class="col-span-2 space-y-6">
+
+        <!-- Decision Summary -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6">
+          <p class="text-xs uppercase text-slate-500 mb-1">
+            Decision Summary
+          </p>
+          <h3 class="text-lg font-medium">
+            Human Review Required
+          </h3>
+          <p class="text-sm text-slate-600 mt-2">
+            This case exceeds predefined policy thresholds and requires
+            management review before proceeding.
+          </p>
+        </div>
+
+        <!-- Key Risk & Impact -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6">
+          <p class="text-xs uppercase text-slate-500 mb-2">
+            Key Risk Indicators
+          </p>
+
+          <ul class="space-y-2 text-sm">
+            <li class="flex justify-between">
+              <span>Price deviation vs contract</span>
+              <span class="text-red-600 font-medium">HIGH</span>
+            </li>
+            <li class="flex justify-between">
+              <span>Approval amount threshold</span>
+              <span class="text-amber-600 font-medium">MEDIUM</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Supporting Evidence -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6">
+          <p class="text-xs uppercase text-slate-500 mb-2">
+            Supporting Evidence
+          </p>
+
+          <ul class="text-sm text-slate-600 space-y-1">
+            <li>• Contract price comparison</li>
+            <li>• Vendor quotation details</li>
+            <li>• Policy reference: PR-2024-07</li>
+          </ul>
+        </div>
+
+        <!-- Documents -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6">
+          <p class="text-xs uppercase text-slate-500 mb-2">
+            Documents
+          </p>
+
+          <ul class="text-sm space-y-2">
+            <li class="flex justify-between">
+              <span>Contract_Office_Supply_2024.pdf</span>
+              <a href="#" class="text-red-600 hover:underline">View</a>
+            </li>
+            <li class="flex justify-between">
+              <span>Vendor_Quotation_OVT.pdf</span>
+              <a href="#" class="text-red-600 hover:underline">View</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- ========== RIGHT: ACTION & AUDIT ========== -->
+      <div class="space-y-6">
+
+        <!-- Action Panel -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6">
+          <p class="text-xs uppercase text-slate-500 mb-2">
+            Decision Action
+          </p>
+
+          <div class="space-y-2">
+            <button class="w-full py-2 rounded-md bg-red-600 text-white text-sm font-medium">
+              Approve
+            </button>
+            <button class="w-full py-2 rounded-md border border-slate-300 text-sm">
+              Reject
+            </button>
+            <button class="w-full py-2 rounded-md border border-slate-300 text-sm">
+              Request More Info
+            </button>
+          </div>
+
+          <p class="text-xs text-slate-500 mt-4">
+            Execution Mode: Explain-only (Phase 4)
+          </p>
+        </div>
+
+        <!-- Audit Timeline -->
+        <div class="bg-white border border-slate-200 rounded-xl p-6">
+          <p class="text-xs uppercase text-slate-500 mb-3">
+            Decision & Audit Timeline
+          </p>
+
+          <div class="space-y-4 text-sm">
+            <div class="border-l-2 border-slate-200 pl-4">
+              <p class="font-medium">Case initialized by system</p>
+              <p class="text-xs text-slate-500">
+                2025-12-28 15:37
+              </p>
+            </div>
+
+            <div class="border-l-2 border-slate-200 pl-4">
+              <p class="font-medium">Evidence attached</p>
+              <p class="text-xs text-slate-500">
+                Contract & quotation uploaded
+              </p>
+            </div>
+
+            <div class="border-l-2 border-red-600 pl-4">
+              <p class="font-medium text-red-600">
+                Escalated for human review
+              </p>
+              <p class="text-xs text-slate-500">
+                Policy threshold exceeded
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

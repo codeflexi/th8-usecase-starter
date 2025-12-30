@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TH8 Conceptual Model — Workflow + Data Flow End-to-End</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html, body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+      /* optional: nicer selection */
+      ::selection { background: rgba(220, 38, 38, 0.18); }
+    </style>
+  </head>
+
+  <body class="bg-slate-50 text-slate-900">
+    <div class="max-w-7xl mx-auto px-4 py-10 space-y-8">
+      <!-- Header -->
+      <header class="space-y-2">
+        <p class="text-[11px] uppercase tracking-wide text-red-600 font-semibold">
+          TH8.AI · Enterprise Decision Control Layer
+        </p>
+        <h1 class="text-2xl md:text-3xl font-semibold">
+          Conceptual Model: Workflow + Data Flow (End-to-End)
+        </h1>
+        <p class="text-sm text-slate-600 max-w-4xl">
+          ภาพรวมนี้อธิบาย “การทำงานจริง” ในองค์กร: ระบบเดิมยัง execute workflow ตามปกติ
+          ขณะที่ TH8 ทำหน้าที่เพิ่ม “Decision Context + Policy Control + Audit Trail” โดยไม่บังคับให้ผู้บริหารต้องเข้าหลายระบบ
+        </p>
+      </header>
+
+      <!-- Legend -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-4 flex flex-wrap items-center gap-3">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded bg-slate-900"></span>
+          <span class="text-xs text-slate-700">TH8 Runtime</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded bg-red-600"></span>
+          <span class="text-xs text-slate-700">Policy / Control</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded bg-emerald-600"></span>
+          <span class="text-xs text-slate-700">Evidence / Audit</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded bg-sky-600"></span>
+          <span class="text-xs text-slate-700">Enterprise Systems</span>
+        </div>
+        <div class="ml-auto text-xs text-slate-500">
+          ใช้เป็น 1-slide อธิบาย CFO/COO/CTO ได้
+        </div>
+      </div>
+
+      <!-- Main grid -->
+      <div class="grid grid-cols-12 gap-6">
+        <!-- LEFT: Enterprise systems -->
+        <section class="col-span-12 lg:col-span-4 space-y-4">
+          <div class="bg-white border border-slate-200 rounded-3xl p-5">
+            <div class="flex items-center justify-between">
+              <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">Enterprise Systems (ของเดิม)</p>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 font-semibold">Execute workflow</span>
+            </div>
+
+            <div class="mt-4 space-y-3">
+              <div class="rounded-2xl border border-sky-200 bg-sky-50 p-4">
+                <p class="text-sm font-semibold">SAP / ERP Finance</p>
+                <p class="text-xs text-slate-600 mt-1">PO · GR · Invoice · Payment · Vendor master</p>
+              </div>
+
+              <div class="rounded-2xl border border-sky-200 bg-sky-50 p-4">
+                <p class="text-sm font-semibold">Workflow Tool / BPM</p>
+                <p class="text-xs text-slate-600 mt-1">Approval steps · Tasks · Notifications</p>
+              </div>
+
+              <div class="rounded-2xl border border-sky-200 bg-sky-50 p-4">
+                <p class="text-sm font-semibold">Document Repositories</p>
+                <p class="text-xs text-slate-600 mt-1">Contracts · SOPs · Policies · Attachments</p>
+              </div>
+
+              <div class="rounded-2xl border border-sky-200 bg-sky-50 p-4">
+                <p class="text-sm font-semibold">Event / Logs</p>
+                <p class="text-xs text-slate-600 mt-1">Workflow events · timestamps · SLA signals</p>
+              </div>
+            </div>
+
+            <div class="mt-4 rounded-2xl bg-slate-50 border border-slate-200 p-4">
+              <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">หลักการวางตำแหน่ง</p>
+              <p class="mt-1 text-sm text-slate-700">
+                ระบบเดิมเป็น <span class="font-semibold">System of Execution</span> (ทำงานตามขั้นตอน)
+                ขณะที่ TH8 เป็น <span class="font-semibold">System of Decision Record</span> (บันทึกเหตุผล+หลักฐานของการตัดสินใจ)
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- CENTER: End-to-end flow -->
+        <section class="col-span-12 lg:col-span-8 space-y-4">
+          <div class="bg-white border border-slate-200 rounded-3xl p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">End-to-End Flow (Workflow + Data Flow)</p>
+                <p class="text-sm text-slate-600 mt-1">
+                  แสดง 2 เส้นทางพร้อมกัน:
+                  <span class="font-semibold">Workflow path</span> (การอนุมัติในระบบเดิม)
+                  และ <span class="font-semibold">Decision/Audit path</span> (บริบท+policy+หลักฐานใน TH8)
+                </p>
+              </div>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-slate-900 text-white font-semibold">Conceptual</span>
+            </div>
+
+            <!-- Flow lanes -->
+            <div class="mt-5 grid grid-cols-1 xl:grid-cols-2 gap-4">
+              <!-- Lane A: Workflow path -->
+              <div class="rounded-2xl border border-sky-200 bg-sky-50 p-5">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold text-slate-900">A) Workflow path (ระบบเดิม)</p>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white border border-sky-200 text-sky-700 font-semibold">
+                    Approve in existing UX
+                  </span>
+                </div>
+
+                <ol class="mt-4 space-y-3">
+                  <li class="flex gap-3">
+                    <div class="shrink-0 h-7 w-7 rounded-xl bg-sky-600 text-white text-xs font-bold flex items-center justify-center">1</div>
+                    <div>
+                      <p class="text-sm font-semibold">Create / update transaction</p>
+                      <p class="text-sm text-slate-700 mt-0.5">PO/GR/Invoice เกิดใน SAP หรือ procurement system</p>
+                    </div>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <div class="shrink-0 h-7 w-7 rounded-xl bg-sky-600 text-white text-xs font-bold flex items-center justify-center">2</div>
+                    <div>
+                      <p class="text-sm font-semibold">Workflow routes the task</p>
+                      <p class="text-sm text-slate-700 mt-0.5">ระบบ workflow ส่ง task ตาม approval chain</p>
+                    </div>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <div class="shrink-0 h-7 w-7 rounded-xl bg-sky-600 text-white text-xs font-bold flex items-center justify-center">3</div>
+                    <div>
+                      <p class="text-sm font-semibold">Approver clicks Approve/Reject</p>
+                      <p class="text-sm text-slate-700 mt-0.5">ผู้บริหาร “กดอนุมัติ” ในระบบเดิมที่คุ้นเคย</p>
+                    </div>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <div class="shrink-0 h-7 w-7 rounded-xl bg-sky-600 text-white text-xs font-bold flex items-center justify-center">4</div>
+                    <div>
+                      <p class="text-sm font-semibold">ERP executes & updates status</p>
+                      <p class="text-sm text-slate-700 mt-0.5">SAP เปลี่ยนสถานะและทำธุรกรรมต่อ</p>
+                    </div>
+                  </li>
+                </ol>
+
+                <div class="mt-4 rounded-xl bg-white border border-sky-200 p-4">
+                  <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">เป้าหมาย UX</p>
+                  <p class="mt-1 text-sm text-slate-700">
+                    ไม่บังคับผู้บริหารย้ายที่กดอนุมัติ — แค่ “เพิ่มข้อมูลตัดสินใจ” ให้ครบก่อนกด
+                  </p>
+                </div>
+              </div>
+
+              <!-- Lane B: TH8 decision & audit path -->
+              <div class="rounded-2xl border border-slate-900 bg-slate-900 p-5 text-white">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold">B) Decision & Audit path (TH8)</p>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-white/10 border border-white/15 font-semibold">
+                    Decision Control Layer
+                  </span>
+                </div>
+
+                <ol class="mt-4 space-y-3">
+                  <li class="flex gap-3">
+                    <div class="shrink-0 h-7 w-7 rounded-xl bg-white/15 text-white text-xs font-bold flex items-center justify-center">1</div>
+                    <div>
+                      <p class="text-sm font-semibold">Ingest signals & normalize case</p>
+                      <p class="text-sm text-slate-200 mt-0.5">ดึง transaction + workflow status + timestamps → สร้าง “Case” แบบเดียว</p>
+                    </div>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <div class="shrink-0 h-7 w-7 rounded-xl bg-white/15 text-white text-xs font-bold flex items-center justify-center">2</div>
+                    <div>
+                      <p class="text-sm font-semibold">Evaluate policy (versioned)</p>
+                      <p class="text-sm text-slate-200 mt-0.5">ตรวจ authority / contract clause / SLA / override rules ตาม policy version</p>
+                    </div>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <div class="shrink-0 h-7 w-7 rounded-xl bg-white/15 text-white text-xs font-bold flex items-center justify-center">3</div>
+                    <div>
+                      <p class="text-sm font-semibold">Retrieve evidence (RAG as evidence)</p>
+                      <p class="text-sm text-slate-200 mt-0.5">ดึงเอกสารที่ “อนุญาตเท่านั้น” พร้อม citation + link</p>
+                    </div>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <div class="shrink-0 h-7 w-7 rounded-xl bg-white/15 text-white text-xs font-bold flex items-center justify-center">4</div>
+                    <div>
+                      <p class="text-sm font-semibold">Publish decision brief</p>
+                      <p class="text-sm text-slate-200 mt-0.5">
+                        สรุปสิ่งที่ผู้บริหารต้องรู้: “เสี่ยงอะไร / เงินเท่าไร / ต้องใครอนุมัติ / อ้างอิงอะไร”
+                        แล้วแนบเข้า UX เดิม (overlay/link)
+                      </p>
+                    </div>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <div class="shrink-0 h-7 w-7 rounded-xl bg-white/15 text-white text-xs font-bold flex items-center justify-center">5</div>
+                    <div>
+                      <p class="text-sm font-semibold">Record timeline across systems</p>
+                      <p class="text-sm text-slate-200 mt-0.5">
+                        เก็บ event จาก SAP/Workflow/TH8 รวมเป็น timeline เดียว (source-tagged)
+                      </p>
+                    </div>
+                  </li>
+
+                  <li class="flex gap-3">
+                    <div class="shrink-0 h-7 w-7 rounded-xl bg-white/15 text-white text-xs font-bold flex items-center justify-center">6</div>
+                    <div>
+                      <p class="text-sm font-semibold">Audit pack ready</p>
+                      <p class="text-sm text-slate-200 mt-0.5">
+                        สร้างรายงานสำหรับ audit: decision log + policy version + evidence list
+                      </p>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- UX placement patterns -->
+            <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <p class="text-sm font-semibold text-slate-900">Pattern 1: Inline overlay</p>
+                <p class="text-sm text-slate-600 mt-1">แสดง Decision Brief “ข้างปุ่มอนุมัติ” ในระบบเดิม</p>
+                <ul class="mt-3 text-sm text-slate-700 space-y-1">
+                  <li>• ไม่เปลี่ยน UX ของผู้บริหาร</li>
+                  <li>• ลดการสลับหน้าจอ</li>
+                  <li>• เหมาะกับ phase 1</li>
+                </ul>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <p class="text-sm font-semibold text-slate-900">Pattern 2: Executive inbox</p>
+                <p class="text-sm text-slate-600 mt-1">TH8 คัดเฉพาะเคสสำคัญ → ส่งให้ผู้บริหาร</p>
+                <ul class="mt-3 text-sm text-slate-700 space-y-1">
+                  <li>• ลด noise จาก task list</li>
+                  <li>• โฟกัส “impact สูง”</li>
+                  <li>• เหมาะกับ mobile/board</li>
+                </ul>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <p class="text-sm font-semibold text-slate-900">Pattern 3: Deep integration</p>
+                <p class="text-sm text-slate-600 mt-1">SSO + embedded UI + context injection</p>
+                <ul class="mt-3 text-sm text-slate-700 space-y-1">
+                  <li>• เหมาะเมื่อ trust สูง</li>
+                  <li>• ต้องมี IT/SI รองรับ</li>
+                  <li>• ทำหลังพิสูจน์ ROI</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- TH8 must-prepare: integration package -->
+          <div class="bg-white border border-slate-200 rounded-3xl p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">What TH8 must prepare (ขายได้จริง)</p>
+                <h2 class="text-lg font-semibold mt-1">Integration Package ที่ TH8 ควรเตรียม “ให้ครบ”</h2>
+                <p class="text-sm text-slate-600 mt-1">
+                  เพื่อไม่โยนภาระให้ลูกค้าออกแบบเอง และลดความเสี่ยงการ implement ในองค์กร
+                </p>
+              </div>
+              <span class="text-[11px] px-2 py-1 rounded-full bg-red-50 border border-red-200 text-red-700 font-semibold">
+                Enterprise Readiness
+              </span>
+            </div>
+
+            <div class="mt-5 grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <!-- 1) Event schema -->
+              <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold text-slate-900">✅ Event schema มาตรฐาน</p>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-900 text-white font-semibold">Mandatory</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">
+                  TH8 ต้องกำหนดรูปแบบ event ให้ชัด เพื่อให้ทุกระบบส่งข้อมูลได้เหมือนกัน (ไม่ให้ลูกค้าออกแบบเอง)
+                </p>
+
+                <div class="mt-3 rounded-xl bg-slate-50 border border-slate-200 p-4">
+                  <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">ตัวอย่าง fields ที่ควรมี</p>
+                  <ul class="mt-2 text-sm text-slate-700 space-y-1">
+                    <li>• event_type (APPROVED / REJECTED / TASK_CREATED …)</li>
+                    <li>• source_system (SAP / WORKFLOW / TH8)</li>
+                    <li>• business_ref (PO id / invoice id / case id)</li>
+                    <li>• actor (user/system) + timestamp</li>
+                    <li>• policy_version + evidence_links (ถ้ามี)</li>
+                  </ul>
+                </div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700 font-semibold">JSON schema</span>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700 font-semibold">Validation</span>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700 font-semibold">Versioning</span>
+                </div>
+              </div>
+
+              <!-- 2) Mapping templates -->
+              <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold text-slate-900">✅ Mapping template ต่อ SAP / Workflow</p>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-700 font-semibold">Implementation kit</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">
+                  ลูกค้าไม่ควรเริ่มจากศูนย์ — TH8 ควรมี template mapping “เหตุการณ์ยอดนิยม” และ field mapping ที่ใช้จริง
+                </p>
+
+                <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+                    <p class="text-sm font-semibold">SAP mapping</p>
+                    <p class="text-sm text-slate-700 mt-1">PO status · release strategy · approver id · timestamps</p>
+                  </div>
+                  <div class="rounded-xl border border-sky-200 bg-sky-50 p-4">
+                    <p class="text-sm font-semibold">Workflow mapping</p>
+                    <p class="text-sm text-slate-700 mt-1">task created · assigned_to · completed · SLA signals</p>
+                  </div>
+                </div>
+
+                <div class="mt-3 rounded-xl bg-slate-50 border border-slate-200 p-4">
+                  <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">สิ่งที่ควรมี</p>
+                  <ul class="mt-2 text-sm text-slate-700 space-y-1">
+                    <li>• Field mapping table (source → TH8 event)</li>
+                    <li>• Sample payload (copy-paste)</li>
+                    <li>• Correlation rules (ใช้ PO/Invoice/Case key ไหนเป็นหลัก)</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- 3) iPaaS examples -->
+              <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold text-slate-900">✅ iPaaS examples</p>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 font-semibold">Adoption booster</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">
+                  ลดแรง IT: ให้ตัวอย่าง workflow สำเร็จรูปสำหรับ iPaaS ยอดนิยมในองค์กร (เลือกให้เข้ากับตลาดไทยได้)
+                </p>
+
+                <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div class="rounded-xl border border-slate-200 bg-white p-4">
+                    <p class="text-sm font-semibold">Webhook → TH8 events</p>
+                    <p class="text-sm text-slate-600 mt-1">เมื่อ task complete ส่ง event เข้า TH8</p>
+                  </div>
+                  <div class="rounded-xl border border-slate-200 bg-white p-4">
+                    <p class="text-sm font-semibold">Scheduled sync</p>
+                    <p class="text-sm text-slate-600 mt-1">ดึง status ทุก 5–15 นาที (fallback ของ real-time)</p>
+                  </div>
+                </div>
+
+                <div class="mt-3 rounded-xl bg-slate-50 border border-slate-200 p-4">
+                  <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">ควรเตรียม</p>
+                  <ul class="mt-2 text-sm text-slate-700 space-y-1">
+                    <li>• n8n / Power Automate / Make / Mule / Boomi recipes</li>
+                    <li>• ตัวอย่างแปลง payload + retry policy</li>
+                    <li>• Error handling + dead-letter pattern</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- 4) Fallback mode -->
+              <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <div class="flex items-center justify-between">
+                  <p class="text-sm font-semibold text-slate-900">✅ Fallback mode (manual / snapshot)</p>
+                  <span class="text-[11px] px-2 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 font-semibold">Phase 0–1</span>
+                </div>
+                <p class="text-sm text-slate-600 mt-2">
+                  สำหรับลูกค้าที่ “แตะระบบยาก” TH8 ต้องยังใช้ได้ โดยระบุชัดว่า event มาจากอะไร เพื่อไม่ทำให้ audit สับสน
+                </p>
+
+                <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div class="rounded-xl border border-amber-200 bg-amber-50 p-4">
+                    <p class="text-sm font-semibold">Manual event</p>
+                    <p class="text-sm text-slate-700 mt-1">เจ้าหน้าที่กด “record event” พร้อมแนบหลักฐาน</p>
+                  </div>
+                  <div class="rounded-xl border border-amber-200 bg-amber-50 p-4">
+                    <p class="text-sm font-semibold">Snapshot ingestion</p>
+                    <p class="text-sm text-slate-700 mt-1">รับ email/CSV/report แล้วสร้าง timeline แบบติดป้าย</p>
+                  </div>
+                </div>
+
+                <div class="mt-3 rounded-xl bg-slate-50 border border-slate-200 p-4">
+                  <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">ต้องบังคับใน UI</p>
+                  <ul class="mt-2 text-sm text-slate-700 space-y-1">
+                    <li>• แสดง source_system = MANUAL / SNAPSHOT ชัดเจน</li>
+                    <li>• Require attachment (หลักฐาน) สำหรับ event สำคัญ</li>
+                    <li>• ระบุ level: management audit vs system audit</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Other essentials -->
+            <div class="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-6">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="text-xs uppercase tracking-wide text-slate-500 font-semibold">อื่น ๆ ที่จำเป็น (เพื่อ enterprise จริง)</p>
+                  <h3 class="text-lg font-semibold mt-1">TH8 ต้องเตรียมให้ครบเพื่อให้ลูกค้ากล้าขึ้นระบบ</h3>
+                </div>
+                <span class="text-[11px] px-2 py-1 rounded-full bg-red-600 text-white font-semibold">Non-negotiable</span>
+              </div>
+
+              <div class="mt-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div class="rounded-2xl bg-white border border-slate-200 p-5">
+                  <p class="text-sm font-semibold text-slate-900">SSO + RBAC</p>
+                  <p class="text-sm text-slate-600 mt-1">สิทธิ์ตามบทบาท (CFO/COO/Audit/Ops) + separation of duties</p>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-5">
+                  <p class="text-sm font-semibold text-slate-900">Event validation + idempotency</p>
+                  <p class="text-sm text-slate-600 mt-1">กัน event ซ้ำ, ตรวจ schema, เก็บ error อย่างเป็นระบบ</p>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-5">
+                  <p class="text-sm font-semibold text-slate-900">Correlation & reconciliation</p>
+                  <p class="text-sm text-slate-600 mt-1">ผูกเหตุการณ์ข้ามระบบด้วย business key และมีหน้าตรวจ “ข้อมูลไม่ตรง”</p>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-5">
+                  <p class="text-sm font-semibold text-slate-900">Immutable audit logs</p>
+                  <p class="text-sm text-slate-600 mt-1">ป้องกันการแก้ย้อนหลัง + export audit pack ได้</p>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-5">
+                  <p class="text-sm font-semibold text-slate-900">Evidence governance</p>
+                  <p class="text-sm text-slate-600 mt-1">กำหนด allowed sources, versioning, review/publish ก่อนใช้ใน RAG</p>
+                </div>
+
+                <div class="rounded-2xl bg-white border border-slate-200 p-5">
+                  <p class="text-sm font-semibold text-slate-900">Operational monitoring</p>
+                  <p class="text-sm text-slate-600 mt-1">health check integrations, latency, backlog, alerting</p>
+                </div>
+              </div>
+
+              <div class="mt-5 rounded-2xl bg-white border border-slate-200 p-5">
+                <p class="text-sm font-semibold text-slate-900">Key message (ใช้ปิดการขาย)</p>
+                <p class="mt-2 text-sm text-slate-700">
+                  TH8 ไม่ได้มาแทน workflow ของ SAP แต่ทำให้ทุกการอนุมัติ “มีข้อมูลครบก่อนกด”
+                  และทุกการตัดสินใจ “ตรวจสอบย้อนหลังได้” แม้ action จะเกิดในระบบเดิม
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-xs text-slate-500">
+        Tip: เวลานำเสนอ ให้ชี้ 2 เส้นทางคู่กัน: “Workflow path” (ของเดิม) + “Decision/Audit path” (TH8) แล้วปิดด้วย Integration Package ที่ TH8 เตรียมให้ครบ
+      </div>
+    </div>
+  </body>
+</html>

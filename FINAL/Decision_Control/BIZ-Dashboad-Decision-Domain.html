@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TH8.AI – Enterprise Decision Control</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-100 text-slate-900 p-6">
+
+<main class="max-w-7xl mx-auto space-y-10">
+
+  <!-- =====================================================
+    HEADER / IDENTITY
+  ====================================================== -->
+  <section class="flex items-start justify-between">
+    <div>
+      <p class="text-[11px] uppercase tracking-[0.25em] text-slate-500 font-semibold">
+        Enterprise Decision Control
+      </p>
+      <h1 class="text-3xl font-semibold mt-2">
+        TH8.AI Control Center
+      </h1>
+      <p class="text-sm text-slate-600 mt-2 max-w-2xl">
+        ศูนย์ควบคุมการตัดสินใจขององค์กร  
+        ครอบคลุม Procurement และ Invoice ก่อนเงินออกจาก ERP
+      </p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <span class="text-[11px] px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 font-semibold">
+        Live · Read-only from SAP
+      </span>
+      <span class="text-[11px] px-3 py-1 rounded-full border border-slate-200 bg-white font-semibold">
+        Audit-ready
+      </span>
+    </div>
+  </section>
+
+  <!-- =====================================================
+    ENTERPRISE RISK SUMMARY
+  ====================================================== -->
+  <section>
+    <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold mb-3">
+      Enterprise Risk Snapshot
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-white border border-slate-200 rounded-2xl p-6">
+        <p class="text-xs uppercase text-slate-500 font-semibold">
+          Amount at Risk
+        </p>
+        <p class="text-3xl font-semibold mt-3">฿ 1.47M</p>
+        <p class="text-xs text-slate-600 mt-2">
+          มูลค่าที่รอการตัดสินใจ
+        </p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6">
+        <p class="text-xs uppercase text-slate-500 font-semibold">
+          Prevented Leakage
+        </p>
+        <p class="text-3xl font-semibold mt-3">฿ 236k</p>
+        <p class="text-xs text-slate-600 mt-2">
+          ป้องกันได้จาก decision
+        </p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6">
+        <p class="text-xs uppercase text-slate-500 font-semibold">
+          Pending Decisions
+        </p>
+        <p class="text-3xl font-semibold mt-3">5</p>
+        <p class="text-xs text-slate-600 mt-2">
+          ต้องการการพิจารณา
+        </p>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-6">
+        <p class="text-xs uppercase text-slate-500 font-semibold">
+          Decision SLA
+        </p>
+        <p class="text-3xl font-semibold mt-3">80%</p>
+        <p class="text-xs text-slate-600 mt-2">
+          ภายใน SLA
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+    DECISION DOMAINS STATUS
+  ====================================================== -->
+  <section>
+    <p class="text-[11px] uppercase tracking-[0.2em] text-slate-500 font-semibold mb-3">
+      Decision Domains
+    </p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+      <!-- Procurement -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6">
+        <h2 class="text-lg font-semibold">
+          Procurement Decision Center
+        </h2>
+        <p class="text-sm text-slate-600 mt-1">
+          ควบคุม PO เทียบสัญญาก่อนอนุมัติ
+        </p>
+
+        <div class="mt-4 grid grid-cols-3 gap-3 text-sm">
+          <div>
+            <p class="text-xs text-slate-500">Pending</p>
+            <p class="font-semibold">3 cases</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500">Amount at Risk</p>
+            <p class="font-semibold">฿ 570k</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500">Top Issue</p>
+            <p class="font-semibold">Price Deviation</p>
+          </div>
+        </div>
+
+        <button class="mt-5 text-sm font-semibold text-slate-900 hover:underline">
+          Open Procurement Center →
+        </button>
+      </div>
+
+      <!-- Invoice -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-6">
+        <h2 class="text-lg font-semibold">
+          Invoice & Payment Decision Center
+        </h2>
+        <p class="text-sm text-slate-600 mt-1">
+          ควบคุม Invoice ก่อนจ่ายเงิน
+        </p>
+
+        <div class="mt-4 grid grid-cols-3 gap-3 text-sm">
+          <div>
+            <p class="text-xs text-slate-500">Pending</p>
+            <p class="font-semibold">2 cases</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500">Amount at Risk</p>
+            <p class="font-semibold">฿ 900k</p>
+          </div>
+          <div>
+            <p class="text-xs text-slate-500">Top Issue</p>
+            <p class="font-semibold">Invoice &gt; PO</p>
+          </div>
+        </div>
+
+        <button class="mt-5 text-sm font-semibold text-slate-900 hover:underline">
+          Open Invoice Center →
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================================
+    ATTENTION & SYSTEM ASSURANCE
+  ====================================================== -->
+  <section class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+    <!-- Attention -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6">
+      <p class="text-xs uppercase text-slate-500 font-semibold">
+        Immediate Attention
+      </p>
+      <h3 class="text-lg font-semibold mt-1">
+        Decisions Requiring Action
+      </h3>
+
+      <div class="mt-4 space-y-3 text-sm">
+        <div class="p-4 border rounded-xl flex justify-between">
+          <div>
+            <p class="font-semibold">INV-OVT-2025-017</p>
+            <p class="text-xs text-slate-600">
+              Invoice exceeds PO · ฿18,000
+            </p>
+          </div>
+          <span class="text-xs px-2 py-1 rounded-full bg-red-50 text-red-700 border border-red-100 font-semibold">
+            High
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assurance -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6">
+      <p class="text-xs uppercase text-slate-500 font-semibold">
+        System Assurance
+      </p>
+      <h3 class="text-lg font-semibold mt-1">
+        Platform Operating Mode
+      </h3>
+
+      <ul class="mt-4 space-y-2 text-sm text-slate-700">
+        <li>• Read-only integration with ERP (SAP)</li>
+        <li>• No transaction write-back</li>
+        <li>• All decisions logged with evidence</li>
+        <li>• Audit & export ready</li>
+      </ul>
+    </div>
+
+  </section>
+
+</main>
+
+</body>
+</html>

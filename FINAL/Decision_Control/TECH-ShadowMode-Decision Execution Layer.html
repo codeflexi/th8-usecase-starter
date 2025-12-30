@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TH8 Decision Platform — Architecture Phase 4 → Phase 5</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      html, body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+      /* Crisp lines for connectors */
+      svg { shape-rendering: geometricPrecision; }
+    </style>
+  </head>
+
+  <body class="bg-slate-50 text-slate-900">
+    <div class="max-w-7xl mx-auto px-4 py-10">
+      <!-- Header -->
+      <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <div class="space-y-2">
+          <div class="text-[11px] uppercase tracking-wider text-red-600 font-semibold">
+            TH8 Decision Platform · Architecture Diagram
+          </div>
+          <h1 class="text-2xl md:text-3xl font-semibold">
+            Phase 4 → Phase 5 (Additive Only, ไม่กิน Phase 4)
+          </h1>
+          <p class="text-sm md:text-base text-slate-600 max-w-3xl">
+            Phase 4 เป็น baseline “Frozen Contract” (read-only + audit trace) · Phase 5 เพิ่มชั้น execute/simulate/config/observability
+            แบบ opt-in และปิดได้ด้วย flag โดยไม่กระทบ endpoint และ behavior เดิม
+          </p>
+        </div>
+
+        <div class="mt-4 md:mt-0 flex flex-wrap gap-2">
+          <span class="inline-flex items-center gap-2 rounded-full bg-white border border-slate-200 px-3 py-1 text-xs text-slate-700">
+            <span class="h-2 w-2 rounded-full bg-slate-400"></span> Phase 4 (Frozen)
+          </span>
+          <span class="inline-flex items-center gap-2 rounded-full bg-white border border-red-200 px-3 py-1 text-xs text-slate-700">
+            <span class="h-2 w-2 rounded-full bg-red-500"></span> Phase 5 (Additive)
+          </span>
+          <span class="inline-flex items-center gap-2 rounded-full bg-white border border-emerald-200 px-3 py-1 text-xs text-slate-700">
+            <span class="h-2 w-2 rounded-full bg-emerald-500"></span> Opt-in / Feature Flag
+          </span>
+        </div>
+      </div>
+
+      <!-- Diagram wrapper -->
+      <div class="mt-8 relative rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+        <!-- Grid background -->
+        <div class="absolute inset-0 pointer-events-none opacity-[0.12]"
+             style="background-image: radial-gradient(#94a3b8 1px, transparent 1px); background-size: 16px 16px;"></div>
+
+        <!-- Content -->
+        <div class="relative p-6 md:p-8">
+          <!-- Section labels -->
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="inline-flex items-center gap-2 rounded-xl bg-slate-50 border border-slate-200 px-3 py-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+              <div class="text-sm font-semibold">Phase 4 — Frozen Baseline</div>
+              <div class="text-xs text-slate-600">Read-only · Audit Trace · Interactive Demo</div>
+            </div>
+            <div class="inline-flex items-center gap-2 rounded-xl bg-red-50 border border-red-200 px-3 py-2">
+              <span class="h-2.5 w-2.5 rounded-full bg-red-500"></span>
+              <div class="text-sm font-semibold">Phase 5 — Additive Expansion</div>
+              <div class="text-xs text-slate-600">Execute · Shadow Mode · Config · Observability</div>
+            </div>
+          </div>
+
+          <!-- Main columns -->
+          <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Left: Clients -->
+            <div class="lg:col-span-3 space-y-4">
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <div class="text-sm font-semibold">Clients</div>
+                    <div class="text-xs text-slate-600">UI / API Consumer</div>
+                  </div>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                    Phase 4
+                  </span>
+                </div>
+                <div class="mt-3 space-y-2 text-sm">
+                  <div class="flex items-center gap-2">
+                    <span class="inline-block h-2 w-2 rounded-full bg-slate-400"></span>
+                    <span>Vue 3 Decision Center</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="inline-block h-2 w-2 rounded-full bg-slate-400"></span>
+                    <span>Tablet / Desktop Demo</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl border border-slate-200 bg-white p-4">
+                <div class="text-sm font-semibold">User Roles</div>
+                <div class="mt-2 space-y-2 text-sm text-slate-700">
+                  <div class="flex items-center justify-between">
+                    <span>Executive</span>
+                    <span class="text-xs text-slate-500">Summary / Risk</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>Ops</span>
+                    <span class="text-xs text-slate-500">Case handling</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>Auditor</span>
+                    <span class="text-xs text-slate-500">Trace / Timeline</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <div class="text-sm font-semibold">Feature Flags</div>
+                    <div class="text-xs text-slate-600">Phase 5 Opt-in</div>
+                  </div>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-white text-emerald-700 border border-emerald-200">
+                    Phase 5
+                  </span>
+                </div>
+                <div class="mt-3 text-sm text-slate-700 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span>DECISION_EXECUTE</span>
+                    <span class="text-xs text-slate-500">off by default</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>SHADOW_MODE</span>
+                    <span class="text-xs text-slate-500">on (safe)</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span>POLICY_VERSIONING</span>
+                    <span class="text-xs text-slate-500">opt-in</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Middle: FastAPI Core (Phase 4) -->
+            <div class="lg:col-span-5 space-y-4">
+              <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <div class="text-base font-semibold">FastAPI Core</div>
+                    <div class="text-xs text-slate-600">Single Source of Truth (Phase 4 Contract)</div>
+                  </div>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                    Frozen
+                  </span>
+                </div>
+
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    <div class="text-sm font-semibold">Read-only APIs</div>
+                    <div class="mt-2 text-xs text-slate-600 space-y-1">
+                      <div><span class="font-mono">GET</span> <span class="font-mono">/api/cases</span></div>
+                      <div><span class="font-mono">GET</span> <span class="font-mono">/api/cases/{case_id}</span></div>
+                      <div><span class="font-mono">GET</span> <span class="font-mono">/api/audit-events?case_id=</span></div>
+                    </div>
+                    <div class="mt-3 text-[11px] text-slate-500">
+                      ไม่เปลี่ยน path/behavior ใน Phase 5
+                    </div>
+                  </div>
+
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    <div class="text-sm font-semibold">Orchestrator</div>
+                    <div class="mt-2 text-xs text-slate-600 space-y-1">
+                      <div>Embedded polling</div>
+                      <div>Append-only audit</div>
+                      <div>Read-side refresh</div>
+                    </div>
+                    <div class="mt-3 text-[11px] text-slate-500">
+                      Phase 5 เพิ่ม shadow mode โดยไม่กระทบ Phase 4
+                    </div>
+                  </div>
+
+                  <div class="rounded-xl border border-slate-200 bg-white p-3 md:col-span-2">
+                    <div class="flex items-start justify-between">
+                      <div>
+                        <div class="text-sm font-semibold">Core Data Stores</div>
+                        <div class="text-xs text-slate-600">Supabase REST (Phase 4 baseline)</div>
+                      </div>
+                      <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                        Phase 4
+                      </span>
+                    </div>
+
+                    <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                        <div class="text-sm font-semibold">cases</div>
+                        <div class="mt-1 text-xs text-slate-600">
+                          Portfolio + Detail source
+                        </div>
+                        <div class="mt-2 text-[11px] text-slate-500">
+                          Read by <span class="font-mono">/api/cases</span>
+                        </div>
+                      </div>
+                      <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                        <div class="text-sm font-semibold">audit_events</div>
+                        <div class="mt-1 text-xs text-slate-600">
+                          Timeline / Trace
+                        </div>
+                        <div class="mt-2 text-[11px] text-slate-500">
+                          Read by <span class="font-mono">/api/audit-events</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                      <div class="text-sm font-semibold">Seed & Demo Dataset</div>
+                      <div class="mt-1 text-xs text-slate-600">
+                        Startup seeds canonical Phase 4 dataset (idempotent)
+                      </div>
+                      <div class="mt-2 text-[11px] text-slate-500">
+                        Phase 5 ต้อง “เพิ่ม” dataset/versions แบบไม่แก้ baseline
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Phase 4 guardrail card -->
+              <div class="rounded-2xl border border-slate-200 bg-white p-5">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <div class="text-sm font-semibold">Phase 4 Guardrails (Frozen Contract)</div>
+                    <div class="text-xs text-slate-600">ป้องกันไม่ให้ Phase 5 กินของเดิม</div>
+                  </div>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200">
+                    Non-negotiable
+                  </span>
+                </div>
+                <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-700">
+                  <div class="flex items-start gap-2">
+                    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-slate-400"></span>
+                    <div>
+                      <div class="font-medium">ไม่แก้ endpoint เดิม</div>
+                      <div class="text-xs text-slate-500">paths/behavior ของ Phase 4 ต้องคงเดิม</div>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-slate-400"></span>
+                    <div>
+                      <div class="font-medium">append-only audit</div>
+                      <div class="text-xs text-slate-500">ไม่ rewrite history</div>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-slate-400"></span>
+                    <div>
+                      <div class="font-medium">Phase 5 opt-in</div>
+                      <div class="text-xs text-slate-500">เปิด/ปิดได้ด้วย flag</div>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-slate-400"></span>
+                    <div>
+                      <div class="font-medium">backward compatible</div>
+                      <div class="text-xs text-slate-500">UI Phase 4 ต้องยัง demo ได้ 100%</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Phase 5 Additive Modules -->
+            <div class="lg:col-span-4 space-y-4">
+              <!-- Decision Execution Layer -->
+              <div class="rounded-2xl border border-red-200 bg-red-50 p-5">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <div class="text-base font-semibold">Decision Execution Layer</div>
+                    <div class="text-xs text-slate-600">Act (Additive) · ไม่กระทบ Phase 4</div>
+                  </div>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-white text-red-700 border border-red-200">
+                    Phase 5
+                  </span>
+                </div>
+                <div class="mt-3 rounded-xl border border-red-200 bg-white p-3">
+                  <div class="text-sm font-semibold">New endpoint (separate namespace)</div>
+                  <div class="mt-2 text-xs text-slate-600 space-y-1">
+                    <div><span class="font-mono">POST</span> <span class="font-mono">/api/decisions/{case_id}/execute</span></div>
+                    <div class="text-[11px] text-slate-500">approve / reject / request-info</div>
+                  </div>
+                </div>
+                <div class="mt-3 text-sm text-slate-700 space-y-2">
+                  <div class="flex items-start gap-2">
+                    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
+                    <div>
+                      <div class="font-medium">Opt-in only</div>
+                      <div class="text-xs text-slate-500">UI เดิมไม่เรียกก็ไม่เปลี่ยน behavior</div>
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-2">
+                    <span class="mt-1 inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
+                    <div>
+                      <div class="font-medium">Audit append-only</div>
+                      <div class="text-xs text-slate-500">เพิ่ม DECISION_EXECUTED event</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Shadow Mode Agent -->
+              <div class="rounded-2xl border border-red-200 bg-white p-5">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <div class="text-base font-semibold">Agent Orchestration (Shadow Mode)</div>
+                    <div class="text-xs text-slate-600">recommend + simulate (safe)</div>
+                  </div>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">
+                    Phase 5
+                  </span>
+                </div>
+
+                <div class="mt-3 grid grid-cols-1 gap-3">
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    <div class="text-sm font-semibold">Inputs</div>
+                    <div class="mt-1 text-xs text-slate-600">
+                      case detail + audit history + policy version
+                    </div>
+                  </div>
+
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    <div class="text-sm font-semibold">Outputs (append-only)</div>
+                    <div class="mt-2 text-xs text-slate-600 space-y-1">
+                      <div><span class="font-mono">agent_decision_log</span> (why + confidence)</div>
+                      <div><span class="font-mono">simulation_result</span> (what-if impact)</div>
+                    </div>
+                  </div>
+
+                  <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
+                    <div class="text-sm font-semibold">Guarantee</div>
+                    <div class="mt-1 text-xs text-slate-700">
+                      ไม่เขียนทับ <span class="font-mono">cases</span> โดยตรง (ยกเว้น execute endpoint เท่านั้น)
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Policy & Observability -->
+              <div class="rounded-2xl border border-red-200 bg-white p-5">
+                <div class="flex items-start justify-between gap-3">
+                  <div>
+                    <div class="text-base font-semibold">Policy + Observability</div>
+                    <div class="text-xs text-slate-600">governance-ready</div>
+                  </div>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-red-50 text-red-700 border border-red-200">
+                    Phase 5
+                  </span>
+                </div>
+
+                <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    <div class="text-sm font-semibold">Policy Store</div>
+                    <div class="mt-1 text-xs text-slate-600">
+                      JSON/YAML + versioned
+                    </div>
+                    <div class="mt-2 text-[11px] text-slate-500">
+                      policy_version: v1.0 (Phase 4) / v1.1+ (Phase 5)
+                    </div>
+                  </div>
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    <div class="text-sm font-semibold">Observability</div>
+                    <div class="mt-1 text-xs text-slate-600">
+                      confidence · drift · override
+                    </div>
+                    <div class="mt-2 text-[11px] text-slate-500">
+                      ใช้สำหรับ trust & ops review
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                  <div class="text-sm font-semibold">Non-goals (กัน scope creep)</div>
+                  <div class="mt-2 text-xs text-slate-600 grid grid-cols-1 gap-1">
+                    <div>• ไม่ integrate ERP จริงใน Phase 5</div>
+                    <div>• ไม่เปลี่ยน schema/behavior ของ Phase 4</div>
+                    <div>• ไม่ทำ auto-action แบบเปิดทิ้ง (ต้อง opt-in)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Connectors (SVG overlay) -->
+          <div class="relative mt-6">
+            <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div class="text-sm font-semibold">Data / Control Flow (Simplified)</div>
+              <div class="mt-2 text-xs text-slate-600">
+                เส้นทึบ = Phase 4 baseline · เส้นประ = Phase 5 additive/opt-in
+              </div>
+
+              <div class="mt-4 relative overflow-hidden rounded-xl border border-slate-200 bg-white p-4">
+                <!-- Flow nodes grid -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-3 items-stretch">
+                  <div class="rounded-xl border border-slate-200 bg-white p-3">
+                    <div class="text-sm font-semibold">Vue UI</div>
+                    <div class="text-xs text-slate-500 mt-1">Decision Center</div>
+                  </div>
+
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    <div class="text-sm font-semibold">FastAPI</div>
+                    <div class="text-xs text-slate-500 mt-1">Read-only APIs</div>
+                  </div>
+
+                  <div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    <div class="text-sm font-semibold">Supabase</div>
+                    <div class="text-xs text-slate-500 mt-1">cases + audit_events</div>
+                  </div>
+
+                  <div class="rounded-xl border border-red-200 bg-red-50 p-3">
+                    <div class="text-sm font-semibold">Shadow Agent</div>
+                    <div class="text-xs text-slate-500 mt-1">simulate / recommend</div>
+                  </div>
+
+                  <div class="rounded-xl border border-red-200 bg-red-50 p-3">
+                    <div class="text-sm font-semibold">Execute API</div>
+                    <div class="text-xs text-slate-500 mt-1">opt-in action</div>
+                  </div>
+                </div>
+
+                <!-- SVG arrows -->
+                <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 180" preserveAspectRatio="none">
+                  <defs>
+                    <marker id="arrowSolid" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"></path>
+                    </marker>
+                    <marker id="arrowDashed" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444"></path>
+                    </marker>
+                  </defs>
+
+                  <!-- Solid: UI -> FastAPI -> Supabase -->
+                  <path d="M 120 60 C 220 60, 260 60, 360 60"
+                        stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrowSolid)"/>
+                  <path d="M 520 60 C 620 60, 660 60, 760 60"
+                        stroke="#64748b" stroke-width="2.5" fill="none" marker-end="url(#arrowSolid)"/>
+
+                  <!-- Dashed: Supabase -> Shadow Agent -->
+                  <path d="M 820 60 C 860 60, 860 110, 760 110"
+                        stroke="#ef4444" stroke-width="2.5" fill="none" stroke-dasharray="6 6" marker-end="url(#arrowDashed)"/>
+
+                  <!-- Dashed: Shadow Agent -> Execute API -->
+                  <path d="M 640 110 C 720 110, 760 110, 880 110"
+                        stroke="#ef4444" stroke-width="2.5" fill="none" stroke-dasharray="6 6" marker-end="url(#arrowDashed)"/>
+
+                  <!-- Dashed: Execute API -> Supabase (append audit) -->
+                  <path d="M 880 110 C 820 140, 820 140, 760 110"
+                        stroke="#ef4444" stroke-width="2.5" fill="none" stroke-dasharray="6 6" marker-end="url(#arrowDashed)"/>
+                </svg>
+
+                <!-- Legend -->
+                <div class="mt-4 flex flex-wrap items-center gap-3 text-xs text-slate-600">
+                  <div class="inline-flex items-center gap-2">
+                    <span class="inline-block w-6 border-t-2 border-slate-500"></span>
+                    <span>Phase 4 baseline</span>
+                  </div>
+                  <div class="inline-flex items-center gap-2">
+                    <span class="inline-block w-6 border-t-2 border-red-500 border-dashed"></span>
+                    <span>Phase 5 additive (opt-in)</span>
+                  </div>
+                  <div class="inline-flex items-center gap-2">
+                    <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
+                    <span>Feature flag gate</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer notes -->
+          <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <div class="text-sm font-semibold">Key Principle</div>
+              <div class="mt-2 text-sm text-slate-700">
+                Phase 5 ต้อง “เพิ่มของใหม่” เท่านั้น และปิดได้ด้วย flag โดย Phase 4 demo ต้องรันได้เหมือนเดิม 100%
+              </div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <div class="text-sm font-semibold">Governance</div>
+              <div class="mt-2 text-sm text-slate-700">
+                ทุกการกระทำ (execute/simulate) ต้องมี audit event แบบ append-only เพื่อให้ trace ได้ระดับ auditor
+              </div>
+            </div>
+            <div class="rounded-2xl border border-slate-200 bg-white p-4">
+              <div class="text-sm font-semibold">Safety</div>
+              <div class="mt-2 text-sm text-slate-700">
+                Shadow mode เป็น default ใน Phase 5 เพื่อพิสูจน์ความแม่น/ความเสี่ยงก่อนเปิด action จริง
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Small print -->
+      <div class="mt-4 text-xs text-slate-500">
+        Notes: Diagram นี้ตั้งใจให้ “copy-paste ได้” สำหรับ deck/Notion/LinkedIn ภายในทีม · ใช้สี red สำหรับ additive modules เพื่อกัน scope creep
+      </div>
+    </div>
+  </body>
+</html>

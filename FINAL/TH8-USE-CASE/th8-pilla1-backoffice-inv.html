@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8 · Inventory Agent Suite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Prompt', system-ui, -apple-system, BlinkMacSystemFont, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 p-4 md:p-8">
+
+  <div class="max-w-6xl mx-auto space-y-6">
+
+    <!-- HEADER -->
+    <header class="space-y-3">
+      <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+        Pillar 1 · AI Agent Suite
+      </p>
+      <h1 class="text-2xl md:text-3xl font-semibold">
+        Inventory Agent Suite · ช่วยดูสต็อกทั้งระบบ แนะนำ Replenishment และลดงานคีย์มือ
+      </h1>
+      <p class="text-sm text-slate-600 max-w-2xl">
+        ตัวอย่างหน้าจอการใช้งาน Inventory Agent สำหรับทีมคลัง/ปฏิบัติการ และมุมมอง Back Office  
+        ที่เห็น data set ที่ใช้จริง และการเชื่อมต่อกับ ERP, WMS, POS, eCommerce.
+      </p>
+    </header>
+
+    <!-- MAIN LAYOUT -->
+    <div class="grid md:grid-cols-[1.15fr_0.85fr] gap-5 md:gap-6 text-xs md:text-sm">
+
+      <!-- ================= FRONTLINE: INVENTORY AGENT DASHBOARD ================ -->
+      <section class="space-y-4">
+        <!-- Card: Main Dashboard -->
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-4 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <p class="text-[11px] font-medium text-slate-700">
+                Inventory Agent · หน้าจอสำหรับทีมคลัง / ปฏิบัติการ
+              </p>
+              <p class="text-[10px] text-slate-500">
+                ดูภาพรวม Health ของสต็อก · เตือนของใกล้หมด · แนะนำจำนวนสั่งซื้อ · ให้ Agent จัดเตรียม Draft PO.
+              </p>
+            </div>
+
+            <!-- TH8 icon -->
+            <div class="flex items-center gap-1">
+              <div class="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[11px] font-semibold">
+                TH8
+              </div>
+              <span class="text-[10px] text-slate-500">Inventory Agent</span>
+            </div>
+          </div>
+
+          <!-- Top KPI Row -->
+          <div class="grid grid-cols-3 gap-2 text-[10px] mt-1">
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-2">
+              <p class="text-slate-500">SKU ทั้งหมด</p>
+              <p class="text-lg font-semibold text-slate-900">4,320</p>
+              <p class="text-[10px] text-slate-500 mt-0.5">
+                1,080 SKU เป็น Top 20% ของยอดขาย
+              </p>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-2">
+              <p class="text-slate-500">สต็อกเสี่ยงขาด</p>
+              <p class="text-lg font-semibold text-amber-700">126</p>
+              <p class="text-[10px] text-amber-600 mt-0.5">
+                38 SKU ต่ำกว่า Safety stock
+              </p>
+            </div>
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-2">
+              <p class="text-slate-500">Potential Over-stock</p>
+              <p class="text-lg font-semibold text-emerald-700">54</p>
+              <p class="text-[10px] text-emerald-600 mt-0.5">
+                AI แนะนำลดคำสั่งซื้อรอบถัดไป
+              </p>
+            </div>
+          </div>
+
+          <!-- Filter + Search -->
+          <div class="flex flex-wrap items-center gap-2 pt-2">
+            <div class="flex items-center gap-1 text-[10px]">
+              <span class="px-2 py-1 rounded-full border border-slate-300 bg-slate-50">
+                สาขา: เชียงใหม่ 1
+              </span>
+              <span class="px-2 py-1 rounded-full border border-slate-300 bg-slate-50">
+                กลุ่มสินค้า: Top 100 by Sales
+              </span>
+            </div>
+            <div class="ml-auto flex items-center gap-1">
+              <input
+                type="text"
+                placeholder="ค้นหา SKU / ชื่อสินค้า..."
+                class="border border-slate-300 rounded-full px-3 py-1 text-[10px] w-32 md:w-44 focus:outline-none focus:ring-1 focus:ring-slate-400"
+              />
+            </div>
+          </div>
+
+          <!-- Table: Focus List -->
+          <div class="mt-2 border border-slate-200 rounded-xl overflow-hidden">
+            <div class="bg-slate-50 px-3 py-2 flex text-[10px] text-slate-500">
+              <span class="w-[32%]">สินค้า</span>
+              <span class="w-[14%] text-right">สต็อกปัจจุบัน</span>
+              <span class="w-[14%] text-right">Safety</span>
+              <span class="w-[18%] text-right">คาดการณ์พอถึง</span>
+              <span class="w-[22%] text-right">คำแนะนำ AI</span>
+            </div>
+
+            <div class="divide-y divide-slate-100 bg-white text-[10px]">
+              <!-- Row 1 -->
+              <div class="px-3 py-2 flex items-center">
+                <div class="w-[32%]">
+                  <p class="font-medium text-slate-800">น้ำดื่ม 600ml แพ็ค 12 ขวด</p>
+                  <p class="text-[10px] text-slate-500">SKU: WAT600-12 | Lead time 3 วัน</p>
+                </div>
+                <div class="w-[14%] text-right">
+                  <p class="text-slate-900 font-medium">84 แพ็ค</p>
+                </div>
+                <div class="w-[14%] text-right">
+                  <p class="text-slate-700">120 แพ็ค</p>
+                </div>
+                <div class="w-[18%] text-right">
+                  <p class="text-amber-700 font-medium">เหลือ ~2.1 วัน</p>
+                  <p class="text-[10px] text-amber-600">ยอดขายสูงกว่าปกติ 18%</p>
+                </div>
+                <div class="w-[22%] text-right">
+                  <p class="text-emerald-700 font-semibold">สั่งเพิ่ม 96 แพ็ค</p>
+                  <p class="text-[10px] text-slate-500">ให้สต็อกพอ 5 วัน</p>
+                </div>
+              </div>
+
+              <!-- Row 2 -->
+              <div class="px-3 py-2 flex items-center bg-slate-50/60">
+                <div class="w-[32%]">
+                  <p class="font-medium text-slate-800">นม UHT รสจืด 1 ลิตร</p>
+                  <p class="text-[10px] text-slate-500">SKU: MILK-1L | Lead time 7 วัน</p>
+                </div>
+                <div class="w-[14%] text-right">
+                  <p class="text-slate-900 font-medium">45 กล่อง</p>
+                </div>
+                <div class="w-[14%] text-right">
+                  <p class="text-slate-700">60 กล่อง</p>
+                </div>
+                <div class="w-[18%] text-right">
+                  <p class="text-amber-700 font-medium">เหลือ ~1.3 วัน</p>
+                  <p class="text-[10px] text-amber-600">ใกล้หมดก่อนของมาถึง</p>
+                </div>
+                <div class="w-[22%] text-right">
+                  <p class="text-emerald-700 font-semibold">สั่งเพิ่ม 150 กล่อง</p>
+                  <p class="text-[10px] text-slate-500">+ Buffer อีก 2 วัน</p>
+                </div>
+              </div>
+
+              <!-- Row 3 -->
+              <div class="px-3 py-2 flex items-center">
+                <div class="w-[32%]">
+                  <p class="font-medium text-slate-800">ขนมขบเคี้ยวรวมแพ็ค</p>
+                  <p class="text-[10px] text-slate-500">SKU: SNACK-MIX | Lead time 5 วัน</p>
+                </div>
+                <div class="w-[14%] text-right">
+                  <p class="text-slate-900 font-medium">320 ชิ้น</p>
+                </div>
+                <div class="w-[14%] text-right">
+                  <p class="text-slate-700">220 ชิ้น</p>
+                </div>
+                <div class="w-[18%] text-right">
+                  <p class="text-emerald-700 font-medium">เพียงพอ ~6.4 วัน</p>
+                  <p class="text-[10px] text-emerald-600">แนวโน้มขายช้าลง</p>
+                </div>
+                <div class="w-[22%] text-right">
+                  <p class="text-slate-800 font-semibold">ลดคำสั่งซื้อรอบหน้า -30%</p>
+                  <p class="text-[10px] text-slate-500">ลดความเสี่ยง over-stock</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Assistant Panel -->
+          <div class="mt-3 grid md:grid-cols-2 gap-3">
+            <!-- Prompt -->
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2">
+              <p class="text-[11px] font-medium text-slate-700">
+                คุยกับ Inventory Agent
+              </p>
+              <div class="bg-white rounded-lg border border-slate-200 px-3 py-2 text-[11px]">
+                “ช่วยสรุป Top 10 SKU ที่เสี่ยงขาดสต็อกใน 7 วันข้างหน้า  
+                โดยแยกตามสาขา และระบุจำนวนที่แนะนำให้สั่งเพิ่มแต่ละที่”
+              </div>
+              <button class="mt-1 inline-flex items-center justify-center rounded-full bg-slate-900 text-white text-[11px] px-3 py-1.5">
+                ให้ Agent เตรียม Draft PO ตามคำแนะนำ
+              </button>
+            </div>
+
+            <!-- Response -->
+            <div class="bg-slate-900 text-slate-50 rounded-xl p-3 space-y-2 text-[11px]">
+              <p class="font-medium">
+                สรุปเบื้องต้นจากข้อมูล 30 วันที่ผ่านมา:
+              </p>
+              <ul class="list-disc list-inside space-y-0.5 text-slate-100/90">
+                <li>พบ SKU เสี่ยงขาดสต็อกใน 7 วันรวม <span class="font-semibold">18 รายการ</span></li>
+                <li>กระจายอยู่ใน 3 สาขาหลัก: เชียงใหม่, ลำพูน, ลำปาง</li>
+                <li>Draft PO เตรียมไว้แล้ว 3 ฉบับ แยกตามผู้ขายหลัก</li>
+              </ul>
+              <p class="text-[10px] text-emerald-300">
+                คุณสามารถเปิดดู / แก้ไข Draft PO ก่อนกดอนุมัติและส่งเข้า ERP ได้
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= BACK OFFICE: DATA & INTEGRATION ================ -->
+      <section class="space-y-4">
+        <!-- Data Set Overview -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[11px]">
+                DT
+              </div>
+              <div>
+                <p class="text-[11px] font-medium text-slate-800">Inventory Data Set Overview</p>
+                <p class="text-[10px] text-slate-500">สำหรับ Back Office / Data / IT</p>
+              </div>
+            </div>
+            <span class="text-[10px] text-slate-500">
+              Data refresh: ทุก 15 นาที
+            </span>
+          </div>
+
+          <!-- Table list -->
+          <div class="space-y-2 text-[10px]">
+            <div class="bg-white rounded-lg border border-slate-200 p-2.5">
+              <div class="flex items-center justify-between">
+                <p class="font-medium text-slate-800">inventory_snapshot</p>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700">
+                  Primary
+                </span>
+              </div>
+              <p class="text-slate-500 mt-0.5">
+                ภาพรวมสต็อกปัจจุบันราย SKU x สาขา · มี field สำหรับ stock_qty, safety_stock, on_order, reserved.
+              </p>
+              <p class="text-slate-500 mt-0.5">
+                Source: WMS + ERP (Stock module)
+              </p>
+            </div>
+
+            <div class="bg-white rounded-lg border border-slate-200 p-2.5">
+              <div class="flex items-center justify-between">
+                <p class="font-medium text-slate-800">sales_history_daily</p>
+                <span class="px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700">
+                  Demand Pattern
+                </span>
+              </div>
+              <p class="text-slate-500 mt-0.5">
+                ยอดขายรายวัน 12–18 เดือนย้อนหลัง แยกตาม SKU x สาขา · มี rolling avg, seasonality flag.
+              </p>
+              <p class="text-slate-500 mt-0.5">
+                Source: POS / ERP (Sales module)
+              </p>
+            </div>
+
+            <div class="bg-white rounded-lg border border-slate-200 p-2.5">
+              <div class="flex items-center justify-between">
+                <p class="font-medium text-slate-800">purchase_orders / inbound_shipment</p>
+                <span class="px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200 text-slate-700">
+                  Supply Side
+                </span>
+              </div>
+              <p class="text-slate-500 mt-0.5">
+                ข้อมูล PO ที่เปิดแล้ว / กำลังส่งของ · ใช้คำนวณ inbound_qty, lead time จริง, GR delay.
+              </p>
+              <p class="text-slate-500 mt-0.5">
+                Source: ERP (Purchasing), WMS (GR/Putaway)
+              </p>
+            </div>
+
+            <div class="bg-white rounded-lg border border-slate-200 p-2.5">
+              <div class="flex items-center justify-between">
+                <p class="font-medium text-slate-800">config_inventory_policy</p>
+                <span class="px-2 py-0.5 rounded-full bg-sky-50 border border-sky-100 text-sky-700">
+                  Policy & Rule
+                </span>
+              </div>
+              <p class="text-slate-500 mt-0.5">
+                เก็บ Policy ต่อ SKU/กลุ่ม เช่น min/max days of cover, safety_factor, channel priority.
+              </p>
+              <p class="text-slate-500 mt-0.5">
+                ใช้กำหนด Guardrail ให้ Agent ไม่เสนอคำแนะนำเกินขอบเขตที่ธุรกิจต้องการ
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Integration Overview -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="h-8 w-8 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[11px]">
+                IN
+              </div>
+              <div>
+                <p class="text-[11px] font-medium text-slate-800">Integration Console · การเชื่อมต่อระบบ</p>
+                <p class="text-[10px] text-slate-500">เห็นสถานะการเชื่อม ERP, WMS, POS, eCommerce, Sheet</p>
+              </div>
+            </div>
+            <button class="px-2.5 py-1 rounded-full border border-slate-300 bg-slate-50 text-[10px]">
+              ดูรายละเอียด Endpoint
+            </button>
+          </div>
+
+          <!-- Integration cards -->
+          <div class="grid grid-cols-2 gap-2 text-[10px]">
+            <!-- ERP -->
+            <div class="bg-slate-50 rounded-lg border border-slate-200 p-2.5 space-y-1">
+              <p class="font-medium text-slate-800">ERP – Stock &amp; Purchasing</p>
+              <p class="text-slate-500">
+                ใช้ดึงสต็อกกลาง, PO, Supplier, Cost และส่ง Draft PO ที่ Agent แนะนำกลับเข้าไป.
+              </p>
+              <p class="text-[10px] text-emerald-700">
+                Status: Connected · API (REST) · Refresh ทุก 15 นาที
+              </p>
+            </div>
+
+            <!-- WMS -->
+            <div class="bg-slate-50 rounded-lg border border-slate-200 p-2.5 space-y-1">
+              <p class="font-medium text-slate-800">WMS – คลังสินค้า</p>
+              <p class="text-slate-500">
+                ใช้ข้อมูล GR, Putaway, Picking, Transfer เพื่ออัปเดต available stock และ lead time จริง.
+              </p>
+              <p class="text-[10px] text-emerald-700">
+                Status: Connected · DB View / ETL ทุก 30 นาที
+              </p>
+            </div>
+
+            <!-- POS / eCommerce -->
+            <div class="bg-slate-50 rounded-lg border border-slate-200 p-2.5 space-y-1">
+              <p class="font-medium text-slate-800">POS &amp; eCommerce</p>
+              <p class="text-slate-500">
+                ใช้สร้างยอดขายรายวัน แยกตามช่องทาง เพื่อให้ Agent เห็น pattern Demand จริง.
+              </p>
+              <p class="text-[10px] text-amber-700">
+                Status: Partial · POS API OK · eCommerce CSV Upload (กำลังวาง API)
+              </p>
+            </div>
+
+            <!-- Google Sheet / Manual Upload -->
+            <div class="bg-slate-50 rounded-lg border border-slate-200 p-2.5 space-y-1">
+              <p class="font-medium text-slate-800">Google Sheet / Manual Upload</p>
+              <p class="text-slate-500">
+                ใช้เก็บ Policy, Temporary override และรายการสินค้าทดลองที่ยังไม่มีใน ERP/WMS.
+              </p>
+              <p class="text-[10px] text-slate-700">
+                Status: Connected · ใช้สำหรับ config และ one-off data
+              </p>
+            </div>
+          </div>
+
+          <!-- Flow note -->
+          <div class="border-t border-slate-200 pt-3 mt-1 text-[10px] space-y-1">
+            <p class="text-slate-700 font-medium">
+              Flow การทำงานของ Inventory Agent (สรุปสั้น ๆ)
+            </p>
+            <ol class="list-decimal list-inside text-slate-500 space-y-0.5">
+              <li>ดึงข้อมูล stock, sales, PO, policy จาก data set ด้านบน</li>
+              <li>คำนวณ demand forecast และ days of cover ต่อ SKU x สาขา</li>
+              <li>ตรวจ rule / policy จาก <span class="font-medium">config_inventory_policy</span></li>
+              <li>สร้างคำแนะนำ Replenishment และ Draft PO (ยังไม่ post จริง)</li>
+              <li>รออนุมัติจากคนก่อนยิงเข้า ERP · ทุก action เก็บ log เพื่อใช้วิเคราะห์ต่อ</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>

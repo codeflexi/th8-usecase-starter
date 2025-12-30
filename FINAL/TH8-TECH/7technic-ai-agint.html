@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Prompt', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-neutral-900 text-white p-6">
+
+  <!-- Container -->
+  <div class="max-w-2xl mx-auto bg-neutral-800 rounded-2xl p-6 shadow-xl border border-neutral-700">
+
+    <!-- Title -->
+    <h1 class="text-2xl font-semibold text-red-400 mb-4">
+      7 Techniques of Real AI Agents  
+      <span class="block text-white text-lg">For CTOs who want more than just LLM + API</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-neutral-300 mb-6">
+      AI Agent = LLM + Graph + Tools + Memory + Governance  
+      <br>ระบบที่รันงานจริง ต้องมากกว่าแค่ Prompt สวย ๆ
+    </p>
+
+    <!-- Technique Box -->
+    <div class="space-y-5">
+
+      <!-- 1 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <h2 class="text-red-300 font-semibold">1) Multi-step Reasoning</h2>
+        <p class="text-neutral-300 text-sm">
+          ใช้ <span class="text-white font-medium">LangGraph</span> ทำ state machine  
+          → ให้ LLM ตัดสินใจ step-by-step (ไม่มั่ว)
+        </p>
+      </div>
+
+      <!-- 2 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <h2 class="text-red-300 font-semibold">2) Memory</h2>
+        <p class="text-neutral-300 text-sm">
+          Workflow state เก็บใน <span class="text-white font-medium">Supabase</span>  
+          → หยุดกลางทางก็กลับมาทำต่อได้
+        </p>
+      </div>
+
+      <!-- 3 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <h2 class="text-red-300 font-semibold">3) Tools Layer</h2>
+        <p class="text-neutral-300 text-sm">
+          Function calling ไป ERP / WMS / TMS / DB  
+          รวม logic แบบ deterministic + LLM เข้าด้วยกัน
+        </p>
+      </div>
+
+      <!-- 4 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <h2 class="text-red-300 font-semibold">4) Exception Handling</h2>
+        <p class="text-neutral-300 text-sm">
+          classification + routing → ระบบไม่ล่มแม้ข้อมูลไม่ครบ
+        </p>
+      </div>
+
+      <!-- 5 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <h2 class="text-red-300 font-semibold">5) Semantic Understanding</h2>
+        <p class="text-neutral-300 text-sm">
+          OCR → Structural extraction  
+          อ่านความหมายได้ แม้เอกสารคนละ format
+        </p>
+      </div>
+
+      <!-- 6 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <h2 class="text-red-300 font-semibold">6) Data-driven Decisions</h2>
+        <p class="text-neutral-300 text-sm">
+          EOQ, Safety Stock, SLA → คำนวณด้วย Python  
+          LLM ทำ explanation แบบเข้าใจง่าย
+        </p>
+      </div>
+
+      <!-- 7 -->
+      <div class="bg-neutral-700/40 p-4 rounded-xl border border-neutral-600">
+        <h2 class="text-red-300 font-semibold">7) Multi-agent Orchestration</h2>
+        <p class="text-neutral-300 text-sm">
+          Subgraphs ต่อกัน: Inventory → Purchasing → Dispatch → QC  
+          ระบบเดินงานเองแบบ Event-driven
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-8 bg-neutral-700/30 p-4 rounded-xl text-neutral-300 text-sm border border-neutral-600">
+      <p>
+        เหนือกว่า RPA เพราะโลกจริงมี noise, delay, missing data, human loop  
+        <br><span class="text-white font-medium">AI Agent ที่รันงานจริง ต้องมีครบทั้ง 7 เทคนิค</span>
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>
