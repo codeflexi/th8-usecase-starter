@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8 Overlay: UX & Data Flow Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Flow Lines Animation */
+        .flow-line {
+            stroke-dasharray: 10;
+            animation: dash 20s linear infinite;
+        }
+        @keyframes dash { to { stroke-dashoffset: -1000; } }
+
+        .tech-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .step-badge {
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .json-key { color: #7dd3fc; }
+        .json-string { color: #a5f3fc; }
+        .json-number { color: #fca5a5; }
+        .json-bool { color: #fcd34d; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="border-b border-slate-800 bg-slate-900 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-sky-600 rounded-lg flex items-center justify-center font-bold text-white text-xl">TH8</div>
+                <div>
+                    <h1 class="font-bold text-white text-lg tracking-wider">Technical Deep Dive</h1>
+                    <p class="text-[10px] text-slate-400">UX Flow & Data Architecture for Overlay Products</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="switchTab('bi')" id="btn-bi" class="px-4 py-2 rounded-lg text-sm font-bold bg-sky-600 text-white">Narrative BI</button>
+                <button onclick="switchTab('erp')" id="btn-erp" class="px-4 py-2 rounded-lg text-sm font-bold text-slate-400 hover:text-white hover:bg-slate-800">Master Guard</button>
+                <button onclick="switchTab('crm')" id="btn-crm" class="px-4 py-2 rounded-lg text-sm font-bold text-slate-400 hover:text-white hover:bg-slate-800">Revenue Intel</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl mx-auto px-6 py-8 w-full">
+
+        <!-- PRODUCT 1: NARRATIVE BI -->
+        <div id="view-bi" class="space-y-12">
+            
+            <!-- SECTION 1: UX END-TO-END FLOW -->
+            <section>
+                <h2 class="text-xl font-bold text-sky-400 mb-6 flex items-center gap-2">
+                    <i data-lucide="monitor-play" class="w-5 h-5"></i> 1. UX End-to-End Flow
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative">
+                    <!-- Step 1 -->
+                    <div class="tech-card p-4 rounded-xl relative group">
+                        <div class="absolute -top-3 -left-3 w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center border border-slate-600 font-bold text-white">1</div>
+                        <div class="h-32 bg-white rounded flex items-end p-2 pb-0 mb-3 border border-slate-300">
+                            <!-- Chart Mockup -->
+                            <div class="w-1/4 h-3/4 bg-slate-300 mx-1"></div>
+                            <div class="w-1/4 h-1/2 bg-slate-300 mx-1"></div>
+                            <div class="w-1/4 h-1/4 bg-red-400 mx-1 animate-pulse"></div> <!-- Drop -->
+                            <div class="w-1/4 h-1/2 bg-slate-300 mx-1"></div>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Trigger</h3>
+                        <p class="text-xs text-slate-400 mt-1">User sees a metric drop (e.g., Revenue -40%) on PowerBI Dashboard.</p>
+                        <div class="mt-2 text-[10px] text-sky-400 bg-sky-900/20 p-1 rounded border border-sky-800 text-center">User Action: Click "Explain with TH8"</div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="tech-card p-4 rounded-xl relative group">
+                        <div class="absolute -top-3 -left-3 w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center border border-slate-600 font-bold text-white">2</div>
+                        <div class="h-32 bg-slate-900 rounded flex flex-col items-center justify-center mb-3 border border-indigo-500/50 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-indigo-500/10 animate-pulse"></div>
+                            <i data-lucide="brain-circuit" class="w-8 h-8 text-indigo-400 mb-2"></i>
+                            <span class="text-[10px] text-indigo-300">Connecting Context...</span>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Processing (Overlay)</h3>
+                        <p class="text-xs text-slate-400 mt-1">TH8 Overlay captures screen context + fetches external data (Emails, News, Logs).</p>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="tech-card p-4 rounded-xl relative group">
+                        <div class="absolute -top-3 -left-3 w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center border border-slate-600 font-bold text-white">3</div>
+                        <div class="h-32 bg-white rounded p-2 mb-3 border border-slate-300 relative">
+                            <div class="absolute inset-0 bg-slate-900/80 backdrop-blur-sm p-3 flex flex-col justify-center">
+                                <div class="bg-slate-800 border-l-2 border-sky-500 p-2 text-[10px] text-white">
+                                    <strong>Insight:</strong> Supply chain delay (China).<br>
+                                    <span class="text-slate-400">Ref: Logistics Email</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="text-sm font-bold text-white">Narrative Output</h3>
+                        <p class="text-xs text-slate-400 mt-1">Overlay displays the "Why" directly on top of the chart.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: DATA FLOW ARCHITECTURE -->
+            <section>
+                <h2 class="text-xl font-bold text-emerald-400 mb-6 flex items-center gap-2">
+                    <i data-lucide="network" class="w-5 h-5"></i> 2. System Architecture & Data Flow
+                </h2>
+                <div class="tech-card p-8 rounded-xl relative overflow-hidden h-64 flex items-center justify-center">
+                    <svg class="w-full h-full absolute inset-0" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Left: Sources -->
+                        <rect x="50" y="50" width="100" height="40" rx="4" fill="#1e293b" stroke="#64748b" />
+                        <text x="100" y="75" fill="#cbd5e1" font-size="10" text-anchor="middle">PowerBI / Tablueau</text>
+                        
+                        <rect x="50" y="110" width="100" height="40" rx="4" fill="#1e293b" stroke="#64748b" />
+                        <text x="100" y="135" fill="#cbd5e1" font-size="10" text-anchor="middle">Logistics Email</text>
+
+                        <rect x="50" y="170" width="100" height="40" rx="4" fill="#1e293b" stroke="#64748b" />
+                        <text x="100" y="195" fill="#cbd5e1" font-size="10" text-anchor="middle">Market News API</text>
+
+                        <!-- Middle: TH8 Engine -->
+                        <rect x="300" y="40" width="140" height="180" rx="8" fill="#0f172a" stroke="#0ea5e9" stroke-width="2" />
+                        <text x="370" y="70" fill="#0ea5e9" font-size="12" text-anchor="middle" font-weight="bold">TH8 RAG Engine</text>
+                        <text x="370" y="100" fill="#64748b" font-size="10" text-anchor="middle">1. Ingest Context</text>
+                        <text x="370" y="120" fill="#64748b" font-size="10" text-anchor="middle">2. Vector Search</text>
+                        <text x="370" y="140" fill="#64748b" font-size="10" text-anchor="middle">3. LLM Synthesis</text>
+
+                        <!-- Right: Output -->
+                        <rect x="600" y="100" width="120" height="60" rx="8" fill="#1e293b" stroke="#10b981" />
+                        <text x="660" y="135" fill="#10b981" font-size="12" text-anchor="middle" font-weight="bold">Frontend Overlay</text>
+
+                        <!-- Lines -->
+                        <path d="M150 70 L 300 100" stroke="#475569" stroke-width="1" class="flow-line" />
+                        <path d="M150 130 L 300 130" stroke="#475569" stroke-width="1" class="flow-line" />
+                        <path d="M150 190 L 300 160" stroke="#475569" stroke-width="1" class="flow-line" />
+                        <path d="M440 130 L 600 130" stroke="#0ea5e9" stroke-width="2" class="flow-line" />
+                    </svg>
+                </div>
+            </section>
+
+            <!-- SECTION 3: DATASETS -->
+            <section>
+                <h2 class="text-xl font-bold text-amber-400 mb-6 flex items-center gap-2">
+                    <i data-lucide="database" class="w-5 h-5"></i> 3. Data Payload (Sample)
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Request -->
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 mb-2 uppercase">Input (Context Capture)</p>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 font-mono text-xs overflow-x-auto">
+<pre>
+{
+  <span class="json-key">"metric_id"</span>: <span class="json-string">"gross_revenue_q3"</span>,
+  <span class="json-key">"current_value"</span>: <span class="json-number">5500000</span>,
+  <span class="json-key">"target_value"</span>: <span class="json-number">8000000</span>,
+  <span class="json-key">"trend"</span>: <span class="json-string">"down_30_percent"</span>,
+  <span class="json-key">"context_tags"</span>: [<span class="json-string">"logistics"</span>, <span class="json-string">"raw_material"</span>]
+}
+</pre>
+                        </div>
+                    </div>
+                    <!-- Response -->
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 mb-2 uppercase">Output (Generated Narrative)</p>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 font-mono text-xs overflow-x-auto">
+<pre>
+{
+  <span class="json-key">"narrative_short"</span>: <span class="json-string">"Supply chain disruption in China caused 2 weeks delay."</span>,
+  <span class="json-key">"confidence_score"</span>: <span class="json-number">0.92</span>,
+  <span class="json-key">"sources"</span>: [
+    {
+      <span class="json-key">"type"</span>: <span class="json-string">"email"</span>,
+      <span class="json-key">"sender"</span>: <span class="json-string">"logistics@shipping.co.th"</span>,
+      <span class="json-key">"subject"</span>: <span class="json-string">"Delay Notification: Shipment #CN-992"</span>
+    }
+  ]
+}
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PRODUCT 2: MASTER GUARD -->
+        <div id="view-erp" class="space-y-12 hidden">
+            <!-- SECTION 1: UX FLOW -->
+            <section>
+                <h2 class="text-xl font-bold text-sky-400 mb-6 flex items-center gap-2"><i data-lucide="shield" class="w-5 h-5"></i> 1. UX End-to-End Flow</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="tech-card p-4 rounded-xl border-l-2 border-slate-600">
+                        <span class="step-badge">Step 1: Input</span>
+                        <p class="text-sm text-white mt-2">User types "Siam Material" in SAP Vendor Name field.</p>
+                    </div>
+                    <div class="tech-card p-4 rounded-xl border-l-2 border-sky-500">
+                        <span class="step-badge text-sky-400 border-sky-900">Step 2: Intercept</span>
+                        <p class="text-sm text-white mt-2">Browser Extension triggers <code>onBlur</code> event -> Sends text to TH8 API.</p>
+                    </div>
+                    <div class="tech-card p-4 rounded-xl border-l-2 border-red-500">
+                        <span class="step-badge text-red-400 border-red-900">Step 3: Alert</span>
+                        <p class="text-sm text-white mt-2">Overlay blocks 'Save' button. Shows "Duplicate Found: Siam Material Co., Ltd."</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: ARCHITECTURE -->
+            <section>
+                <h2 class="text-xl font-bold text-emerald-400 mb-6"><i data-lucide="network" class="w-5 h-5 inline"></i> 2. Fuzzy Matching Pipeline</h2>
+                <div class="tech-card p-6 rounded-xl flex items-center justify-between gap-4 overflow-x-auto">
+                    <div class="text-center min-w-[100px]">
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-600 mb-2">Browser Ext.</div>
+                        <p class="text-[10px] text-slate-400">Capture Keystroke</p>
+                    </div>
+                    <i data-lucide="arrow-right" class="text-slate-600"></i>
+                    <div class="text-center min-w-[120px]">
+                        <div class="bg-indigo-900/50 p-3 rounded-lg border border-indigo-500 mb-2">Vector Search</div>
+                        <p class="text-[10px] text-indigo-300">Phonetic / Fuzzy</p>
+                    </div>
+                    <i data-lucide="arrow-right" class="text-slate-600"></i>
+                    <div class="text-center min-w-[100px]">
+                        <div class="bg-slate-800 p-3 rounded-lg border border-slate-600 mb-2">Master DB</div>
+                        <p class="text-[10px] text-slate-400">PostgreSQL</p>
+                    </div>
+                    <i data-lucide="arrow-right" class="text-slate-600"></i>
+                    <div class="text-center min-w-[100px]">
+                        <div class="bg-red-900/50 p-3 rounded-lg border border-red-500 mb-2">Alert Logic</div>
+                        <p class="text-[10px] text-red-300">Similarity > 85%</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: DATA -->
+            <section>
+                <h2 class="text-xl font-bold text-amber-400 mb-6"><i data-lucide="database" class="w-5 h-5 inline"></i> 3. Fuzzy Logic Payload</h2>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 font-mono text-xs overflow-x-auto">
+<pre>
+<span class="text-slate-500">// Request</span>
+{ <span class="json-key">"entity_type"</span>: <span class="json-string">"vendor"</span>, <span class="json-key">"input_name"</span>: <span class="json-string">"Siam Material Supply"</span> }
+
+<span class="text-slate-500">// Response</span>
+{
+  <span class="json-key">"is_duplicate"</span>: <span class="json-bool">true</span>,
+  <span class="json-key">"match_score"</span>: <span class="json-number">0.92</span>,
+  <span class="json-key">"existing_record"</span>: {
+    <span class="json-key">"id"</span>: <span class="json-string">"V-1002"</span>,
+    <span class="json-key">"name"</span>: <span class="json-string">"Siam Material Co., Ltd."</span>,
+    <span class="json-key">"status"</span>: <span class="json-string">"Active"</span>
+  },
+  <span class="json-key">"recommendation"</span>: <span class="json-string">"BLOCK_CREATION"</span>
+}
+</pre>
+                </div>
+            </section>
+        </div>
+
+        <!-- PRODUCT 3: REVENUE INTELLIGENCE -->
+        <div id="view-crm" class="space-y-12 hidden">
+            <!-- SECTION 1: UX FLOW -->
+            <section>
+                <h2 class="text-xl font-bold text-sky-400 mb-6 flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-5 h-5"></i> 1. UX End-to-End Flow</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="tech-card p-4 rounded-xl border-l-2 border-slate-600">
+                        <span class="step-badge">Step 1: View Deal</span>
+                        <p class="text-sm text-white mt-2">Sales Manager opens CRM. Sales rep claims "90% Close Probability".</p>
+                    </div>
+                    <div class="tech-card p-4 rounded-xl border-l-2 border-sky-500">
+                        <span class="step-badge text-sky-400 border-sky-900">Step 2: Reality Check</span>
+                        <p class="text-sm text-white mt-2">TH8 scans recent emails & calendar events associated with this client.</p>
+                    </div>
+                    <div class="tech-card p-4 rounded-xl border-l-2 border-red-500">
+                        <span class="step-badge text-red-400 border-red-900">Step 3: Score Overlay</span>
+                        <p class="text-sm text-white mt-2">Overlay forces a "Reality Score: 30%" badge because client hasn't replied in 2 weeks.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: ARCHITECTURE -->
+            <section>
+                <h2 class="text-xl font-bold text-emerald-400 mb-6"><i data-lucide="network" class="w-5 h-5 inline"></i> 2. Reality Scoring Pipeline</h2>
+                <div class="tech-card p-6 rounded-xl">
+                    <div class="flex gap-4 mb-4">
+                        <span class="px-3 py-1 bg-blue-900/30 text-blue-300 rounded border border-blue-800 text-xs">Email API (Outlook/Gmail)</span>
+                        <span class="px-3 py-1 bg-blue-900/30 text-blue-300 rounded border border-blue-800 text-xs">Calendar API</span>
+                        <span class="px-3 py-1 bg-blue-900/30 text-blue-300 rounded border border-blue-800 text-xs">CRM API</span>
+                    </div>
+                    <div class="h-px bg-slate-600 my-4 w-full"></div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-1/4 text-center">
+                            <i data-lucide="filter" class="w-8 h-8 text-slate-400 mx-auto mb-2"></i>
+                            <p class="text-xs text-slate-300">Activity Filter</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="text-slate-600"></i>
+                        <div class="w-1/4 text-center">
+                            <i data-lucide="smile" class="w-8 h-8 text-purple-400 mx-auto mb-2"></i>
+                            <p class="text-xs text-slate-300">Sentiment Analysis</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="text-slate-600"></i>
+                        <div class="w-1/4 text-center">
+                            <i data-lucide="calculator" class="w-8 h-8 text-emerald-400 mx-auto mb-2"></i>
+                            <p class="text-xs text-slate-300">Scoring Algorithm</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="text-slate-600"></i>
+                        <div class="w-1/4 text-center">
+                            <div class="bg-red-600 text-white font-bold rounded px-2 py-1 text-xs inline-block">Score</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: DATA -->
+            <section>
+                <h2 class="text-xl font-bold text-amber-400 mb-6"><i data-lucide="database" class="w-5 h-5 inline"></i> 3. Scoring Logic Payload</h2>
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 font-mono text-xs overflow-x-auto">
+<pre>
+<span class="text-slate-500">// Output to Overlay</span>
+{
+  <span class="json-key">"crm_deal_id"</span>: <span class="json-string">"OPP-9921"</span>,
+  <span class="json-key">"reported_probability"</span>: <span class="json-number">0.90</span>,
+  <span class="json-key">"reality_score"</span>: <span class="json-number">0.35</span>,
+  <span class="json-key">"risk_factors"</span>: [
+    {
+      <span class="json-key">"type"</span>: <span class="json-string">"silent_client"</span>,
+      <span class="json-key">"details"</span>: <span class="json-string">"No email response > 14 days"</span>,
+      <span class="json-key">"impact"</span>: <span class="json-string">"HIGH"</span>
+    },
+    {
+      <span class="json-key">"type"</span>: <span class="json-string">"no_stakeholder"</span>,
+      <span class="json-key">"details"</span>: <span class="json-string">"No C-Level present in meetings"</span>
+    }
+  ]
+}
+</pre>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-slate-800 py-6 text-center">
+        <p class="text-xs text-slate-500">TH8 Overlay Architecture | Confidential</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function switchTab(id) {
+            // Hide all
+            ['bi', 'erp', 'crm'].forEach(v => {
+                document.getElementById('view-' + v).classList.add('hidden');
+                document.getElementById('btn-' + v).classList.remove('bg-sky-600', 'text-white');
+                document.getElementById('btn-' + v).classList.add('text-slate-400', 'hover:text-white', 'hover:bg-slate-800');
+            });
+
+            // Show selected
+            document.getElementById('view-' + id).classList.remove('hidden');
+            const btn = document.getElementById('btn-' + id);
+            btn.classList.add('bg-sky-600', 'text-white');
+            btn.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-slate-800');
+        }
+    </script>
+</body>
+</html>

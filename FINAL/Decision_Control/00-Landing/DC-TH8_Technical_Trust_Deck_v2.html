@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI: Technology Engine & Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts: Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0B1120; color: #e2e8f0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Glassmorphism Cards */
+        .tech-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(16px);
+            transition: all 0.3s ease;
+        }
+        .tech-card:hover {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.15);
+        }
+
+        /* Layer Animation */
+        .layer-box {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .layer-box:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+            background: rgba(14, 165, 233, 0.1);
+        }
+
+        /* Grid Pattern Background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-grid relative overflow-x-hidden">
+
+    <!-- DECORATIVE BLOBS -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-sky-600/20 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[100px]"></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl flex items-center justify-center font-bold text-white text-lg shadow-lg">TH8</div>
+                <div>
+                    <h1 class="font-bold text-slate-100 text-lg leading-none">TH8 Technology Engine</h1>
+                    <p class="text-xs text-slate-400 mt-1">Enterprise AI Foundation & Architecture</p>
+                </div>
+            </div>
+            <div class="flex gap-1 bg-slate-800/50 p-1 rounded-lg border border-slate-700">
+                <button onclick="switchTab('engine')" id="tab-engine" class="px-5 py-2 text-sm font-medium rounded-md text-slate-300 hover:text-white tab-btn active">The Engine</button>
+                <button onclick="switchTab('security')" id="tab-security" class="px-5 py-2 text-sm font-medium rounded-md text-slate-300 hover:text-white tab-btn">Security & Trust</button>
+                <button onclick="switchTab('ops')" id="tab-ops" class="px-5 py-2 text-sm font-medium rounded-md text-slate-300 hover:text-white tab-btn">Ops & Monitoring</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl mx-auto px-6 py-10 w-full">
+
+        <!-- TAB 1: THE ENGINE (LAYERED ARCHITECTURE) -->
+        <section id="content-engine" class="space-y-12 animate-fade-in">
+            
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <h2 class="text-3xl font-bold text-white mb-4">Scalable AI Foundation</h2>
+                <p class="text-slate-400 leading-relaxed">
+                    เราไม่ได้สร้างแค่ "แอปจัดซื้อ" แต่เราวางรากฐาน <strong>"AI Foundation"</strong> ที่แบ่งเป็น Layer ชัดเจน 
+                    ทำให้องค์กรสามารถต่อยอดไปสร้าง AI Agent สำหรับแผนกอื่น (HR, Legal, Sales) ได้ทันทีบนโครงสร้างเดิม
+                </p>
+            </div>
+
+            <!-- VISUALIZATION: THE STACK LAYERS -->
+            <div class="relative max-w-5xl mx-auto space-y-4">
+                
+                <!-- LAYER 4: APPLICATION & INTERFACE -->
+                <div class="layer-box relative group">
+                    <div class="absolute -left-32 top-1/2 -translate-y-1/2 text-right w-28 hidden lg:block">
+                        <h4 class="text-sky-400 font-bold text-sm">Layer 4</h4>
+                        <p class="text-slate-500 text-xs">Application</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-sky-500"></div>
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <i data-lucide="layout" class="w-5 h-5 text-sky-400"></i> Applications & Channels
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700 text-center hover:bg-sky-900/20 transition">
+                                <div class="font-bold text-slate-200 text-sm">Procurement Agent</div>
+                                <div class="text-[10px] text-slate-500 mt-1">Cost Control / SLA</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700 text-center opacity-70 hover:opacity-100 transition border-dashed">
+                                <div class="font-bold text-slate-400 text-sm">+ HR Agent (Next)</div>
+                                <div class="text-[10px] text-slate-500 mt-1">Resume Screening</div>
+                            </div>
+                            <div class="bg-slate-800/50 p-3 rounded-lg border border-slate-700 text-center opacity-70 hover:opacity-100 transition border-dashed">
+                                <div class="font-bold text-slate-400 text-sm">+ Legal Agent (Next)</div>
+                                <div class="text-[10px] text-slate-500 mt-1">Contract Review</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONNECTOR ARROW -->
+                <div class="flex justify-center h-6">
+                    <div class="w-px h-full bg-gradient-to-b from-slate-700 to-indigo-500"></div>
+                </div>
+
+                <!-- LAYER 3: CORE AI ENGINE (THE BRAIN) -->
+                <div class="layer-box relative group">
+                    <div class="absolute -left-32 top-1/2 -translate-y-1/2 text-right w-28 hidden lg:block">
+                        <h4 class="text-indigo-400 font-bold text-sm">Layer 3</h4>
+                        <p class="text-slate-500 text-xs">AI Orchestrator</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-indigo-900/40 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <i data-lucide="brain-circuit" class="w-5 h-5 text-indigo-400"></i> TH8 Core Engine (The Brain)
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <!-- Rule Engine -->
+                            <div class="col-span-2 bg-indigo-950/50 p-4 rounded-xl border border-indigo-500/30">
+                                <h4 class="font-bold text-indigo-300 text-sm mb-2">Deterministic Logic (Rule Engine)</h4>
+                                <p class="text-xs text-slate-400 mb-2">YAML-based policy enforcement. 100% precision for financial limits.</p>
+                                <div class="bg-black/40 p-2 rounded text-[10px] font-mono text-green-400 border border-indigo-900/50">
+                                    if amount > 3M then ESCALATE<br>
+                                    if sla < 6h then WARN
+                                </div>
+                            </div>
+                            <!-- LLM Manager -->
+                            <div class="col-span-2 bg-indigo-950/50 p-4 rounded-xl border border-indigo-500/30">
+                                <h4 class="font-bold text-purple-300 text-sm mb-2">Generative Reasoning (LLM)</h4>
+                                <p class="text-xs text-slate-400 mb-2">Advanced reasoning for unstructured data.</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <span class="bg-purple-900/30 text-purple-200 text-xs px-2 py-1 rounded border border-purple-800 text-center">Prompt Mgmt</span>
+                                    <span class="bg-purple-900/30 text-purple-200 text-xs px-2 py-1 rounded border border-purple-800 text-center">Context Window</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONNECTOR ARROW -->
+                <div class="flex justify-center h-6">
+                    <div class="w-px h-full bg-gradient-to-b from-slate-700 to-emerald-500"></div>
+                </div>
+
+                <!-- LAYER 2: DATA & KNOWLEDGE (RAG) -->
+                <div class="layer-box relative group">
+                    <div class="absolute -left-32 top-1/2 -translate-y-1/2 text-right w-28 hidden lg:block">
+                        <h4 class="text-emerald-400 font-bold text-sm">Layer 2</h4>
+                        <p class="text-slate-500 text-xs">Data & Knowledge</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-800 to-slate-900 border border-slate-700 rounded-2xl p-6 shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-emerald-500"></div>
+                        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                            <i data-lucide="database" class="w-5 h-5 text-emerald-400"></i> Knowledge Base (RAG) & Integrations
+                        </h3>
+                        <div class="flex gap-6 items-center">
+                            <div class="flex-1 space-y-3">
+                                <div class="flex items-center gap-3 bg-slate-800 p-2 rounded border border-slate-600">
+                                    <div class="w-8 h-8 bg-emerald-900/50 rounded flex items-center justify-center text-emerald-400 text-xs font-bold">VEC</div>
+                                    <div>
+                                        <div class="text-sm font-bold text-slate-200">Vector Database</div>
+                                        <div class="text-[10px] text-slate-500">Semantic Search for Contracts (PDF/Docx)</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3 bg-slate-800 p-2 rounded border border-slate-600">
+                                    <div class="w-8 h-8 bg-blue-900/50 rounded flex items-center justify-center text-blue-400 text-xs font-bold">ERP</div>
+                                    <div>
+                                        <div class="text-sm font-bold text-slate-200">ERP Connectors</div>
+                                        <div class="text-[10px] text-slate-500">Secure API Tunnel to SAP/Oracle</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Graphic: Ingestion Pipeline -->
+                            <div class="w-1/3 border-l border-slate-700 pl-6 hidden md:block">
+                                <p class="text-xs text-slate-400 mb-2 uppercase font-bold">Ingestion Pipeline</p>
+                                <div class="space-y-1">
+                                    <div class="flex items-center gap-2 text-[10px] text-slate-300"><i data-lucide="check" class="w-3 h-3 text-green-500"></i> OCR Extraction</div>
+                                    <div class="flex items-center gap-2 text-[10px] text-slate-300"><i data-lucide="check" class="w-3 h-3 text-green-500"></i> Data Cleaning</div>
+                                    <div class="flex items-center gap-2 text-[10px] text-slate-300"><i data-lucide="check" class="w-3 h-3 text-green-500"></i> Chunking & Embedding</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONNECTOR ARROW -->
+                <div class="flex justify-center h-6">
+                    <div class="w-px h-full bg-gradient-to-b from-slate-700 to-orange-500"></div>
+                </div>
+
+                <!-- LAYER 1: INFRASTRUCTURE (CLOUD) -->
+                <div class="layer-box relative group">
+                    <div class="absolute -left-32 top-1/2 -translate-y-1/2 text-right w-28 hidden lg:block">
+                        <h4 class="text-orange-400 font-bold text-sm">Layer 1</h4>
+                        <p class="text-slate-500 text-xs">Infrastructure</p>
+                    </div>
+                    <div class="bg-gradient-to-r from-slate-900 to-black border border-slate-800 rounded-2xl p-4 shadow-xl relative overflow-hidden opacity-80 hover:opacity-100 transition">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-orange-500"></div>
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-bold text-slate-400 flex items-center gap-2">
+                                <i data-lucide="server" class="w-4 h-4 text-orange-500"></i> Secure Cloud Infrastructure (AWS / Azure / On-Premise)
+                            </h3>
+                            <div class="flex gap-2">
+                                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-1 rounded border border-slate-700">Docker</span>
+                                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-1 rounded border border-slate-700">K8s</span>
+                                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-1 rounded border border-slate-700">GPU Nodes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 2: SECURITY (UNCHANGED BUT STYLED) -->
+        <section id="content-security" class="hidden space-y-8 animate-fade-in">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Data Privacy -->
+                <div class="tech-card p-8 rounded-xl border-l-4 border-emerald-500 h-full">
+                    <h2 class="text-2xl font-bold text-white mb-6">Data Privacy Promise</h2>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-emerald-900/30 p-3 rounded-lg h-fit"><i data-lucide="shield-off" class="w-6 h-6 text-emerald-400"></i></div>
+                            <div>
+                                <h3 class="text-lg font-bold text-emerald-400">Zero-Training Policy</h3>
+                                <p class="text-slate-400 text-sm mt-1">
+                                    เราการันตีด้วยสัญญา (SLA) ว่าข้อมูลของท่าน <strong>"จะไม่ถูกนำไปใช้เทรน (Train)"</strong> โมเดล AI สาธารณะเด็ดขาด โมเดลที่ใช้เป็น Enterprise Instance ที่แยกขาดจากภายนอก
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-blue-900/30 p-3 rounded-lg h-fit"><i data-lucide="lock" class="w-6 h-6 text-blue-400"></i></div>
+                            <div>
+                                <h3 class="text-lg font-bold text-blue-400">Single Tenant Isolation</h3>
+                                <p class="text-slate-400 text-sm mt-1">
+                                    ข้อมูลลูกค้าแต่ละรายถูกแยก Database Schema และ Storage Bucket อย่างชัดเจน ไม่มีการปะปนกัน (Logical Separation)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Encryption Standards -->
+                <div class="tech-card p-8 rounded-xl h-full">
+                    <h2 class="text-xl font-bold text-white mb-6">Encryption & Compliance</h2>
+                    <div class="space-y-4">
+                        <div class="bg-slate-800/50 p-4 rounded-lg flex justify-between items-center border border-slate-700">
+                            <div>
+                                <p class="text-slate-300 font-bold text-sm">Data at Rest</p>
+                                <p class="text-slate-500 text-xs">AES-256 Encryption (Database & Logs)</p>
+                            </div>
+                            <i data-lucide="hard-drive" class="w-5 h-5 text-slate-500"></i>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg flex justify-between items-center border border-slate-700">
+                            <div>
+                                <p class="text-slate-300 font-bold text-sm">Data in Transit</p>
+                                <p class="text-slate-500 text-xs">TLS 1.3 (Strict HTTPS)</p>
+                            </div>
+                            <i data-lucide="arrow-left-right" class="w-5 h-5 text-slate-500"></i>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg flex justify-between items-center border border-slate-700">
+                            <div>
+                                <p class="text-slate-300 font-bold text-sm">Audit Compliance</p>
+                                <p class="text-slate-500 text-xs">Immutable Logs for PDPA/GDPR</p>
+                            </div>
+                            <i data-lucide="file-check" class="w-5 h-5 text-slate-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: OPS & LOGS -->
+        <section id="content-ops" class="hidden space-y-8 animate-fade-in">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Log Preview -->
+                <div class="tech-card p-6 rounded-xl">
+                    <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="file-code" class="w-5 h-5 text-amber-400"></i> Immutable Audit Logs
+                    </h3>
+                    <p class="text-sm text-slate-400 mb-4">
+                        โครงสร้าง Log แบบ JSON มาตรฐาน พร้อมส่งต่อให้ระบบ SIEM ตรวจสอบ
+                    </p>
+                    <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 overflow-x-auto shadow-inner">
+<pre class="font-mono text-xs text-sky-300">
+{
+  "timestamp": "2024-05-21T10:00:00Z",
+  "level": "INFO",
+  "event": "DECISION_MADE",
+  "trace_id": "req-12345-xyz",
+  "actor": { 
+    "user": "mgr_somchai", 
+    "role": "APPROVER",
+    "ip": "10.0.1.5" 
+  },
+  "context": {
+    "case_id": "PR-991",
+    "rules_triggered": ["HIGH_VALUE", "SLA_RISK"],
+    "ai_confidence": 0.98
+  },
+  "integrity_hash": "sha256:8d9a..." <span class="text-slate-500">// Tamper Proof</span>
+}
+</pre>
+                    </div>
+                </div>
+
+                <!-- Metrics Dashboard -->
+                <div class="tech-card p-6 rounded-xl">
+                    <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="activity" class="w-5 h-5 text-green-400"></i> Real-time Observability
+                    </h3>
+                    <p class="text-sm text-slate-400 mb-6">
+                        Support Prometheus / Grafana metrics endpoint.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-800 p-4 rounded border border-slate-700">
+                            <p class="text-xs text-slate-500 uppercase">Uptime (SLA)</p>
+                            <p class="text-2xl font-bold text-green-400">99.95%</p>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded border border-slate-700">
+                            <p class="text-xs text-slate-500 uppercase">Avg Latency</p>
+                            <p class="text-2xl font-bold text-sky-400">120ms</p>
+                        </div>
+                        <div class="col-span-2 bg-slate-800 p-4 rounded border border-slate-700">
+                            <p class="text-xs text-slate-500 uppercase mb-2">Throughput (Req/Min)</p>
+                            <div class="h-12 flex items-end gap-1">
+                                <div class="w-full bg-sky-500/20 h-[40%] rounded-t"></div>
+                                <div class="w-full bg-sky-500/40 h-[60%] rounded-t"></div>
+                                <div class="w-full bg-sky-500/30 h-[50%] rounded-t"></div>
+                                <div class="w-full bg-sky-500/60 h-[80%] rounded-t"></div>
+                                <div class="w-full bg-sky-500/50 h-[70%] rounded-t"></div>
+                                <div class="w-full bg-sky-500/80 h-[90%] rounded-t"></div>
+                                <div class="w-full bg-sky-500/40 h-[55%] rounded-t"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-900 py-6 text-center">
+        <p class="text-slate-500 text-xs font-mono">TH8.AI Enterprise Architecture | v2.0 Confidential</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        function switchTab(tabId) {
+            // Hide all content
+            document.querySelectorAll('section').forEach(el => el.classList.add('hidden'));
+            
+            // Deactivate all buttons
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('active', 'text-white', 'bg-sky-900/10');
+                el.classList.add('text-slate-300');
+            });
+
+            // Show selected content
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+            
+            // Activate button
+            const btn = document.getElementById('tab-' + tabId);
+            btn.classList.add('active', 'text-white');
+            btn.classList.remove('text-slate-300');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise AI Adoption Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        .font-body { font-family: 'Sarabun', sans-serif; }
+        
+        .card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-2px);
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #334155;
+            z-index: 0;
+        }
+        
+        .step-dot {
+            z-index: 10;
+            transition: all 0.3s;
+        }
+        .step-item:hover .step-dot {
+            transform: scale(1.2);
+            box-shadow: 0 0 15px rgba(14, 165, 233, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <!-- HERO SECTION -->
+    <header class="py-20 px-6 text-center relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-sky-600/20 rounded-full blur-[120px] -z-10"></div>
+        <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            The Reality of <br><span class="text-sky-400">Enterprise AI Adoption</span>
+        </h1>
+        <p class="text-lg text-slate-400 max-w-2xl mx-auto font-body">
+            เส้นทางจาก "ความตื่นเต้น" สู่ "การใช้งานจริง" สำหรับองค์กรขนาดใหญ่<br>
+            สิ่งที่ต้องเจอ วิธีแก้ปัญหา และแผนงานที่ทำได้จริง
+        </p>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 space-y-24">
+
+        <!-- PART 1: THE OBSTACLES (ความกังวล) -->
+        <section>
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500 border border-red-500/20">
+                    <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">1. The "Icebergs" (สิ่งที่องค์กรกังวล)</h2>
+                    <p class="text-slate-400 text-sm">ทำไมหลายโปรเจกต์ถึงล้มเหลว หรือไม่ผ่านบอร์ด?</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Fear 1 -->
+                <div class="card p-6 rounded-xl border-l-4 border-l-red-500">
+                    <h3 class="font-bold text-lg text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="lock" class="w-5 h-5 text-red-400"></i> Data Privacy & Leakage
+                    </h3>
+                    <p class="text-sm text-slate-300 font-body">
+                        "ถ้าเอาข้อมูลงบการเงินหรือสัญญาไปใส่ AI ข้อมูลจะหลุดไปอยู่บน Public Cloud ไหม? คู่แข่งจะเห็นข้อมูลเราหรือเปล่า?"
+                    </p>
+                    <div class="mt-3 text-xs bg-red-900/30 text-red-200 p-2 rounded">
+                        <strong>Solution:</strong> ใช้ Private Instance / Local LLM และทำ Data Masking ก่อนส่ง
+                    </div>
+                </div>
+
+                <!-- Fear 2 -->
+                <div class="card p-6 rounded-xl border-l-4 border-l-amber-500">
+                    <h3 class="font-bold text-lg text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="message-square-warning" class="w-5 h-5 text-amber-400"></i> Hallucination (AI มั่ว)
+                    </h3>
+                    <p class="text-sm text-slate-300 font-body">
+                        "AI ตอบเก่ง แต่ตอบมั่วหรือเปล่า? ถ้า AI แนะนำให้ซื้อของผิดสเปก หรือคำนวณราคาผิด ใครรับผิดชอบ?"
+                    </p>
+                    <div class="mt-3 text-xs bg-amber-900/30 text-amber-200 p-2 rounded">
+                        <strong>Solution:</strong> ใช้ RAG (อ้างอิงเอกสารจริง) + Rule Engine (คุมตัวเลข) + Human-in-the-loop
+                    </div>
+                </div>
+
+                <!-- Fear 3 -->
+                <div class="card p-6 rounded-xl border-l-4 border-l-orange-500">
+                    <h3 class="font-bold text-lg text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="database-zap" class="w-5 h-5 text-orange-400"></i> Legacy Integration
+                    </h3>
+                    <p class="text-sm text-slate-300 font-body">
+                        "ERP เราเก่ามาก (SAP/Oracle เวอร์ชั่น 10 ปีที่แล้ว) จะต่อกับ AI สมัยใหม่ได้ยังไง? ต้องรื้อระบบใหม่หมดไหม?"
+                    </p>
+                    <div class="mt-3 text-xs bg-orange-900/30 text-orange-200 p-2 rounded">
+                        <strong>Solution:</strong> ใช้ API Wrapper หรือ Middleware ไม่ไปยุ่งกับ Core System โดยตรง
+                    </div>
+                </div>
+
+                <!-- Fear 4 -->
+                <div class="card p-6 rounded-xl border-l-4 border-l-purple-500">
+                    <h3 class="font-bold text-lg text-white mb-2 flex items-center gap-2">
+                        <i data-lucide="users" class="w-5 h-5 text-purple-400"></i> Culture & Job Security
+                    </h3>
+                    <p class="text-sm text-slate-300 font-body">
+                        "พนักงานกลัว AI มาแย่งงาน อาจจะเกิดการต่อต้าน (Sabotage) หรือไม่ให้ความร่วมมือในการใช้ระบบ"
+                    </p>
+                    <div class="mt-3 text-xs bg-purple-900/30 text-purple-200 p-2 rounded">
+                        <strong>Solution:</strong> Re-positioning เป็น "ผู้ช่วย (Co-pilot)" ที่มาทำงานน่าเบื่อแทน เพื่อให้คนไปทำงานสำคัญ
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 2: PREPARATION (สิ่งที่ต้องเตรียม) -->
+        <section>
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-500 border border-sky-500/20">
+                    <i data-lucide="list-checks" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">2. The "Pre-Flight" Checklist</h2>
+                    <p class="text-slate-400 text-sm">ก่อนเริ่มโปรเจกต์ องค์กรต้องเตรียมสิ่งเหล่านี้</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-800/50 rounded-2xl p-8 border border-slate-700">
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white shrink-0">1</div>
+                        <div>
+                            <h4 class="font-bold text-sky-400">Clean Data (Garbage In, Garbage Out)</h4>
+                            <p class="text-sm text-slate-300 font-body mt-1">
+                                AI ไม่ใช่นักมายากล ถ้าข้อมูลในอดีตมั่ว AI ก็จะเรียนรู้ความมั่วไป <br>
+                                <strong>Action:</strong> เตรียมไฟล์ CSV ย้อนหลัง 3-6 เดือน ที่คลีนแล้ว (Standardize ชื่อ Vendor, หน่วยนับ)
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white shrink-0">2</div>
+                        <div>
+                            <h4 class="font-bold text-sky-400">Defined Policy (กฎต้องชัด)</h4>
+                            <p class="text-sm text-slate-300 font-body mt-1">
+                                AI ตัดสินใจเองไม่ได้ถ้าไม่มีกฎ <br>
+                                <strong>Action:</strong> เปลี่ยน "ธรรมเนียมปฏิบัติ" ให้เป็น "ลายลักษณ์อักษร" เช่น วงเงินอนุมัติ, ขั้นตอนเทียบราคา
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white shrink-0">3</div>
+                        <div>
+                            <h4 class="font-bold text-sky-400">Executive Sponsor (เจ้าภาพ)</h4>
+                            <p class="text-sm text-slate-300 font-body mt-1">
+                                ต้องมี C-Level 1 คนที่ถือธงนำ (Champion) เพื่อปลดล็อกเรื่องงบประมาณและ IT Security <br>
+                                <strong>Action:</strong> หา Project Owner ที่มีอำนาจตัดสินใจ
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART 3: ACTION PLAN (แผนงานจริง) -->
+        <section>
+            <div class="flex items-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 border border-emerald-500/20">
+                    <i data-lucide="map" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white">3. The 90-Day Action Plan</h2>
+                    <p class="text-slate-400 text-sm">Roadmap ที่พิสูจน์แล้วว่าสำเร็จจริง</p>
+                </div>
+            </div>
+
+            <div class="relative pl-8 space-y-12">
+                <div class="timeline-line"></div>
+
+                <!-- Phase 1 -->
+                <div class="step-item relative">
+                    <div class="step-dot absolute -left-[41px] top-0 w-6 h-6 rounded-full bg-emerald-500 border-4 border-slate-900"></div>
+                    <div class="card p-6 rounded-xl border-l-4 border-l-emerald-500">
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1 block">Month 1: Discovery & Audit</span>
+                        <h3 class="text-xl font-bold text-white mb-2">The "Non-Invasive" Start</h3>
+                        <p class="text-sm text-slate-300 font-body">
+                            อย่าเพิ่งต่อระบบจริง! ให้เริ่มจากการทำ <strong>"Offline Audit"</strong> <br>
+                            ขอข้อมูลย้อนหลัง -> เอาเข้า AI -> ออก Report เพื่อดูว่า "ที่ผ่านมาเงินรั่วตรงไหน"
+                        </p>
+                        <div class="mt-4 flex gap-2">
+                            <span class="text-[10px] bg-slate-700 text-white px-2 py-1 rounded">No Integration Needed</span>
+                            <span class="text-[10px] bg-slate-700 text-white px-2 py-1 rounded">Show ROI immediately</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="step-item relative">
+                    <div class="step-dot absolute -left-[41px] top-0 w-6 h-6 rounded-full bg-sky-500 border-4 border-slate-900"></div>
+                    <div class="card p-6 rounded-xl border-l-4 border-l-sky-500">
+                        <span class="text-xs font-bold text-sky-400 uppercase tracking-wider mb-1 block">Month 2: The Pilot (Sandbox)</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Real-time Simulation</h3>
+                        <p class="text-sm text-slate-300 font-body">
+                            เลือก 1 แผนก (เช่น IT หรือ Admin) มาทดลองใช้ระบบจริง <br>
+                            ให้ AI ทำงานคู่ขนาน (Parallel Run) กับคน เพื่อจูน Rule ให้แม่นยำและสร้างความมั่นใจให้ User
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="step-item relative">
+                    <div class="step-dot absolute -left-[41px] top-0 w-6 h-6 rounded-full bg-indigo-500 border-4 border-slate-900"></div>
+                    <div class="card p-6 rounded-xl border-l-4 border-l-indigo-500">
+                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1 block">Month 3+: Go Live & Scale</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Production & Expansion</h3>
+                        <p class="text-sm text-slate-300 font-body">
+                            เมื่อระบบนิ่งและคนเริ่มชิน (Change Management ผ่าน) <br>
+                            จึงเริ่มเชื่อมต่อ API กับ ERP เต็มรูปแบบ และขยายไปใช้กับแผนกอื่นๆ ในองค์กร
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONCLUSION -->
+        <section class="bg-gradient-to-r from-slate-900 to-slate-800 p-10 rounded-3xl border border-slate-700 text-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-grid opacity-20"></div>
+            <div class="relative z-10">
+                <h2 class="text-3xl font-bold text-white mb-4">Ready to Start?</h2>
+                <p class="text-slate-300 max-w-2xl mx-auto mb-8 font-body">
+                    การทำ Enterprise AI ไม่ใช่เรื่องเทคโนโลยีอย่างเดียว แต่เป็นเรื่องของ <strong>"ความเชื่อมั่น (Trust)"</strong> และ <strong>"กระบวนการ (Process)"</strong><br>
+                    TH8 ถูกออกแบบมาเพื่อปิดช่องว่างนี้ ด้วยระบบที่ตรวจสอบได้ (Auditable) และปลอดภัย
+                </p>
+                <button class="bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-sky-900/50 transition transform hover:-translate-y-1">
+                    Book a Strategy Session
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-slate-800 mt-20 py-8 text-center">
+        <p class="text-slate-500 text-sm">TH8.AI Enterprise Guide</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8 Cross-Functional Deep Dive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0F172A; color: #E2E8F0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .step-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.3s;
+        }
+        .step-card:hover { border-color: #38bdf8; background: rgba(30, 41, 59, 0.8); }
+
+        .data-badge {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: #1e293b;
+            border: 1px solid #475569;
+            color: #94a3b8;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .arrow-down {
+            display: flex; justify-content: center; margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="p-6 border-b border-slate-800 bg-slate-900 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold text-white flex items-center gap-2">
+                <span class="w-8 h-8 bg-indigo-600 rounded flex items-center justify-center">8</span>
+                Cross-Functional Blueprints
+            </h1>
+            <select id="scenario-select" onchange="renderScenario()" class="bg-slate-800 border border-slate-700 text-white text-sm rounded-lg p-2 focus:ring-2 focus:ring-indigo-500">
+                <option value="sop">1. S&OP Harmonizer (Sales-Ops)</option>
+                <option value="capex">2. Capex Scout (Eng-Finance)</option>
+                <option value="launch">3. Launch Control (Mkt-Legal)</option>
+                <option value="shift">4. Shift Commander (HR-Ops)</option>
+                <option value="voice">5. Voice-to-Feature (CS-Product)</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-4xl mx-auto w-full p-8">
+        <div id="content-area" class="space-y-8">
+            <!-- Content injected by JS -->
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const scenarios = {
+            sop: {
+                title: "S&OP Harmonizer Flow",
+                steps: [
+                    { title: "Input: Sales Forecast", desc: "Sales ป้อนเป้าหมาย: SKU-A +50%", badges: ["CRM API", "User Input"] },
+                    { title: "AI Check: Inventory & Cap", desc: "AI ตรวจ BOM: ขาดขวดพลาสติก, เครื่องจักรแน่น", badges: ["ERP Data", "Hard Rule"] },
+                    { title: "AI Logic: Scenario Sim", desc: "Simulation: ถ้าสั่งขวดด่วน Margin ลด 5% / ถ้าเปลี่ยนเป็น SKU-B กำไรคงเดิม", badges: ["LLM Reasoning", "Optimization"] },
+                    { title: "Output: Optimized Plan", desc: "แนะนำ: ดัน SKU-B แทน -> ส่ง Notification หาฝ่ายผลิต", badges: ["Actionable Plan"] }
+                ]
+            },
+            capex: {
+                title: "Capex Scout Flow",
+                steps: [
+                    { title: "Input: Investment Request", desc: "Eng ขอซื้อเครื่องจักร 50M อ้างลดคน 20 คน", badges: ["Form Data", "PDF Specs"] },
+                    { title: "AI Check: Validation", desc: "AI เทียบ Spec กับประวัติเก่า: ลดคนได้จริงแค่ 12 คน", badges: ["Historical Data", "Tech Specs"] },
+                    { title: "AI Logic: ROI Recalc", desc: "คำนวณ NPV/IRR ใหม่ตามความเป็นจริง", badges: ["Finance Formula", "Risk Model"] },
+                    { title: "Output: Confidence Score", desc: "CFO เห็น: Adjusted ROI 12% (Confidence 95%)", badges: ["Dashboard", "Approval"] }
+                ]
+            },
+            launch: {
+                title: "Launch Control Flow",
+                steps: [
+                    { title: "Input: Ad Artwork", desc: "Marketing อัปโหลดภาพ + แคปชั่น", badges: ["Image File", "Text"] },
+                    { title: "AI Check: Compliance Scan", desc: "OCR/Vision หาคำว่า 'ขาวถาวร' (ผิด อย.)", badges: ["Legal DB", "FDA Rules"] },
+                    { title: "AI Logic: Suggestion", desc: "แนะนำคำใหม่: 'แลดูกระจ่างใส' (Safe)", badges: ["Generative AI", "Context"] },
+                    { title: "Output: Auto-Approve", desc: "Legal ได้รับงานที่ Clean แล้ว -> กด Approve ทันที", badges: ["Workflow", "Audit Log"] }
+                ]
+            },
+            shift: {
+                title: "Shift Commander Flow",
+                steps: [
+                    { title: "Input: Demand Trigger", desc: "AI พยากรณ์: ศุกร์นี้ออเดอร์ล้น ต้องการคน +20", badges: ["Sales Forecast", "Trend"] },
+                    { title: "AI Check: Workforce Pool", desc: "คัดกรองพนักงาน: ตัดคน OT เกิน / ลาพักร้อน", badges: ["HRIS", "Labor Law"] },
+                    { title: "AI Logic: Matching", desc: "เลือกคนที่บ้านใกล้ + เคยทำหน้าที่นี้", badges: ["Optimization", "History"] },
+                    { title: "Output: LINE Blast", desc: "ส่ง Invite หาเฉพาะคนที่ผ่านเกณฑ์ -> รับงานผ่านมือถือ", badges: ["Notification", "Rostering"] }
+                ]
+            },
+            voice: {
+                title: "Voice-to-Feature Flow",
+                steps: [
+                    { title: "Input: Customer Complaints", desc: "ดูดเสียงจาก Call Center / Chat Logs", badges: ["Voice API", "Chat Logs"] },
+                    { title: "AI Check: Topic Clustering", desc: "จับกลุ่มปัญหา: 'หาปุ่ม Checkout ไม่เจอ' (500 คน)", badges: ["NLP", "Clustering"] },
+                    { title: "AI Logic: Impact Val", desc: "Match กับ CRM: 500 คนนี้เป็น VIP มูลค่า 10M", badges: ["CRM Data", "Revenue Calc"] },
+                    { title: "Output: Product Ticket", desc: "สร้าง Jira Ticket: Priority High (Risk 10M)", badges: ["Jira API", "Roadmap"] }
+                ]
+            }
+        };
+
+        function renderScenario() {
+            const key = document.getElementById('scenario-select').value;
+            const data = scenarios[key];
+            const container = document.getElementById('content-area');
+            
+            let html = `<h2 class="text-2xl font-bold text-sky-400 mb-8 text-center">${data.title}</h2><div class="space-y-2">`;
+            
+            data.steps.forEach((step, index) => {
+                html += `
+                    <div class="step-card p-6 rounded-xl relative overflow-hidden group">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="font-bold text-white text-lg">${step.title}</h3>
+                                <p class="text-slate-400 text-sm mt-1">${step.desc}</p>
+                            </div>
+                            <div class="text-right space-y-1">
+                                ${step.badges.map(b => `<span class="data-badge block">${b}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                if(index < data.steps.length - 1) {
+                    html += `
+                        <div class="arrow-down">
+                            <i data-lucide="arrow-down" class="text-slate-600"></i>
+                        </div>
+                    `;
+                }
+            });
+            
+            html += `</div>`;
+            container.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // Init
+        renderScenario();
+    </script>
+</body>
+</html>

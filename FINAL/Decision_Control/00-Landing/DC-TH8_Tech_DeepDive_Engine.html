@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>TH8 Engine: Parsing & Verification Deep Dive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0F172A; color: #E2E8F0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Document Simulator */
+        .doc-container {
+            background: white;
+            color: #334155;
+            position: relative;
+            font-family: 'Sarabun', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Bounding Box Animation */
+        .bbox {
+            position: absolute;
+            border: 2px solid transparent;
+            background: rgba(56, 189, 248, 0);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .bbox:hover, .bbox.active {
+            border-color: #0EA5E9;
+            background: rgba(56, 189, 248, 0.1);
+            z-index: 10;
+        }
+        .bbox-label {
+            position: absolute;
+            top: -18px;
+            left: -2px;
+            background: #0EA5E9;
+            color: white;
+            font-size: 10px;
+            padding: 1px 4px;
+            border-radius: 2px;
+            display: none;
+            white-space: nowrap;
+        }
+        .bbox:hover .bbox-label, .bbox.active .bbox-label { display: block; }
+
+        /* Error Highlight */
+        .bbox.error { border-color: #EF4444; background: rgba(239, 68, 68, 0.1); }
+        .bbox.error .bbox-label { background: #EF4444; }
+
+        /* Code Block */
+        .code-window {
+            background: #1E293B;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .line-num { color: #64748B; text-align: right; padding-right: 1rem; user-select: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-6">
+
+    <header class="mb-8">
+        <div class="flex items-center gap-3 mb-2">
+            <div class="p-2 bg-indigo-500/20 rounded-lg text-indigo-400 border border-indigo-500/50">
+                <i data-lucide="layers" class="w-6 h-6"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-white">Engine Deep Dive: Parsing & Logic</h1>
+        </div>
+        <p class="text-slate-400 text-sm">Visualization of Table Transformer + Hybrid Verification Logic</p>
+    </header>
+
+    <main class="grid grid-cols-1 lg:grid-cols-2 gap-8 flex-1">
+
+        <!-- LEFT: THE DOCUMENT (VISION LAYER) -->
+        <div class="flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-sky-400 font-bold flex items-center gap-2">
+                    <i data-lucide="eye" class="w-4 h-4"></i> 1. Specialized Parsing Engine
+                </h2>
+                <div class="text-[10px] text-slate-500 bg-slate-800 px-2 py-1 rounded">Model: Table Transformer (Fine-tuned)</div>
+            </div>
+
+            <div class="doc-container rounded-lg shadow-xl p-8 flex-1 border border-slate-700 relative" id="document-view">
+                
+                <!-- Mockup Invoice Content -->
+                <div class="mb-6 flex justify-between items-start opacity-50">
+                    <div>
+                        <h3 class="text-xl font-bold">INVOICE / ใบแจ้งหนี้</h3>
+                        <p class="text-xs">Vendor: Siam Material Co., Ltd.</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs">No: INV-2024-001</p>
+                        <p class="text-xs">Date: 15/01/2024</p>
+                    </div>
+                </div>
+
+                <!-- TABLE AREA (Interactive Bounding Boxes) -->
+                <div class="relative mt-4 mb-4 border-t border-b border-slate-300 py-2">
+                    <!-- Headers -->
+                    <div class="grid grid-cols-12 text-xs font-bold mb-2 text-slate-400">
+                        <div class="col-span-1">No.</div>
+                        <div class="col-span-5">Description</div>
+                        <div class="col-span-2 text-right">Qty</div>
+                        <div class="col-span-2 text-right">Price</div>
+                        <div class="col-span-2 text-right">Total</div>
+                    </div>
+
+                    <!-- Row 1 -->
+                    <div class="grid grid-cols-12 text-sm py-2 border-b border-dashed border-slate-200 relative group" onmouseenter="highlightRow(1)">
+                        <div class="col-span-1">1</div>
+                        <div class="col-span-5">เหล็กเส้นข้ออ้อย SD40 (12mm)<br><span class="text-[10px] text-slate-400">Standard Grade</span></div>
+                        <div class="col-span-2 text-right">100</div>
+                        <div class="col-span-2 text-right">2,000</div>
+                        <div class="col-span-2 text-right">200,000</div>
+                        
+                        <!-- Bbox Visualization -->
+                        <div id="bbox-row-1" class="bbox" style="top:-2px; left:-5px; width:102%; height:110%;">
+                            <span class="bbox-label">Row 1: Detected</span>
+                        </div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="grid grid-cols-12 text-sm py-2 border-b border-dashed border-slate-200 relative group" onmouseenter="highlightRow(2)">
+                        <div class="col-span-1">2</div>
+                        <div class="col-span-5">ปูนซีเมนต์ปอร์ตแลนด์ (Type 1)</div>
+                        <div class="col-span-2 text-right">50</div>
+                        <div class="col-span-2 text-right">150</div>
+                        <div class="col-span-2 text-right text-red-600 font-bold">7,000</div> <!-- ERROR: Should be 7,500 -->
+                        
+                        <!-- Bbox Visualization -->
+                        <div id="bbox-row-2" class="bbox error" style="top:-2px; left:-5px; width:102%; height:110%;">
+                            <span class="bbox-label">Row 2: Math Anomaly Detected</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-4 opacity-50">
+                    <div class="text-right w-1/3">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>Subtotal</span>
+                            <span>207,000</span>
+                        </div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>VAT 7%</span>
+                            <span>14,490</span>
+                        </div>
+                        <div class="flex justify-between text-sm font-bold border-t border-slate-400 pt-1">
+                            <span>Grand Total</span>
+                            <span>221,490</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision Debug Overlay -->
+                <div class="absolute bottom-2 left-2 flex gap-2">
+                    <span class="text-[9px] bg-slate-200 px-1 rounded text-slate-600">Confidence: 99.8%</span>
+                    <span class="text-[9px] bg-slate-200 px-1 rounded text-slate-600">Structure: Grid</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: THE LOGIC (CODE LAYER) -->
+        <div class="flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-emerald-400 font-bold flex items-center gap-2">
+                    <i data-lucide="cpu" class="w-4 h-4"></i> 2. Hybrid Verification Logic
+                </h2>
+                <div class="text-[10px] text-slate-500 bg-slate-800 px-2 py-1 rounded">Runtime: Python 3.11</div>
+            </div>
+
+            <div class="code-window flex-1 p-4 font-mono text-xs overflow-y-auto shadow-xl">
+                <!-- Logic Stream -->
+                <div id="logic-stream" class="space-y-4">
+                    
+                    <!-- Step 1: Extraction -->
+                    <div class="opacity-50">
+                        <div class="text-slate-500 mb-1">// 1. EXTRACT DATA (LLM JSON OUTPUT)</div>
+                        <div class="text-sky-300">
+data = [
+  { "item": "Steel SD40", "qty": 100, "price": 2000, "doc_total": 200000 },
+  { "item": "Cement Type1", "qty": 50, "price": 150, <span class="text-red-400">"doc_total": 7000</span> }
+]
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Verification Loop -->
+                    <div>
+                        <div class="text-slate-500 mb-1 mt-4">// 2. VERIFY ROW LOGIC (PYTHON)</div>
+                        <div class="space-y-1">
+                            <div class="text-purple-400">for <span class="text-white">row</span> in <span class="text-white">data</span>:</div>
+                            <div class="pl-4 text-white">
+                                calc_total = row.qty * row.price
+                            </div>
+                            
+                            <!-- Simulation Row 1 -->
+                            <div class="pl-4 mt-2 p-2 bg-slate-800 rounded border-l-2 border-emerald-500 transition-all" id="log-row-1">
+                                <span class="text-emerald-500">// Check Row 1</span><br>
+                                calc_total = 100 * 2000 = <span class="text-emerald-400 font-bold">200,000</span><br>
+                                doc_total = <span class="text-emerald-400 font-bold">200,000</span><br>
+                                <span class="text-emerald-500">>> STATUS: MATCH (OK)</span>
+                            </div>
+
+                            <!-- Simulation Row 2 -->
+                            <div class="pl-4 mt-2 p-2 bg-slate-800 rounded border-l-2 border-red-500 transition-all opacity-50" id="log-row-2">
+                                <span class="text-red-500">// Check Row 2</span><br>
+                                calc_total = 50 * 150 = <span class="text-emerald-400 font-bold">7,500</span><br>
+                                doc_total = <span class="text-red-400 font-bold line-through">7,000</span><br>
+                                <span class="text-red-500">>> STATUS: MISMATCH DETECTED!</span><br>
+                                <span class="text-red-400">>> ACTION: FLAG_ERROR (Diff: -500)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Audit Output -->
+            <div class="mt-4 bg-red-900/20 border border-red-500/50 p-4 rounded-lg flex items-start gap-3">
+                <i data-lucide="alert-octagon" class="w-6 h-6 text-red-500 flex-shrink-0"></i>
+                <div>
+                    <h4 class="text-sm font-bold text-red-400">Validation Failed</h4>
+                    <p class="text-xs text-slate-300 mt-1">
+                        Row 2 calculation mismatch. Vendor calculation error.<br>
+                        System prevents processing to avoid accounting discrepancy.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        function highlightRow(rowId) {
+            // Reset all
+            document.querySelectorAll('.bbox').forEach(el => el.classList.remove('active'));
+            document.getElementById('log-row-1').style.opacity = '0.5';
+            document.getElementById('log-row-2').style.opacity = '0.5';
+
+            // Activate specific
+            document.getElementById(`bbox-row-${rowId}`).classList.add('active');
+            document.getElementById(`log-row-${rowId}`).style.opacity = '1';
+            document.getElementById(`log-row-${rowId}`).style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                document.getElementById(`log-row-${rowId}`).style.transform = 'scale(1)';
+            }, 200);
+        }
+    </script>
+</body>
+</html>

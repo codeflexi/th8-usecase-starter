@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8 High Impact Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .view-section { display: none; animation: slideIn 0.4s ease-out; }
+        .view-section.active { display: block; }
+        
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .kpi-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.7) 100%);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.3s ease;
+        }
+        .kpi-card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.2);
+        }
+
+        .toggle-tab {
+            cursor: pointer;
+            padding: 0.75rem 1.5rem;
+            border-bottom: 2px solid transparent;
+            color: #94a3b8;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .toggle-tab.active {
+            color: #38bdf8;
+            border-bottom-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center font-bold text-white shadow-lg">TH8</div>
+                    <div>
+                        <h1 class="font-bold text-white text-lg tracking-tight">High Impact Suite</h1>
+                        <p class="text-[10px] text-slate-400">Profit Optimization & Loss Prevention</p>
+                    </div>
+                </div>
+            </div>
+            <!-- TABS -->
+            <div class="flex space-x-1 overflow-x-auto">
+                <div onclick="switchView('pricing')" id="tab-pricing" class="toggle-tab active flex items-center gap-2">
+                    <i data-lucide="trending-up" class="w-4 h-4"></i> Price Architect
+                </div>
+                <div onclick="switchView('inventory')" id="tab-inventory" class="toggle-tab flex items-center gap-2">
+                    <i data-lucide="package" class="w-4 h-4"></i> Inventory Balancer
+                </div>
+                <div onclick="switchView('fraud')" id="tab-fraud" class="toggle-tab flex items-center gap-2">
+                    <i data-lucide="shield-alert" class="w-4 h-4"></i> Fraud Hunter
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl mx-auto w-full p-6">
+
+        <!-- 1. PRICE ARCHITECT (B2B PRICING) -->
+        <div id="view-pricing" class="view-section active">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Context -->
+                <div class="lg:col-span-1 space-y-4">
+                    <div class="bg-blue-900/20 border border-blue-500/30 p-6 rounded-2xl">
+                        <h2 class="text-xl font-bold text-blue-400 mb-2">The Margin Booster</h2>
+                        <p class="text-sm text-slate-300">
+                            "เซลล์มักจะขายราคาเดิมๆ เพราะกลัวลูกค้าหนี แต่ AI รู้ว่าลูกค้ารายนี้ยอมจ่ายได้มากกว่านั้น"
+                        </p>
+                    </div>
+                    <div class="kpi-card p-6 rounded-2xl text-center">
+                        <p class="text-xs text-slate-400 uppercase">Avg Margin Uplift</p>
+                        <p class="text-4xl font-bold text-emerald-400 mt-2">+2.5%</p>
+                        <p class="text-xs text-emerald-600 mt-1">Direct Profit Impact</p>
+                    </div>
+                </div>
+
+                <!-- Demo UI -->
+                <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-xl border border-slate-200">
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-100">
+                        <h3 class="font-bold text-slate-800 text-lg">Sales Quotation Draft #Q-2024-881</h3>
+                        <span class="bg-slate-100 text-slate-500 px-3 py-1 rounded-full text-xs font-bold">Draft Mode</span>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Line Item -->
+                        <div class="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-200">
+                            <div>
+                                <p class="font-bold text-slate-800">Industrial Pump Model X</p>
+                                <p class="text-xs text-slate-500">Customer: Siam Construct Ltd.</p>
+                            </div>
+                            <div class="text-right">
+                                <label class="text-xs text-slate-500 block">Standard Price</label>
+                                <span class="font-mono text-slate-400 line-through">฿50,000</span>
+                            </div>
+                        </div>
+
+                        <!-- AI Suggestion Box -->
+                        <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-5 rounded-xl border border-indigo-100 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-2 opacity-10"><i data-lucide="brain-circuit" class="w-16 h-16 text-indigo-600"></i></div>
+                            
+                            <h4 class="font-bold text-indigo-700 text-sm mb-3 flex items-center gap-2">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i> TH8 Recommended Price
+                            </h4>
+                            
+                            <div class="flex items-end gap-4 mb-4">
+                                <div>
+                                    <p class="text-3xl font-bold text-indigo-600">฿52,500</p>
+                                    <p class="text-xs text-indigo-400">(+5% Premium)</p>
+                                </div>
+                                <div class="pb-1">
+                                    <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-bold">High Win Prob (85%)</span>
+                                </div>
+                            </div>
+
+                            <div class="bg-white/60 p-3 rounded-lg text-xs text-slate-600 space-y-1">
+                                <p><strong>Why?</strong> ลูกค้ารายนี้ซื้อด่วน (Urgent) และประวัติยอมรับราคา Premium ได้เมื่อสินค้าขาดตลาด</p>
+                                <p><strong>Talk Script:</strong> "สินค้านี้ Stock ตลาดกำลังขาดครับ เราจองของให้ท่านได้ทันทีในราคานี้"</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-bold shadow-lg transition">Apply Recommended Price</button>
+                            <button class="px-6 py-3 border border-slate-300 text-slate-500 rounded-lg font-bold hover:bg-slate-50">Ignore</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. INVENTORY BALANCER -->
+        <div id="view-inventory" class="view-section hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Context -->
+                <div class="lg:col-span-1 space-y-4">
+                    <div class="bg-amber-900/20 border border-amber-500/30 p-6 rounded-2xl">
+                        <h2 class="text-xl font-bold text-amber-400 mb-2">Dead Stock Killer</h2>
+                        <p class="text-sm text-slate-300">
+                            "เงินจมอยู่ในโกดังเท่าไหร่? AI จะบอกให้ท่านเลิกสั่งของที่ขายไม่ออก และเติมของที่กำลังจะขาด"
+                        </p>
+                    </div>
+                    <div class="kpi-card p-6 rounded-2xl text-center">
+                        <p class="text-xs text-slate-400 uppercase">Cash Freed Up</p>
+                        <p class="text-4xl font-bold text-amber-400 mt-2">฿12.5M</p>
+                        <p class="text-xs text-amber-600 mt-1">Inventory Reduction</p>
+                    </div>
+                </div>
+
+                <!-- Demo UI -->
+                <div class="lg:col-span-2 bg-slate-900 rounded-2xl p-6 shadow-xl border border-slate-800">
+                    <h3 class="font-bold text-white text-lg mb-6 flex items-center gap-2">
+                        <i data-lucide="package-search" class="w-5 h-5 text-amber-500"></i> Purchasing Suggestion (Week 34)
+                    </h3>
+
+                    <div class="space-y-4">
+                        <!-- Action Item 1: Stop Buying -->
+                        <div class="bg-slate-800 p-4 rounded-xl border-l-4 border-red-500 flex justify-between items-center">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h4 class="font-bold text-white">SKU-991: Winter Jacket</h4>
+                                    <span class="bg-red-500/20 text-red-400 px-2 py-0.5 rounded text-[10px] font-bold">OVERSTOCK ALERT</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">Current Stock: 5,000 | Forecast Demand: 200</p>
+                                <p class="text-xs text-red-400 mt-1 font-bold">Action: CANCEL Pending PO #8812</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-[10px] text-slate-500">Saving</p>
+                                <p class="text-xl font-bold text-white">฿500k</p>
+                            </div>
+                        </div>
+
+                        <!-- Action Item 2: Rush Order -->
+                        <div class="bg-slate-800 p-4 rounded-xl border-l-4 border-emerald-500 flex justify-between items-center">
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h4 class="font-bold text-white">SKU-102: Basic T-Shirt</h4>
+                                    <span class="bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded text-[10px] font-bold">STOCKOUT RISK</span>
+                                </div>
+                                <p class="text-xs text-slate-400 mt-1">Current Stock: 200 | Forecast Demand: 1,500 (Campaign Next Week)</p>
+                                <p class="text-xs text-emerald-400 mt-1 font-bold">Action: Place Urgent Order (+2,000 Units)</p>
+                            </div>
+                            <div class="text-right">
+                                <button class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-xs font-bold shadow">Auto-Generate PO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. FRAUD HUNTER -->
+        <div id="view-fraud" class="view-section hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Context -->
+                <div class="lg:col-span-1 space-y-4">
+                    <div class="bg-red-900/20 border border-red-500/30 p-6 rounded-2xl">
+                        <h2 class="text-xl font-bold text-red-400 mb-2">The Expense Auditor</h2>
+                        <p class="text-sm text-slate-300">
+                            "เบิกค่าแท็กซี่ซ้ำ? ใบเสร็จร้านอาหารปลอม? AI ตรวจจับได้ 100% แม้กระทั่งการแต่งภาพ"
+                        </p>
+                    </div>
+                    <div class="kpi-card p-6 rounded-2xl text-center">
+                        <p class="text-xs text-slate-400 uppercase">Fraud Detected</p>
+                        <p class="text-4xl font-bold text-red-500 mt-2">฿450k</p>
+                        <p class="text-xs text-red-400 mt-1">Recovered this month</p>
+                    </div>
+                </div>
+
+                <!-- Demo UI -->
+                <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-xl border border-slate-200">
+                    <h3 class="font-bold text-slate-800 text-lg mb-6 flex items-center gap-2">
+                        <i data-lucide="scan-line" class="w-5 h-5 text-red-500"></i> Expense Claim Review
+                    </h3>
+
+                    <div class="flex gap-6">
+                        <!-- Receipt Image -->
+                        <div class="w-1/3 bg-slate-100 rounded-lg p-2 relative overflow-hidden border border-slate-300">
+                            <div class="absolute top-2 left-2 bg-red-600 text-white text-[10px] px-2 py-1 rounded font-bold shadow">Suspicious</div>
+                            <div class="h-64 flex items-center justify-center text-slate-400 bg-white">
+                                [Receipt Image Mockup]
+                                <br>Taxi Fare: ฿1,500
+                                <br>Date: Sat, 12 Aug
+                            </div>
+                            <!-- AI Overlay -->
+                            <div class="absolute bottom-4 left-4 right-4 bg-red-50 p-2 rounded border border-red-200 text-[10px] text-red-700">
+                                <strong>Anomaly:</strong> Date is Weekend (Holiday) & Distance mismatch.
+                            </div>
+                        </div>
+
+                        <!-- Analysis -->
+                        <div class="flex-1 space-y-4">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-slate-700 text-sm mb-2">Claim ID: EXP-9912 (Mr. Somchai)</h4>
+                                <ul class="space-y-2 text-sm text-slate-600">
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="x-circle" class="w-4 h-4 text-red-500"></i>
+                                        <span><strong>Policy Check:</strong> เบิกค่าเดินทางวันหยุด (ไม่ได้รับอนุมัติ OT)</span>
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500"></i>
+                                        <span><strong>Duplicate Check:</strong> พบใบเสร็จยอดเดียวกันใน Claim เดือนที่แล้ว (Re-submission)</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="flex gap-3 mt-4">
+                                <button class="flex-1 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold shadow transition">Reject & Notify HR</button>
+                                <button class="px-6 py-3 border border-slate-300 text-slate-600 rounded-lg font-bold hover:bg-slate-50">Request Info</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        function switchView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.toggle-tab').forEach(el => el.classList.remove('active'));
+            
+            // Show selected
+            document.getElementById('view-' + viewId).classList.add('active');
+            document.getElementById('tab-' + viewId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

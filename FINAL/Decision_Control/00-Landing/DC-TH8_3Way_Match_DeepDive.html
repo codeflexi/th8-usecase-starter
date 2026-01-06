@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>TH8 Engine: Automated 3-Way Matching</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0F172A; color: #E2E8F0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .doc-container {
+            background: white;
+            color: #334155;
+            position: relative;
+            font-family: 'Sarabun', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Connecting Lines */
+        .connector-line {
+            position: absolute;
+            height: 2px;
+            background: #64748B;
+            transition: all 0.5s;
+            z-index: 50;
+            opacity: 0;
+        }
+        .connector-line.active { opacity: 1; background: #EF4444; box-shadow: 0 0 10px #EF4444; }
+        .connector-line.match { background: #10B981; box-shadow: 0 0 10px #10B981; }
+
+        /* Highlights */
+        .highlight {
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            padding: 2px;
+        }
+        .highlight.error { background: rgba(239, 68, 68, 0.1); border-color: #EF4444; }
+        .highlight.match { background: rgba(16, 185, 129, 0.1); border-color: #10B981; }
+
+        /* SAP Screen Look */
+        .sap-screen {
+            background: #E5E7EB;
+            border: 1px solid #9CA3AF;
+            font-family: Arial, sans-serif;
+            color: #000;
+        }
+        .sap-header { background: #3B82F6; color: white; padding: 4px 8px; font-weight: bold; font-size: 12px; }
+        .sap-field { background: white; border: 1px solid #9CA3AF; padding: 2px 4px; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-6 overflow-hidden">
+
+    <header class="mb-8">
+        <div class="flex items-center gap-3 mb-2">
+            <div class="p-2 bg-indigo-500/20 rounded-lg text-indigo-400 border border-indigo-500/50">
+                <i data-lucide="git-compare" class="w-6 h-6"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-white">Engine Deep Dive: 3-Way Matching</h1>
+        </div>
+        <p class="text-slate-400 text-sm">Real-world Verification: Invoice (AI Extraction) vs PO Data (SAP ERP)</p>
+    </header>
+
+    <main class="grid grid-cols-12 gap-8 flex-1 relative">
+
+        <!-- LEFT: INVOICE (AI VISION) -->
+        <div class="col-span-5 flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-sky-400 font-bold flex items-center gap-2"><i data-lucide="file-text" class="w-4 h-4"></i> Vendor Invoice</h2>
+                <div class="text-[10px] text-slate-500 bg-slate-800 px-2 py-1 rounded">Source: PDF Scan</div>
+            </div>
+
+            <div class="doc-container rounded-lg shadow-xl p-6 flex-1 border border-slate-700 relative text-sm" id="invoice-view">
+                <div class="flex justify-between border-b pb-4 mb-4 opacity-70">
+                    <div><strong>Siam Material Co., Ltd.</strong></div>
+                    <div>INV-2024-001</div>
+                </div>
+                
+                <table class="w-full text-left">
+                    <tr class="border-b text-xs text-slate-400">
+                        <th class="py-2">Item</th>
+                        <th class="text-right">Qty</th>
+                        <th class="text-right">Unit Price</th>
+                        <th class="text-right">Total</th>
+                    </tr>
+                    <!-- Row 1 -->
+                    <tr class="border-b" id="inv-row-1">
+                        <td class="py-3">Steel H-Beam</td>
+                        <td class="text-right">100</td>
+                        <td class="text-right font-mono" id="inv-price-1">2,000.00</td>
+                        <td class="text-right font-mono">200,000.00</td>
+                    </tr>
+                    <!-- Row 2 (The Problem) -->
+                    <tr class="border-b" id="inv-row-2">
+                        <td class="py-3">Cement Type 1</td>
+                        <td class="text-right">50</td>
+                        <!-- Price raised from 145 to 150 -->
+                        <td class="text-right font-mono" id="inv-price-2">
+                            <span class="highlight" id="hl-inv-2">150.00</span>
+                        </td>
+                        <td class="text-right font-mono">7,500.00</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- MIDDLE: THE LOGIC -->
+        <div class="col-span-2 flex flex-col justify-center items-center relative">
+            <div id="logic-box" class="bg-slate-800 border border-slate-700 p-4 rounded-xl text-center w-full shadow-2xl z-10 transition-all duration-300">
+                <p class="text-xs text-slate-400 uppercase font-bold mb-2">Verification Engine</p>
+                <div class="space-y-4">
+                    <div id="status-1" class="p-2 rounded bg-slate-900 border border-slate-700 text-xs opacity-50">
+                        Waiting...
+                    </div>
+                    <div id="status-2" class="p-2 rounded bg-slate-900 border border-slate-700 text-xs opacity-50">
+                        Waiting...
+                    </div>
+                </div>
+                <button onclick="runCheck()" id="btn-run" class="mt-4 bg-indigo-600 hover:bg-indigo-500 text-white w-full py-2 rounded text-xs font-bold shadow-lg transition">
+                    Run Match
+                </button>
+            </div>
+
+            <!-- SVG Lines Layer -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
+                <line id="line-1" x1="-10" y1="35%" x2="110%" y2="35%" stroke="transparent" stroke-width="2" />
+                <line id="line-2" x1="-10" y1="48%" x2="110%" y2="48%" stroke="transparent" stroke-width="2" />
+            </svg>
+        </div>
+
+        <!-- RIGHT: SAP ERP (TRUTH SOURCE) -->
+        <div class="col-span-5 flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-emerald-400 font-bold flex items-center gap-2"><i data-lucide="database" class="w-4 h-4"></i> SAP S/4HANA</h2>
+                <div class="text-[10px] text-slate-500 bg-slate-800 px-2 py-1 rounded">Source: PO Database</div>
+            </div>
+
+            <div class="sap-screen rounded shadow-xl flex-1 relative text-xs p-1" id="erp-view">
+                <div class="sap-header mb-2 flex justify-between">
+                    <span>Display Purchase Order: 450001992</span>
+                    <span>System: PRD</span>
+                </div>
+                
+                <div class="bg-white border border-gray-400 p-2 mb-2">
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <div><span class="text-gray-500">Vendor:</span> 10022 Siam Material</div>
+                        <div><span class="text-gray-500">Doc Date:</span> 01.01.2024</div>
+                    </div>
+                </div>
+
+                <table class="w-full border-collapse bg-white">
+                    <tr class="bg-gray-200 text-gray-700">
+                        <th class="border p-1 text-left">Item</th>
+                        <th class="border p-1 text-left">Material</th>
+                        <th class="border p-1 text-right">PO Qty</th>
+                        <th class="border p-1 text-right">Net Price</th>
+                    </tr>
+                    <!-- Row 1 -->
+                    <tr>
+                        <td class="border p-1">10</td>
+                        <td class="border p-1">Steel H-Beam</td>
+                        <td class="border p-1 text-right">100</td>
+                        <td class="border p-1 text-right font-mono" id="erp-price-1">2,000.00</td>
+                    </tr>
+                    <!-- Row 2 -->
+                    <tr>
+                        <td class="border p-1">20</td>
+                        <td class="border p-1">Cement Type 1</td>
+                        <td class="border p-1 text-right">50</td>
+                        <td class="border p-1 text-right font-mono bg-yellow-50">
+                            <span class="highlight" id="hl-erp-2">145.00</span>
+                        </td>
+                    </tr>
+                </table>
+                
+                <div class="absolute bottom-2 right-2 text-[9px] text-gray-500">Tcode: ME23N</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Console Output -->
+    <div class="fixed bottom-0 left-0 w-full bg-slate-950 border-t border-slate-800 p-4 font-mono text-xs h-32 overflow-y-auto" id="console">
+        <div class="text-slate-500">// System Log Stream</div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function log(msg, type='info') {
+            const consoleDiv = document.getElementById('console');
+            const color = type === 'error' ? 'text-red-400' : (type === 'success' ? 'text-emerald-400' : 'text-slate-300');
+            consoleDiv.innerHTML += `<div class="${color}"><span class="text-slate-600">[${new Date().toLocaleTimeString()}]</span> ${msg}</div>`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        function runCheck() {
+            const btn = document.getElementById('btn-run');
+            btn.disabled = true;
+            btn.innerText = "Analyzing...";
+            
+            // Reset
+            document.querySelectorAll('.highlight').forEach(el => el.className = 'highlight');
+            document.querySelectorAll('line').forEach(el => {
+                el.setAttribute('stroke', 'transparent');
+                el.classList.remove('active', 'match');
+            });
+
+            log("Starting 3-Way Match Process...");
+
+            // Step 1: Check Row 1
+            setTimeout(() => {
+                log("Checking Item 1: Steel H-Beam...");
+                const line1 = document.getElementById('line-1');
+                line1.setAttribute('stroke', '#10B981');
+                line1.classList.add('match'); // Green line
+                
+                document.getElementById('status-1').className = "p-2 rounded bg-emerald-900/30 border border-emerald-500 text-emerald-400 font-bold transition-all";
+                document.getElementById('status-1').innerHTML = `
+                    <div class="flex justify-between"><span>Row 1</span> <span>MATCH</span></div>
+                    <div class="text-[10px] opacity-70">INV(2000) == SAP(2000)</div>
+                `;
+            }, 1000);
+
+            // Step 2: Check Row 2 (Error)
+            setTimeout(() => {
+                log("Checking Item 2: Cement Type 1...", "info");
+                
+                const line2 = document.getElementById('line-2');
+                line2.setAttribute('stroke', '#EF4444'); // Red line
+                
+                document.getElementById('hl-inv-2').classList.add('error');
+                document.getElementById('hl-erp-2').classList.add('error');
+
+                document.getElementById('status-2').className = "p-2 rounded bg-red-900/30 border border-red-500 text-red-400 font-bold transition-all animate-pulse";
+                document.getElementById('status-2').innerHTML = `
+                    <div class="flex justify-between"><span>Row 2</span> <span>VARIANCE!</span></div>
+                    <div class="text-[10px] text-white">INV(150) != SAP(145)</div>
+                    <div class="text-[10px] mt-1 bg-red-950 px-1 rounded">Delta: +5.00 (+3.4%)</div>
+                `;
+                
+                log("ALERT: Price Variance Detected on Item 20", "error");
+                log("Action: Block Payment & Notify Purchasing Manager", "error");
+
+                btn.innerText = "Verification Complete";
+                btn.classList.add('bg-slate-700', 'text-slate-400');
+                btn.classList.remove('bg-indigo-600', 'text-white');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

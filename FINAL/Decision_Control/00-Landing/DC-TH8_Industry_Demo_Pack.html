@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI: Industry Demo Pack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+        .font-code { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Smooth Fade Transition */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .nav-btn.active {
+            background-color: #0f172a; /* Slate 900 */
+            color: white;
+            border-color: #0f172a;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen pb-20">
+
+    <!-- HEADER & NAV -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex justify-between items-center mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-sky-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-md">TH8</div>
+                    <div>
+                        <h1 class="font-bold text-slate-900 leading-tight">Industry Demo Pack</h1>
+                        <p class="text-[10px] text-slate-500 font-medium">Select target industry to simulate</p>
+                    </div>
+                </div>
+                <div class="text-xs font-bold text-slate-400 border border-slate-200 px-3 py-1 rounded bg-slate-50">
+                    Interactive Sales Tool v1.0
+                </div>
+            </div>
+
+            <!-- INDUSTRY TABS -->
+            <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+                <button onclick="switchDemo('manufacturing')" id="btn-manufacturing" class="nav-btn active flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white text-slate-600 text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition">
+                    <i data-lucide="factory" class="w-4 h-4"></i> Manufacturing
+                </button>
+                <button onclick="switchDemo('retail')" id="btn-retail" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white text-slate-600 text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition">
+                    <i data-lucide="shopping-bag" class="w-4 h-4"></i> Retail / FMCG
+                </button>
+                <button onclick="switchDemo('construction')" id="btn-construction" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white text-slate-600 text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition">
+                    <i data-lucide="hard-hat" class="w-4 h-4"></i> Real Estate
+                </button>
+                <button onclick="switchDemo('banking')" id="btn-banking" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white text-slate-600 text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition">
+                    <i data-lucide="landmark" class="w-4 h-4"></i> Banking / IT
+                </button>
+                <button onclick="switchDemo('healthcare')" id="btn-healthcare" class="nav-btn flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-white text-slate-600 text-sm font-bold whitespace-nowrap hover:bg-slate-50 transition">
+                    <i data-lucide="activity" class="w-4 h-4"></i> Healthcare
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- 1. MANUFACTURING DEMO -->
+        <div id="demo-manufacturing" class="tab-content active">
+            <!-- Sales Context -->
+            <div class="bg-blue-900 text-white p-6 rounded-2xl shadow-lg mb-8 relative overflow-hidden">
+                <div class="absolute right-0 top-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
+                <h2 class="text-xl font-bold mb-2 flex items-center gap-2"><i data-lucide="factory" class="w-6 h-6"></i> Scenario: Heavy Industry (e.g., SCG, PTT, Steel)</h2>
+                <p class="text-blue-200 text-sm max-w-2xl">
+                    <strong>Pain Point:</strong> ราคาสินค้าผันผวนตามตลาดโลก (Commodity Price) และสเปกสินค้าทางวิศวกรรมต้องเป๊ะ<br>
+                    <strong>Key Selling Point:</strong> "Market Price Index Check" AI เทียบราคาซื้อกับดัชนีตลาดโลก (LME/Platts)
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Data Input -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase">Input: Purchase Request</span>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600 font-mono">ID: PR-IND-9921</span>
+                    </div>
+                    <div class="space-y-4 font-code text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Item:</span>
+                            <span class="font-bold text-slate-800">Structural Steel H-Beam (SS400)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Quantity:</span>
+                            <span class="font-bold text-slate-800">500 Tons</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Unit Price:</span>
+                            <span class="font-bold text-slate-800">24,500 THB/Ton</span>
+                        </div>
+                        <div class="flex justify-between border-t border-dashed border-slate-200 pt-2">
+                            <span class="text-slate-500">Total:</span>
+                            <span class="font-bold text-sky-600">12,250,000 THB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Analysis -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-amber-500 opacity-10 rounded-bl-full"></div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="brain-circuit" class="w-5 h-5 text-amber-500"></i>
+                        <h3 class="font-bold text-slate-800">TH8 AI Analysis</h3>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <!-- Rule 1 -->
+                        <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-500 uppercase">1. Global Price Index Check</p>
+                                    <p class="text-sm font-bold text-slate-800 mt-1">Variance Detected (+12%)</p>
+                                </div>
+                                <span class="bg-amber-100 text-amber-700 text-[10px] px-2 py-1 rounded font-bold">WARNING</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">
+                                "ราคาเสนอสูงกว่าประวัติการซื้อล่าสุด 12% แต่สอดคล้องกับดัชนีเหล็กโลก (Global Steel Index) ที่ปรับตัวขึ้น 15% ในสัปดาห์ที่ผ่านมา"
+                            </p>
+                        </div>
+                         <!-- Rule 2 -->
+                         <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-500 uppercase">2. Spec Compliance</p>
+                                    <p class="text-sm font-bold text-slate-800 mt-1">ASTM/JIS Standard Matched</p>
+                                </div>
+                                <span class="bg-emerald-100 text-emerald-700 text-[10px] px-2 py-1 rounded font-bold">PASS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <p class="text-xs font-bold text-slate-400 uppercase mb-2">Recommended Action</p>
+                        <button class="w-full bg-emerald-600 text-white py-2 rounded-lg text-sm font-bold shadow hover:bg-emerald-700">
+                            Approve (Reason: Market Price Alignment)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. RETAIL DEMO -->
+        <div id="demo-retail" class="tab-content">
+            <div class="bg-orange-600 text-white p-6 rounded-2xl shadow-lg mb-8 relative overflow-hidden">
+                <div class="absolute right-0 top-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
+                <h2 class="text-xl font-bold mb-2 flex items-center gap-2"><i data-lucide="shopping-bag" class="w-6 h-6"></i> Scenario: Retail / FMCG (e.g., CP All, Central)</h2>
+                <p class="text-orange-100 text-sm max-w-2xl">
+                    <strong>Pain Point:</strong> สินค้าต้องมาทันเทศกาล (SLA Critical) และปริมาณการสั่งซื้อต้องสัมพันธ์กับพื้นที่คลัง<br>
+                    <strong>Key Selling Point:</strong> "Capacity & SLA Check" AI ตรวจสอบประวัติการส่งของ Vendor
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Data Input -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase">Input: Purchase Request</span>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600 font-mono">ID: PR-RET-5501</span>
+                    </div>
+                    <div class="space-y-4 font-code text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Item:</span>
+                            <span class="font-bold text-slate-800">Seasonal Mooncake Packaging</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Vendor:</span>
+                            <span class="font-bold text-slate-800">Siam Pack Co., Ltd.</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Required Date:</span>
+                            <span class="font-bold text-red-600">15 Aug (Campaign Launch)</span>
+                        </div>
+                        <div class="flex justify-between border-t border-dashed border-slate-200 pt-2">
+                            <span class="text-slate-500">Total:</span>
+                            <span class="font-bold text-sky-600">850,000 THB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Analysis -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-red-500 opacity-10 rounded-bl-full"></div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="brain-circuit" class="w-5 h-5 text-red-500"></i>
+                        <h3 class="font-bold text-slate-800">TH8 AI Analysis</h3>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-red-50 p-3 rounded border border-red-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-red-800 uppercase">1. Vendor SLA Performance</p>
+                                    <p class="text-sm font-bold text-red-600 mt-1">High Risk of Delay</p>
+                                </div>
+                                <span class="bg-red-200 text-red-800 text-[10px] px-2 py-1 rounded font-bold">CRITICAL</span>
+                            </div>
+                            <p class="text-xs text-red-700 mt-2">
+                                "Vendor นี้มีประวัติส่งของล่าช้าเฉลี่ย 5 วันในช่วงเทศกาล และปัจจุบันกำลังรับงานล้นมือ (Capacity Overload)"
+                            </p>
+                        </div>
+                         <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                             <p class="text-xs font-bold text-slate-500 uppercase">2. Alternative Suggestion</p>
+                             <p class="text-xs text-slate-600 mt-1">
+                                 "แนะนำให้ Split Order 50% ไปยัง Vendor B ซึ่งราคาแพงกว่า 2% แต่มี SLA Success Rate 99%"
+                             </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-100 flex gap-2">
+                        <button class="flex-1 bg-white border border-slate-300 text-slate-600 py-2 rounded-lg text-sm font-bold hover:bg-slate-50">
+                            Reject
+                        </button>
+                        <button class="flex-1 bg-slate-900 text-white py-2 rounded-lg text-sm font-bold shadow hover:bg-slate-800">
+                            Split Order (Recommended)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. CONSTRUCTION DEMO -->
+        <div id="demo-construction" class="tab-content">
+            <div class="bg-yellow-600 text-white p-6 rounded-2xl shadow-lg mb-8 relative overflow-hidden">
+                 <div class="absolute right-0 top-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
+                <h2 class="text-xl font-bold mb-2 flex items-center gap-2"><i data-lucide="hard-hat" class="w-6 h-6"></i> Scenario: Real Estate (e.g., Sansiri, LH)</h2>
+                <p class="text-yellow-100 text-sm max-w-2xl">
+                    <strong>Pain Point:</strong> งบประมาณแต่ละโครงการแยกกัน (Project Budget) และค่าขนส่ง (Logistics) กินกำไร<br>
+                    <strong>Key Selling Point:</strong> "Project Budget Cap & Location Check" ห้ามซื้อเกินงบโครงการ
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                 <!-- Data Input -->
+                 <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase">Input: Purchase Request</span>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600 font-mono">ID: PR-PROJ-A11</span>
+                    </div>
+                    <div class="space-y-4 font-code text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Item:</span>
+                            <span class="font-bold text-slate-800">Ready-Mixed Concrete (Cylinder 240)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Project Site:</span>
+                            <span class="font-bold text-slate-800">The Base Rama 9</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Budget Code:</span>
+                            <span class="font-bold text-slate-800">MAT-CON-001</span>
+                        </div>
+                        <div class="flex justify-between border-t border-dashed border-slate-200 pt-2">
+                            <span class="text-slate-500">Amount:</span>
+                            <span class="font-bold text-sky-600">2,500,000 THB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Analysis -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="brain-circuit" class="w-5 h-5 text-yellow-600"></i>
+                        <h3 class="font-bold text-slate-800">TH8 AI Analysis</h3>
+                    </div>
+                    
+                    <div class="space-y-3">
+                         <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-500 uppercase">1. Project Budget Control</p>
+                                    <p class="text-sm font-bold text-slate-800 mt-1">Budget Exceeded</p>
+                                </div>
+                                <span class="bg-red-100 text-red-700 text-[10px] px-2 py-1 rounded font-bold">BLOCK</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">
+                                "งบประมาณคงเหลือของ Project A11 หมวด Concrete เหลือเพียง 1.8M แต่ขอซื้อ 2.5M (เกินงบ 700k)"
+                            </p>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                             <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-500 uppercase">2. Logistics Optimization</p>
+                                    <p class="text-sm font-bold text-slate-800 mt-1">Inefficient Vendor</p>
+                                </div>
+                                <span class="bg-amber-100 text-amber-700 text-[10px] px-2 py-1 rounded font-bold">WARN</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">
+                                "Vendor ที่เลือกอยู่ห่างจาก Site 40 กม. มี Vendor B ที่อยู่ห่างเพียง 5 กม. และราคาถูกกว่า"
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                         <button class="w-full bg-slate-900 text-white py-2 rounded-lg text-sm font-bold shadow hover:bg-slate-800">
+                            Escalate to Project Director (Budget Overrun)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. BANKING DEMO -->
+        <div id="demo-banking" class="tab-content">
+            <div class="bg-emerald-800 text-white p-6 rounded-2xl shadow-lg mb-8 relative overflow-hidden">
+                 <div class="absolute right-0 top-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
+                <h2 class="text-xl font-bold mb-2 flex items-center gap-2"><i data-lucide="landmark" class="w-6 h-6"></i> Scenario: Banking / Tech (e.g., KBank, SCB)</h2>
+                <p class="text-emerald-100 text-sm max-w-2xl">
+                    <strong>Pain Point:</strong> การซื้อ License Software ซ้ำซ้อน (Duplicate) และเรื่อง Security Compliance<br>
+                    <strong>Key Selling Point:</strong> "Duplicate License Check & Security Audit"
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Data Input -->
+                 <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase">Input: Purchase Request</span>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600 font-mono">ID: PR-IT-204</span>
+                    </div>
+                    <div class="space-y-4 font-code text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Item:</span>
+                            <span class="font-bold text-slate-800">Tableau Creator License</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Dept:</span>
+                            <span class="font-bold text-slate-800">Marketing Analytics</span>
+                        </div>
+                         <div class="flex justify-between">
+                            <span class="text-slate-500">Qty:</span>
+                            <span class="font-bold text-slate-800">5 Users</span>
+                        </div>
+                        <div class="flex justify-between border-t border-dashed border-slate-200 pt-2">
+                            <span class="text-slate-500">Total:</span>
+                            <span class="font-bold text-sky-600">450,000 THB/Year</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Analysis -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="brain-circuit" class="w-5 h-5 text-emerald-600"></i>
+                        <h3 class="font-bold text-slate-800">TH8 AI Analysis</h3>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                             <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-500 uppercase">1. Duplicate Resource Check</p>
+                                    <p class="text-sm font-bold text-slate-800 mt-1">Unused Licenses Found</p>
+                                </div>
+                                <span class="bg-sky-100 text-sky-700 text-[10px] px-2 py-1 rounded font-bold">SAVING OPP</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">
+                                "ตรวจพบ License ประเภทเดียวกันในแผนก Risk Management ที่ไม่ได้ใช้งาน (Inactive > 90 วัน) จำนวน 3 Licenses สามารถโอนย้ายมาใช้ได้แทนการซื้อใหม่"
+                            </p>
+                        </div>
+                         <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                             <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-slate-500 uppercase">2. ISO 27001 Compliance</p>
+                                    <p class="text-sm font-bold text-slate-800 mt-1">Vendor Certified</p>
+                                </div>
+                                <span class="bg-emerald-100 text-emerald-700 text-[10px] px-2 py-1 rounded font-bold">PASS</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <button class="w-full bg-sky-600 text-white py-2 rounded-lg text-sm font-bold shadow hover:bg-sky-700">
+                            Transfer Internal Licenses (Save 270k)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. HEALTHCARE DEMO -->
+        <div id="demo-healthcare" class="tab-content">
+             <div class="bg-teal-500 text-white p-6 rounded-2xl shadow-lg mb-8 relative overflow-hidden">
+                 <div class="absolute right-0 top-0 w-32 h-32 bg-white opacity-5 rounded-full -mr-10 -mt-10"></div>
+                <h2 class="text-xl font-bold mb-2 flex items-center gap-2"><i data-lucide="activity" class="w-6 h-6"></i> Scenario: Healthcare (e.g., BDMS, Bumrungrad)</h2>
+                <p class="text-teal-100 text-sm max-w-2xl">
+                    <strong>Pain Point:</strong> ใบอนุญาตเครื่องมือแพทย์หมดอายุ (Compliance) และยาใกล้หมดอายุ (Expiry)<br>
+                    <strong>Key Selling Point:</strong> "Certificate Validation" AI อ่านวันหมดอายุจากไฟล์ PDF แนบ
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Data Input -->
+                 <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
+                        <span class="text-xs font-bold text-slate-400 uppercase">Input: Purchase Request</span>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-600 font-mono">ID: PR-MED-112</span>
+                    </div>
+                    <div class="space-y-4 font-code text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Item:</span>
+                            <span class="font-bold text-slate-800">MRI Contrast Agent (Type A)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Attachment:</span>
+                            <span class="font-bold text-slate-800 flex items-center gap-1"><i data-lucide="paperclip" class="w-3 h-3"></i> FDA_Cert_Vendor.pdf</span>
+                        </div>
+                        <div class="flex justify-between border-t border-dashed border-slate-200 pt-2">
+                            <span class="text-slate-500">Total:</span>
+                            <span class="font-bold text-sky-600">600,000 THB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Analysis -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i data-lucide="brain-circuit" class="w-5 h-5 text-teal-600"></i>
+                        <h3 class="font-bold text-slate-800">TH8 AI Analysis</h3>
+                    </div>
+                    
+                    <div class="space-y-3">
+                         <div class="bg-red-50 p-3 rounded border border-red-100">
+                             <div class="flex justify-between items-start">
+                                <div>
+                                    <p class="text-xs font-bold text-red-800 uppercase">1. Certificate Validation (OCR)</p>
+                                    <p class="text-sm font-bold text-red-600 mt-1">Certificate Expired</p>
+                                </div>
+                                <span class="bg-red-200 text-red-800 text-[10px] px-2 py-1 rounded font-bold">STOP</span>
+                            </div>
+                            <p class="text-xs text-red-700 mt-2">
+                                "AI อ่านไฟล์ PDF พบว่าใบอนุญาตนำเข้าเครื่องมือแพทย์ของ Vendor นี้ หมดอายุไปเมื่อวันที่ 30 มิ.ย. ที่ผ่านมา (Expired 15 days ago)"
+                            </p>
+                        </div>
+                         <div class="bg-slate-50 p-3 rounded border border-slate-100">
+                             <p class="text-xs font-bold text-slate-500 uppercase">2. Sole Distributor Check</p>
+                             <p class="text-xs text-slate-600 mt-1">
+                                 "สินค้านี้เป็น Sole Distributor (เจ้าเดียวในไทย) แนะนำให้ติดต่อ Vendor เพื่อขอใบ Cert ฉบับใหม่ก่อนออก PO"
+                             </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-100">
+                        <button class="w-full bg-slate-900 text-white py-2 rounded-lg text-sm font-bold shadow hover:bg-slate-800">
+                            Request Updated Document (Auto-Email)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        function switchDemo(industry) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active', 'bg-slate-900', 'text-white', 'border-slate-900'));
+            
+            // Show selected tab
+            document.getElementById('demo-' + industry).classList.add('active');
+            
+            // Update button style
+            const btn = document.getElementById('btn-' + industry);
+            btn.classList.add('active', 'bg-slate-900', 'text-white', 'border-slate-900');
+            btn.classList.remove('bg-white', 'text-slate-600');
+        }
+
+        // Initialize first tab
+        switchDemo('manufacturing');
+    </script>
+</body>
+</html>

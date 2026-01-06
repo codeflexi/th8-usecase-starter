@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI: Go-to-Market Strategy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+        .font-body { font-family: 'Sarabun', sans-serif; }
+        
+        .section-header {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .section-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.25rem;
+            bottom: 0.25rem;
+            width: 4px;
+            background: #0ea5e9;
+            border-radius: 2px;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- HEADER -->
+    <header class="bg-slate-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="bg-sky-500/20 text-sky-300 border border-sky-500/50 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Confidential</span>
+                    <h1 class="text-3xl md:text-4xl font-bold mt-4 leading-tight">TH8 Procurement AI<br>Go-to-Market Strategy</h1>
+                    <p class="text-slate-400 mt-2 text-lg">แผนปฏิบัติการเพื่อเจาะตลาด Enterprise (Revenue > 500M)</p>
+                </div>
+                <div class="hidden md:block text-right">
+                    <div class="text-5xl font-bold text-sky-400">High</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-widest">Potential Score</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12 space-y-16">
+
+        <!-- SECTION 1: WHOM TO SELL (Target Audience) -->
+        <section>
+            <h2 class="text-2xl font-bold text-slate-900 section-header mb-8">1. Who buys? (เจาะใคร ขายอะไร)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Persona: CFO -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover transition duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
+                            <i data-lucide="banknote" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">CFO / Finance Director</h3>
+                            <p class="text-xs text-slate-500">ผู้ถือเงิน (The Wallet)</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase">Trigger Word</p>
+                            <p class="text-sm font-semibold text-emerald-700">"Cost Leakage & Fraud Prevention"</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase">Pitch</p>
+                            <p class="text-sm text-slate-600 font-body">"ระบบนี้จะช่วยท่านปิดรูรั่วของงบประมาณ ป้องกันการซื้อของแพงเกินจริง และลดค่าปรับจากการจ่ายเงินล่าช้า"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Persona: COO -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover transition duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600">
+                            <i data-lucide="zap" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">COO / Operations</h3>
+                            <p class="text-xs text-slate-500">ผู้เร่งงาน (The Driver)</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase">Trigger Word</p>
+                            <p class="text-sm font-semibold text-amber-700">"Bottleneck Removal & SLA"</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase">Pitch</p>
+                            <p class="text-sm text-slate-600 font-body">"ลดเวลา Process เอกสารจาก 5 วันเหลือ 5 นาที ทีมงานของท่านจะได้เอาเวลาไปเจรจาต่อรองราคาแทนการกรอกข้อมูล"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Persona: CIO/IT -->
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm card-hover transition duration-300">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-sky-100 rounded-full flex items-center justify-center text-sky-600">
+                            <i data-lucide="server" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">CIO / Head of IT</h3>
+                            <p class="text-xs text-slate-500">ผู้ตรวจระบบ (The Gatekeeper)</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase">Trigger Word</p>
+                            <p class="text-sm font-semibold text-sky-700">"Maintenance-Free & Security"</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-400 uppercase">Pitch</p>
+                            <p class="text-sm text-slate-600 font-body">"เราใช้ YAML Config ทำให้ Business User ปรับ Rule เองได้ ไม่ต้องมารบกวนทีม Dev ของท่าน ระบบเป็น On-premise ready ปลอดภัยสูง"</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE 4-STEP ACTION PLAN -->
+        <section>
+            <h2 class="text-2xl font-bold text-slate-900 section-header mb-8">2. Execution Roadmap (4 Steps to Close)</h2>
+            <div class="relative border-l-2 border-slate-200 ml-4 space-y-12">
+
+                <!-- Step 1 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-900 border-4 border-slate-50"></div>
+                    <h3 class="text-xl font-bold text-slate-800">Phase 1: The "Trojan Horse" (Audit First)</h3>
+                    <p class="text-sm text-slate-500 mb-2 font-bold">Duration: Month 1</p>
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 font-body text-slate-600">
+                        อย่าเพิ่งขาย "เปลี่ยนระบบจัดซื้อใหม่ทั้งระบบ" (มันใหญ่ไป) <br>
+                        <strong>ให้ขาย:</strong> "AI Audit Tool" ขอเชื่อมต่อข้อมูลย้อนหลัง 6 เดือน เพื่อทำ <strong>Free Audit Report</strong> ให้ดูว่ามีเคสไหนที่ "เสี่ยง" หรือ "หลุด SLA" บ้าง
+                        <ul class="list-disc pl-5 mt-2 space-y-1 text-sm text-sky-600">
+                            <li>Action: ขอดึง Data CSV แบบปิดชื่อ (Anonymized)</li>
+                            <li>Outcome: โชว์ Report ว่า "ท่านเสียเงินไปเท่าไหร่จากกระบวนการที่ไม่มีประสิทธิภาพ"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-sky-500 border-4 border-slate-50"></div>
+                    <h3 class="text-xl font-bold text-slate-800">Phase 2: The Pilot (Proof of Value)</h3>
+                    <p class="text-sm text-slate-500 mb-2 font-bold">Duration: Month 2-3</p>
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 font-body text-slate-600">
+                        เลือก 1 แผนก (เช่น IT Purchasing หรือ Marketing) มาทดลองใช้ TH8 <br>
+                        ตั้งค่า Rule ง่ายๆ เช่น "ซื้อเกิน 50,000 ต้องมีใบเทียบราคา 3 เจ้า"
+                        <ul class="list-disc pl-5 mt-2 space-y-1 text-sm text-sky-600">
+                            <li>Goal: พิสูจน์ว่า AI Catch "ความผิดปกติ" ได้จริง และคนทำงานชอบเพราะมันเตือนก่อนทำผิด</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-400 border-4 border-slate-50"></div>
+                    <h3 class="text-xl font-bold text-slate-800">Phase 3: Integration & Expansion</h3>
+                    <p class="text-sm text-slate-500 mb-2 font-bold">Duration: Month 4+</p>
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 font-body text-slate-600">
+                        เมื่อผู้บริหารเห็นผลลัพธ์จาก Pilot (เงินที่ประหยัดได้) ให้เสนอการเชื่อมต่อกับ SAP/ERP จริงๆ เพื่อทำ Real-time blocking
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 3: PRICING MODEL -->
+        <section>
+            <h2 class="text-2xl font-bold text-slate-900 section-header mb-8">3. Pricing Strategy (หาเงินอย่างไร?)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Model A: Subscription -->
+                <div class="border border-slate-200 rounded-xl p-6 bg-white">
+                    <div class="text-xs font-bold text-sky-600 uppercase tracking-widest mb-2">Recurring Revenue</div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Annual License</h3>
+                    <ul class="space-y-3 text-sm text-slate-600 font-body">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> คิดราคาตาม Volume (เช่น Transaction ละ 10-20 บาท หรือ เหมาจ่ายรายปี)</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> รวมค่า Maintenance & Model Update</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> เหมาะกับ Cloud Deployment</li>
+                    </ul>
+                    <div class="mt-6 pt-4 border-t border-slate-100">
+                        <span class="text-xl font-bold text-slate-800">Est: 1M - 3M THB / Year</span>
+                    </div>
+                </div>
+
+                <!-- Model B: Hybrid -->
+                <div class="border border-slate-200 rounded-xl p-6 bg-slate-50">
+                    <div class="text-xs font-bold text-amber-600 uppercase tracking-widest mb-2">High Ticket</div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-4">Implementation Fee + MA</h3>
+                    <ul class="space-y-3 text-sm text-slate-600 font-body">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> ค่า Setup แรกเข้า (Consult + Integration)</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> ค่าปรับแต่ง Rule & Custom AI Training</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> เหมาะกับ On-Premise Enterprise</li>
+                    </ul>
+                    <div class="mt-6 pt-4 border-t border-slate-200">
+                        <span class="text-xl font-bold text-slate-800">Est: 2M Setup + 500k MA / Year</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION 4: OBJECTION HANDLING -->
+        <section class="bg-slate-900 text-white rounded-2xl p-8 md:p-12">
+            <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+                <i data-lucide="shield-alert" class="w-8 h-8 text-red-500"></i>
+                Killer Objections (เตรียมคำตอบไว้เลย)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-body">
+                <div>
+                    <h4 class="font-bold text-sky-400 mb-2">"เรามี SAP/Oracle อยู่แล้ว มันทำได้เหมือนกันไม่ใช่เหรอ?"</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        "ถูกต้องครับ SAP ทำ Rule ได้ แต่ SAP <strong>'อ่านไฟล์ PDF'</strong> ไม่ได้ และ SAP ไม่สามารถเทียบราคากับสัญญาเก่าแบบ Semantic Search ได้ ระบบเราไม่ได้มาแทน SAP แต่มาเป็น 'หูตา' (Intelligence Layer) ให้ SAP ครับ"
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sky-400 mb-2">"AI จะมั่วหรือเปล่า? ไว้ใจได้แค่ไหน?"</h4>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        "TH8 ใช้หลักการ <strong>'Deterministic Rules'</strong> สำหรับเรื่องเงิน (YAML Logic) คือถ้าเกิน 3 ล้านต้องเตือนแน่นอน 100% ส่วน AI จะใช้แค่ช่วยอ่านและแนะนำ (Recommendation) สุดท้ายคนต้องกด Approve เสมอ (Human-in-the-loop) ครับ"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-100 py-8 text-center border-t border-slate-200">
+        <p class="text-slate-500 text-sm">TH8 Strategic Planning Document v1.0</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

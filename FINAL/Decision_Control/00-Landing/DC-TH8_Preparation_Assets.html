@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI: Preparation Assets (Security & Discovery)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+        .font-body { font-family: 'Sarabun', sans-serif; }
+        .A4 {
+            background: white;
+            width: 21cm;
+            min-height: 29.7cm;
+            display: block;
+            margin: 0 auto;
+            padding: 2cm;
+            margin-bottom: 2cm;
+            box-shadow: 0 0 0.5cm rgba(0,0,0,0.1);
+        }
+        @media print {
+            body { background: white; }
+            .no-print { display: none; }
+            .A4 { box-shadow: none; margin: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-slate-100 py-10">
+
+    <!-- NAVIGATION (No Print) -->
+    <div class="fixed top-4 right-4 flex flex-col gap-2 no-print z-50">
+        <a href="#doc-security" class="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-bold shadow hover:bg-slate-700 text-center">
+            Go to Security Doc
+        </a>
+        <a href="#doc-discovery" class="bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow hover:bg-sky-700 text-center">
+            Go to Discovery Checklist
+        </a>
+        <button onclick="window.print()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow hover:bg-emerald-700 mt-2 flex items-center justify-center gap-2">
+            <i data-lucide="printer" class="w-4 h-4"></i> Print / Save PDF
+        </button>
+    </div>
+
+    <!-- DOCUMENT 1: SECURITY WHITEPAPER -->
+    <div id="doc-security" class="A4 relative">
+        <!-- Watermark -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03]">
+            <span class="text-9xl font-bold -rotate-45">TH8 SECURITY</span>
+        </div>
+
+        <div class="border-b-2 border-slate-900 pb-4 mb-8 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-900">Security & Architecture</h1>
+                <p class="text-slate-500 text-sm mt-1">Whitepaper for Enterprise Integration</p>
+            </div>
+            <div class="text-right">
+                <div class="bg-slate-900 text-white font-bold px-3 py-1 rounded">TH8.AI</div>
+                <p class="text-[10px] text-slate-400 mt-1">Confidential</p>
+            </div>
+        </div>
+
+        <div class="space-y-8 font-body text-slate-700 text-sm leading-relaxed">
+            
+            <!-- Section 1 -->
+            <section>
+                <h2 class="text-lg font-bold text-slate-900 mb-2 border-l-4 border-sky-500 pl-3">1. Data Privacy & AI Model Isolation</h2>
+                <p class="mb-3">
+                    TH8.AI ยึดถือหลักการ <strong>"Your Data is Yours"</strong> เป็นหัวใจสำคัญในการออกแบบระบบ สถาปัตยกรรมของเราการันตีความปลอดภัยของข้อมูลลูกค้า ดังนี้:
+                </p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li><strong>Zero-Training Policy:</strong> ข้อมูล Transaction และเอกสารสัญญาของลูกค้า <span class="bg-red-100 px-1 font-bold text-red-700">จะไม่ถูกนำไปใช้เทรน (Train)</span> หรือปรับปรุงโมเดล AI สาธารณะ (Public LLM) เด็ดขาด</li>
+                    <li><strong>Single-Tenant Logical Isolation:</strong> ข้อมูลของลูกค้าแต่ละรายจะถูกแยกออกจากกัน (Siloed) ทั้งในระดับ Database และ Vector Store ไม่มีการปะปนข้าม Tenant</li>
+                    <li><strong>Stateless Processing:</strong> ข้อมูลที่ส่งมาประมวลผลผ่าน API จะถูกเก็บรักษาเท่าที่จำเป็นตามระยะเวลา Retention Policy ที่ลูกค้ากำหนด และสามารถตั้งค่าให้ลบอัตโนมัติได้ทันทีหลังประมวลผลเสร็จ</li>
+                </ul>
+            </section>
+
+            <!-- Section 2 -->
+            <section>
+                <h2 class="text-lg font-bold text-slate-900 mb-2 border-l-4 border-sky-500 pl-3">2. Encryption & Infrastructure</h2>
+                <p class="mb-3">ระบบของเราทำงานบน Cloud Infrastructure มาตรฐานสากล (AWS/Azure) โดยมีมาตรการเข้ารหัสสูงสุด:</p>
+                <div class="grid grid-cols-2 gap-4 mt-2">
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <strong class="block text-slate-900 mb-1">Data at Rest</strong>
+                        <span class="text-slate-600 text-xs">AES-256 Encryption สำหรับข้อมูลที่ถูกจัดเก็บใน Database และ Object Storage ทั้งหมด</span>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded border border-slate-200">
+                        <strong class="block text-slate-900 mb-1">Data in Transit</strong>
+                        <span class="text-slate-600 text-xs">TLS 1.2/1.3 สำหรับทุกการเชื่อมต่อผ่าน API และหน้าเว็บ (HTTPS enforced)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3 -->
+            <section>
+                <h2 class="text-lg font-bold text-slate-900 mb-2 border-l-4 border-sky-500 pl-3">3. Access Control & Compliance</h2>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>RBAC (Role-Based Access Control):</strong> ระบบมีการแบ่งสิทธิ์ผู้ใช้งานชัดเจน (Admin, Manager, Viewer) เพื่อจำกัดการเข้าถึงข้อมูลละเอียดอ่อน</li>
+                    <li><strong>Audit Logging:</strong> ทุกกิจกรรมในระบบ (Login, View Data, Change Rule) จะถูกบันทึกเป็น Immutable Logs ที่ไม่สามารถแก้ไขได้ เพื่อรองรับการตรวจสอบตามมาตรฐาน PDPA และ GDPR</li>
+                </ul>
+            </section>
+
+            <!-- Diagram Placehoder -->
+            <div class="mt-8 p-6 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center text-slate-400 bg-slate-50">
+                <div class="text-center">
+                    <i data-lucide="shield-check" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
+                    <p class="text-xs">[Architecture Diagram Area]</p>
+                    <p class="text-[10px]">Secure Gateway -> Private VPC -> AI Engine -> Audit DB</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-[10px] text-slate-400 text-center border-t border-slate-200 pt-4">
+                © 2024 TH8.AI Co., Ltd. All Rights Reserved. | Security Whitepaper v2.1
+            </div>
+        </div>
+    </div>
+
+    <!-- DOCUMENT 2: DISCOVERY CHECKLIST -->
+    <div id="doc-discovery" class="A4 relative">
+        <div class="border-b-2 border-sky-600 pb-4 mb-8 flex justify-between items-end">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-900">Discovery Checklist</h1>
+                <p class="text-slate-500 text-sm mt-1">Pre-Sales Meeting Questionnaire</p>
+            </div>
+            <div class="text-right">
+                <div class="bg-sky-600 text-white font-bold px-3 py-1 rounded">Sales Tool</div>
+            </div>
+        </div>
+
+        <div class="space-y-6 font-body text-slate-700">
+            <p class="text-sm italic bg-yellow-50 p-3 border-l-4 border-yellow-400 text-yellow-800">
+                <strong>Objective:</strong> อย่าเพิ่งขายของ! ให้ใช้หน้านี้ "ถาม" เพื่อเก็บข้อมูลให้ได้มากที่สุด แล้วค่อยเอาข้อมูลนี้ไปตั้งค่า Demo ให้ตรงใจลูกค้า
+            </p>
+
+            <!-- Section 1 -->
+            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                <h3 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-slate-200 rounded-full flex items-center justify-center text-xs">1</span>
+                    Current Pain & Process
+                </h3>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-sky-600">
+                        <span>ปัจจุบันกระบวนการอนุมัติใช้เวลานานแค่ไหน? (SLA ปัจจุบันคือกี่วัน?)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-sky-600">
+                        <span>เคสที่หลุดบ่อยที่สุดคืออะไร? (ซื้อแพง? เอกสารไม่ครบ? หรือดองงาน?)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-sky-600">
+                        <span>มีระบบ ERP อะไรอยู่แล้ว? (SAP / Oracle / Microsoft / หรือ Excel ล้วน?)</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                <h3 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-slate-200 rounded-full flex items-center justify-center text-xs">2</span>
+                    Volume & Value (เพื่อทำ ROI)
+                </h3>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-sky-600">
+                        <span>เฉลี่ยมี PO/PR เดือนละกี่ใบ? (Transaction Volume)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-sky-600">
+                        <span>ทีมจัดซื้อมีกี่คน? (Headcount)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-sky-600">
+                        <span>ปีที่แล้วมีเคส "Maverick Spending" (ซื้อนอกระบบ/ซื้อด่วน) เยอะไหม? มูลค่าประมาณเท่าไหร่?</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                <h3 class="font-bold text-slate-900 mb-3 flex items-center gap-2">
+                    <span class="w-6 h-6 bg-slate-200 rounded-full flex items-center justify-center text-xs">3</span>
+                    Decision Making Criteria
+                </h3>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-sky-600">
+                        <span>นอกจากราคากับฟีเจอร์แล้ว ซีเรียสเรื่องอะไรที่สุด? (Security? ความง่าย? หรือ Support?)</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <input type="checkbox" class="mt-1 w-4 h-4 text-sky-600">
+                        <span>ปกติขั้นตอนการจัดซื้อซอฟต์แวร์ของบริษัทต้องผ่านใครบ้าง? (IT, Procurement, Legal?)</span>
+                    </li>
+                </ul>
+            </div>
+
+             <div class="mt-6 p-4 border-2 border-dashed border-slate-300 rounded bg-slate-50 min-h-[100px]">
+                <h3 class="text-xs font-bold text-slate-400 uppercase mb-2">Notes</h3>
+                <!-- Space for handwriting -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

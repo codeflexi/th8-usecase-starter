@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI: Technical Architecture & Security Brief</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .tech-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(12px);
+            transition: all 0.3s ease;
+        }
+        .tech-card:hover {
+            border-color: #38bdf8;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+        }
+
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+            color: #94a3b8;
+        }
+        .tab-btn.active {
+            border-color: #38bdf8;
+            color: #38bdf8;
+        }
+
+        /* Flow Animation */
+        .flow-line {
+            stroke-dasharray: 10;
+            animation: dash 30s linear infinite;
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: -1000; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-sky-600 rounded flex items-center justify-center font-bold text-white text-lg">TH8</div>
+                <div>
+                    <h1 class="font-bold text-slate-100 leading-tight">Technical Architecture Brief</h1>
+                    <p class="text-xs text-slate-400 font-mono">For IT Leadership & SecOps</p>
+                </div>
+            </div>
+            <div class="flex gap-1 bg-slate-800 p-1 rounded-lg">
+                <button onclick="switchTab('stack')" id="tab-stack" class="px-4 py-2 text-sm font-medium rounded-md bg-slate-700 text-white shadow">Stack & Arch</button>
+                <button onclick="switchTab('security')" id="tab-security" class="px-4 py-2 text-sm font-medium rounded-md text-slate-400 hover:text-white">Security</button>
+                <button onclick="switchTab('ops')" id="tab-ops" class="px-4 py-2 text-sm font-medium rounded-md text-slate-400 hover:text-white">Ops & Logs</button>
+                <button onclick="switchTab('dev')" id="tab-dev" class="px-4 py-2 text-sm font-medium rounded-md text-slate-400 hover:text-white">Dev Process</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl mx-auto px-6 py-8 w-full">
+
+        <!-- TAB 1: ARCHITECTURE & STACK -->
+        <section id="content-stack" class="space-y-8 animate-fade-in">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Architecture Diagram -->
+                <div class="lg:col-span-2 tech-card p-8 rounded-xl relative overflow-hidden">
+                    <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                        <i data-lucide="layers" class="w-5 h-5 text-sky-400"></i> High-Level Architecture
+                    </h2>
+                    
+                    <!-- SVG Diagram -->
+                    <div class="relative h-64 w-full bg-slate-900/50 rounded-lg border border-slate-700 flex items-center justify-center">
+                        <svg class="w-full h-full absolute inset-0" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Paths -->
+                            <path d="M100 128 L 250 128" stroke="#475569" stroke-width="2" class="flow-line"/>
+                            <path d="M350 128 L 500 128" stroke="#475569" stroke-width="2" class="flow-line"/>
+                            <path d="M600 128 L 750 128" stroke="#475569" stroke-width="2" class="flow-line"/>
+                            
+                            <!-- Connectors -->
+                            <rect x="50" y="96" width="80" height="64" rx="8" fill="#1e293b" stroke="#64748b" />
+                            <text x="90" y="132" fill="#94a3b8" font-size="10" text-anchor="middle" font-family="monospace">ERP (SAP)</text>
+
+                            <rect x="250" y="80" width="100" height="96" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="2" />
+                            <text x="300" y="115" fill="#38bdf8" font-size="12" text-anchor="middle" font-weight="bold">API Gateway</text>
+                            <text x="300" y="135" fill="#94a3b8" font-size="10" text-anchor="middle">Secure Tunnel</text>
+
+                            <rect x="500" y="60" width="120" height="136" rx="8" fill="#0f172a" stroke="#a855f7" stroke-width="2" />
+                            <text x="560" y="100" fill="#a855f7" font-size="12" text-anchor="middle" font-weight="bold">AI Engine</text>
+                            <text x="560" y="120" fill="#cbd5e1" font-size="10" text-anchor="middle">Rule Valid.</text>
+                            <text x="560" y="140" fill="#cbd5e1" font-size="10" text-anchor="middle">RAG Search</text>
+
+                            <rect x="750" y="96" width="80" height="64" rx="8" fill="#1e293b" stroke="#10b981" />
+                            <text x="790" y="132" fill="#10b981" font-size="10" text-anchor="middle" font-weight="bold">DB / Logs</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-bold text-sky-400 text-sm mb-2">Key Principles</h4>
+                            <ul class="text-sm text-slate-400 space-y-1 list-disc pl-4">
+                                <li><strong>Decoupled:</strong> ไม่ฝังโค้ดใน SAP ใช้ API คุยกัน 100%</li>
+                                <li><strong>Stateless:</strong> Scale ได้ง่ายผ่าน Container (K8s)</li>
+                                <li><strong>Async Processing:</strong> ไม่ Block การทำงานของ User</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sky-400 text-sm mb-2">Scalability</h4>
+                            <p class="text-sm text-slate-400">
+                                รองรับ 10,000+ Req/Min ด้วย Horizontal Autoscaling บน Cloud Native Infrastructure (AWS/Azure)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech Stack List -->
+                <div class="space-y-4">
+                    <div class="tech-card p-5 rounded-xl">
+                        <h3 class="font-bold text-slate-200 mb-3 text-sm uppercase tracking-wider">Backend Core</h3>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-blue-900/50 text-blue-300 px-2 py-1 rounded text-xs border border-blue-800">Python</span>
+                            <span class="bg-teal-900/50 text-teal-300 px-2 py-1 rounded text-xs border border-teal-800">FastAPI</span>
+                        </div>
+                        <p class="text-xs text-slate-500">
+                            High-performance async runtime. Standard for AI workloads.
+                        </p>
+                    </div>
+                    <div class="tech-card p-5 rounded-xl">
+                        <h3 class="font-bold text-slate-200 mb-3 text-sm uppercase tracking-wider">Data & Vector</h3>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-indigo-900/50 text-indigo-300 px-2 py-1 rounded text-xs border border-indigo-800">PostgreSQL</span>
+                            <span class="bg-purple-900/50 text-purple-300 px-2 py-1 rounded text-xs border border-purple-800">Qdrant/Pinecone</span>
+                        </div>
+                        <p class="text-xs text-slate-500">
+                            Relational for Audit Logs, Vector DB for RAG Semantic Search.
+                        </p>
+                    </div>
+                    <div class="tech-card p-5 rounded-xl">
+                        <h3 class="font-bold text-slate-200 mb-3 text-sm uppercase tracking-wider">Infrastructure</h3>
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="bg-sky-900/50 text-sky-300 px-2 py-1 rounded text-xs border border-sky-800">Docker</span>
+                            <span class="bg-orange-900/50 text-orange-300 px-2 py-1 rounded text-xs border border-orange-800">Kubernetes</span>
+                        </div>
+                        <p class="text-xs text-slate-500">
+                            Cloud-agnostic. Ready for On-premise or Private Cloud deployment.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: SECURITY -->
+        <section id="content-security" class="hidden space-y-8 animate-fade-in">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Policy Card -->
+                <div class="tech-card p-8 rounded-xl border-l-4 border-emerald-500">
+                    <h2 class="text-2xl font-bold text-white mb-6">Data Privacy Promise</h2>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div class="bg-emerald-900/30 p-3 rounded-lg h-fit"><i data-lucide="shield-off" class="w-6 h-6 text-emerald-400"></i></div>
+                            <div>
+                                <h3 class="text-lg font-bold text-emerald-400">No Training on Your Data</h3>
+                                <p class="text-slate-400 text-sm mt-1">
+                                    เรามีข้อตกลง Enterprise License กับ AI Providers ว่าข้อมูลของลูกค้า (Input/Output) จะไม่ถูกนำไปใช้เทรน Model สาธารณะเด็ดขาด
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="bg-blue-900/30 p-3 rounded-lg h-fit"><i data-lucide="database" class="w-6 h-6 text-blue-400"></i></div>
+                            <div>
+                                <h3 class="text-lg font-bold text-blue-400">Logical Isolation (Single Tenant)</h3>
+                                <p class="text-slate-400 text-sm mt-1">
+                                    ข้อมูลของแต่ละบริษัทถูกแยก Schema/Namespace ชัดเจน ไม่มีการปะปนข้าม Tenant
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Encryption Specs -->
+                <div class="tech-card p-8 rounded-xl">
+                    <h2 class="text-xl font-bold text-white mb-6">Encryption Standards</h2>
+                    <div class="space-y-4">
+                        <div class="bg-slate-800/50 p-4 rounded-lg flex justify-between items-center">
+                            <div>
+                                <p class="text-slate-300 font-bold text-sm">Data at Rest</p>
+                                <p class="text-slate-500 text-xs">Database & Object Storage</p>
+                            </div>
+                            <span class="text-sky-400 font-mono text-xs bg-sky-900/20 px-2 py-1 rounded border border-sky-900">AES-256</span>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg flex justify-between items-center">
+                            <div>
+                                <p class="text-slate-300 font-bold text-sm">Data in Transit</p>
+                                <p class="text-slate-500 text-xs">API Communication</p>
+                            </div>
+                            <span class="text-sky-400 font-mono text-xs bg-sky-900/20 px-2 py-1 rounded border border-sky-900">TLS 1.3</span>
+                        </div>
+                        <div class="bg-slate-800/50 p-4 rounded-lg flex justify-between items-center">
+                            <div>
+                                <p class="text-slate-300 font-bold text-sm">Key Management</p>
+                                <p class="text-slate-500 text-xs">Encryption Key Rotation</p>
+                            </div>
+                            <span class="text-sky-400 font-mono text-xs bg-sky-900/20 px-2 py-1 rounded border border-sky-900">KMS / HSM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: OPS & MONITORING -->
+        <section id="content-ops" class="hidden space-y-8 animate-fade-in">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Structured Log Example -->
+                <div class="tech-card p-6 rounded-xl">
+                    <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="file-code" class="w-5 h-5 text-amber-400"></i> Immutable Audit Logs
+                    </h3>
+                    <p class="text-sm text-slate-400 mb-4">
+                        ทุก Action ถูกบันทึกเป็น JSON Structure ที่อ่านง่ายและพร้อมส่งต่อเข้า SIEM (เช่น Splunk)
+                    </p>
+                    <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 overflow-x-auto">
+<pre class="font-mono text-xs text-sky-300">
+{
+  "timestamp": "2024-05-21T10:00:00Z",
+  "level": "INFO",
+  "event": "DECISION_MADE",
+  "trace_id": "req-12345-xyz",
+  "actor": { "user": "mgr_somchai", "ip": "10.0.1.5" },
+  "context": {
+    "case_id": "PR-991",
+    "rule_triggered": ["HIGH_VALUE"],
+    "outcome": "APPROVED"
+  },
+  "hash": "sha256:8d9a..." <span class="text-slate-500">// Tamper Proof</span>
+}
+</pre>
+                    </div>
+                </div>
+
+                <!-- Monitoring Dashboard Mockup -->
+                <div class="tech-card p-6 rounded-xl">
+                    <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+                        <i data-lucide="activity" class="w-5 h-5 text-green-400"></i> Real-time Observability
+                    </h3>
+                    <p class="text-sm text-slate-400 mb-4">
+                        Support Prometheus / Grafana metrics endpoint.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <p class="text-xs text-slate-500">API Latency (p95)</p>
+                            <p class="text-xl font-bold text-green-400">120ms</p>
+                            <div class="w-full h-1 bg-slate-700 mt-2 rounded"><div class="w-1/3 h-full bg-green-500 rounded"></div></div>
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700">
+                            <p class="text-xs text-slate-500">Error Rate</p>
+                            <p class="text-xl font-bold text-slate-200">0.01%</p>
+                            <div class="w-full h-1 bg-slate-700 mt-2 rounded"><div class="w-[1%] h-full bg-red-500 rounded"></div></div>
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded border border-slate-700 col-span-2">
+                            <p class="text-xs text-slate-500">Throughput</p>
+                            <div class="h-10 flex items-end gap-1 mt-2">
+                                <div class="w-full bg-sky-500/20 h-[40%] rounded-t"></div>
+                                <div class="w-full bg-sky-500/40 h-[60%] rounded-t"></div>
+                                <div class="w-full bg-sky-500/30 h-[50%] rounded-t"></div>
+                                <div class="w-full bg-sky-500/60 h-[80%] rounded-t"></div>
+                                <div class="w-full bg-sky-500/50 h-[70%] rounded-t"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: DEV METHODOLOGY -->
+        <section id="content-dev" class="hidden space-y-8 animate-fade-in">
+            <div class="tech-card p-8 rounded-xl">
+                <h2 class="text-xl font-bold text-white mb-6">Maintainability & SDLC</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Feature 1 -->
+                    <div>
+                        <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-4 text-sky-400">
+                            <i data-lucide="settings" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-200">Configuration over Code</h3>
+                        <p class="text-sm text-slate-400 mt-2">
+                            Business Logic (เช่น วงเงินอนุมัติ, SLA Time) ถูกแยกเก็บในไฟล์ <strong>YAML Configuration</strong>
+                            <br><br>
+                            <span class="text-sky-400">Benefit:</span> ทีม IT ไม่ต้องแก้ Code และ Redeploy เพียงแค่แก้ Config ก็มีผลทันที
+                        </p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div>
+                        <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-4 text-indigo-400">
+                            <i data-lucide="git-branch" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-200">GitOps & CI/CD</h3>
+                        <p class="text-sm text-slate-400 mt-2">
+                            เราใช้มาตรฐาน Git Flow และ Automated Pipeline (Test -> Build -> Scan -> Deploy).
+                            <br><br>
+                            <span class="text-indigo-400">Benefit:</span> ลดความเสี่ยง Human Error และ Rollback ได้ง่ายหากมีปัญหา
+                        </p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div>
+                        <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-4 text-emerald-400">
+                            <i data-lucide="book-open" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-200">Living Documentation</h3>
+                        <p class="text-sm text-slate-400 mt-2">
+                            API Spec (OpenAPI/Swagger) อัปเดตอัตโนมัติจาก Code และมี System Diagram ที่เป็นปัจจุบัน
+                            <br><br>
+                            <span class="text-emerald-400">Benefit:</span> ทีม IT ของท่านสามารถเข้ามาดูแลต่อหรือเชื่อมต่อระบบได้ง่าย
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER SCRIPT (FOR ROLEPLAY) -->
+    <div class="fixed bottom-0 w-full bg-slate-900 border-t border-slate-800 p-4 text-center text-xs text-slate-500">
+        <p>💡 Tip: Use this screen to address the IT Director's concerns about "Shadow IT" and "Vendor Lock-in".</p>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function switchTab(tabId) {
+            // Hide all content
+            document.querySelectorAll('section').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('header button').forEach(el => {
+                el.classList.remove('bg-slate-700', 'text-white', 'shadow');
+                el.classList.add('text-slate-400');
+            });
+
+            // Show selected content
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+            
+            // Highlight button
+            const btn = document.getElementById('tab-' + tabId);
+            btn.classList.add('bg-slate-700', 'text-white', 'shadow');
+            btn.classList.remove('text-slate-400');
+        }
+    </script>
+</body>
+</html>

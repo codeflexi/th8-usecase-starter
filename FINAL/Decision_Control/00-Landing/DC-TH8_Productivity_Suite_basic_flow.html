@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8 Productivity Suite: Quick Wins</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        .font-body { font-family: 'Sarabun', sans-serif; }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        .product-card:hover, .product-card.active {
+            border-color: #38bdf8;
+            background: rgba(30, 41, 59, 0.8);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.3);
+        }
+
+        .demo-screen {
+            background: #1e293b;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+            overflow: hidden;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .demo-screen.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .typing-effect::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="py-8 px-6 text-center bg-slate-900 border-b border-slate-800">
+        <div class="inline-flex items-center gap-2 mb-4 px-3 py-1 bg-indigo-900/30 border border-indigo-500/30 rounded-full text-indigo-400 text-xs font-bold uppercase tracking-wider">
+            TH8 Productivity Suite
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-4">
+            If "Control" is too heavy,<br><span class="text-sky-400">Let's start with "Efficiency"</span>
+        </h1>
+        <p class="text-slate-400 max-w-2xl mx-auto font-body text-sm">
+            3 โซลูชันที่ติดตั้งง่าย เห็นผลใน 7 วัน และแก้ปัญหาที่ทุกคนในองค์กรเจอทุกวัน
+        </p>
+    </header>
+
+    <main class="flex-1 max-w-6xl mx-auto px-6 py-12 w-full">
+
+        <!-- PRODUCT SELECTOR -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            
+            <!-- Product 1: Meeting -->
+            <div onclick="selectProduct('meeting')" id="card-meeting" class="product-card active bg-slate-800 p-6 rounded-xl relative group">
+                <div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-400 mb-4 group-hover:scale-110 transition">
+                    <i data-lucide="mic" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">1. Minute Maestro</h3>
+                <p class="text-xs text-slate-400 font-body mb-4">
+                    AI ผู้ช่วยจดประชุม สรุปงาน และติดตาม Action Plan อัตโนมัติ
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] bg-slate-700 px-2 py-1 rounded text-slate-300">ประชุมไม่รู้เรื่อง</span>
+                    <span class="text-[10px] bg-slate-700 px-2 py-1 rounded text-slate-300">งานหลุด</span>
+                </div>
+            </div>
+
+            <!-- Product 2: Corporate Brain -->
+            <div onclick="selectProduct('brain')" id="card-brain" class="product-card bg-slate-800 p-6 rounded-xl relative group">
+                <div class="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center text-emerald-400 mb-4 group-hover:scale-110 transition">
+                    <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">2. Corporate Brain</h3>
+                <p class="text-xs text-slate-400 font-body mb-4">
+                    เปลี่ยนไฟล์ PDF ระเบียบ/คู่มือทั้งบริษัท ให้เป็น Chatbot ที่ถามปุ๊บ ตอบปั๊บ
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] bg-slate-700 px-2 py-1 rounded text-slate-300">HR รับสายไม่ทัน</span>
+                    <span class="text-[10px] bg-slate-700 px-2 py-1 rounded text-slate-300">หาไฟล์ไม่เจอ</span>
+                </div>
+            </div>
+
+            <!-- Product 3: DocuFlow -->
+            <div onclick="selectProduct('docu')" id="card-docu" class="product-card bg-slate-800 p-6 rounded-xl relative group">
+                <div class="w-12 h-12 bg-amber-500/10 rounded-lg flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 transition">
+                    <i data-lucide="scan-text" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">3. DocuFlow (IDP)</h3>
+                <p class="text-xs text-slate-400 font-body mb-4">
+                    เปลี่ยนกองเอกสาร Invoice/บิล เป็น Excel ด้วย AI OCR แม่นยำ 99%
+                </p>
+                <div class="flex flex-wrap gap-2">
+                    <span class="text-[10px] bg-slate-700 px-2 py-1 rounded text-slate-300">คีย์ข้อมูลผิด</span>
+                    <span class="text-[10px] bg-slate-700 px-2 py-1 rounded text-slate-300">Admin ลาออกบ่อย</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- DEMO SECTION -->
+        <div class="relative min-h-[500px]">
+            
+            <!-- DEMO 1: MEETING -->
+            <div id="demo-meeting" class="demo-screen active p-8 bg-slate-900 border border-slate-700 h-full">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-3">
+                        <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                        Recording: Strategic Planning Q3
+                    </h3>
+                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-bold flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i> Generate Minutes
+                    </button>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-8 h-[350px]">
+                    <!-- Transcript -->
+                    <div class="bg-slate-800 p-4 rounded-lg overflow-y-auto border border-slate-700">
+                        <p class="text-xs text-slate-500 uppercase font-bold mb-2">Live Transcript</p>
+                        <div class="space-y-3 text-sm text-slate-300 font-body">
+                            <p><strong class="text-sky-400">CEO:</strong> "ไตรมาสหน้าผมอยากให้โฟกัสเรื่อง Cost Reduction นะครับ ตั้งเป้าลด 10%"</p>
+                            <p><strong class="text-emerald-400">COO:</strong> "ได้ครับ แต่เราต้องเปลี่ยน Supplier ขนส่งใหม่ ผมจะลองคุยกับเจ้า B ดู"</p>
+                            <p><strong class="text-amber-400">Marketing:</strong> "งั้นผมของบยิง Ads เพิ่มอีก 2 ล้านนะครับ"</p>
+                            <p><strong class="text-sky-400">CEO:</strong> "อนุมัติงบ Ads แต่ต้องได้ ROI 3 เท่านะ คุณสมชายช่วยตามเรื่อง Supplier ให้จบในศุกร์นี้ด้วย"</p>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Output -->
+                    <div class="bg-slate-800 p-4 rounded-lg overflow-y-auto border border-purple-500/30 relative">
+                        <div class="absolute top-0 right-0 bg-purple-600 text-white text-[10px] px-2 py-1 rounded-bl-lg">AI Generated</div>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="text-sm font-bold text-white mb-2">📌 Key Decisions</h4>
+                                <ul class="text-xs text-slate-300 list-disc pl-4 space-y-1">
+                                    <li>เป้าหมาย Q3: ลดต้นทุน 10%</li>
+                                    <li>อนุมัติงบ Ads เพิ่ม 2 ล้านบาท (Target ROI 3x)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-white mb-2">⚡ Action Items</h4>
+                                <div class="bg-slate-900 p-2 rounded border border-slate-700 flex justify-between items-center mb-2">
+                                    <div class="text-xs text-slate-300">ติดต่อ Supplier ขนส่งเจ้า B</div>
+                                    <div class="flex items-center gap-2">
+                                        <img src="https://ui-avatars.com/api/?name=Somchai&background=random" class="w-5 h-5 rounded-full">
+                                        <span class="text-[10px] text-red-400">Fri, 15 Aug</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEMO 2: CORPORATE BRAIN -->
+            <div id="demo-brain" class="demo-screen p-8 bg-slate-900 border border-slate-700 h-full">
+                <div class="flex h-full gap-6">
+                    <!-- Knowledge Base -->
+                    <div class="w-1/3 bg-slate-800 p-4 rounded-lg border border-slate-700 flex flex-col">
+                        <h4 class="text-sm font-bold text-white mb-4 flex items-center gap-2"><i data-lucide="database" class="w-4 h-4 text-emerald-400"></i> Knowledge Source</h4>
+                        <div class="space-y-2 flex-1 overflow-y-auto">
+                            <div class="flex items-center gap-2 p-2 bg-slate-700/50 rounded border border-slate-600">
+                                <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
+                                <div>
+                                    <p class="text-xs text-white">HR_Handbook_2024.pdf</p>
+                                    <p class="text-[10px] text-slate-500">Updated 2 days ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-slate-700/50 rounded border border-slate-600">
+                                <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
+                                <div>
+                                    <p class="text-xs text-white">IT_Policy_v2.docx</p>
+                                    <p class="text-[10px] text-slate-500">Updated 1 week ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 p-2 bg-slate-700/50 rounded border border-slate-600">
+                                <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
+                                <div>
+                                    <p class="text-xs text-white">Expense_Reimbursement.pdf</p>
+                                    <p class="text-[10px] text-slate-500">Updated yesterday</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat -->
+                    <div class="w-2/3 flex flex-col">
+                        <div class="flex-1 bg-slate-800 rounded-t-lg p-4 space-y-4 overflow-y-auto font-body">
+                            <div class="flex gap-3">
+                                <div class="w-8 h-8 rounded-full bg-slate-600 flex items-center justify-center shrink-0"><i data-lucide="user" class="w-4 h-4"></i></div>
+                                <div class="bg-slate-700 text-slate-200 text-sm p-3 rounded-2xl rounded-tl-none">
+                                    เบิกค่าเดินทางไปหาลูกค้า ต้องใช้เอกสารอะไรบ้างครับ? และเบิกได้สูงสุดเท่าไหร่?
+                                </div>
+                            </div>
+                            <div class="flex gap-3 flex-row-reverse">
+                                <div class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center shrink-0"><i data-lucide="bot" class="w-4 h-4"></i></div>
+                                <div class="bg-emerald-900/30 border border-emerald-500/30 text-emerald-100 text-sm p-3 rounded-2xl rounded-tr-none">
+                                    <p class="mb-2">จากการค้นหาใน <strong>Expense_Reimbursement.pdf (หน้า 5)</strong>:</p>
+                                    <ul class="list-disc pl-4 space-y-1 mb-2">
+                                        <li><strong>เอกสารที่ต้องใช้:</strong> ใบเสร็จรับเงิน (Original Receipt) และแบบฟอร์ม EXP-01 ที่หัวหน้าอนุมัติแล้ว</li>
+                                        <li><strong>วงเงินสูงสุด:</strong> กรณีใช้รถส่วนตัว เบิกได้กิโลเมตรละ 5 บาท (ไม่เกิน 2,000 บาท/วัน)</li>
+                                    </ul>
+                                    <a href="#" class="text-emerald-400 underline text-xs">ดาวน์โหลดแบบฟอร์ม EXP-01</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded-b-lg border-t border-slate-700">
+                            <div class="relative">
+                                <input type="text" placeholder="Ask anything..." class="w-full bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                                <i data-lucide="send" class="w-4 h-4 text-emerald-500 absolute right-3 top-2.5"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DEMO 3: DOCUFLOW -->
+            <div id="demo-docu" class="demo-screen p-8 bg-slate-900 border border-slate-700 h-full">
+                <div class="flex items-center justify-center h-full gap-8">
+                    
+                    <!-- Input: Document -->
+                    <div class="w-1/3 bg-white p-4 rounded shadow-lg transform -rotate-2 relative">
+                        <div class="absolute -top-3 -right-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded shadow">Unstructured PDF</div>
+                        <div class="border-b pb-2 mb-2 flex justify-between">
+                            <h3 class="font-bold text-slate-800 text-sm">INVOICE #INV-9921</h3>
+                            <span class="text-xs text-slate-500">Date: 20/05/2024</span>
+                        </div>
+                        <div class="space-y-2 text-[10px] text-slate-600 font-mono">
+                            <div class="flex justify-between"><span>Item A (Server)</span> <span>$2,000</span></div>
+                            <div class="flex justify-between"><span>Item B (Cable)</span> <span>$500</span></div>
+                            <div class="border-t pt-1 flex justify-between font-bold text-slate-900"><span>Total</span> <span>$2,500</span></div>
+                        </div>
+                        <div class="mt-4 opacity-50 blur-[1px]">
+                            <p class="text-[8px]">Vendor Address: 123 Tech Park...</p>
+                            <p class="text-[8px]">Tax ID: 1234567890123</p>
+                        </div>
+                    </div>
+
+                    <!-- Processing Arrow -->
+                    <div class="flex flex-col items-center gap-2">
+                        <div class="w-16 h-1 bg-slate-700 rounded relative overflow-hidden">
+                            <div class="absolute top-0 left-0 h-full w-full bg-amber-500 animate-progress"></div>
+                        </div>
+                        <div class="w-10 h-10 bg-amber-500 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/50">
+                            <i data-lucide="scan-line" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <span class="text-xs text-amber-400 font-bold">AI Extracting...</span>
+                    </div>
+
+                    <!-- Output: Excel/JSON -->
+                    <div class="w-1/3 bg-slate-800 border border-slate-600 rounded-lg p-0 overflow-hidden transform rotate-2 shadow-2xl">
+                        <div class="bg-slate-700 px-3 py-2 text-xs text-white font-bold flex justify-between">
+                            <span>Extracted Data (Excel/ERP)</span>
+                            <span class="text-emerald-400">Confidence: 99.8%</span>
+                        </div>
+                        <table class="w-full text-[10px] text-left text-slate-300">
+                            <thead class="bg-slate-900 text-slate-500">
+                                <tr><th class="p-2">Field</th><th class="p-2">Value</th></tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-700">
+                                <tr><td class="p-2 text-sky-400">inv_number</td><td class="p-2">INV-9921</td></tr>
+                                <tr><td class="p-2 text-sky-400">inv_date</td><td class="p-2">2024-05-20</td></tr>
+                                <tr><td class="p-2 text-sky-400">total_amount</td><td class="p-2 font-bold text-white">2,500.00</td></tr>
+                                <tr><td class="p-2 text-sky-400">vendor_tax_id</td><td class="p-2">1234567890123</td></tr>
+                            </tbody>
+                        </table>
+                        <div class="p-2 bg-slate-900 text-center">
+                            <button class="text-[10px] text-emerald-400 border border-emerald-500/50 px-2 py-1 rounded hover:bg-emerald-900/30">Auto-Export to ERP</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <style>
+        @keyframes progress { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+        .animate-progress { animation: progress 1.5s infinite linear; }
+    </style>
+
+    <script>
+        lucide.createIcons();
+
+        function selectProduct(id) {
+            // Reset Cards
+            document.querySelectorAll('.product-card').forEach(el => el.classList.remove('active', 'bg-slate-700'));
+            
+            // Activate Card
+            document.getElementById('card-' + id).classList.add('active');
+            
+            // Reset Screens
+            document.querySelectorAll('.demo-screen').forEach(el => el.classList.remove('active'));
+            
+            // Activate Screen
+            document.getElementById('demo-' + id).classList.add('active');
+        }
+    </script>
+</body>
+</html>

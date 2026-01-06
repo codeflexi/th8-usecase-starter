@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8 Cash Flow Command</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0B1120; color: #E2E8F0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            backdrop-filter: blur(12px);
+        }
+        
+        .progress-bar {
+            transition: width 1s ease-in-out;
+        }
+
+        /* Analyzing Animation */
+        .analyzing::after {
+            content: " ...";
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        @keyframes dots { 0%, 20% { content: "."; } 40% { content: ".."; } 60% { content: "..."; } 80%, 100% { content: ""; } }
+
+        .drawer {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .drawer.open { transform: translateX(0); }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <!-- HEADER -->
+    <header class="h-16 border-b border-slate-800 bg-slate-900/90 flex items-center justify-between px-6 shrink-0 z-20">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center font-bold text-white text-lg shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+                <i data-lucide="coins" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-white text-lg tracking-wide">Cash Flow Command</h1>
+                <p class="text-[10px] text-slate-400 font-mono">Dynamic Discounting Engine</p>
+            </div>
+        </div>
+        <div class="flex gap-6 text-sm">
+            <div class="text-right">
+                <p class="text-[10px] text-slate-400 uppercase">Available Cash</p>
+                <p class="text-emerald-400 font-bold font-mono">฿150,000,000</p>
+            </div>
+            <div class="text-right">
+                <p class="text-[10px] text-slate-400 uppercase">Current Yield (APR)</p>
+                <p class="text-sky-400 font-bold font-mono">12.5%</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex overflow-hidden relative">
+        
+        <!-- LEFT: OPPORTUNITY LIST -->
+        <div class="flex-1 p-6 overflow-y-auto">
+            <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <i data-lucide="target" class="w-5 h-5 text-sky-400"></i> Discount Opportunities
+            </h2>
+
+            <div class="card rounded-xl overflow-hidden">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="bg-slate-800 text-xs uppercase font-bold text-slate-500">
+                        <tr>
+                            <th class="p-4">Vendor / Invoice</th>
+                            <th class="p-4 text-right">Amount</th>
+                            <th class="p-4 text-right">Days to Due</th>
+                            <th class="p-4">AI Confidence</th>
+                            <th class="p-4">Potential Saving</th>
+                            <th class="p-4 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700/50">
+                        <!-- Row 1 -->
+                        <tr class="hover:bg-slate-800/50 transition group">
+                            <td class="p-4">
+                                <div class="font-bold text-white">Siam Steel Co.</div>
+                                <div class="text-xs text-slate-500">INV-8891</div>
+                            </td>
+                            <td class="p-4 text-right font-mono">5,000,000</td>
+                            <td class="p-4 text-right">60 Days</td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex-1 h-1.5 bg-slate-700 rounded-full overflow-hidden w-24">
+                                        <div class="h-full bg-emerald-500 w-[92%]"></div>
+                                    </div>
+                                    <span class="text-xs text-emerald-400 font-bold">92%</span>
+                                </div>
+                                <p class="text-[10px] text-slate-500 mt-1">Cashflow Stress Detected</p>
+                            </td>
+                            <td class="p-4">
+                                <span class="text-emerald-400 font-bold text-lg">+฿75,000</span>
+                                <p class="text-[10px] text-slate-500">@ 1.5% Discount</p>
+                            </td>
+                            <td class="p-4 text-center">
+                                <button onclick="openDrawer('row1')" class="bg-sky-600 hover:bg-sky-500 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-lg shadow-sky-900/20 transition flex items-center gap-2 mx-auto">
+                                    <i data-lucide="brain-circuit" class="w-3 h-3"></i> Analyze
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2 -->
+                        <tr class="hover:bg-slate-800/50 transition opacity-60">
+                            <td class="p-4">
+                                <div class="font-bold text-white">Global Chem</div>
+                                <div class="text-xs text-slate-500">INV-9921</div>
+                            </td>
+                            <td class="p-4 text-right font-mono">2,500,000</td>
+                            <td class="p-4 text-right">45 Days</td>
+                            <td class="p-4">
+                                <div class="flex items-center gap-2">
+                                    <div class="flex-1 h-1.5 bg-slate-700 rounded-full overflow-hidden w-24">
+                                        <div class="h-full bg-amber-500 w-[40%]"></div>
+                                    </div>
+                                    <span class="text-xs text-amber-400 font-bold">40%</span>
+                                </div>
+                                <p class="text-[10px] text-slate-500 mt-1">Cash Rich Company</p>
+                            </td>
+                            <td class="p-4">
+                                <span class="text-slate-400 font-bold text-lg">--</span>
+                            </td>
+                            <td class="p-4 text-center">
+                                <button class="border border-slate-600 text-slate-500 px-4 py-2 rounded-lg text-xs font-bold cursor-not-allowed">
+                                    Skip
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- RIGHT DRAWER: AI ENGINE ROOM (Context & Logic) -->
+        <div id="ai-drawer" class="drawer absolute top-0 right-0 w-[500px] h-full bg-slate-900 border-l border-slate-700 shadow-2xl z-30 flex flex-col">
+            <!-- Drawer Header -->
+            <div class="p-6 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-sky-600 rounded flex items-center justify-center"><i data-lucide="cpu" class="w-4 h-4 text-white"></i></div>
+                    <div>
+                        <h3 class="font-bold text-white">AI Reasoning Engine</h3>
+                        <p class="text-xs text-slate-400">Analysis for: Siam Steel Co.</p>
+                    </div>
+                </div>
+                <button onclick="closeDrawer()" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+
+            <!-- Drawer Content -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                
+                <!-- 1. Context Data -->
+                <div>
+                    <h4 class="text-xs font-bold text-sky-400 uppercase mb-3 flex items-center gap-2">
+                        <i data-lucide="database" class="w-3 h-3"></i> 1. Context Ingested
+                    </h4>
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 text-xs font-mono text-slate-300 space-y-2">
+                        <div class="flex justify-between"><span>Vendor_Sector:</span> <span class="text-amber-400">Construction</span></div>
+                        <div class="flex justify-between"><span>Payment_History:</span> <span class="text-emerald-400">Accepted 3/3 offers</span></div>
+                        <div class="flex justify-between"><span>External_Signal:</span> <span class="text-red-400">"Sector Liquidity Crunch" (News API)</span></div>
+                        <div class="flex justify-between border-t border-slate-600 pt-2 mt-2"><span>Buyer_Hurdle_Rate:</span> <span>Min 6.0% APR</span></div>
+                    </div>
+                </div>
+
+                <!-- 2. Logic Chain -->
+                <div>
+                    <h4 class="text-xs font-bold text-indigo-400 uppercase mb-3 flex items-center gap-2">
+                        <i data-lucide="git-branch" class="w-3 h-3"></i> 2. Logic Execution
+                    </h4>
+                    <div class="space-y-3 relative pl-4 border-l-2 border-slate-700">
+                        <!-- Step 1 -->
+                        <div class="relative">
+                            <div class="absolute -left-[21px] top-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-slate-900"></div>
+                            <p class="text-xs text-slate-300"><strong class="text-emerald-400">Rule Check:</strong> Invoice Approved & Budget Available</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="relative">
+                            <div class="absolute -left-[21px] top-0 w-3 h-3 bg-indigo-500 rounded-full border-2 border-slate-900"></div>
+                            <p class="text-xs text-slate-300"><strong class="text-indigo-400">LLM Prediction:</strong> Vendor needs cash (Prob 92%)</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="relative">
+                            <div class="absolute -left-[21px] top-0 w-3 h-3 bg-sky-500 rounded-full border-2 border-slate-900"></div>
+                            <p class="text-xs text-slate-300"><strong class="text-sky-400">Optimization:</strong> Suggest 1.5% for 45 Days acceleration</p>
+                            <p class="text-[10px] text-slate-500 mt-1 pl-2 border-l border-slate-600">Calc: (1.5% / 45d) * 360 = 12% APR (Pass Hurdle)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Generated Action -->
+                <div>
+                    <h4 class="text-xs font-bold text-emerald-400 uppercase mb-3 flex items-center gap-2">
+                        <i data-lucide="mail" class="w-3 h-3"></i> 3. Generated Action
+                    </h4>
+                    <div class="bg-white text-slate-800 p-4 rounded-xl text-sm shadow-inner">
+                        <p class="font-bold border-b border-slate-200 pb-2 mb-2">Subject: Early Payment Offer for INV-8891</p>
+                        <p class="text-xs leading-relaxed">
+                            Dear Siam Steel Team,<br><br>
+                            We can process payment for invoice #8891 (5.0M THB) <strong>tomorrow</strong> (instead of in 60 days) in exchange for a <strong>1.5% discount</strong>.<br><br>
+                            You will receive: <strong>4,925,000 THB immediately.</strong><br><br>
+                            <span class="italic text-slate-500">[Click 'Accept' in portal to proceed]</span>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Drawer Footer -->
+            <div class="p-6 border-t border-slate-800 bg-slate-950">
+                <button onclick="executeAction()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-3 rounded-xl font-bold shadow-lg shadow-emerald-900/50 flex justify-center items-center gap-2 transition-all transform hover:scale-[1.02]">
+                    <i data-lucide="send" class="w-4 h-4"></i> Send Offer & Log Audit
+                </button>
+            </div>
+        </div>
+
+        <!-- Success Toast -->
+        <div id="toast" class="fixed bottom-10 right-10 bg-emerald-600 text-white px-6 py-4 rounded-xl shadow-2xl transform translate-y-32 transition-transform duration-500 flex items-center gap-4 z-50">
+            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center"><i data-lucide="check" class="w-6 h-6"></i></div>
+            <div>
+                <h4 class="font-bold text-lg">Offer Sent!</h4>
+                <p class="text-xs text-emerald-100">Audit Log #TXN-99881 created.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function openDrawer(rowId) {
+            document.getElementById('ai-drawer').classList.add('open');
+        }
+
+        function closeDrawer() {
+            document.getElementById('ai-drawer').classList.remove('open');
+        }
+
+        function executeAction() {
+            // Simulate API Call
+            const btn = document.querySelector('#ai-drawer button');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Processing...`;
+            lucide.createIcons();
+
+            setTimeout(() => {
+                closeDrawer();
+                btn.innerHTML = originalText;
+                
+                // Show Toast
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-32');
+                
+                setTimeout(() => {
+                    toast.classList.add('translate-y-32');
+                }, 3000);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

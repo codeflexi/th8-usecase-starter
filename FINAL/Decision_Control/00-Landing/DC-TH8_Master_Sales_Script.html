@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI: Master Sales Script (C-Level Pitch)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+        .font-script { font-family: 'Sarabun', sans-serif; line-height: 1.8; }
+        
+        .cue-card {
+            border-left: 4px solid #cbd5e1;
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+        }
+        .cue-card.ceo { border-color: #0ea5e9; background: #f0f9ff; } /* Sky */
+        .cue-card.cfo { border-color: #10b981; background: #ecfdf5; } /* Emerald */
+        .cue-card.coo { border-color: #f59e0b; background: #fffbeb; } /* Amber */
+        .cue-card.it { border-color: #6366f1; background: #eef2ff; } /* Indigo */
+
+        .action-tag {
+            display: inline-block;
+            background: #0f172a;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 pb-20">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+        <div class="max-w-4xl mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-slate-900 rounded flex items-center justify-center text-white font-bold text-sm">TH8</div>
+                <span class="font-bold text-slate-900">Master Sales Script</span>
+            </div>
+            <div class="flex gap-2">
+                <a href="#prep" class="text-xs font-bold text-slate-500 hover:text-slate-900 px-3 py-1">1. Prep</a>
+                <a href="#opening" class="text-xs font-bold text-slate-500 hover:text-slate-900 px-3 py-1">2. Opening</a>
+                <a href="#demo" class="text-xs font-bold text-slate-500 hover:text-slate-900 px-3 py-1">3. Demo</a>
+                <a href="#closing" class="text-xs font-bold text-slate-500 hover:text-slate-900 px-3 py-1">4. Closing</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-10">
+
+        <!-- SECTION 1: PREPARATION -->
+        <section id="prep" class="mb-16">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center text-sm">1</span>
+                Preparation Checklist (ก่อนเข้าห้อง)
+            </h2>
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-slate-700 mb-2">1. Know the "Villain" (ปัญหา)</h4>
+                        <ul class="text-sm space-y-2 text-slate-600">
+                            <li><input type="checkbox"> เช็คข่าวบริษัท: ปีนี้เขาเน้น "ลดต้นทุน" หรือ "ขยายสาขา"?</li>
+                            <li><input type="checkbox"> ถ้าลดต้นทุน -> เน้นเรื่อง Fraud/Price Check</li>
+                            <li><input type="checkbox"> ถ้าขยายสาขา -> เน้นเรื่อง Speed/SLA</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-700 mb-2">2. Setup Demo Data</h4>
+                        <ul class="text-sm space-y-2 text-slate-600">
+                            <li><input type="checkbox"> เปลี่ยนชื่อ Vendor ใน Demo เป็นชื่อคู่ค้าจริงในวงการเขา</li>
+                            <li><input type="checkbox"> เปลี่ยนชื่อ Item เป็นวัตถุดิบหลักของเขา (เช่น เหล็ก, แป้ง, ชิป)</li>
+                            <li><input type="checkbox"> <strong>Tip:</strong> ใช้ไฟล์ <em>Industry Demo Pack</em> ที่เตรียมให้</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE OPENING (CEO/MD FOCUS) -->
+        <section id="opening" class="mb-16">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-sky-600 text-white rounded-full flex items-center justify-center text-sm">2</span>
+                The Hook (5 นาทีแรก - เจาะใจ CEO)
+            </h2>
+            
+            <div class="cue-card ceo p-6 rounded-lg shadow-sm">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-sky-600 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Target: CEO / MD</span>
+                        <span class="text-sm text-slate-500">Goal: ขาย "การควบคุม (Control)" ไม่ใช่ซอฟต์แวร์</span>
+                    </div>
+                    <i data-lucide="crosshair" class="w-5 h-5 text-sky-600"></i>
+                </div>
+                
+                <p class="font-script text-slate-800 text-lg">
+                    "ท่านครับ... ในองค์กรระดับ 500 ล้านอย่างเรา ผมเชื่อว่าเรามี ERP ที่ดีอย่าง SAP/Oracle อยู่แล้ว<br><br>
+                    แต่คำถามคือ... <strong>ทำไมเรายังต้องมีคนมานั่งเซ็นเอกสารวันละเป็นร้อยใบ?</strong><br>
+                    และทำไมทุกปียังมีเคส 'ซื้อของแพงเกินจริง' หรือ 'ของขาดสต็อก' หลุดรอดสายตาไปได้?<br><br>
+                    
+                    วันนี้ผมไม่ได้มาเสนอโปรแกรมทำเอกสารเพิ่มครับ<br>
+                    แต่ผมมาเสนอ <strong>'Decision Control Center'</strong>... ระบบที่จะทำให้ Policy ที่ท่านเซ็นอนุมัติในห้องประชุม กลายเป็น AI Agent ที่เฝ้าประตูบริษัทให้ท่าน 24 ชั่วโมงครับ"
+                </p>
+                
+                <div class="mt-4 p-3 bg-white border border-slate-200 rounded text-sm text-slate-600">
+                    <span class="action-tag">Action</span> เปิดหน้า <strong>Dashboard</strong> โชว์ตัวเลข "Risk Saved" ตัวใหญ่ๆ ให้เห็นผลลัพธ์ก่อน
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: THE DEMO WALKTHROUGH -->
+        <section id="demo" class="mb-16">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-sky-600 text-white rounded-full flex items-center justify-center text-sm">3</span>
+                The Solution Story (เจาะลึก 3 แกน)
+            </h2>
+
+            <!-- PART 3.1: CFO (MONEY & RISK) -->
+            <div class="cue-card cfo p-6 rounded-lg shadow-sm">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-emerald-600 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Target: CFO</span>
+                        <span class="text-sm text-slate-500">Goal: ขาย "ความโปร่งใส (Auditability)"</span>
+                    </div>
+                    <i data-lucide="banknote" class="w-5 h-5 text-emerald-600"></i>
+                </div>
+
+                <div class="mb-4 p-3 bg-white border border-slate-200 rounded text-sm text-slate-600">
+                    <span class="action-tag">Screen</span> เปิดหน้า <strong>End-to-End Flow (Step 2: AI Analysis)</strong>
+                </div>
+                
+                <p class="font-script text-slate-800 text-base">
+                    "สำหรับมุมมองการเงิน สิ่งที่น่ากลัวที่สุดไม่ใช่การ 'จ่ายเงิน' แต่คือการ 'จ่ายโดยไม่รู้ว่าผิด'<br><br>
+                    (ชี้ที่หน้าจอ) ระบบ TH8 ใช้ <strong>AI + Rule Engine</strong> ครับ... <br>
+                    ตรงนี้ครับ (ชี้ Rule) กฎบอกว่า 'ห้ามเกิน 3 ล้าน' ระบบล็อกทันที ไม่มีหยวน นี่คือความแม่นยำ 100%<br>
+                    และตรงนี้ครับ (ชี้ Evidence/RAG) AI ไปดึงสัญญาเก่าปี 2023 มาเทียบให้เห็นเลยว่า ราคานี้ 'ปรับขึ้นได้' ตามสัญญาข้อ 4.2<br><br>
+                    <strong>CFO จะไม่ต้องเสียเวลาเปิดแฟ้มสัญญาเองอีกต่อไปครับ ข้อมูลมากองอยู่ตรงหน้าพร้อมตัดสินใจทันที</strong>"
+                </p>
+            </div>
+
+            <!-- PART 3.2: COO (SPEED & OPS) -->
+            <div class="cue-card coo p-6 rounded-lg shadow-sm">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Target: COO</span>
+                        <span class="text-sm text-slate-500">Goal: ขาย "ความเร็ว (Speed/SLA)"</span>
+                    </div>
+                    <i data-lucide="zap" class="w-5 h-5 text-amber-500"></i>
+                </div>
+
+                <div class="mb-4 p-3 bg-white border border-slate-200 rounded text-sm text-slate-600">
+                    <span class="action-tag">Screen</span> เปิดหน้า <strong>Ingest Simulator (SLA Alert)</strong>
+                </div>
+                
+                <p class="font-script text-slate-800 text-base">
+                    "ในมุมปฏิบัติการ ผมทราบดีว่า 'ความล่าช้า = ต้นทุน' ครับ<br>
+                    ระบบนี้มี <strong>SLA Watchdog</strong> ที่จะเห่าเตือนทันทีถ้างานค้างนานเกินกำหนด<br><br>
+                    (กด Simulate Ingest) เห็นไหมครับ? พอ SLA เหลือต่ำกว่า 6 ชม. ระบบ Alert ไปที่มือถือ Manager ทันที<br>
+                    เราเปลี่ยนจากการ 'ตามแก้ปัญหาตอนของขาด' เป็นการ 'รู้ล่วงหน้าและป้องกันทัน' ครับ"
+                </p>
+            </div>
+
+            <!-- PART 3.3: IT HEAD (TECH & SECURITY) -->
+            <div class="cue-card it p-6 rounded-lg shadow-sm">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded uppercase">Target: IT Director</span>
+                        <span class="text-sm text-slate-500">Goal: ขาย "ความง่ายและปลอดภัย (Low Burden)"</span>
+                    </div>
+                    <i data-lucide="server" class="w-5 h-5 text-indigo-600"></i>
+                </div>
+
+                <div class="mb-4 p-3 bg-white border border-slate-200 rounded text-sm text-slate-600">
+                    <span class="action-tag">Screen</span> เปิดหน้า <strong>Audit Log (JSON View)</strong> หรือโชว์ <strong>Security Whitepaper</strong>
+                </div>
+                
+                <p class="font-script text-slate-800 text-base">
+                    "ผมทราบว่าทาง IT งานล้นมืออยู่แล้วครับ... TH8 ถูกออกแบบมาเป็น <strong>Low-Touch Integration</strong><br>
+                    เราคุยกันด้วย API JSON มาตรฐาน (ชี้ JSON) ไม่ต้องแก้ Core ERP เดิม<br><br>
+                    และที่สำคัญที่สุด... (หยิบ Security Paper ขึ้นมา) <strong>'We DO NOT train AI on your data'</strong><br>
+                    ข้อมูลของท่านถูกเก็บแยก (Single Tenant) และ Logic ทั้งหมดเป็น Config File (YAML) ที่ Business แก้เองได้ ไม่ต้องเปิด Ticket ให้ IT แก้โค้ดทุกครั้งที่มีโปรโมชั่นใหม่ครับ"
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 4: THE CLOSING -->
+        <section id="closing" class="mb-16">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-emerald-600 text-white rounded-full flex items-center justify-center text-sm">4</span>
+                The Closing (สรุปจบให้ได้งาน)
+            </h2>
+
+            <div class="bg-slate-900 text-white p-8 rounded-xl shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500 opacity-10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                
+                <h3 class="text-xl font-bold mb-4">Call to Action: "The Audit Challenge"</h3>
+                <p class="font-script text-slate-300 text-lg leading-relaxed mb-6">
+                    "ท่านครับ... การเปลี่ยนระบบทั้งบริษัทอาจดูเป็นเรื่องใหญ่<br>
+                    ดังนั้น วันนี้ผมขอเสนอ <strong>'Proof of Value'</strong> ง่ายๆ ครับ<br><br>
+                    
+                    ขอให้ท่านส่งข้อมูลการจัดซื้อย้อนหลัง 3 เดือน (แบบปิดชื่อ) มาให้เรา<br>
+                    เราจะใช้ TH8 Audit ให้ฟรีๆ ภายใน 3 วัน...<br>
+                    <strong>ถ้าเราไม่เจอจุดรั่วไหล หรือจุดที่ท่านเสียเงินฟรีๆ... ท่านไม่ต้องซื้อครับ</strong><br>
+                    แต่ถ้าเราเจอ... เราค่อยมาคุยเรื่อง Implementation Plan กัน<br><br>
+                    
+                    ท่านสะดวกให้ทีมผมเริ่มทำ NDA วันนี้เลยไหมครับ?"
+                </p>
+
+                <div class="flex gap-4 mt-8">
+                    <div class="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg border border-white/20">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+                        <span class="text-sm font-bold">Low Risk (เริ่มฟรี)</span>
+                    </div>
+                    <div class="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-lg border border-white/20">
+                        <i data-lucide="clock" class="w-5 h-5 text-amber-400"></i>
+                        <span class="text-sm font-bold">Fast Result (3 วันรู้ผล)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER TOOLS -->
+    <footer class="fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 py-3 px-6 shadow-lg z-50 flex justify-between items-center">
+        <span class="text-xs font-bold text-slate-400">TH8 Sales Mode</span>
+        <div class="flex gap-2">
+            <button onclick="window.scrollTo(0,0)" class="text-xs bg-slate-100 hover:bg-slate-200 px-3 py-1 rounded text-slate-600">Top</button>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

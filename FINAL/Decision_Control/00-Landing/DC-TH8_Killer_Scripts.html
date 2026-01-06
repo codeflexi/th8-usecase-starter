@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8 Executive Killer Scripts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0F172A; color: #E2E8F0; }
+        .font-script { font-family: 'Sarabun', sans-serif; line-height: 1.6; }
+        
+        .role-card {
+            display: none;
+            animation: slideIn 0.4s ease-out;
+        }
+        .role-card.active { display: block; }
+        
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .nav-btn {
+            opacity: 0.6;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .nav-btn:hover { opacity: 1; }
+        .nav-btn.active { opacity: 1; border-color: #38bdf8; color: white; }
+
+        .fear-box { border-left: 4px solid #ef4444; background: rgba(239, 68, 68, 0.1); }
+        .greed-box { border-left: 4px solid #10b981; background: rgba(16, 185, 129, 0.1); }
+        
+        .quote-icon { font-size: 4rem; line-height: 0; opacity: 0.2; position: absolute; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+
+    <div class="max-w-3xl w-full">
+        
+        <!-- HEADER -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-white mb-2">The Executive Whisperer</h1>
+            <p class="text-slate-400">เลือกตำแหน่งคู่สนทนา เพื่อดูบทพูด "มัดใจ"</p>
+        </header>
+
+        <!-- NAV -->
+        <div class="flex justify-center gap-8 mb-8 border-b border-slate-700 pb-1">
+            <button onclick="showRole('ceo')" id="btn-ceo" class="nav-btn active pb-2 font-bold text-lg">CEO</button>
+            <button onclick="showRole('cfo')" id="btn-cfo" class="nav-btn pb-2 font-bold text-lg">CFO</button>
+            <button onclick="showRole('coo')" id="btn-coo" class="nav-btn pb-2 font-bold text-lg">COO</button>
+            <button onclick="showRole('cio')" id="btn-cio" class="nav-btn pb-2 font-bold text-lg">CIO</button>
+        </div>
+
+        <!-- CONTENT CARDS -->
+        <div class="relative min-h-[400px]">
+
+            <!-- 1. CEO -->
+            <div id="card-ceo" class="role-card active bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
+                <div class="flex items-center gap-4 mb-6">
+                    <img src="https://ui-avatars.com/api/?name=CEO&background=0ea5e9&color=fff&size=64" class="rounded-full shadow-lg">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">The CEO</h2>
+                        <p class="text-sky-400 text-sm">Focus: Vision, Risk, Legacy</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Fear -->
+                    <div class="fear-box p-6 rounded-r-xl relative">
+                        <span class="text-xs font-bold text-red-400 uppercase tracking-widest mb-2 block">🔥 The Fear Pitch (Loss)</span>
+                        <p class="font-script text-lg text-slate-200 italic relative z-10">
+                            "ท่านครับ... สิ่งที่น่ากลัวที่สุดไม่ใช่คู่แข่ง แต่คือ <strong>'ระเบิดเวลาภายใน'</strong> ครับ... <br>
+                            ทุกวันนี้ท่านเซ็นอนุมัติเอกสารวันละร้อยใบ โดยเชื่อใจลูกน้อง 100%... <br>
+                            <span class="text-white font-bold">แต่วันใดวันหนึ่ง ถ้ามีคน 'พลาด' หรือ 'ตั้งใจโกง' แค่ครั้งเดียว ชื่อเสียงที่ท่านสร้างมา 10 ปี อาจพังทลายในข้ามคืนครับ"</span>
+                        </p>
+                    </div>
+
+                    <!-- Greed -->
+                    <div class="greed-box p-6 rounded-r-xl relative">
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2 block">💰 The Greed Pitch (Gain)</span>
+                        <p class="font-script text-lg text-slate-200 italic relative z-10">
+                            "แต่ถ้าท่านใช้ TH8... ท่านกำลังเปลี่ยน Back Office ที่แสนน่าเบื่อ ให้กลายเป็น <strong>'Digital Asset'</strong> ครับ<br>
+                            องค์กรท่านจะเป็น <strong>First Mover</strong> ในอุตสาหกรรมที่ใช้ AI คุม Governance 100%... นี่คือ Legacy ที่ท่านจะทิ้งไว้ให้องค์กรครับ"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. CFO -->
+            <div id="card-cfo" class="role-card bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
+                <div class="flex items-center gap-4 mb-6">
+                    <img src="https://ui-avatars.com/api/?name=CFO&background=10b981&color=fff&size=64" class="rounded-full shadow-lg">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">The CFO</h2>
+                        <p class="text-emerald-400 text-sm">Focus: Bottom Line, Audit, ROI</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Fear -->
+                    <div class="fear-box p-6 rounded-r-xl relative">
+                        <span class="text-xs font-bold text-red-400 uppercase tracking-widest mb-2 block">🔥 The Fear Pitch (Loss)</span>
+                        <p class="font-script text-lg text-slate-200 italic relative z-10">
+                            "คุณ...ครับ งบจัดซื้อปีละ 500 ล้าน ถ้ามี Leakage แค่ 1% ที่เรามองไม่เห็น... <br>
+                            เท่ากับว่าเรากำลัง <span class="text-white font-bold text-xl border-b-2 border-red-500">เผาเงินสดทิ้งปีละ 5 ล้านบาท</span> ฟรีๆ ทุกปีนะครับ... <br>
+                            เงินจำนวนนี้จ้างพนักงานเก่งๆ ได้ 10 คนเลยนะครับ"
+                        </p>
+                    </div>
+
+                    <!-- Greed -->
+                    <div class="greed-box p-6 rounded-r-xl relative">
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2 block">💰 The Greed Pitch (Gain)</span>
+                        <p class="font-script text-lg text-slate-200 italic relative z-10">
+                            "TH8 ไม่ใช่ค่าใช้จ่าย (Expense) ครับ แต่คือเครื่องมือ <strong>'Profit Generator'</strong><br>
+                            จ่ายค่าระบบ 1.8 ล้าน แต่หยุดเงินรั่วได้ 5 ล้าน... <br>
+                            เท่ากับว่าปีนี้ <strong>EBITDA ของบริษัทจะเพิ่มขึ้นทันที 3.2 ล้านบาท</strong> โดยไม่ต้องขายของเพิ่มแม้แต่ชิ้นเดียวครับ"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. COO -->
+            <div id="card-coo" class="role-card bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
+                <div class="flex items-center gap-4 mb-6">
+                    <img src="https://ui-avatars.com/api/?name=COO&background=f59e0b&color=fff&size=64" class="rounded-full shadow-lg">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">The COO</h2>
+                        <p class="text-amber-400 text-sm">Focus: Efficiency, Speed, Headache</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Fear -->
+                    <div class="fear-box p-6 rounded-r-xl relative">
+                        <span class="text-xs font-bold text-red-400 uppercase tracking-widest mb-2 block">🔥 The Fear Pitch (Loss)</span>
+                        <p class="font-script text-lg text-slate-200 italic relative z-10">
+                            "พี่...ครับ วันไหนที่พี่ไม่อยู่ หรือลูกน้องคนสำคัญลาออก... <strong>งานสะดุดทันทีใช่ไหมครับ?</strong><br>
+                            ความเสี่ยงของ Operations ตอนนี้คือเราพึ่งพา 'ความจำของคน' มากเกินไป... ถ้าวันนึงเขาไม่อยู่ ใครจะจำกฎหยุมหยิมพวกนี้ได้ครับ?"
+                        </p>
+                    </div>
+
+                    <!-- Greed -->
+                    <div class="greed-box p-6 rounded-r-xl relative">
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2 block">💰 The Greed Pitch (Gain)</span>
+                        <p class="font-script text-lg text-slate-200 italic relative z-10">
+                            "ระบบนี้จะทำให้ทีมของพี่ทำงานได้ <strong>3x โดยไม่ต้องรับคนเพิ่ม</strong> ครับ<br>
+                            ลองคิดดูสิครับ ถ้า AI เคลียร์งานเอกสารให้หมด ทีมงานพี่จะมีเวลาไปโฟกัสหน้างาน ไปคุม Supplier หรือไปปรับปรุง Process... <br>
+                            <strong>พี่จะได้เป็น COO ที่ขับเคลื่อนองค์กรด้วย Innovation ไม่ใช่แค่คนคอยตามแก้ปัญหาครับ</strong>"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. CIO -->
+            <div id="card-cio" class="role-card bg-slate-800 rounded-2xl p-8 shadow-2xl border border-slate-700">
+                <div class="flex items-center gap-4 mb-6">
+                    <img src="https://ui-avatars.com/api/?name=CIO&background=6366f1&color=fff&size=64" class="rounded-full shadow-lg">
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">The CIO</h2>
+                        <p class="text-indigo-400 text-sm">Focus: Security, Control, Shadow IT</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <!-- Fear -->
+                    <div class="fear-box p-6 rounded-r-xl relative">
+                        <span class="text-xs font-bold text-red-400 uppercase tracking-widest mb-2 block">🔥 The Fear Pitch (Loss)</span>
+                        <p class="font-script text-lg text-slate-200 italic relative z-10">
+                            "พี่ครับ... สิ่งที่น่ากลัวกว่าการไม่ใช้ AI คือการที่ <strong>'User แอบใช้ AI เอง' (Shadow AI)</strong> ครับ<br>
+                            ตอนนี้พนักงานอาจจะกำลังเอาข้อมูลบริษัทไปแปะใน ChatGPT ฟรี เพื่อให้มันช่วยทำงาน... ข้อมูลรั่วไหลไปแล้วเราไม่รู้เลยนะครับ"
+                        </p>
+                    </div>
+
+                    <!-- Greed -->
+                    <div class="greed-box p-6 rounded-r-xl relative">
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-2 block">💰 The Greed Pitch (Gain)</span>
+                        <p class="font-script text-lg text-slate-200 italic relative z-10">
+                            "การนำ TH8 เข้ามา คือการที่พี่ได้ <strong>'Centralize AI Governance'</strong> กลับมาอยู่ในมือ IT ครับ<br>
+                            พี่จะเป็นฮีโร่ที่นำ AI ที่ปลอดภัย (Secure & Private) มาให้องค์กรใช้... <br>
+                            แถมระบบเราเป็น <strong>Low-Code</strong> พนักงานแก้ Rule เองได้ พี่ไม่ต้องมานั่งแก้ Ticket จุกจิกครับ"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-8 text-center text-slate-500 text-sm">
+            กดปุ่มด้านบนเพื่อเปลี่ยนบทพูดตามคู่สนทนา
+        </div>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function showRole(role) {
+            // Hide all cards
+            document.querySelectorAll('.role-card').forEach(el => el.classList.remove('active'));
+            // Deactivate buttons
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+            
+            // Show selected
+            document.getElementById('card-' + role).classList.add('active');
+            document.getElementById('btn-' + role).classList.add('active');
+        }
+    </script>
+</body>
+</html>

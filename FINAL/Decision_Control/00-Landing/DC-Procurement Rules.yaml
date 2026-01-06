@@ -1,0 +1,91 @@
+# TH8.AI Procurement Policy Configuration (v3)
+# Target: Enterprise Revenue > 500M
+# Concept: "Rules as Code" - Edit this file to change business logic instantly.
+
+meta:
+  version: "3.1.0"
+  last_updated: "2024-05-20"
+  currency: "THB"
+
+# 1. Global Definitions (ค่าคงที่ที่ใช้ทั้งระบบ)
+definitions:
+  thresholds:
+    high_value_limit: 3000000  # 3 MB
+    cfo_approval_limit: 10000000 # 10 MB
+    sla_critical_hours: 6
+    price_variance_percent: 5.0
+
+# 2. Roles (ผู้เล่นในระบบ)
+roles:
+  - id: "OFFICER"
+    name: "Procurement Officer"
+    responsibility: "Daily Operations"
+  - id: "MANAGER"
+    name: "Procurement Manager"
+    responsibility: "High Value Approval"
+  - id: "CFO"
+    name: "Chief Financial Officer"
+    responsibility: "Strategic Spending"
+
+# 3. The Rules Engine (หัวใจสำคัญ)
+# AI จะรัน Rule จากบนลงล่าง (Priority Order)
+rules:
+
+  # --- Rule Group 1: Risk & Compliance (ความเสี่ยง) ---
+  
+  - rule_id: "RISK_BLACKLIST_VENDOR"
+    description: "ห้ามซื้อขายกับ Vendor ที่ติด Blacklist เด็ดขาด"
+    condition: "vendor.status == 'BLACKLIST'"
+    action: 
+      type: "REJECT"
+      message: "Blocked Vendor Detected"
+    severity: "CRITICAL"
+
+  - rule_id: "HIGH_AMOUNT_ESCALATION"
+    description: "รายการมูลค่าสูงต้องให้ Manager อนุมัติ"
+    condition: "amount_total > definitions.thresholds.high_value_limit"
+    action:
+      type: "ESCALATE"
+      target_role: "MANAGER"
+      required_evidence: ["contract_ref", "budget_code"]
+    severity: "HIGH"
+
+  - rule_id: "EXTREME_VALUE_CFO"
+    description: "รายการมูลค่าสูงมากต้องถึงมือ CFO"
+    condition: "amount_total > definitions.thresholds.cfo_approval_limit"
+    action:
+      type: "ESCALATE"
+      target_role: "CFO"
+      required_evidence: ["roi_calculation", "board_approval_memo"]
+    severity: "CRITICAL"
+
+  # --- Rule Group 2: Operational Efficiency (ความเร็ว) ---
+
+  - rule_id: "SLA_RISK_WARNING"
+    description: "เตือนเมื่อใกล้หมดเวลา SLA เพื่อป้องกัน Penalty"
+    condition: "sla_hours_remaining <= definitions.thresholds.sla_critical_hours"
+    action:
+      type: "WARN"
+      target_role: "OFFICER"
+      notification_channel: ["EMAIL", "DASHBOARD_ALERT"]
+    severity: "MEDIUM"
+
+  # --- Rule Group 3: Standardization (มาตรฐาน) ---
+
+  - rule_id: "PRICE_VARIANCE_CHECK"
+    description: "สินค้าราคาโดดจากเดิมเกิน 5% ต้องตรวจสอบ"
+    condition: "item.price_variance > definitions.thresholds.price_variance_percent"
+    action:
+      type: "ESCALATE"
+      target_role: "MANAGER"
+      message: "Price exceeds historical variance"
+    severity: "MEDIUM"
+
+  # --- Rule Group 4: Default (ถ้าไม่เข้าเงื่อนไขบน) ---
+  
+  - rule_id: "STANDARD_AUTO_FLOW"
+    description: "เคสปกติ มูลค่าต่ำ อยู่ในงบประมาณ"
+    condition: "default"
+    action:
+      type: "AUTO_APPROVE" or "STANDARD_ROUTE"
+    severity: "LOW"

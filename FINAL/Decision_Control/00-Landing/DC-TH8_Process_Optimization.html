@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8 Process Optimization Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0f172a; color: #e2e8f0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .nav-item {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+            border-left: 4px solid transparent;
+        }
+        .nav-item.active {
+            opacity: 1;
+            background: rgba(30, 41, 59, 0.5);
+            border-left-color: #38bdf8;
+        }
+        .nav-item:hover { opacity: 1; }
+
+        .view-section { display: none; animation: fadeIn 0.5s ease-out; }
+        .view-section.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Animation for Matching Lines (Zero Close) */
+        .match-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2s forwards;
+        }
+        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+    </style>
+</head>
+<body class="min-h-screen flex">
+
+    <!-- SIDEBAR NAV -->
+    <aside class="w-72 bg-slate-900 border-r border-slate-800 flex flex-col">
+        <div class="p-6 border-b border-slate-800 flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-tr from-emerald-500 to-sky-500 rounded-lg flex items-center justify-center font-bold text-white shadow-lg">TH8</div>
+            <div>
+                <h1 class="font-bold text-white">Process AI</h1>
+                <p class="text-xs text-slate-400">Optimization Suite</p>
+            </div>
+        </div>
+        
+        <div class="flex-1 py-6 space-y-2">
+            <div onclick="switchView('cash')" id="nav-cash" class="nav-item active px-6 py-4">
+                <h3 class="text-sm font-bold text-emerald-400 mb-1 flex items-center gap-2"><i data-lucide="coins" class="w-4 h-4"></i> Cash Flow Command</h3>
+                <p class="text-xs text-slate-400">P2P: Dynamic Discounting</p>
+            </div>
+            
+            <div onclick="switchView('revenue')" id="nav-revenue" class="nav-item px-6 py-4">
+                <h3 class="text-sm font-bold text-amber-400 mb-1 flex items-center gap-2"><i data-lucide="crosshair" class="w-4 h-4"></i> Revenue Guardian</h3>
+                <p class="text-xs text-slate-400">O2C: Predictive Collection</p>
+            </div>
+
+            <div onclick="switchView('close')" id="nav-close" class="nav-item px-6 py-4">
+                <h3 class="text-sm font-bold text-indigo-400 mb-1 flex items-center gap-2"><i data-lucide="infinity" class="w-4 h-4"></i> Zero-Close Engine</h3>
+                <p class="text-xs text-slate-400">R2R: Auto-Reconciliation</p>
+            </div>
+        </div>
+        
+        <div class="p-6 bg-slate-950 text-center text-xs text-slate-500">
+            Enterprise Grade • SOC2 Ready
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 bg-slate-950 p-8 overflow-y-auto">
+
+        <!-- VIEW 1: CASH FLOW COMMAND (P2P) -->
+        <div id="view-cash" class="view-section active space-y-8">
+            <header class="flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Cash Flow Command (P2P)</h2>
+                    <p class="text-slate-400">เปลี่ยน "หนี้" ให้เป็น "กำไร" ด้วย Dynamic Discounting</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs text-slate-400 uppercase">Profit Generated (YTD)</p>
+                    <p class="text-3xl font-bold text-emerald-400">+฿1,250,000</p>
+                </div>
+            </header>
+
+            <!-- Opportunity Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Supplier A -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-6 relative overflow-hidden group hover:border-emerald-500 transition">
+                    <div class="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] px-2 py-1 rounded-bl-lg font-bold">Recommended</div>
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Vendor: Siam Steel Co.</h3>
+                            <p class="text-xs text-slate-400">Invoice: INV-2024-001 (฿5,000,000)</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs text-slate-400">Due Date</p>
+                            <p class="font-bold text-white">30 Days left</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-slate-300">Offer Early Pay (Today)</span>
+                            <span class="text-emerald-400 font-bold text-lg">2.0% Discount</span>
+                        </div>
+                        <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
+                            <div class="bg-emerald-500 h-full w-[80%]"></div>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-1">Acceptance Probability: 80% (Vendor needs cashflow)</p>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="text-xs text-slate-400">You Save</p>
+                            <p class="text-xl font-bold text-white">฿100,000</p>
+                        </div>
+                        <button class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg shadow-emerald-900/50">
+                            Execute Offer
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Supplier B -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-6 opacity-60">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="font-bold text-lg text-white">Vendor: Global Chem</h3>
+                            <p class="text-xs text-slate-400">Invoice: INV-992 (฿2,000,000)</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs text-slate-400">Due Date</p>
+                            <p class="font-bold text-white">45 Days left</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800 p-4 rounded-lg border border-slate-700 mb-4">
+                        <p class="text-xs text-slate-400 mb-1">AI Recommendation:</p>
+                        <p class="text-sm text-amber-400 font-bold">Hold Payment (Maximize Cash)</p>
+                        <p class="text-[10px] text-slate-500 mt-2">Vendor has high cash reserve. Low chance of discount acceptance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: REVENUE GUARDIAN (O2C) -->
+        <div id="view-revenue" class="view-section hidden space-y-8">
+            <header>
+                <h2 class="text-2xl font-bold text-white">Revenue Guardian (O2C)</h2>
+                <p class="text-slate-400">พยากรณ์ลูกค้าที่จะ "เบี้ยวหนี้" ก่อนเกิดหนี้สูญ</p>
+            </header>
+
+            <div class="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
+                <table class="w-full text-left text-sm text-slate-300">
+                    <thead class="bg-slate-800 text-xs uppercase font-bold text-slate-400">
+                        <tr>
+                            <th class="p-4">Customer</th>
+                            <th class="p-4">Outstanding</th>
+                            <th class="p-4">AI Risk Score</th>
+                            <th class="p-4">Predicted Payment</th>
+                            <th class="p-4">Recommended Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <!-- High Risk -->
+                        <tr class="bg-red-900/10 hover:bg-red-900/20 transition">
+                            <td class="p-4 font-bold text-white">Alpha Construction</td>
+                            <td class="p-4">฿4,500,000</td>
+                            <td class="p-4"><span class="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">92/100 (Critical)</span></td>
+                            <td class="p-4 text-red-400">Late > 30 Days</td>
+                            <td class="p-4">
+                                <button class="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded text-xs font-bold flex items-center gap-2">
+                                    <i data-lucide="lock" class="w-3 h-3"></i> Freeze Credit
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Medium Risk -->
+                        <tr class="hover:bg-slate-800 transition">
+                            <td class="p-4 font-bold text-white">Beta Retail Group</td>
+                            <td class="p-4">฿1,200,000</td>
+                            <td class="p-4"><span class="bg-amber-500 text-slate-900 px-2 py-1 rounded text-xs font-bold">45/100 (Watch)</span></td>
+                            <td class="p-4 text-amber-400">Late 1-7 Days</td>
+                            <td class="p-4">
+                                <button class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-1 rounded text-xs font-bold flex items-center gap-2">
+                                    <i data-lucide="mail" class="w-3 h-3"></i> Send Gentle Nudge
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Low Risk -->
+                        <tr class="hover:bg-slate-800 transition opacity-60">
+                            <td class="p-4 font-bold text-white">Gamma Tech</td>
+                            <td class="p-4">฿800,000</td>
+                            <td class="p-4"><span class="bg-emerald-500 text-white px-2 py-1 rounded text-xs font-bold">12/100 (Safe)</span></td>
+                            <td class="p-4 text-emerald-400">On Time</td>
+                            <td class="p-4 text-xs text-slate-500">No Action Needed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- VIEW 3: ZERO-CLOSE ENGINE (R2R) -->
+        <div id="view-close" class="view-section hidden space-y-8">
+            <header>
+                <h2 class="text-2xl font-bold text-white">Zero-Close Engine (R2R)</h2>
+                <p class="text-slate-400">กระทบยอดบัญชีอัตโนมัติ (Reconciliation) ลดเวลาปิดบัญชีสิ้นเดือน</p>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left: Bank Statement -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-4">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase mb-4 border-b border-slate-700 pb-2">Bank Statement (Unmatched)</h3>
+                    <div class="space-y-3">
+                        <div id="bank-item-1" class="p-3 bg-slate-800 rounded border border-slate-600 text-xs cursor-pointer hover:border-indigo-500 relative">
+                            <div class="flex justify-between font-bold text-white">
+                                <span>TRF FR SCB 1234</span>
+                                <span>+50,200.00</span>
+                            </div>
+                            <div class="text-slate-400 mt-1">Ref: PAYMT INV 992/993</div>
+                            <div class="absolute right-0 top-1/2 -translate-y-1/2 -mr-1 w-2 h-2 bg-indigo-500 rounded-full"></div>
+                        </div>
+                        <div class="p-3 bg-slate-800 rounded border border-slate-600 text-xs opacity-50">
+                            <div class="flex justify-between">
+                                <span>K-BANK CHQ #881</span>
+                                <span>+10,000.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center: AI Processing -->
+                <div class="flex flex-col items-center justify-center relative">
+                    <!-- SVG Lines will be drawn here -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 10;">
+                        <line x1="0" y1="30%" x2="100%" y2="30%" stroke="#6366f1" stroke-width="2" class="match-line opacity-0" id="line-match" />
+                    </svg>
+                    
+                    <div class="bg-indigo-900/20 border border-indigo-500/50 p-4 rounded-full mb-4 animate-pulse">
+                        <i data-lucide="wand-2" class="w-8 h-8 text-indigo-400"></i>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm font-bold text-white">AI Matching...</p>
+                        <p class="text-xs text-indigo-300 bg-indigo-900/50 px-2 py-1 rounded mt-2 border border-indigo-500/30">
+                            Pattern Found: "Lump Sum Payment"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right: ERP Ledger -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-4">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase mb-4 border-b border-slate-700 pb-2">ERP Ledger (Open Items)</h3>
+                    <div class="space-y-3">
+                        <div id="erp-item-1" class="p-3 bg-slate-800 rounded border border-slate-600 text-xs relative">
+                            <div class="absolute left-0 top-1/2 -translate-y-1/2 -ml-1 w-2 h-2 bg-indigo-500 rounded-full"></div>
+                            <div class="flex justify-between text-slate-300">
+                                <span>INV-992 (Cust A)</span>
+                                <span>25,100.00</span>
+                            </div>
+                        </div>
+                        <div id="erp-item-2" class="p-3 bg-slate-800 rounded border border-slate-600 text-xs relative">
+                            <div class="absolute left-0 top-1/2 -translate-y-1/2 -ml-1 w-2 h-2 bg-indigo-500 rounded-full"></div>
+                            <div class="flex justify-between text-slate-300">
+                                <span>INV-993 (Cust A)</span>
+                                <span>25,100.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 p-3 bg-green-900/20 border border-green-500/30 rounded text-center">
+                        <p class="text-xs text-green-400 font-bold mb-1">Match Found!</p>
+                        <p class="text-[10px] text-slate-400">Bank (50,200) = INV-992 + INV-993</p>
+                        <button class="mt-2 bg-green-600 hover:bg-green-500 text-white w-full py-1 rounded text-xs font-bold">Confirm Match</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        function switchView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
+            // Show selected
+            document.getElementById('view-' + viewId).classList.add('active');
+            document.getElementById('nav-' + viewId).classList.add('active');
+
+            // Trigger Animation for Close Engine
+            if(viewId === 'close') {
+                const line = document.getElementById('line-match');
+                line.classList.remove('opacity-0');
+                // Reset animation
+                line.style.animation = 'none';
+                line.offsetHeight; /* trigger reflow */
+                line.style.animation = null; 
+            }
+        }
+    </script>
+</body>
+</html>

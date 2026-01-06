@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8.AI: Strategic SWOT Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+        .font-body { font-family: 'Sarabun', sans-serif; }
+        
+        .swot-card {
+            transition: all 0.3s ease;
+        }
+        .swot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 pb-20">
+
+    <!-- HEADER -->
+    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-sky-600 rounded-lg flex items-center justify-center font-bold text-lg">SWOT</div>
+                <div>
+                    <h1 class="font-bold text-sm uppercase tracking-wider">Strategic Analysis</h1>
+                    <p class="text-[10px] text-slate-400">Product: TH8 Procurement AI Agent</p>
+                </div>
+            </div>
+            <div class="text-xs font-medium bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+                Confidential Review
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-10 space-y-12">
+
+        <!-- EXECUTIVE SUMMARY -->
+        <section class="text-center max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-slate-900 mb-4">Executive Summary</h2>
+            <p class="text-slate-600 leading-relaxed font-body">
+                TH8 มีจุดแข็งที่ชัดเจนในเรื่อง <strong>"Hybrid Intelligence"</strong> (ใช้ Rule คุมเงิน + ใช้ AI อ่านเอกสาร) ซึ่งแก้ Pain Point เรื่องความโปร่งใสขององค์กรใหญ่ได้ตรงจุด <br>
+                ความท้าทายหลักคือ <strong>"Integration Friction"</strong> กับระบบ ERP เก่า และการแข่งขันกับเจ้าตลาด (Incumbents) ที่เริ่มใส่ AI เข้ามา
+            </p>
+        </section>
+
+        <!-- SWOT MATRIX -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- STRENGTHS (จุดแข็ง) -->
+            <div class="swot-card bg-white p-6 rounded-xl border-t-4 border-emerald-500 shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
+                        <i data-lucide="shield-check" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800">Strengths (จุดแข็ง)</h3>
+                </div>
+                <ul class="space-y-4 font-body text-sm text-slate-600">
+                    <li class="flex gap-3">
+                        <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">Hybrid Logic (Rule + AI):</strong> ไม่ใช้ AI ตัดสินใจเรื่องเงิน 100% แต่ใช้ YAML Rule คุม ทำให้ CFO กล้าเซ็นอนุมัติซื้อ เพราะตรวจสอบที่มาที่ไปได้ (Auditability)
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">Native Thai & Local Context:</strong> เข้าใจบริบทเอกสารราชการไทย สัญญาภาษาไทย และกฎหมายไทยดีกว่า Global SaaS ทั่วไป
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">Rules as Code (YAML):</strong> ความยืดหยุ่นสูง Business/Audit แก้ Logic เองได้โดยไม่ต้องรอ IT แก้โค้ด ลดคอขวดฝั่ง Tech
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">Data Privacy Assurance:</strong> สถาปัตยกรรมแบบ Zero-Training Policy ตอบโจทย์องค์กรที่หวงข้อมูล
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- WEAKNESSES (จุดอ่อน) -->
+            <div class="swot-card bg-white p-6 rounded-xl border-t-4 border-amber-500 shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center text-amber-600">
+                        <i data-lucide="alert-circle" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800">Weaknesses (จุดอ่อน)</h3>
+                </div>
+                <ul class="space-y-4 font-body text-sm text-slate-600">
+                    <li class="flex gap-3">
+                        <i data-lucide="minus" class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">Dependency on Legacy ERP:</strong> การดึงข้อมูลจาก SAP/Oracle รุ่นเก่า (On-premise) ทำได้ยากและใช้เวลานาน (High Setup Time)
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="minus" class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">Data Quality Sensitivity:</strong> ถ้าลูกค้าสแกนเอกสารมาไม่ชัด หรือข้อมูลใน ERP มั่ว (Garbage In) ระบบ AI จะทำงานผิดพลาดทันที (Garbage Out)
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="minus" class="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">High Implementation Cost:</strong> ไม่ใช่ Plug & Play ต้องมีทีม Consult เข้าไป Setup ทำให้ราคาเริ่มต้นสูง ขาย SME ไม่ได้
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- OPPORTUNITIES (โอกาส) -->
+            <div class="swot-card bg-white p-6 rounded-xl border-t-4 border-sky-500 shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-sky-100 rounded-full flex items-center justify-center text-sky-600">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800">Opportunities (โอกาส)</h3>
+                </div>
+                <ul class="space-y-4 font-body text-sm text-slate-600">
+                    <li class="flex gap-3">
+                        <i data-lucide="trending-up" class="w-4 h-4 text-sky-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">ESG & Compliance Wave:</strong> ตลาดหลักทรัพย์ฯ บังคับเรื่องธรรมาภิบาล (Governance) มากขึ้น TH8 สามารถขายในมุม "Digital Compliance Tool" ได้
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="trending-up" class="w-4 h-4 text-sky-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">Horizontal Expansion:</strong> โครงสร้าง "Rule + RAG" สามารถขยายไปใช้กับ HR (ตรวจ Resume), Legal (ตรวจสัญญา), และ Claim (ตรวจประกัน) ได้ง่าย
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="trending-up" class="w-4 h-4 text-sky-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">ERP Fatigue:</strong> องค์กรไม่อยาก Upgrade ERP ใหม่เพราะแพงและเสี่ยง การใช้ TH8 "แปะทับ" (Overlay) ระบบเดิม เป็นทางเลือกที่คุ้มค่ากว่า
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- THREATS (อุปสรรค) -->
+            <div class="swot-card bg-white p-6 rounded-xl border-t-4 border-red-500 shadow-sm">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center text-red-600">
+                        <i data-lucide="skull" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800">Threats (อุปสรรค)</h3>
+                </div>
+                <ul class="space-y-4 font-body text-sm text-slate-600">
+                    <li class="flex gap-3">
+                        <i data-lucide="x" class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">Incumbents (SAP/Microsoft):</strong> ยักษ์ใหญ่เริ่มใส่ Copilot เข้ามาในระบบตัวเอง ถ้าเขาทำภาษาไทยได้ดีเมื่อไหร่ TH8 จะเสียเปรียบเรื่อง Integration
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="x" class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">Trust Crisis:</strong> ถ้า AI เกิด Hallucinate (มั่วข้อมูล) ในเคสใหญ่ๆ แม้แต่ครั้งเดียว ความเชื่อมั่นอาจพังทลายทั้งระบบ
+                        </div>
+                    </li>
+                    <li class="flex gap-3">
+                        <i data-lucide="x" class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <strong class="text-slate-800">Internal Resistance:</strong> ฝ่ายจัดซื้อกลัวตกงาน อาจจะต่อต้าน (Sabotage) โดยการบอกว่าระบบใช้งานยาก หรือไม่ให้ความร่วมมือ
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </section>
+
+        <!-- STRATEGIC RECOMMENDATIONS (TOWS) -->
+        <section class="bg-slate-900 text-white rounded-2xl p-8 shadow-xl">
+            <h2 class="text-2xl font-bold mb-6">Strategic Recommendations (Action Plan)</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-body">
+                <div>
+                    <h4 class="text-emerald-400 font-bold text-lg mb-2">1. แก้จุดอ่อนด้วยจุดแข็ง (WO Strategy)</h4>
+                    <p class="text-sm text-slate-300 mb-4">
+                        ปัญหาเรื่อง <em>Integration ยาก</em> แก้ได้ด้วยการขายแบบ <strong>"Audit-First Approach"</strong> (Phase 1) คือขอแค่ไฟล์ CSV/Excel มา Audit ย้อนหลังก่อน (ไม่ต้องต่อ API) เพื่อโชว์ ROI ให้เห็น แล้วค่อยของบทำ Integration เต็มรูปแบบใน Phase 2
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-sky-400 font-bold text-lg mb-2">2. ใช้โอกาสขยายตลาด (SO Strategy)</h4>
+                    <p class="text-sm text-slate-300 mb-4">
+                        เกาะกระแส <strong>ESG</strong> โดยการเพิ่ม Rule เกี่ยวกับ "Green Procurement" เข้าไปในระบบ (เช่น Vendor ต้องมีใบ Cert สิ่งแวดล้อม) ทำให้ Product ดูทันสมัยและจำเป็นต้องมี
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-amber-400 font-bold text-lg mb-2">3. ป้องกันอุปสรรค (ST Strategy)</h4>
+                    <p class="text-sm text-slate-300 mb-4">
+                        สู้กับ <em>Microsoft/SAP Copilot</em> ด้วยความเป็น <strong>"Specialist"</strong> และ <strong>"Local Compliance"</strong> ย้ำว่า Generic AI ไม่เข้าใจกฎหมายจัดซื้อของไทยและระเบียบภายในที่ซับซ้อนเท่า TH8
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-red-400 font-bold text-lg mb-2">4. ลดแรงต้านภายใน (Change Mgmt)</h4>
+                    <p class="text-sm text-slate-300 mb-4">
+                        Re-positioning สินค้าจาก "AI ที่มาจับผิด" เป็น <strong>"AI ผู้ช่วยส่วนตัว (Co-pilot)"</strong> ที่ช่วยให้ฝ่ายจัดซื้อไม่ต้องทำงานเอกสารน่าเบื่อ และมีเวลาไปโฟกัสงานเชิงกลยุทธ์
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-8 text-center mt-12">
+        <p class="text-slate-500 text-xs">Generated for TH8 Strategic Planning | Internal Use Only</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

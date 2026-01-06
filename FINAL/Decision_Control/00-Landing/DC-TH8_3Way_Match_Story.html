@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH8 3-Way Match Storyboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #0F172A; color: #E2E8F0; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        .story-slide { display: none; animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .story-slide.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Document Styling */
+        .doc-paper {
+            background: white;
+            color: #334155;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Scan Animation */
+        .scan-line {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(to right, transparent, #38BDF8, transparent);
+            box-shadow: 0 0 10px #38BDF8;
+            animation: scan 2s infinite linear;
+            z-index: 10;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        /* Comparison Line */
+        .conn-line {
+            height: 2px;
+            background: #64748B;
+            position: relative;
+            transition: all 0.5s;
+        }
+        .conn-line::after {
+            content: '';
+            position: absolute;
+            top: -4px; right: -4px;
+            width: 10px; height: 10px;
+            border-top: 2px solid #64748B;
+            border-right: 2px solid #64748B;
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+        .conn-line.error { background: #EF4444; }
+        .conn-line.error::after { border-color: #EF4444; }
+        .conn-line.success { background: #10B981; }
+        .conn-line.success::after { border-color: #10B981; }
+
+        /* Value Highlight */
+        .val-box {
+            border: 2px solid transparent;
+            border-radius: 4px;
+            padding: 0 4px;
+            transition: all 0.3s;
+        }
+        .val-box.highlight { border-color: #38BDF8; background: rgba(56, 189, 248, 0.1); }
+        .val-box.mismatch { border-color: #EF4444; background: rgba(239, 68, 68, 0.1); color: #EF4444; font-weight: bold; }
+        .val-box.match { border-color: #10B981; background: rgba(16, 185, 129, 0.1); color: #10B981; font-weight: bold; }
+
+        .progress-step {
+            width: 3rem; height: 0.25rem; background: #334155; border-radius: 99px; transition: all 0.3s;
+        }
+        .progress-step.active { background: #38BDF8; box-shadow: 0 0 10px #38BDF8; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="h-20 bg-slate-900 border-b border-slate-800 flex items-center justify-between px-8 sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center font-bold text-white text-lg">TH8</div>
+            <div>
+                <h1 class="font-bold text-white text-lg tracking-wide">Automated 3-Way Match</h1>
+                <p class="text-xs text-slate-400">End-to-End Prevention of Revenue Leakage</p>
+            </div>
+        </div>
+        <div class="flex gap-2" id="progress-bar">
+            <!-- Injected by JS -->
+        </div>
+    </header>
+
+    <main class="flex-1 w-full max-w-7xl mx-auto p-8 relative">
+
+        <!-- SLIDE 1: THE PROBLEM -->
+        <div id="slide-1" class="story-slide active h-full flex flex-col justify-center items-center text-center">
+            <div class="w-24 h-24 bg-red-900/20 rounded-full flex items-center justify-center mb-8 border border-red-500/50 shadow-[0_0_50px_rgba(239,68,68,0.2)]">
+                <i data-lucide="alert-triangle" class="w-12 h-12 text-red-500"></i>
+            </div>
+            <h2 class="text-4xl font-bold text-white mb-6">The "Invisible" Leakage</h2>
+            <p class="text-xl text-slate-400 max-w-2xl leading-relaxed mb-10">
+                ทุกๆ เดือน ฝ่ายบัญชีต้องตรวจเอกสารนับพันใบด้วยตาเปล่า...<br>
+                Vendor แอบขึ้นราคา 5 บาท? ส่งของขาด 2 ชิ้น?<br>
+                <span class="text-white font-bold">มนุษย์มองไม่เห็น แต่เงินบริษัทหายไปจริง</span>
+            </p>
+            <button onclick="nextSlide()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl transition flex items-center gap-2">
+                Start the Solution Flow <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- SLIDE 2: INGESTION (OCR) -->
+        <div id="slide-2" class="story-slide h-full">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Step 1: Intelligent Ingestion</h2>
+                    <p class="text-slate-400">AI "อ่าน" ใบแจ้งหนี้เหมือนมนุษย์ (OCR + Structure Analysis)</p>
+                </div>
+                <button onclick="nextSlide()" class="text-slate-400 hover:text-white flex items-center gap-1">Next <i data-lucide="chevron-right"></i></button>
+            </div>
+
+            <div class="grid grid-cols-2 gap-12 items-center">
+                <!-- Document -->
+                <div class="doc-paper rounded-lg p-8 h-[500px] text-sm relative">
+                    <div class="scan-line"></div>
+                    <div class="flex justify-between border-b pb-4 mb-6 opacity-70">
+                        <div class="font-bold text-lg">INVOICE</div>
+                        <div class="text-right">#INV-2024-001<br>15 Jan 2024</div>
+                    </div>
+                    <div class="mb-6 opacity-70">
+                        <strong>Vendor:</strong> Siam Material Supply Co., Ltd.
+                    </div>
+                    <table class="w-full text-left">
+                        <thead class="border-b text-slate-400 text-xs">
+                            <tr><th class="py-2">Item</th><th class="text-right">Qty</th><th class="text-right">Price</th><th class="text-right">Total</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="py-3">Steel H-Beam</td>
+                                <td class="text-right"><span class="val-box" id="s2-qty1">100</span></td>
+                                <td class="text-right"><span class="val-box" id="s2-price1">2,000</span></td>
+                                <td class="text-right">200,000</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="py-3">Cement Type 1</td>
+                                <td class="text-right"><span class="val-box" id="s2-qty2">50</span></td>
+                                <td class="text-right"><span class="val-box" id="s2-price2">150</span></td> <!-- Price Hike -->
+                                <td class="text-right">7,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Extraction Result -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 relative">
+                    <h3 class="text-sky-400 font-bold mb-4 flex items-center gap-2"><i data-lucide="cpu" class="w-5 h-5"></i> AI Vision Extraction</h3>
+                    <div class="bg-slate-950 p-4 rounded-lg font-mono text-xs text-slate-300 overflow-hidden shadow-inner">
+                        <div id="json-typing" class="whitespace-pre-wrap typing text-emerald-400"></div>
+                    </div>
+                    <div class="mt-4 p-3 bg-sky-900/20 border border-sky-500/30 rounded text-sky-200 text-xs flex items-center gap-2">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i> Table Structure Parsed Successfully
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: SAP MATCHING (THE LOGIC) -->
+        <div id="slide-3" class="story-slide h-full">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Step 2: The Logic Engine</h2>
+                    <p class="text-slate-400">AI ดึงข้อมูล PO จาก SAP มาเทียบกับ Invoice (Line-by-Line)</p>
+                </div>
+                <button onclick="nextSlide()" class="text-slate-400 hover:text-white flex items-center gap-1">Next <i data-lucide="chevron-right"></i></button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 items-center h-[400px]">
+                
+                <!-- Left: Invoice Data -->
+                <div class="col-span-1 bg-white text-slate-800 p-4 rounded-xl shadow-lg border-l-4 border-sky-500">
+                    <h4 class="font-bold text-slate-500 text-xs uppercase mb-2">Invoice Data (Extracted)</h4>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-2 bg-slate-100 rounded">
+                            <span class="text-xs">1. Steel H-Beam</span>
+                            <span class="font-mono font-bold">2,000.00</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 bg-slate-100 rounded relative">
+                            <span class="text-xs">2. Cement Type 1</span>
+                            <span class="font-mono font-bold text-red-600" id="s3-inv-price">150.00</span>
+                            <!-- Connection Point -->
+                            <div class="absolute right-0 top-1/2 w-2 h-2 bg-slate-400 rounded-full translate-x-1/2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Middle: Logic Pipes -->
+                <div class="col-span-1 relative h-full flex flex-col justify-center px-4">
+                    <div class="h-px bg-slate-700 w-full mb-8 relative">
+                        <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-900 px-2 text-xs text-slate-500">Item 1 Match</div>
+                    </div>
+                    
+                    <div class="h-2 bg-transparent w-full relative">
+                        <!-- Animated Line -->
+                        <div id="match-line" class="conn-line w-full"></div>
+                        <div class="absolute top-4 left-1/2 -translate-x-1/2 text-center opacity-0 transition-opacity duration-500" id="logic-alert">
+                            <div class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded shadow-lg animate-bounce">
+                                VARIANCE DETECTED!
+                            </div>
+                            <p class="text-[10px] text-red-400 mt-1">150 != 145</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: SAP Data -->
+                <div class="col-span-1 bg-slate-800 text-white p-4 rounded-xl shadow-lg border-l-4 border-emerald-500">
+                    <h4 class="font-bold text-slate-400 text-xs uppercase mb-2">SAP PO Data (Source of Truth)</h4>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-2 bg-slate-700 rounded">
+                            <span class="text-xs">10 Steel H-Beam</span>
+                            <span class="font-mono font-bold text-emerald-400">2,000.00</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2 bg-slate-700 rounded relative">
+                            <span class="text-xs">20 Cement Type 1</span>
+                            <span class="font-mono font-bold text-emerald-400" id="s3-sap-price">145.00</span>
+                            <!-- Connection Point -->
+                            <div class="absolute left-0 top-1/2 w-2 h-2 bg-emerald-500 rounded-full -translate-x-1/2"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="runComparison()" class="bg-sky-600 hover:bg-sky-500 text-white px-6 py-2 rounded-lg font-bold shadow-lg transition">
+                    Run AI Verification Logic
+                </button>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: THE ACTION & VALUE -->
+        <div id="slide-4" class="story-slide h-full">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Step 3: Automated Action</h2>
+                    <p class="text-slate-400">ระบบปกป้องเงินของคุณทันที (Immediate Value)</p>
+                </div>
+                <button onclick="location.reload()" class="text-slate-400 hover:text-white text-xs">Restart</button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Action Card -->
+                <div class="bg-red-900/20 border border-red-500 rounded-2xl p-8 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(220,38,38,0.5)]">
+                        <i data-lucide="shield-alert" class="w-8 h-8 text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">Payment Blocked</h3>
+                    <p class="text-slate-300 mb-6">
+                        ระบบระงับการจ่ายเงิน Invoice #INV-2024-001 อัตโนมัติ<br>
+                        เนื่องจากพบ <strong>Price Variance (+3.4%)</strong>
+                    </p>
+                    <div class="bg-slate-900/50 p-4 rounded-xl w-full text-left">
+                        <p class="text-xs text-slate-400 uppercase font-bold mb-2">Next Actions Triggered:</p>
+                        <ul class="space-y-2 text-sm text-slate-200">
+                            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Email sent to Vendor (Request Credit Note)</li>
+                            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Alert sent to Purchasing Manager</li>
+                            <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-emerald-500"></i> Logged in Audit Trail #AUD-9921</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- ROI Card -->
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 flex flex-col justify-center">
+                    <h3 class="text-lg font-bold text-slate-300 mb-6">Value Delivered</h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between text-sm text-slate-400 mb-1">
+                                <span>Potential Loss Prevented</span>
+                                <span class="text-white">฿50,000 / month</span>
+                            </div>
+                            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-emerald-500 w-[70%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm text-slate-400 mb-1">
+                                <span>Man-hours Saved (AP Team)</span>
+                                <span class="text-white">40 Hours / month</span>
+                            </div>
+                            <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-sky-500 w-[90%]"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-gradient-to-r from-emerald-900 to-slate-900 rounded-xl border border-emerald-700/50">
+                        <p class="text-xs text-emerald-400 font-bold uppercase">Bottom Line</p>
+                        <p class="text-xl text-white font-medium mt-1">
+                            "ถ้าท่านมี TH8... เงิน 5 บาทที่เกินมานี้ จะไม่มีวันหลุดออกจากบัญชีบริษัทท่านครับ"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="fixed bottom-0 w-full py-4 text-center text-xs text-slate-600 bg-slate-900 border-t border-slate-800">
+        TH8.AI Proprietary Demonstration
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const totalSlides = 4;
+        let currentSlide = 1;
+
+        // Init Progress Bar
+        const progressContainer = document.getElementById('progress-bar');
+        for(let i=0; i<totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.className = `progress-step ${i===0 ? 'active' : ''}`;
+            dot.id = `dot-${i+1}`;
+            progressContainer.appendChild(dot);
+        }
+
+        function showSlide(n) {
+            // Hide all
+            document.querySelectorAll('.story-slide').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.progress-step').forEach(el => el.classList.remove('active'));
+            
+            // Show current
+            document.getElementById(`slide-${n}`).classList.add('active');
+            
+            // Update dots
+            for(let i=1; i<=n; i++) {
+                document.getElementById(`dot-${i}`).classList.add('active');
+            }
+
+            // Trigger Specific Animations
+            if(n === 2) typeJson();
+        }
+
+        function nextSlide() {
+            if(currentSlide < totalSlides) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Animation: Typing JSON (Slide 2)
+        function typeJson() {
+            const text = JSON.stringify({
+                "vendor": "Siam Material Supply",
+                "invoice_date": "2024-01-15",
+                "items": [
+                    { "name": "Steel H-Beam", "qty": 100, "price": 2000 },
+                    { "name": "Cement Type 1", "qty": 50, "price": 150 }
+                ]
+            }, null, 2);
+            
+            const el = document.getElementById('json-typing');
+            el.innerText = "";
+            let i = 0;
+            const speed = 10;
+            
+            function type() {
+                if (i < text.length) {
+                    el.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    // Highlight numbers after typing
+                    setTimeout(() => {
+                        document.getElementById('s2-price2').classList.add('highlight');
+                    }, 500);
+                }
+            }
+            type();
+        }
+
+        // Animation: Comparison Logic (Slide 3)
+        function runComparison() {
+            const line = document.getElementById('match-line');
+            const alert = document.getElementById('logic-alert');
+            
+            line.classList.add('error'); // Turn red
+            
+            setTimeout(() => {
+                alert.classList.remove('opacity-0');
+                document.getElementById('s3-inv-price').classList.add('text-red-500', 'font-bold');
+                document.getElementById('s3-sap-price').classList.add('text-emerald-400', 'font-bold');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
