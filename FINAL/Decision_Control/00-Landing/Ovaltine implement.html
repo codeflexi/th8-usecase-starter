@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ovaltine AI Manager: Tech Blueprint</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#F97316',
+                            orangeLight: '#FFEDD5',
+                            brown: '#78350F',
+                            blue: '#0EA5E9',
+                            darkBlue: '#0F172A',
+                            techBg: '#F8FAFC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F8FAFC;
+            color: #334155;
+        }
+
+        /* Chart Container Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 250px;
+            max-height: 300px;
+            margin: 0 auto;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94A3B8;
+            border-radius: 3px;
+        }
+
+        /* Card Interactions */
+        .tech-card {
+            transition: all 0.3s ease;
+        }
+        .tech-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #0EA5E9;
+        }
+
+        /* Flow Lines (CSS Implementation) */
+        .flow-line-v {
+            width: 2px;
+            height: 40px;
+            background: #CBD5E1;
+            margin: 0 auto;
+            position: relative;
+        }
+        .flow-line-v::after {
+            content: '▼';
+            position: absolute;
+            bottom: -10px;
+            left: -5px;
+            color: #CBD5E1;
+            font-size: 10px;
+        }
+
+        .phase-step.active {
+            border-color: #0EA5E9;
+            background-color: #F0F9FF;
+        }
+        .phase-step.active .phase-icon {
+            background-color: #0EA5E9;
+            color: white;
+        }
+    </style>
+
+    <!-- Chosen Palette: "Tech Blueprint" (Slate, Tech Blue, Brand Orange highlights) -->
+    
+    <!-- Application Structure Plan:
+         1. Hero: Title "From Concept to Code".
+         2. Architecture Overview: Interactive Layer Diagram (Data -> Brain -> Action -> Execution).
+         3. UX Flow: Step-by-step interactive journey map (Trigger -> Context -> Decision -> Action).
+         4. Development Roadmap: Phased timeline (Pilot -> Upgrade -> Automation) with detailed task lists.
+         5. Data Specs: Interactive table for data requirements.
+    -->
+    
+    <!-- Visualization & Content Choices:
+         - Architecture Diagram: HTML/CSS Flexbox blocks to represent system layers. No SVG.
+         - UX Flow: Horizontal/Vertical step cards with hover effects.
+         - Timeline: Phased approach using colored blocks.
+         - Tech Stack: Icons and text lists.
+    -->
+    
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-orange text-white px-2 py-1 rounded font-bold tracking-tighter transform -rotate-2">
+                    OVALTINE
+                </div>
+                <div class="h-6 w-px bg-gray-300"></div>
+                <h1 class="text-lg font-bold text-gray-800">Tech Implementation Blueprint</h1>
+            </div>
+            <div class="flex items-center space-x-2 text-sm text-gray-500">
+                <span class="px-2 py-1 bg-brand-blue/10 text-brand-blue rounded font-mono text-xs font-bold">v1.0.0</span>
+                <span>AI Sales Manager</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- Intro -->
+        <div class="mb-12 text-center max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">From Concept to Code</h2>
+            <p class="text-lg text-gray-600">
+                A technical roadmap to build the "Intelligence Layer" over Ovaltine's legacy systems, enabling the transition from passive reporting to active AI-driven sales execution.
+            </p>
+        </div>
+
+        <!-- Section 1: System Architecture -->
+        <section class="mb-16">
+            <div class="mb-6 border-l-4 border-brand-blue pl-4">
+                <h3 class="text-2xl font-bold text-gray-800">1. System Architecture: The Intelligence Layer</h3>
+                <p class="text-gray-500 mt-1">We are building a "Brain" that sits on top of existing ERP/DMS systems, not replacing them.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+                <!-- Layer 4: Output -->
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-4 mb-4 text-center bg-gray-50">
+                    <div class="font-bold text-gray-400 text-xs uppercase mb-2">Layer 4: Execution (Write-Back)</div>
+                    <div class="flex justify-center gap-4">
+                        <div class="px-4 py-2 bg-white border border-gray-200 rounded shadow-sm flex items-center gap-2">
+                            <i class="fab fa-line text-green-500"></i> Line Msg API
+                        </div>
+                        <div class="px-4 py-2 bg-white border border-gray-200 rounded shadow-sm flex items-center gap-2">
+                            <i class="fas fa-server text-blue-500"></i> ERP Order API
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connector -->
+                <div class="flow-line-v"></div>
+
+                <!-- Layer 3: Interface -->
+                <div class="border-2 border-brand-orange border-opacity-50 rounded-xl p-6 mb-4 bg-orange-50 text-center relative">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white px-2 text-brand-orange font-bold text-xs uppercase border border-brand-orange rounded">Layer 3: The Face</div>
+                    <h4 class="font-bold text-lg mb-2">Action Interface (Line OA / LIFF)</h4>
+                    <p class="text-sm text-gray-600">Mobile-first Web App embedded in Line. Cards UI for "One-Click" decisions.</p>
+                </div>
+
+                <!-- Connector -->
+                <div class="flow-line-v"></div>
+
+                <!-- Layer 2: Brain -->
+                <div class="border-2 border-brand-blue rounded-xl p-6 mb-4 bg-blue-50 text-center relative shadow-md">
+                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white px-2 text-brand-blue font-bold text-xs uppercase border border-brand-blue rounded">Layer 2: The Brain</div>
+                    <h4 class="font-bold text-lg mb-4 text-brand-blueDark">AI Inference Engine</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-3 rounded shadow-sm border border-blue-100">
+                            <div class="text-blue-500 mb-1"><i class="fas fa-chart-line"></i></div>
+                            <div class="font-bold text-sm">Forecasting</div>
+                            <div class="text-xs text-gray-500">XGBoost / Prophet</div>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm border border-blue-100">
+                            <div class="text-blue-500 mb-1"><i class="fas fa-eye"></i></div>
+                            <div class="font-bold text-sm">Vision</div>
+                            <div class="text-xs text-gray-500">YOLO (Shelf Scan)</div>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm border border-blue-100">
+                            <div class="text-blue-500 mb-1"><i class="fas fa-filter"></i></div>
+                            <div class="font-bold text-sm">Rule Engine</div>
+                            <div class="text-xs text-gray-500">Logic & Triggers</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connector -->
+                <div class="flow-line-v"></div>
+
+                <!-- Layer 1: Data -->
+                <div class="border-2 border-gray-200 rounded-xl p-4 bg-gray-100 text-center">
+                    <div class="font-bold text-gray-500 text-xs uppercase mb-2">Layer 1: Data Sources</div>
+                    <div class="flex flex-wrap justify-center gap-2 text-xs font-mono text-gray-600">
+                        <span class="bg-white px-2 py-1 rounded border">ERP (Sales History)</span>
+                        <span class="bg-white px-2 py-1 rounded border">DMS (Stock)</span>
+                        <span class="bg-white px-2 py-1 rounded border">Social API</span>
+                        <span class="bg-white px-2 py-1 rounded border">Weather API</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: UX Flow -->
+        <section class="mb-16">
+            <div class="mb-6 border-l-4 border-brand-brown pl-4">
+                <h3 class="text-2xl font-bold text-gray-800">2. The "Loop of Action" UX Flow</h3>
+                <p class="text-gray-500 mt-1">The user journey from receiving an alert to executing a task.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- Step 1 -->
+                <div class="tech-card bg-white p-6 rounded-xl border border-gray-200 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fas fa-bell text-6xl text-brand-orange"></i>
+                    </div>
+                    <div class="text-xs font-bold text-gray-400 uppercase mb-2">Step 1</div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-2">The Trigger</h4>
+                    <p class="text-sm text-gray-600 mb-4">Notification via LINE.</p>
+                    <div class="bg-gray-100 p-2 rounded text-xs font-mono border border-gray-200">
+                        "⚠️ Store A Stockout Risk"
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="tech-card bg-white p-6 rounded-xl border border-gray-200 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fas fa-file-alt text-6xl text-brand-blue"></i>
+                    </div>
+                    <div class="text-xs font-bold text-gray-400 uppercase mb-2">Step 2</div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-2">The Context</h4>
+                    <p class="text-sm text-gray-600 mb-4">Insight Card UI.</p>
+                    <div class="bg-blue-50 p-2 rounded text-xs text-blue-800 border border-blue-100">
+                        "Why: Sales +20% due to holiday."
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="tech-card bg-white p-6 rounded-xl border border-gray-200 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fas fa-mouse-pointer text-6xl text-green-500"></i>
+                    </div>
+                    <div class="text-xs font-bold text-gray-400 uppercase mb-2">Step 3</div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-2">The Decision</h4>
+                    <p class="text-sm text-gray-600 mb-4">One-Click Action.</p>
+                    <button class="w-full bg-brand-blue text-white text-xs py-2 rounded font-bold shadow-sm">
+                        Approve Offer
+                    </button>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="tech-card bg-white p-6 rounded-xl border border-gray-200 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fas fa-check-circle text-6xl text-gray-500"></i>
+                    </div>
+                    <div class="text-xs font-bold text-gray-400 uppercase mb-2">Step 4</div>
+                    <h4 class="text-xl font-bold text-gray-800 mb-2">Execution</h4>
+                    <p class="text-sm text-gray-600 mb-4">System Write-back.</p>
+                    <div class="flex gap-2 text-xs">
+                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Line Sent</span>
+                        <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded">ERP Updated</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Tech Implementation Roadmap -->
+        <section class="mb-16">
+            <div class="mb-6 border-l-4 border-gray-800 pl-4">
+                <h3 class="text-2xl font-bold text-gray-800">3. Implementation Roadmap</h3>
+                <p class="text-gray-500 mt-1">Phased approach to minimize risk and deliver value quickly.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Phase 1 -->
+                <div onclick="setPhase(1)" id="phase-1" class="phase-step active cursor-pointer bg-white rounded-xl border border-gray-200 p-6 flex flex-col md:flex-row gap-6 items-start transition-all">
+                    <div class="phase-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold shrink-0 transition-colors">1</div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-lg font-bold text-gray-900">Phase 1: The "Stockout" Pilot</h4>
+                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded">Month 1</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">Focus on a single high-impact use case (Stockout Alert) using simple logic.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                                <div class="font-bold mb-1"><i class="fas fa-database text-gray-400 mr-1"></i> Data</div>
+                                <div>Ingest Sales History & current stock.</div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                                <div class="font-bold mb-1"><i class="fas fa-code text-gray-400 mr-1"></i> Backend</div>
+                                <div>Simple Rule: If No Order > 30 days, Alert.</div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                                <div class="font-bold mb-1"><i class="fas fa-mobile-alt text-gray-400 mr-1"></i> Frontend</div>
+                                <div>Line Notification + "Call Shop" button.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div onclick="setPhase(2)" id="phase-2" class="phase-step cursor-pointer bg-white rounded-xl border border-gray-200 p-6 flex flex-col md:flex-row gap-6 items-start transition-all">
+                    <div class="phase-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold shrink-0 transition-colors">2</div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-lg font-bold text-gray-900">Phase 2: The "Smart" Upgrade</h4>
+                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded">Month 3</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">Introduce ML Models for forecasting and Computer Vision for shelf analysis.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                                <div class="font-bold mb-1"><i class="fas fa-brain text-gray-400 mr-1"></i> AI</div>
+                                <div>Train XGBoost for Demand Forecasting.</div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                                <div class="font-bold mb-1"><i class="fas fa-camera text-gray-400 mr-1"></i> Vision</div>
+                                <div>YOLO Model for Shelf Share detection.</div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                                <div class="font-bold mb-1"><i class="fas fa-magic text-gray-400 mr-1"></i> UX</div>
+                                <div>Dynamic Offer Cards based on prediction.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div onclick="setPhase(3)" id="phase-3" class="phase-step cursor-pointer bg-white rounded-xl border border-gray-200 p-6 flex flex-col md:flex-row gap-6 items-start transition-all">
+                    <div class="phase-icon w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-bold shrink-0 transition-colors">3</div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-lg font-bold text-gray-900">Phase 3: Full Automation</h4>
+                            <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded">Month 6+</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">Complete ERP integration for automated "Write-back" and order creation.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                                <div class="font-bold mb-1"><i class="fas fa-plug text-gray-400 mr-1"></i> Integration</div>
+                                <div>Full ERP API (Create Order, Cut Stock).</div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                                <div class="font-bold mb-1"><i class="fas fa-robot text-gray-400 mr-1"></i> Auto-Pilot</div>
+                                <div>Auto-approve low-risk orders.</div>
+                            </div>
+                            <div class="bg-gray-50 p-3 rounded border border-gray-200">
+                                <div class="font-bold mb-1"><i class="fas fa-chart-pie text-gray-400 mr-1"></i> Analytics</div>
+                                <div>Real-time ROI dashboard.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Data Requirements Spec -->
+        <section>
+            <div class="mb-6 border-l-4 border-gray-400 pl-4">
+                <h3 class="text-2xl font-bold text-gray-800">4. Data Spec Requirements</h3>
+                <p class="text-gray-500 mt-1">The fuel for the AI engine.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Data Domain</th>
+                            <th scope="col" class="px-6 py-3">Required Fields</th>
+                            <th scope="col" class="px-6 py-3">Source</th>
+                            <th scope="col" class="px-6 py-3">Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 font-bold text-gray-900">Sales Transactions</td>
+                            <td class="px-6 py-4 font-mono text-xs">Store_ID, SKU, Qty, Date, Price</td>
+                            <td class="px-6 py-4"><span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">ERP</span></td>
+                            <td class="px-6 py-4">Forecasting</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 font-bold text-gray-900">Customer Master</td>
+                            <td class="px-6 py-4 font-mono text-xs">ID, Lat/Long, Route_ID, Rep_ID</td>
+                            <td class="px-6 py-4"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs">DMS</span></td>
+                            <td class="px-6 py-4">Routing</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 font-bold text-gray-900">Shelf Images</td>
+                            <td class="px-6 py-4 font-mono text-xs">Image_URL, Timestamp, Store_ID</td>
+                            <td class="px-6 py-4"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs">PC App</span></td>
+                            <td class="px-6 py-4">Competitor Tracking</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 font-bold text-gray-900">External</td>
+                            <td class="px-6 py-4 font-mono text-xs">Weather_Condition, Social_Sentiment</td>
+                            <td class="px-6 py-4"><span class="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs">API</span></td>
+                            <td class="px-6 py-4">Contextual Ads</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 mt-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-xl font-bold text-white mb-2">Ovaltine AI Implementation Plan</h2>
+            <p class="text-sm opacity-70">Confidential Technical Document.</p>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        function setPhase(id) {
+            // Reset all
+            document.querySelectorAll('.phase-step').forEach(el => {
+                el.classList.remove('active');
+                el.classList.remove('ring-2', 'ring-brand-blue');
+                // Reset Icon
+                const icon = el.querySelector('.phase-icon');
+                icon.classList.remove('bg-brand-blue', 'text-white');
+                icon.classList.add('bg-gray-100', 'text-gray-500');
+            });
+
+            // Activate Target
+            const target = document.getElementById(`phase-${id}`);
+            target.classList.add('active');
+            target.classList.add('ring-2', 'ring-brand-blue');
+            
+            const icon = target.querySelector('.phase-icon');
+            icon.classList.remove('bg-gray-100', 'text-gray-500');
+            icon.classList.add('bg-brand-blue', 'text-white');
+        }
+        
+        // Init Phase 1
+        document.addEventListener('DOMContentLoaded', () => {
+            setPhase(1);
+        });
+    </script>
+</body>
+</html>

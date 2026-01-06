@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Ep.2: The Glass Box Operation (Full Audit) | TH8.AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&family=Prompt:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Sarabun', sans-serif; line-height: 1.6; color: #334155; background-color: #ffffff; }
+        h1, h2, h3, h4, .font-head { font-family: 'Prompt', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* UI Components */
+        .card { background: white; border: 1px solid #e2e8f0; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        
+        /* Timeline */
+        .timeline-line { position: absolute; left: 19px; top: 32px; bottom: 0; width: 2px; background: #e2e8f0; }
+        .timeline-item:last-child .timeline-line { display: none; }
+        
+        /* Logic Box */
+        .logic-box { background: #f8fafc; border-left: 3px solid #64748b; padding: 0.75rem; font-size: 0.75rem; font-family: 'JetBrains Mono', monospace; }
+    </style>
+</head>
+<body class="antialiased text-slate-800">
+
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-black rounded flex items-center justify-center font-bold text-white text-sm font-head">T8</div>
+                <span class="font-bold font-head tracking-tight text-slate-900">TH8 Insights</span>
+            </div>
+            <a href="#" class="text-sm font-head text-slate-500 hover:text-red-600 transition-colors">Ep.2: Deep Dive Operation</a>
+        </div>
+    </nav>
+
+    <header class="pt-16 pb-10 px-6 max-w-4xl mx-auto text-center">
+        <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider mb-4 font-head">
+            Operational Transparency
+        </span>
+        <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6 text-slate-900 font-head">
+            เมื่อ "ข้อมูลเก่า" (Legacy) <br>
+            ผสานกับ "สมองใหม่" (AI)
+        </h1>
+        <p class="text-xl text-slate-500 font-light max-w-2xl mx-auto">
+            เปิดเบื้องหลังการทำงานของ Decision Control Center ที่เชื่อมต่อข้อมูลจาก ERP เดิม มาประมวลผลร่วมกับเอกสารใหม่ เพื่อการตัดสินใจที่แม่นยำที่สุด
+        </p>
+    </header>
+
+    <article class="max-w-6xl mx-auto px-6 pb-24 space-y-20">
+
+        <section>
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-10 h-10 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold font-head text-lg">1</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 font-head">The Context-Aware Workstation</h2>
+                    <p class="text-slate-500">หน้าจอที่รวบรวม 3 สิ่งไว้ด้วยกัน: <strong>1.เอกสารใหม่ (Invoice)</strong>, <strong>2.ข้อมูลเก่า (SAP Data)</strong>, และ <strong>3.กฎกติกา (Rules)</strong></p>
+                </div>
+            </div>
+
+            <div class="card flex flex-col lg:flex-row h-auto lg:h-[700px] overflow-hidden bg-slate-50">
+                
+                <div class="w-full lg:w-3/5 border-r border-slate-200 flex flex-col">
+                    
+                    <div class="h-12 bg-white border-b border-slate-200 flex px-4 text-xs font-bold text-slate-600">
+                        <div class="flex items-center gap-2 px-4 border-b-2 border-slate-800 text-slate-900 bg-slate-50">
+                            <i data-lucide="file-text" class="w-4 h-4"></i> Incoming Invoice
+                        </div>
+                        <div class="flex items-center gap-2 px-4 border-b-2 border-transparent hover:bg-slate-50 cursor-pointer text-slate-400">
+                            <i data-lucide="database" class="w-4 h-4"></i> SAP PO Data
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 p-6 overflow-y-auto bg-slate-100/50">
+                        
+                        <div class="mb-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="text-xs font-bold text-blue-700 uppercase flex items-center gap-2">
+                                    <i data-lucide="database" class="w-3 h-3"></i> Context from ERP (SAP ECC 6.0)
+                                </h4>
+                                <span class="text-[10px] bg-white px-2 py-0.5 rounded text-blue-600 border border-blue-100">Synced: 10:00 AM</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-4 text-xs text-slate-600">
+                                <div>
+                                    <span class="block text-slate-400 text-[10px]">PO Number</span>
+                                    <span class="font-mono font-bold text-slate-800">450001239</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-400 text-[10px]">Vendor Code</span>
+                                    <span class="font-mono font-bold text-slate-800">V-10299 (Thai Packing)</span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-400 text-[10px]">Contract Ref</span>
+                                    <span class="font-mono font-bold text-slate-800 text-blue-600 underline cursor-pointer">CTR-2024-001</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white shadow-md p-8 relative min-h-[400px]">
+                            <div class="absolute top-0 right-0 bg-slate-800 text-white text-[10px] p-2 rounded-bl-lg opacity-90 font-mono z-10">
+                                <p>File: INV-2024-001.pdf</p>
+                                <p>OCR Confidence: 99.2%</p>
+                            </div>
+
+                            <div class="opacity-90 space-y-6 font-mono text-xs text-slate-800">
+                                <div class="flex justify-between border-b border-slate-300 pb-4">
+                                    <h1 class="text-xl font-bold">TAX INVOICE</h1>
+                                    <div class="text-right">
+                                        <p class="font-bold">Thai Packing Co., Ltd.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="relative group cursor-help">
+                                    <div class="absolute -inset-2 bg-red-100 border border-red-300 rounded opacity-50"></div>
+                                    <table class="w-full text-left relative z-10">
+                                        <tr class="border-b border-slate-200">
+                                            <th class="py-1">Description</th>
+                                            <th class="py-1 text-right">Unit Price</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-1 font-bold">Ergonomic Chair Model X</td>
+                                            <td class="py-1 text-right font-bold text-red-700">3,500.00</td>
+                                        </tr>
+                                    </table>
+                                    <div class="absolute left-1/2 -translate-x-1/2 -top-8 bg-red-800 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition shadow-lg whitespace-nowrap">
+                                        Mismatch: ERP Value = 3,000.00
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full lg:w-2/5 bg-white flex flex-col shadow-[-10px_0_15px_-3px_rgba(0,0,0,0.05)]">
+                    <div class="flex-1 p-6 overflow-y-auto space-y-6">
+                        
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 font-head">Analysis Result</h3>
+                            <p class="text-xs text-slate-500">Case ID: #CASE-2025-089</p>
+                        </div>
+
+                        <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-2">
+                                <i data-lucide="cpu" class="w-4 h-4"></i> Active Rules & Policy
+                            </h4>
+                            
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center text-xs pb-2 border-b border-slate-100">
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="check-circle" class="w-4 h-4 text-green-500"></i>
+                                        <span class="text-slate-600">Vendor Verification</span>
+                                    </div>
+                                    <span class="font-mono text-green-600 font-bold">PASS</span>
+                                </div>
+                                
+                                <div class="bg-red-50 p-3 rounded-lg border border-red-100">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="x-circle" class="w-4 h-4 text-red-500"></i>
+                                            <span class="text-slate-700 font-bold">Price Variance Check</span>
+                                        </div>
+                                        <span class="font-mono text-red-600 font-bold">FAILED</span>
+                                    </div>
+                                    
+                                    <div class="logic-box text-slate-600 bg-white border-slate-300 rounded">
+                                        POLICY_ID: "PROC-2024-V2"<br>
+                                        RULE: "MAX_VARIANCE_5%"<br>
+                                        <span class="text-slate-400">--- Calculation ---</span><br>
+                                        Contract_Price = 3,000<br>
+                                        Invoice_Price  = 3,500<br>
+                                        Delta_Percent  = +16.67%<br>
+                                        <span class="text-red-600 font-bold">RESULT: > 5% THRESHOLD</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4">
+                            <h4 class="text-xs font-bold text-blue-600 uppercase mb-1">Financial Impact</h4>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-2xl font-bold text-slate-900">฿ 25,000</p>
+                                    <p class="text-[10px] text-slate-500">Total potential loss</p>
+                                </div>
+                                <div class="text-right text-xs text-blue-700">
+                                    Unit Diff: 500<br>Qty: 50
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="p-6 border-t border-slate-100 bg-slate-50">
+                        <label class="block text-xs font-bold text-slate-700 mb-2">Decision Reason (Audit Mandatory)</label>
+                        <textarea class="w-full border border-slate-300 rounded-lg p-2 text-sm mb-3 focus:ring-2 focus:ring-slate-400 outline-none transition" rows="2" placeholder="Explain why you are approving this exception..."></textarea>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button class="py-2.5 bg-white border border-slate-300 text-slate-700 rounded-lg font-bold text-xs hover:bg-red-50 hover:text-red-600 hover:border-red-200 transition">Reject Invoice</button>
+                            <button class="py-2.5 bg-slate-900 text-white rounded-lg font-bold text-xs hover:bg-black shadow-lg transition flex justify-center gap-2 items-center">
+                                Approve (Exception) <i data-lucide="alert-triangle" class="w-3 h-3"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center gap-4 mb-6">
+                <div class="w-10 h-10 bg-slate-900 text-white rounded-full flex items-center justify-center font-bold font-head text-lg">2</div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900 font-head">Traceability & Audit Timeline</h2>
+                    <p class="text-slate-500">ทุกการกระทำของระบบและคน ถูกบันทึกละเอียดระดับมิลลิวินาที (ms)</p>
+                </div>
+            </div>
+
+            <div class="card p-8 bg-white">
+                <div class="relative pl-2">
+                    
+                    <div class="timeline-item relative pl-12 pb-10">
+                        <div class="timeline-line"></div>
+                        <div class="absolute left-0 top-0 w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center border border-slate-200 text-slate-500 z-10">
+                            <i data-lucide="mail" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex justify-between items-start group">
+                            <div class="w-full">
+                                <div class="flex items-center gap-3 mb-1">
+                                    <span class="text-xs font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded">10:00:05.120</span>
+                                    <h4 class="font-bold text-slate-800 text-sm">Data Ingestion (Email)</h4>
+                                </div>
+                                <div class="bg-slate-50 p-3 rounded border border-slate-200 text-xs font-mono text-slate-600 mt-2 hidden group-hover:block transition-all">
+                                    Source: billing@thaipacking.com<br>
+                                    Subject: "Invoice for PO 450001239"<br>
+                                    Attachment: INV-2024-001.pdf (SHA-256 Verified)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item relative pl-12 pb-10">
+                        <div class="timeline-line"></div>
+                        <div class="absolute left-0 top-0 w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center border border-blue-200 text-blue-600 z-10">
+                            <i data-lucide="cpu" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-3 mb-1">
+                                <span class="text-xs font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded">10:00:08.450</span>
+                                <h4 class="font-bold text-slate-800 text-sm">Automated Rule Execution</h4>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-2">System executed 3 validation rules. Latency: 3.2s</p>
+                            
+                            <div class="bg-slate-900 rounded-lg p-4 font-mono text-[10px] text-slate-300 overflow-x-auto w-full max-w-2xl border-l-4 border-blue-500">
+                                <div class="flex items-center gap-2 mb-2 text-slate-500 border-b border-slate-700 pb-2">
+                                    <i data-lucide="terminal" class="w-3 h-3"></i> system_execution_log.json
+                                </div>
+                                <p><span class="text-purple-400">"step_1"</span>: { "action": "OCR_EXTRACT", "confidence": 0.99 },</p>
+                                <p><span class="text-purple-400">"step_2"</span>: { "action": "SAP_LOOKUP", "query": "PO=450001239" },</p>
+                                <p><span class="text-purple-400">"step_3"</span>: { </p>
+                                <p class="pl-4"><span class="text-blue-400">"rule"</span>: "PRICE_VARIANCE",</p>
+                                <p class="pl-4"><span class="text-blue-400">"logic"</span>: "abs(inv - po) / po",</p>
+                                <p class="pl-4"><span class="text-blue-400">"result"</span>: <span class="text-red-400">"FAIL_BLOCK"</span></p>
+                                <p>}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item relative pl-12">
+                        <div class="absolute left-0 top-0 w-10 h-10 bg-amber-50 rounded-full flex items-center justify-center border border-amber-200 text-amber-600 z-10 animate-pulse">
+                            <i data-lucide="user" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-3 mb-1">
+                                <span class="text-xs font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded">Current State</span>
+                                <h4 class="font-bold text-amber-700 text-sm">Pending Human Decision</h4>
+                            </div>
+                            <p class="text-xs text-slate-600">Status: <span class="bg-amber-100 px-2 py-0.5 rounded font-bold text-amber-800">Waiting for CFO</span></p>
+                            <p class="text-xs text-slate-400 mt-1">SLA Deadline: 4 Hours remaining</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="mt-16 text-center bg-slate-50 border border-slate-200 rounded-2xl p-10">
+            <h3 class="text-2xl font-bold text-slate-900 mb-4 font-head">นี่คือความโปร่งใสที่คุณต้องการใช่ไหม?</h3>
+            <p class="text-slate-500 mb-8 max-w-xl mx-auto">
+                เราพร้อมทำ Pilot Demo ด้วยข้อมูลจริงของคุณ เพื่อพิสูจน์ว่าระบบสามารถตรวจจับความผิดปกติที่คุณอาจมองไม่เห็นได้
+            </p>
+            <div class="flex justify-center gap-4">
+                <button class="bg-slate-900 text-white px-8 py-3 rounded-xl font-bold hover:bg-slate-800 transition shadow-lg font-head">
+                    นัดหมายทำ POC
+                </button>
+                <button class="bg-white border border-slate-300 text-slate-700 px-8 py-3 rounded-xl font-bold hover:bg-slate-50 transition font-head">
+                    ดูตัวอย่าง Report
+                </button>
+            </div>
+        </div>
+
+    </article>
+
+    <footer class="bg-white border-t border-slate-200 py-12 text-center text-sm text-slate-500">
+        <p>© 2026 TH8.AI | Intelligence for Enterprise Governance</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

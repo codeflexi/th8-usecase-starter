@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>th8: 10 Killer Use Cases - From Report to Manager</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FontAwesome for Icons (Unicode fallback used where possible, but CDN for full set) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        neutral: {
+                            50: '#FAFAF9',
+                            100: '#F5F5F4',
+                            800: '#292524',
+                            900: '#1C1917',
+                        },
+                        brand: {
+                            cyan: '#06B6D4',
+                            cyanLight: '#E0F2FE',
+                            violet: '#8B5CF6',
+                            violetLight: '#EDE9FE',
+                            rose: '#F43F5E',
+                            roseLight: '#FFE4E6',
+                            emerald: '#10B981',
+                            emeraldLight: '#D1FAE5',
+                            amber: '#F59E0B'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAFAF9; /* Warm neutral light */
+            color: #292524;
+        }
+
+        /* Chart Container Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 300px;
+            max-height: 350px;
+            margin: 0 auto;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F5F5F4;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D6D3D1;
+            border-radius: 3px;
+        }
+
+        /* Card Interactions */
+        .case-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .case-card.active {
+            border-color: #06B6D4;
+            background-color: #F0FDFA;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(6, 182, 212, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 2s infinite;
+        }
+    </style>
+
+    <!-- Chosen Palette: Warm Neutrals with Vibrant Tech Accents (Cyan, Violet, Rose) -->
+    <!-- Application Structure Plan:
+         1. Hero: Title and Philosophy Recap.
+         2. Category Nav: Tabs for Cost, Risk, Efficiency, Strategy.
+         3. Master-Detail Layout: 
+            - Left/Top: List of cases in the active category.
+            - Right/Bottom: The "Simulator".
+              - Split screen: "Old Way (Report)" vs "New Way (Manager)".
+              - Report side shows charts/tables.
+              - Manager side is an interactive card with a "One Click" action.
+         4. Impact Summary: Footer aggregating value.
+    -->
+    <!-- Visualization & Content Choices:
+         - Charts (Chart.js): Used strictly to represent the "Old Way" - showing data passive user has to interpret.
+         - Interactive UI (HTML/JS): Represents the "New Way" - cards, buttons, alerts.
+         - Justification: Contrasting the cognitive load of a chart vs the ease of an action button effectively communicates the "Manager" concept.
+         - NO SVG/Mermaid: Icons via FontAwesome. Flowcharts replaced by step-by-step UI cards.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-neutral-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-cyan text-white font-bold rounded-lg p-1.5 text-lg">th8</div>
+                <h1 class="text-xl font-bold text-neutral-800 hidden md:block">10 Killer Use Cases</h1>
+            </div>
+            <div class="text-sm text-neutral-500 font-medium bg-neutral-100 px-3 py-1 rounded-full">
+                Concept: Don't build a better report, build a better manager.
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Intro Text -->
+        <div class="mb-8 text-center max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">เปลี่ยนการ "ดูกราฟ" เป็นการ "อนุมัติ"</h2>
+            <p class="text-lg text-neutral-600">
+                สำรวจ 10 สถานการณ์จริงที่ AI Agent ของ th8 เปลี่ยน Pain Point ให้เป็น One-Click Action
+            </p>
+        </div>
+
+        <!-- Category Navigation -->
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <button onclick="setCategory('cost')" id="nav-cost" class="px-6 py-2 rounded-full font-semibold transition-all shadow-sm ring-1 ring-inset bg-white text-neutral-600 ring-neutral-300 hover:bg-neutral-50">
+                💰 Cost Saving
+            </button>
+            <button onclick="setCategory('risk')" id="nav-risk" class="px-6 py-2 rounded-full font-semibold transition-all shadow-sm ring-1 ring-inset bg-white text-neutral-600 ring-neutral-300 hover:bg-neutral-50">
+                🛡️ Risk & Compliance
+            </button>
+            <button onclick="setCategory('efficiency')" id="nav-efficiency" class="px-6 py-2 rounded-full font-semibold transition-all shadow-sm ring-1 ring-inset bg-white text-neutral-600 ring-neutral-300 hover:bg-neutral-50">
+                ⚡ Efficiency
+            </button>
+            <button onclick="setCategory('strategy')" id="nav-strategy" class="px-6 py-2 rounded-full font-semibold transition-all shadow-sm ring-1 ring-inset bg-white text-neutral-600 ring-neutral-300 hover:bg-neutral-50">
+                🌍 Strategy & ESG
+            </button>
+        </div>
+
+        <!-- Split Layout: List & Simulator -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Left: Case List (Navigation) -->
+            <div class="lg:col-span-4 space-y-4" id="case-list-container">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Right: The Simulator (Detail View) -->
+            <div class="lg:col-span-8">
+                <div class="bg-white rounded-2xl shadow-xl border border-neutral-200 overflow-hidden relative min-h-[600px] flex flex-col">
+                    
+                    <!-- Simulator Header -->
+                    <div class="bg-neutral-900 text-white p-6 flex justify-between items-center">
+                        <div>
+                            <span class="text-brand-cyan text-xs font-bold uppercase tracking-wider mb-1 block" id="sim-category">CATEGORY</span>
+                            <h3 class="text-2xl font-bold" id="sim-title">Select a Case</h3>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-xl">
+                            <i id="sim-icon" class="fas fa-robot"></i>
+                        </div>
+                    </div>
+
+                    <!-- Simulator Body: Split View -->
+                    <div class="flex-grow flex flex-col md:flex-row h-full">
+                        
+                        <!-- The Old Way (Report) -->
+                        <div class="w-full md:w-1/2 p-6 border-b md:border-b-0 md:border-r border-neutral-200 bg-neutral-50">
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="px-2 py-1 bg-neutral-200 text-neutral-600 text-xs font-bold rounded uppercase">The Old Way</span>
+                                <h4 class="font-bold text-neutral-700">Passive Report</h4>
+                            </div>
+                            
+                            <p class="text-sm text-neutral-500 mb-6 min-h-[40px]" id="sim-old-desc">
+                                User has to analyze this data manually.
+                            </p>
+
+                            <!-- Dynamic Visualization Container -->
+                            <div id="old-viz-container" class="bg-white p-4 rounded-lg shadow-sm border border-neutral-200">
+                                <!-- Chart or Table injected here -->
+                                <div class="chart-container">
+                                    <canvas id="oldChart"></canvas>
+                                </div>
+                                <div id="oldTable" class="hidden overflow-x-auto"></div>
+                            </div>
+
+                            <div class="mt-4 p-3 bg-neutral-100 rounded border border-neutral-200 text-xs text-neutral-500 italic">
+                                <i class="fas fa-exclamation-triangle mr-1"></i> Pain Point: Requires human attention, analysis, and manual execution.
+                            </div>
+                        </div>
+
+                        <!-- The New Way (Manager) -->
+                        <div class="w-full md:w-1/2 p-6 bg-white relative">
+                            <div class="flex items-center space-x-2 mb-4">
+                                <span class="px-2 py-1 bg-brand-cyan/10 text-brand-cyan text-xs font-bold rounded uppercase">The th8 Way</span>
+                                <h4 class="font-bold text-neutral-700">Active Manager</h4>
+                            </div>
+
+                            <!-- Interactive Card -->
+                            <div class="bg-white rounded-xl shadow-lg border border-neutral-200 p-0 overflow-hidden animate-fade-in relative z-10">
+                                <!-- Alert Strip -->
+                                <div class="p-4 flex items-start space-x-3" id="sim-alert-bg">
+                                    <div class="text-lg mt-0.5" id="sim-alert-icon">🔔</div>
+                                    <div>
+                                        <h5 class="font-bold text-neutral-800 text-sm" id="sim-alert-title">Alert Title</h5>
+                                        <p class="text-xs text-neutral-600 mt-1" id="sim-alert-msg">Alert message goes here.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Analysis Section -->
+                                <div class="p-5 border-t border-neutral-100 bg-neutral-50/50">
+                                    <div class="text-xs font-bold text-neutral-400 uppercase tracking-wider mb-2">AI Analysis</div>
+                                    <p class="text-sm text-neutral-700 leading-relaxed" id="sim-analysis">
+                                        Analysis text...
+                                    </p>
+                                </div>
+
+                                <!-- Action Section -->
+                                <div class="p-5 border-t border-neutral-100 bg-white">
+                                    <button onclick="executeAction()" id="btn-action" class="w-full py-3 px-4 rounded-lg bg-brand-cyan hover:bg-cyan-600 text-white font-bold shadow-md transition-all transform active:scale-95 flex items-center justify-center space-x-2 group">
+                                        <span id="btn-text">One-Click Action</span>
+                                        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Success Feedback Overlay -->
+                            <div id="sim-success" class="absolute inset-0 bg-white/95 backdrop-blur z-20 flex flex-col items-center justify-center text-center hidden">
+                                <div class="w-16 h-16 bg-brand-emeraldLight text-brand-emerald rounded-full flex items-center justify-center text-3xl mb-4 animate-bounce">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <h4 class="text-xl font-bold text-neutral-800">Done!</h4>
+                                <p class="text-sm text-neutral-500 mt-2 px-6" id="sim-success-msg">Action executed successfully.</p>
+                                <button onclick="resetSim()" class="mt-6 text-xs text-neutral-400 hover:text-neutral-600 underline">Replay</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-neutral-900 text-neutral-400 py-12 mt-12 border-t border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-4 font-bold text-white">th8 Decision Control Center</p>
+            <p class="text-sm">"Don't build a better report, build a better manager."</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // --- Data: The 10 Killer Use Cases ---
+        const useCases = [
+            // COST SAVING
+            {
+                id: 'rainmaker',
+                category: 'cost',
+                title: 'The Rainmaker',
+                icon: 'fa-cloud-showers-heavy',
+                desc: 'ฉวยโอกาสตอนราคา Commodity ตก',
+                oldWay: {
+                    desc: 'กราฟราคาเหล็กในตลาดโลก User ต้องเปิดดูเองทุกวัน',
+                    type: 'chart',
+                    chartConfig: {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                            datasets: [{
+                                label: 'Steel Price Index',
+                                data: [120, 118, 115, 110, 95, 88],
+                                borderColor: '#F43F5E', // Red dropping
+                                tension: 0.4
+                            }]
+                        }
+                    }
+                },
+                newWay: {
+                    alertTitle: 'Opportunity Alert',
+                    alertMsg: 'ราคาเหล็กต่ำสุดในรอบ 6 เดือน (-15%)',
+                    alertColor: 'bg-brand-emeraldLight',
+                    analysis: 'ถ้าสั่งซื้อล่วงหน้า 3 เดือนตอนนี้ จะประหยัดงบได้ <span class="font-bold text-brand-emerald">2.5 ล้านบาท</span> (รวมค่าเก็บสต็อกแล้ว)',
+                    actionText: 'Generate Bulk PO',
+                    successMsg: 'Bulk PO for 3 months generated and sent for approval. Estimated savings: 2.5M THB.'
+                }
+            },
+            {
+                id: 'consolidator',
+                category: 'cost',
+                title: 'The Consolidator',
+                icon: 'fa-layer-group',
+                desc: 'จับมัดรวม Maverick Spend',
+                oldWay: {
+                    desc: 'รายงาน Spend Analysis ปลายเดือน โชว์ว่าแต่ละแผนกซื้อของซ้ำซ้อน',
+                    type: 'chart',
+                    chartConfig: {
+                        type: 'bar',
+                        data: {
+                            labels: ['IT', 'HR', 'Mkt'],
+                            datasets: [{
+                                label: 'A4 Paper Orders (Reams)',
+                                data: [150, 200, 150],
+                                backgroundColor: ['#94A3B8', '#94A3B8', '#94A3B8']
+                            }]
+                        }
+                    }
+                },
+                newWay: {
+                    alertTitle: 'Consolidation Opportunity',
+                    alertMsg: 'IT & Marketing ก็กำลังจะสั่ง A4 Paper',
+                    alertColor: 'bg-brand-cyanLight',
+                    analysis: 'ถ้ารวมออเดอร์กับแผนกอื่น (รวม 500 รีม) เราจะได้ราคา Tier 2 <span class="font-bold text-brand-cyan">ลดลง 12%</span>',
+                    actionText: 'Join Group Buy',
+                    successMsg: 'Order held until Friday to merge with IT & Marketing. Discount locked.'
+                }
+            },
+            {
+                id: 'zombie',
+                category: 'cost',
+                title: 'Zombie Sub Killer',
+                icon: 'fa-skull',
+                desc: 'ฆ่าค่าบริการรายเดือนผีดิบ',
+                oldWay: {
+                    desc: 'ตาราง Log การใช้งาน Software ยาวเหยียด ต้องมานั่ง Vlookup เอง',
+                    type: 'table',
+                    tableHtml: `
+                        <table class="w-full text-xs text-left">
+                            <thead class="bg-neutral-200"><tr><th class="p-2">User</th><th class="p-2">License</th><th class="p-2">Last Login</th></tr></thead>
+                            <tbody>
+                                <tr><td class="p-2">User A</td><td>Adobe CC</td><td>Yesterday</td></tr>
+                                <tr class="bg-red-50 text-red-600"><td class="p-2 font-bold">User B</td><td>Adobe CC</td><td>90 days ago</td></tr>
+                                <tr class="bg-red-50 text-red-600"><td class="p-2 font-bold">User C</td><td>Adobe CC</td><td>85 days ago</td></tr>
+                            </tbody>
+                        </table>
+                    `
+                },
+                newWay: {
+                    alertTitle: 'Wasted Cost Detected',
+                    alertMsg: 'พบ 10 Licenses ที่ไม่ได้ใช้เลย 3 เดือน',
+                    alertColor: 'bg-brand-roseLight',
+                    analysis: 'ค่าใช้จ่ายสูญเปล่า: <span class="font-bold text-brand-rose">20,000 บาท/เดือน</span>. ควรยกเลิกด่วน',
+                    actionText: 'Send Verification Email',
+                    successMsg: 'Emails sent to 10 users. If no reply in 3 days, system will auto-cancel.'
+                }
+            },
+            // RISK
+            {
+                id: 'splitpo',
+                category: 'risk',
+                title: 'Split PO Detective',
+                icon: 'fa-magnifying-glass-chart',
+                desc: 'จับทุจริตซอยใบสั่งซื้อ',
+                oldWay: {
+                    desc: 'Audit Log รายปี มาเจอทีหลังว่ามีการซอย PO เลี่ยง Limit',
+                    type: 'table',
+                    tableHtml: `
+                        <table class="w-full text-xs text-left">
+                            <thead class="bg-neutral-200"><tr><th class="p-2">Time</th><th class="p-2">PO#</th><th class="p-2">Amount</th></tr></thead>
+                            <tbody>
+                                <tr class="bg-red-50"><td class="p-2">10:01</td><td>PO-991</td><td>49,999</td></tr>
+                                <tr class="bg-red-50"><td class="p-2">10:05</td><td>PO-992</td><td>49,999</td></tr>
+                                <tr class="bg-red-50"><td class="p-2">10:12</td><td>PO-993</td><td>49,999</td></tr>
+                            </tbody>
+                        </table>
+                    `
+                },
+                newWay: {
+                    alertTitle: 'Policy Violation Blocked',
+                    alertMsg: 'ตรวจพบ Split PO Attempt (3 ใบใน 15 นาที)',
+                    alertColor: 'bg-brand-roseLight',
+                    analysis: 'User พยายามเลี่ยง Approval Limit 50k. <span class="font-bold text-brand-rose">ความเสี่ยงทุจริตสูง</span>',
+                    actionText: 'Merge & Submit to Boss',
+                    successMsg: 'POs merged into single request (149,997 THB) and routed to Manager for approval.'
+                }
+            },
+            {
+                id: 'supplierhealth',
+                category: 'risk',
+                title: 'Supplier Shield',
+                icon: 'fa-shield-halved',
+                desc: 'เกราะป้องกัน Supplier เจ๊ง',
+                oldWay: {
+                    desc: 'กราฟ On-time Delivery ตกต่ำลงเรื่อยๆ จนของขาดถึงรู้ตัว',
+                    type: 'chart',
+                    chartConfig: {
+                        type: 'line',
+                        data: {
+                            labels: ['W1', 'W2', 'W3', 'W4'],
+                            datasets: [{
+                                label: 'Vendor A On-Time %',
+                                data: [98, 85, 60, 40],
+                                borderColor: '#F59E0B',
+                                borderDash: [5, 5]
+                            }]
+                        }
+                    }
+                },
+                newWay: {
+                    alertTitle: 'High Insolvency Risk',
+                    alertMsg: 'Supplier A มีความเสี่ยงล้มละลาย 80%',
+                    alertColor: 'bg-brand-amber/20',
+                    analysis: 'จับสัญญาณจากข่าวและประวัติส่งล่าช้า. เรามี Backup Supplier B ที่พร้อมส่งของ',
+                    actionText: 'Shift Order to Supplier B',
+                    successMsg: 'Order redirected to Supplier B. Procurement team notified.'
+                }
+            },
+            {
+                id: 'contract',
+                category: 'risk',
+                title: 'Contract Alarm',
+                icon: 'fa-file-signature',
+                desc: 'อย่าปล่อยให้ Auto-Renew กินเงิน',
+                oldWay: {
+                    desc: 'ปฏิทินแจ้งเตือน (ถ้าคนไม่ลืมใส่) มักจะรู้ตัวตอนบิลมาแล้ว',
+                    type: 'chart',
+                    chartConfig: {
+                        type: 'bar', // Simulated Gantt
+                        data: {
+                            labels: ['Contract'],
+                            datasets: [{
+                                label: 'Days Remaining',
+                                data: [60],
+                                backgroundColor: '#F59E0B',
+                                barThickness: 20
+                            }]
+                        },
+                        options: { indexAxis: 'y' }
+                    }
+                },
+                newWay: {
+                    alertTitle: 'Auto-Renew Warning',
+                    alertMsg: 'สัญญาเช่า Ricoh หมดอายุใน 60 วัน',
+                    alertColor: 'bg-brand-cyanLight',
+                    analysis: 'ปีนี้เราพิมพ์น้อยลง 40%. <span class="font-bold">อย่าเพิ่งต่อสัญญาเดิม</span>',
+                    actionText: 'Draft Negotiation Email',
+                    successMsg: 'Renegotiation email drafted citing usage stats. Ready for your review.'
+                }
+            },
+            // EFFICIENCY
+            {
+                id: 'invoicebot',
+                category: 'efficiency',
+                title: 'The Invoice Bot',
+                icon: 'fa-file-invoice-dollar',
+                desc: 'แก้ปัญหาบิลไม่ตรงใบสั่งซื้อ',
+                oldWay: {
+                    desc: 'Exception Report: บิลไม่ตรง 2 บาท ต้องโทรเคลียร์ 3 ฝ่าย',
+                    type: 'table',
+                    tableHtml: `
+                        <table class="w-full text-xs text-left">
+                            <thead class="bg-neutral-200"><tr><th class="p-2">PO #</th><th class="p-2">PO Amt</th><th class="p-2">Inv Amt</th></tr></thead>
+                            <tbody>
+                                <tr class="bg-red-50 text-red-600"><td class="p-2">PO-102</td><td>100.00</td><td>102.00</td></tr>
+                            </tbody>
+                        </table>
+                    `
+                },
+                newWay: {
+                    alertTitle: 'Auto-Resolution',
+                    alertMsg: 'พบส่วนต่าง 2 บาท (Tolerance < 5%)',
+                    alertColor: 'bg-brand-emeraldLight',
+                    analysis: 'อยู่ในเกณฑ์ที่ระบบรับได้. ไม่ต้องเสียเวลาคนมาแก้ไข',
+                    actionText: 'Auto-Adjust & Pay',
+                    successMsg: 'Invoice approved via Auto-Adjust rule. Payment scheduled.'
+                }
+            },
+            {
+                id: 'categorywiz',
+                category: 'efficiency',
+                title: 'Category Wizard',
+                icon: 'fa-wand-magic-sparkles',
+                desc: 'แก้ปัญหา User ลงบัญชีผิด',
+                oldWay: {
+                    desc: 'สิ้นเดือนบัญชีต้องมาแก้ GL Code เพราะ User ลงมั่ว',
+                    type: 'table',
+                    tableHtml: `
+                        <table class="w-full text-xs text-left">
+                            <thead class="bg-neutral-200"><tr><th class="p-2">Item</th><th class="p-2">GL Code</th><th class="p-2">Status</th></tr></thead>
+                            <tbody>
+                                <tr class="bg-yellow-50"><td class="p-2">Mouse</td><td>Furniture</td><td class="text-red-500 font-bold">Wrong?</td></tr>
+                            </tbody>
+                        </table>
+                    `
+                },
+                newWay: {
+                    alertTitle: 'Real-time Correction',
+                    alertMsg: 'คุณกำลังเลือกหมวดหมู่ผิด',
+                    alertColor: 'bg-brand-violetLight',
+                    analysis: 'คุณพิมพ์ "Mouse" แต่เลือก "Furniture". ควรเป็น "IT Equipment"',
+                    actionText: 'Auto-Correct to IT',
+                    successMsg: 'Category updated to IT Equipment. GL Code corrected.'
+                }
+            },
+            // STRATEGY
+            {
+                id: 'greenchoice',
+                category: 'strategy',
+                title: 'Green Choice Nudge',
+                icon: 'fa-leaf',
+                desc: 'รักษ์โลกแบบไม่ต้องพยายาม',
+                oldWay: {
+                    desc: 'รายงาน Carbon Footprint ประจำปี (ตัวแดงเถือก)',
+                    type: 'chart',
+                    chartConfig: {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Non-Eco', 'Eco'],
+                            datasets: [{
+                                data: [95, 5],
+                                backgroundColor: ['#94A3B8', '#10B981']
+                            }]
+                        }
+                    }
+                },
+                newWay: {
+                    alertTitle: 'Eco-Friendly Alternative',
+                    alertMsg: 'สนใจเปลี่ยนเป็นแก้วย่อยสลายได้ไหม?',
+                    alertColor: 'bg-brand-emeraldLight',
+                    analysis: 'Supplier C มีขาย แพงกว่าแค่ 5% แต่ลด Carbon ได้ <span class="font-bold text-brand-emerald">20kg</span>',
+                    actionText: 'Switch to Green Item',
+                    successMsg: 'Item switched to Eco-Cup. Carbon saving logged.'
+                }
+            },
+            {
+                id: 'logistics',
+                category: 'strategy',
+                title: 'Logistics Rescuer',
+                icon: 'fa-truck-fast',
+                desc: 'แก้ปัญหาของมาช้า',
+                oldWay: {
+                    desc: 'Logistics Report แจ้งสถานะ "Delayed" เฉยๆ',
+                    type: 'table',
+                    tableHtml: `
+                        <table class="w-full text-xs text-left">
+                            <thead class="bg-neutral-200"><tr><th class="p-2">Shipment</th><th class="p-2">Status</th><th class="p-2">ETA</th></tr></thead>
+                            <tbody>
+                                <tr class="bg-red-50 text-red-600"><td class="p-2">S-001</td><td>Delayed</td><td>+5 Days</td></tr>
+                            </tbody>
+                        </table>
+                    `
+                },
+                newWay: {
+                    alertTitle: 'Production Risk Alert',
+                    alertMsg: 'เรือมาช้า 5 วัน (ไลน์ผลิตจะหยุด)',
+                    alertColor: 'bg-brand-roseLight',
+                    analysis: 'แนะนำสั่ง <strong>Air Freight 10%</strong> ของยอด มาขัดตาทัพก่อน',
+                    actionText: 'Request Emergency Air',
+                    successMsg: 'Emergency PO for 10% Air Freight created. Production line safe.'
+                }
+            }
+        ];
+
+        // --- State ---
+        let activeCategory = 'cost';
+        let activeCaseId = useCases[0].id;
+        let chartInstance = null;
+
+        // --- Functions ---
+
+        function init() {
+            setCategory('cost');
+        }
+
+        function setCategory(cat) {
+            activeCategory = cat;
+            
+            // Update Nav Buttons
+            document.querySelectorAll('button[id^="nav-"]').forEach(btn => {
+                const isActive = btn.id === `nav-${cat}`;
+                btn.className = isActive 
+                    ? `px-6 py-2 rounded-full font-bold shadow-md transform scale-105 transition-all bg-neutral-900 text-white`
+                    : `px-6 py-2 rounded-full font-semibold transition-all shadow-sm ring-1 ring-inset bg-white text-neutral-600 ring-neutral-300 hover:bg-neutral-50`;
+            });
+
+            // Render Case List
+            renderCaseList();
+        }
+
+        function renderCaseList() {
+            const container = document.getElementById('case-list-container');
+            const filteredCases = useCases.filter(c => c.category === activeCategory);
+            
+            container.innerHTML = filteredCases.map(c => `
+                <div onclick="setCase('${c.id}')" 
+                     class="case-card cursor-pointer p-4 rounded-xl border border-neutral-200 bg-white hover:border-brand-cyan transition-all ${c.id === activeCaseId ? 'active ring-2 ring-brand-cyan ring-opacity-50' : ''}">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-600">
+                            <i class="fas ${c.icon}"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-neutral-800">${c.title}</h4>
+                            <p class="text-xs text-neutral-500">${c.desc}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Select first case if active one is not in this category
+            if (!filteredCases.find(c => c.id === activeCaseId)) {
+                setCase(filteredCases[0].id);
+            } else {
+                // Re-render simulator for current case to ensure UI is consistent
+                renderSimulator(filteredCases.find(c => c.id === activeCaseId));
+            }
+        }
+
+        function setCase(id) {
+            activeCaseId = id;
+            
+            // Update list styles
+            renderCaseList();
+
+            // Render Simulator
+            const caseData = useCases.find(c => c.id === id);
+            renderSimulator(caseData);
+        }
+
+        function renderSimulator(data) {
+            // Reset Success State
+            document.getElementById('sim-success').classList.add('hidden');
+            document.getElementById('sim-success').classList.remove('flex');
+
+            // Header Info
+            document.getElementById('sim-category').innerText = data.category.toUpperCase();
+            document.getElementById('sim-title').innerText = data.title;
+            document.getElementById('sim-icon').className = `fas ${data.icon}`;
+            
+            // Old Way Content
+            document.getElementById('sim-old-desc').innerText = data.oldWay.desc;
+            const oldVizContainer = document.getElementById('old-viz-container');
+            
+            // Handle Old Way Viz (Chart vs Table)
+            if (chartInstance) {
+                chartInstance.destroy();
+                chartInstance = null;
+            }
+
+            if (data.oldWay.type === 'chart') {
+                document.querySelector('.chart-container').classList.remove('hidden');
+                document.getElementById('oldTable').classList.add('hidden');
+                document.getElementById('oldTable').innerHTML = '';
+                
+                const ctx = document.getElementById('oldChart').getContext('2d');
+                chartInstance = new Chart(ctx, {
+                    ...data.oldWay.chartConfig,
+                    options: {
+                        ...data.oldWay.chartConfig.options,
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            } else {
+                document.querySelector('.chart-container').classList.add('hidden');
+                document.getElementById('oldTable').classList.remove('hidden');
+                document.getElementById('oldTable').innerHTML = data.oldWay.tableHtml;
+            }
+
+            // New Way Content (Manager Card)
+            const alertBg = document.getElementById('sim-alert-bg');
+            // Reset classes
+            alertBg.className = `p-4 flex items-start space-x-3 rounded-t-xl ${data.newWay.alertColor}`;
+            
+            document.getElementById('sim-alert-title').innerText = data.newWay.alertTitle;
+            document.getElementById('sim-alert-msg').innerText = data.newWay.alertMsg;
+            document.getElementById('sim-analysis').innerHTML = data.newWay.analysis;
+            
+            const btn = document.getElementById('btn-action');
+            document.getElementById('btn-text').innerText = data.newWay.actionText;
+            btn.classList.remove('cursor-not-allowed', 'opacity-75');
+            
+            // Store success msg for later
+            document.getElementById('sim-success-msg').innerText = data.newWay.successMsg;
+        }
+
+        function executeAction() {
+            const btn = document.getElementById('btn-action');
+            const originalText = document.getElementById('btn-text').innerText;
+            
+            // Loading State
+            document.getElementById('btn-text').innerText = 'Processing Agent...';
+            btn.classList.add('cursor-not-allowed', 'opacity-75');
+            
+            setTimeout(() => {
+                // Success State
+                document.getElementById('sim-success').classList.remove('hidden');
+                document.getElementById('sim-success').classList.add('flex');
+            }, 800);
+        }
+
+        function resetSim() {
+            const caseData = useCases.find(c => c.id === activeCaseId);
+            renderSimulator(caseData);
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+</body>
+</html>

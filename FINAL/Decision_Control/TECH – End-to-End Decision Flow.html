@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TH8.AI – End-to-End Decision Flow (Agentic RAG + Audit)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    body { font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .card { border-radius: 16px; }
+    .chip { border-radius: 9999px; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+  <div class="max-w-7xl mx-auto px-6 py-10 space-y-10">
+
+    <!-- HEADER -->
+    <div class="text-center space-y-2">
+      <h1 class="text-3xl font-bold">TH8.AI – End-to-End Decision Flow</h1>
+      <p class="text-slate-600">
+        From Input → Agentic Evidence Retrieval (Vector + Relational) → Deterministic Decision → Output → Memory + Audit
+      </p>
+    </div>
+
+    <!-- LEGEND -->
+    <div class="bg-white border border-slate-200 card p-5">
+      <div class="flex flex-wrap gap-2">
+        <span class="chip px-3 py-1 text-xs font-medium bg-blue-50 text-blue-700 border border-blue-100">Input</span>
+        <span class="chip px-3 py-1 text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-100">Context Engineering</span>
+        <span class="chip px-3 py-1 text-xs font-medium bg-purple-50 text-purple-700 border border-purple-100">Agentic RAG / Tools</span>
+        <span class="chip px-3 py-1 text-xs font-medium bg-red-50 text-red-700 border border-red-100">Guardrails</span>
+        <span class="chip px-3 py-1 text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-100">Deterministic Decision Engine</span>
+        <span class="chip px-3 py-1 text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100">Memory</span>
+        <span class="chip px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">Audit (Immutable)</span>
+        <span class="chip px-3 py-1 text-xs font-medium bg-sky-50 text-sky-700 border border-sky-100">Output</span>
+      </div>
+      <div class="mt-3 text-sm text-slate-600">
+        <span class="font-medium">AI pattern:</span> LangGraph orchestrates the workflow (state machine). Deterministic rules decide outcomes.
+        LLM (optional) is used only for explanation formatting, not for decision-making.
+      </div>
+    </div>
+
+    <!-- END-TO-END FLOW -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+      <!-- LEFT: FLOW STEPS -->
+      <div class="lg:col-span-8 space-y-6">
+
+        <!-- STEP 0 -->
+        <div class="bg-white border border-slate-200 card p-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="chip px-3 py-1 text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-100">Step 0 — Input</span>
+                <span class="chip px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">Audit: EVENT_INGESTED</span>
+              </div>
+              <h2 class="text-lg font-semibold mt-2">Ingest Events / Manual Inputs</h2>
+              <p class="text-sm text-slate-600 mt-1">
+                Accept events from ERP/Workflow or manual fallback. Normalize payload and bind it to a Case.
+              </p>
+            </div>
+            <div class="text-right text-xs text-slate-500">
+              <div class="mono">POST /events/ingest</div>
+              <div class="mono">POST /fallback/snapshot</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Typical Inputs</div>
+              <ul class="mt-2 text-sm space-y-1">
+                <li>• SAP: PR/PO created/changed</li>
+                <li>• Workflow: approval task created</li>
+                <li>• Manual: operator adds an exception</li>
+              </ul>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Normalized Output</div>
+              <ul class="mt-2 text-sm space-y-1">
+                <li>• case_id (correlated)</li>
+                <li>• external_ref (PO/PR)</li>
+                <li>• amount, vendor, SLA due</li>
+                <li>• dedup_key to prevent duplicates</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 1 -->
+        <div class="bg-white border border-slate-200 card p-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="chip px-3 py-1 text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">Step 1 — Context Engineering</span>
+                <span class="chip px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">Audit: CONTEXT_PACK_BUILT</span>
+              </div>
+              <h2 class="text-lg font-semibold mt-2">Build a Deterministic Decision Context Pack</h2>
+              <p class="text-sm text-slate-600 mt-1">
+                Assemble the canonical state used for decisions. Pack is hashable, traceable, and immutable for audit.
+              </p>
+            </div>
+            <div class="text-right text-xs text-slate-500">
+              <div class="mono">DecisionState</div>
+              <div class="mono">context_hash</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Case Snapshot</div>
+              <p class="text-sm text-slate-600 mt-2">amount, vendor, SLA, external status, prior decisions</p>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Policy Binding</div>
+              <p class="text-sm text-slate-600 mt-2">bind latest published policy_version_id (immutability)</p>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Derived Signals</div>
+              <p class="text-sm text-slate-600 mt-2">hours_to_due, amount_tier, vendor_risk_tier</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="bg-white border border-slate-200 card p-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="chip px-3 py-1 text-xs font-semibold bg-purple-50 text-purple-700 border border-purple-100">Step 2 — Agentic RAG + Tool Calling</span>
+                <span class="chip px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">Audit: TOOL_CALLED / EVIDENCE_COLLECTED</span>
+              </div>
+              <h2 class="text-lg font-semibold mt-2">Evidence Agent (Hybrid Retrieval)</h2>
+              <p class="text-sm text-slate-600 mt-1">
+                Agent decides which sources to query: vector DB for unstructured clauses and relational DB for structured facts.
+                Results are merged into Evidence objects with citations.
+              </p>
+            </div>
+            <div class="text-right text-xs text-slate-500">
+              <div class="mono">LangGraph Node</div>
+              <div class="mono">MCP Tools (future-ready)</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border rounded-xl p-4">
+              <div class="flex items-center justify-between">
+                <div class="text-xs font-semibold text-slate-600">Vector Retrieval (Supabase Vector)</div>
+                <span class="chip px-2 py-0.5 text-[11px] bg-purple-50 text-purple-700 border border-purple-100">RAG</span>
+              </div>
+              <ul class="mt-2 text-sm space-y-1 text-slate-700">
+                <li>• Contract clauses & policy text chunks</li>
+                <li>• Filter by vendor/contract_id/scope</li>
+                <li>• Returns: document_id, clause_id, excerpt, score</li>
+              </ul>
+              <div class="mt-3 text-xs text-slate-500 mono">POST /evidence/query</div>
+            </div>
+
+            <div class="border rounded-xl p-4">
+              <div class="flex items-center justify-between">
+                <div class="text-xs font-semibold text-slate-600">Relational Queries (Supabase Postgres)</div>
+                <span class="chip px-2 py-0.5 text-[11px] bg-purple-50 text-purple-700 border border-purple-100">Structured</span>
+              </div>
+              <ul class="mt-2 text-sm space-y-1 text-slate-700">
+                <li>• Amount, SLA due, vendor history, prior rejects</li>
+                <li>• Authority matrix / thresholds</li>
+                <li>• Returns: facts used by deterministic rules</li>
+              </ul>
+              <div class="mt-3 text-xs text-slate-500 mono">Repo: supabase_rpc / SQL</div>
+            </div>
+          </div>
+
+          <div class="mt-4 border rounded-xl p-4 bg-slate-50">
+            <div class="text-xs font-semibold text-slate-600">Evidence Merge Output (Canonical)</div>
+            <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+              <div class="border bg-white rounded-lg p-3">
+                <div class="mono text-xs text-slate-500">EvidenceItem</div>
+                <div class="mt-1 text-slate-700">document_id • chunk_id • clause_id • excerpt • score</div>
+              </div>
+              <div class="border bg-white rounded-lg p-3">
+                <div class="mono text-xs text-slate-500">StructuredFacts</div>
+                <div class="mt-1 text-slate-700">amount • hours_to_due • vendor_risk • prior_decisions</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="bg-white border border-slate-200 card p-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="chip px-3 py-1 text-xs font-semibold bg-red-50 text-red-700 border border-red-100">Step 3 — Guardrails</span>
+                <span class="chip px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">Audit: GUARDRAIL_PASSED / BLOCKED</span>
+              </div>
+              <h2 class="text-lg font-semibold mt-2">Enterprise Controls Before Decision</h2>
+              <p class="text-sm text-slate-600 mt-1">
+                Validate completeness, authority, and policy constraints. If evidence is insufficient, request info or escalate.
+              </p>
+            </div>
+            <div class="text-right text-xs text-slate-500">
+              <div class="mono">RBAC</div>
+              <div class="mono">Policy Constraints</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">RBAC</div>
+              <p class="text-sm text-slate-600 mt-2">who can trigger / approve / override</p>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Data Readiness</div>
+              <p class="text-sm text-slate-600 mt-2">required facts & required evidence exist</p>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Sanity Check</div>
+              <p class="text-sm text-slate-600 mt-2">prevent contradictory outcomes</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="bg-white border border-slate-200 card p-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="chip px-3 py-1 text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100">Step 4 — Deterministic Decision Engine</span>
+                <span class="chip px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">Audit: DECISION_RECOMMENDED</span>
+              </div>
+              <h2 class="text-lg font-semibold mt-2">Explainable Rules + Evidence References</h2>
+              <p class="text-sm text-slate-600 mt-1">
+                Evaluate thresholds, SLA timing, and contract flags using evidence + structured facts. Output is deterministic and fully traceable.
+              </p>
+            </div>
+            <div class="text-right text-xs text-slate-500">
+              <div class="mono">POST /decisions/trigger</div>
+              <div class="mono">rule_hits[]</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Rule Categories</div>
+              <ul class="mt-2 text-sm space-y-1 text-slate-700">
+                <li>• authority_threshold</li>
+                <li>• SLA timing escalation</li>
+                <li>• contract clause flags</li>
+                <li>• override requirements</li>
+              </ul>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Explainability Output</div>
+              <ul class="mt-2 text-sm space-y-1 text-slate-700">
+                <li>• decision_required (yes/no)</li>
+                <li>• recommended_decision</li>
+                <li>• required_role</li>
+                <li>• rule_hits with data points</li>
+                <li>• evidence_ids linked to clauses</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-4 border rounded-xl p-4 bg-slate-50">
+            <div class="text-xs font-semibold text-slate-600">Optional (Non-Authoritative) AI Assist</div>
+            <p class="text-sm text-slate-600 mt-1">
+              LangChain can format an executive narrative from <span class="mono">rule_hits</span> and <span class="mono">evidence</span>.
+              It cannot change the decision outcome.
+            </p>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="bg-white border border-slate-200 card p-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="chip px-3 py-1 text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-100">Step 5 — Output</span>
+                <span class="chip px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">Audit: DECISION_PUBLISHED</span>
+              </div>
+              <h2 class="text-lg font-semibold mt-2">UI + External Execution Handoff</h2>
+              <p class="text-sm text-slate-600 mt-1">
+                UI shows recommended decision with evidence. Human approves/rejects or admin overrides. External systems execute the action.
+              </p>
+            </div>
+            <div class="text-right text-xs text-slate-500">
+              <div class="mono">POST /decisions/{id}/approve</div>
+              <div class="mono">POST /decisions/{id}/override</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Human-in-the-Loop</div>
+              <ul class="mt-2 text-sm space-y-1 text-slate-700">
+                <li>• Approver: approve / reject</li>
+                <li>• Admin: override (with reason)</li>
+                <li>• Audit: read-only</li>
+              </ul>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">External Execution (Not TH8)</div>
+              <ul class="mt-2 text-sm space-y-1 text-slate-700">
+                <li>• ERP / Workflow consumes outcome</li>
+                <li>• Notification (LINE/Email)</li>
+                <li>• TH8 provides decision + trace</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="bg-white border border-slate-200 card p-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="chip px-3 py-1 text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-100">Step 6 — Memory</span>
+                <span class="chip px-3 py-1 text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">Audit: MEMORY_WRITTEN</span>
+              </div>
+              <h2 class="text-lg font-semibold mt-2">Operational Memory (Structured + Retrieval)</h2>
+              <p class="text-sm text-slate-600 mt-1">
+                Store snapshots, decision notes, and evidence links for future cases. Append-only. Supports both structured recall and vector-based similarity.
+              </p>
+            </div>
+            <div class="text-right text-xs text-slate-500">
+              <div class="mono">GET /cases/{id}/memory</div>
+              <div class="mono">Memory Policy: append-only</div>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Snapshot</div>
+              <p class="text-sm text-slate-600 mt-2">context_pack + policy_version + derived signals</p>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Decision Note</div>
+              <p class="text-sm text-slate-600 mt-2">why approved/rejected, who overrode, rationale</p>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="text-xs font-semibold text-slate-600">Evidence Links</div>
+              <p class="text-sm text-slate-600 mt-2">document_id, clause_id, chunk_id references</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 7 -->
+        <div class="bg-white border border-slate-200 card p-6">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="chip px-3 py-1 text-xs font-semibold bg-slate-100 text-slate-700 border border-slate-200">Step 7 — Unified Audit (Immutable)</span>
+              </div>
+              <h2 class="text-lg font-semibold mt-2">One Timeline Across Systems</h2>
+              <p class="text-sm text-slate-600 mt-1">
+                Cross-system events + agent steps + decisions + overrides appear in a single immutable timeline per Case.
+              </p>
+            </div>
+            <div class="text-right text-xs text-slate-500">
+              <div class="mono">GET /cases/{id}/audit</div>
+            </div>
+          </div>
+
+          <div class="mt-4 border rounded-xl p-4 bg-slate-50">
+            <div class="text-xs font-semibold text-slate-600">What Audit Proves</div>
+            <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-slate-700">
+              <div class="border bg-white rounded-lg p-3">• why the decision happened (rules + data points)</div>
+              <div class="border bg-white rounded-lg p-3">• what evidence was used (citations)</div>
+              <div class="border bg-white rounded-lg p-3">• who approved/overrode (RBAC)</div>
+              <div class="border bg-white rounded-lg p-3">• which policy version was bound (immutability)</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: TECH STACK + PATTERNS -->
+      <div class="lg:col-span-4 space-y-6">
+
+        <div class="bg-white border border-slate-200 card p-6 space-y-3">
+          <h3 class="text-lg font-semibold">AI Workflow & Patterns</h3>
+          <div class="space-y-3 text-sm">
+            <div class="border rounded-xl p-4">
+              <div class="font-medium text-indigo-700">LangGraph (Workflow Orchestrator)</div>
+              <div class="text-slate-600 mt-1">
+                State machine for: context → retrieve → validate → decide → persist
+              </div>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="font-medium text-emerald-700">Deterministic Decision Core</div>
+              <div class="text-slate-600 mt-1">
+                Enterprise-grade: thresholds + SLA + clause flags + overrides
+              </div>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="font-medium text-purple-700">Agentic RAG (Evidence Agent)</div>
+              <div class="text-slate-600 mt-1">
+                Hybrid retrieval from vector + relational with audit of tool calls
+              </div>
+            </div>
+            <div class="border rounded-xl p-4">
+              <div class="font-medium text-slate-700">MCP (Tool Interface, future-ready)</div>
+              <div class="text-slate-600 mt-1">
+                Standardize connectors (ERP, Docs, Workflow) without hardcoding
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 card p-6 space-y-3">
+          <h3 class="text-lg font-semibold">Core Tools & Components</h3>
+
+          <div class="border rounded-xl p-4">
+            <div class="flex items-center justify-between">
+              <div class="font-medium">FastAPI</div>
+              <span class="chip px-2 py-0.5 text-[11px] bg-slate-100 border border-slate-200 text-slate-700">API</span>
+            </div>
+            <div class="text-sm text-slate-600 mt-1">Event ingestion, trigger, approvals, audit endpoints</div>
+          </div>
+
+          <div class="border rounded-xl p-4">
+            <div class="flex items-center justify-between">
+              <div class="font-medium">Supabase (Postgres + Vector)</div>
+              <span class="chip px-2 py-0.5 text-[11px] bg-slate-100 border border-slate-200 text-slate-700">Data</span>
+            </div>
+            <div class="text-sm text-slate-600 mt-1">Relational facts + vectorized chunks for evidence</div>
+          </div>
+
+          <div class="border rounded-xl p-4">
+            <div class="flex items-center justify-between">
+              <div class="font-medium">Memory Repo</div>
+              <span class="chip px-2 py-0.5 text-[11px] bg-amber-50 border border-amber-100 text-amber-700">Memory</span>
+            </div>
+            <div class="text-sm text-slate-600 mt-1">Append-only snapshots + decision notes + evidence links</div>
+          </div>
+
+          <div class="border rounded-xl p-4">
+            <div class="flex items-center justify-between">
+              <div class="font-medium">Audit Timeline</div>
+              <span class="chip px-2 py-0.5 text-[11px] bg-slate-100 border border-slate-200 text-slate-700">Audit</span>
+            </div>
+            <div class="text-sm text-slate-600 mt-1">Immutable log across events, tools, decisions, overrides</div>
+          </div>
+        </div>
+
+        <div class="bg-white border border-slate-200 card p-6 space-y-3">
+          <h3 class="text-lg font-semibold">Output Contract (UI-ready)</h3>
+          <div class="border rounded-xl p-4 bg-slate-50">
+            <div class="mono text-xs text-slate-500">DecisionOutput</div>
+            <pre class="mono text-xs mt-2 text-slate-700 whitespace-pre-wrap">{
+  "decision_required": true,
+  "recommended_decision": "ESCALATE",
+  "required_role": "admin",
+  "rule_hits": [
+    {"rule_id":"SLA_24H","data_points":{"hours_to_due":12},"evidence_ids":[]},
+    {"rule_id":"NO_ADVANCE_PAYMENT","evidence_ids":["ev-123"],"data_points":{"clause_id":"C-7.2"}}
+  ],
+  "evidence": [
+    {"document_id":"contract_2024","clause_id":"C-7.2","excerpt":"Advance payment is not allowed..."}
+  ],
+  "context_hash": "ctx_...",
+  "audit_refs": ["au_...","au_..."]
+}</pre>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="text-center text-sm text-slate-500 pt-4">
+      TH8.AI – Agentic Evidence Retrieval + Deterministic Decision + Immutable Audit
+    </div>
+  </div>
+</body>
+</html>

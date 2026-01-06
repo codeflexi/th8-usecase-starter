@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>th8 Decision Control Center: Strategic Insight Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        neutral: {
+                            50: '#FAFAF9',
+                            100: '#F5F5F4',
+                            200: '#E7E5E4',
+                            800: '#292524',
+                            900: '#1C1917',
+                        },
+                        accent: {
+                            primary: '#0D9488', // Teal 600 - Intelligent/Calm
+                            secondary: '#BE185D', // Pink 700 - Action/Insight
+                            highlight: '#F59E0B', // Amber 500 - Alert
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAFAF9; /* Warm neutral light background */
+            color: #292524;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .step-active {
+            background-color: #0D9488;
+            color: white;
+            border-color: #0D9488;
+        }
+        .step-inactive {
+            background-color: #F5F5F4;
+            color: #78716C;
+            border-color: #E7E5E4;
+        }
+    </style>
+    <!-- Chosen Palette: Warm Neutrals with Teal & Pink Accents (Calm, Professional, Intelligent) -->
+    <!-- Application Structure Plan: The app is designed as an interactive "Strategic Briefing". It moves from Macro (Global Market) to Micro (Product Logic) to Future (Strategy).
+         1. Hero: Sets the context of the shift to Autonomous Commerce.
+         2. Market Intelligence: A toggle-able section comparing Global Trends vs. Local Reality, addressing the "Why Now?" question.
+         3. Positioning Engine: Uses interactive scatter & radar charts to visualize th8's unique "Orchestrator" position against competitors.
+         4. The Agent Workflow: An interactive process flow allowing users to click through the 4 stages of AI decision making, explaining the "How it Works".
+         5. Strategic Pillars: Interactive cards detailing the 4 key recommendations (Tiered Autonomy, etc.).
+         Rationale: This flow builds a logical argument for stakeholders, starting with market proof and ending with execution strategy. -->
+    <!-- Visualization & Content Choices: 
+         1. Market Growth (Line Chart): To show the massive global opportunity trend (Goal: Inform/Change).
+         2. Adoption Gap (Doughnut Chart): To highlight the localized opportunity in Thailand/Asia (Goal: Inform).
+         3. Positioning Matrix (Plotly Scatter): To visually separate th8 from Legacy ERP and Niche AI (Goal: Compare/Relationship).
+         4. Capability Radar (Chart.js Radar): To show multi-dimensional strengths like Cost vs. Agility (Goal: Compare).
+         5. Workflow Simulator (HTML/JS Interaction): To explain complex agent logic simply without static diagrams (Goal: Change/Process).
+         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-neutral-50/90 backdrop-blur-sm border-b border-neutral-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-serif font-bold text-neutral-900 tracking-tight">th8<span class="text-accent-primary">.ai</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <button onclick="scrollToSection('market')" class="text-neutral-600 hover:text-accent-primary font-medium transition-colors">Market Context</button>
+                    <button onclick="scrollToSection('positioning')" class="text-neutral-600 hover:text-accent-primary font-medium transition-colors">Positioning</button>
+                    <button onclick="scrollToSection('workflow')" class="text-neutral-600 hover:text-accent-primary font-medium transition-colors">Workflow</button>
+                    <button onclick="scrollToSection('strategy')" class="text-neutral-600 hover:text-accent-primary font-medium transition-colors">Strategy</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-neutral-50 pt-16 pb-12 sm:pt-24 sm:pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-neutral-900 mb-6 leading-tight">
+                From Passive Dashboard<br>to <span class="text-accent-primary">Active Orchestrator</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-neutral-600">
+                A strategic deep dive into the <strong>Decision Control Center</strong> for Procurement. 
+                Bridging the gap between rigid ERPs and autonomous AI agents in the Asian market.
+            </p>
+            <div class="mt-10 flex justify-center gap-4">
+                <button onclick="scrollToSection('market')" class="px-8 py-3 rounded-full bg-neutral-900 text-white font-medium hover:bg-neutral-700 transition-all shadow-lg">
+                    Explore Insights
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 1: Market Intelligence (Global vs Local) -->
+    <section id="market" class="py-16 bg-white border-y border-neutral-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center md:text-left">
+                <h2 class="text-3xl font-serif font-bold text-neutral-900">The Market Landscape</h2>
+                <p class="mt-4 text-lg text-neutral-600 max-w-3xl">
+                    The procurement world is shifting from "Digital" to "Autonomous". While global players race towards full automation, the Asian market remains stuck in digitization, creating a massive "Middle Layer" opportunity for th8.
+                </p>
+            </div>
+
+            <!-- Toggle Controls -->
+            <div class="flex justify-center md:justify-start mb-8 bg-neutral-100 p-1 rounded-lg inline-flex w-fit mx-auto md:mx-0">
+                <button id="btn-global" onclick="switchMarketView('global')" class="px-6 py-2 rounded-md text-sm font-medium transition-all shadow-sm bg-white text-neutral-900">Global Trends</button>
+                <button id="btn-local" onclick="switchMarketView('local')" class="px-6 py-2 rounded-md text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-all">Asia & Thailand Context</button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <!-- Text Insight Column -->
+                <div class="lg:col-span-1 space-y-6">
+                    <div id="market-text-content" class="bg-neutral-50 p-6 rounded-xl border border-neutral-200 h-full transition-opacity duration-300">
+                        <!-- Dynamic Content Loaded via JS -->
+                    </div>
+                </div>
+
+                <!-- Visualization Column -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white p-6 rounded-xl border border-neutral-200 shadow-sm h-full">
+                        <div class="chart-container">
+                            <canvas id="marketChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Strategic Positioning -->
+    <section id="positioning" class="py-16 bg-neutral-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <h2 class="text-3xl font-serif font-bold text-neutral-900">Strategic Positioning: "The Orchestrator"</h2>
+                <p class="mt-4 text-lg text-neutral-600 max-w-3xl">
+                    Where does th8 fit? We avoid the "Red Ocean" of legacy ERPs and the "Siloed Trap" of niche AI tools. th8 acts as the intelligent overlay—the brain on top of the existing body.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Matrix Plot -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-neutral-200">
+                    <h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-4 ml-2">Competitive Landscape Matrix</h3>
+                    <div id="positioningPlot" class="w-full h-[350px] md:h-[400px]"></div>
+                    <div class="mt-2 text-xs text-neutral-400 text-center italic">Interact: Zoom, Pan, Hover for details</div>
+                </div>
+
+                <!-- Radar & Key Differentiators -->
+                <div class="flex flex-col space-y-6">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-neutral-200 flex-grow">
+                        <h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-4 ml-2">Capability Radar: th8 vs Global SaaS</h3>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="radarChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-accent-primary/10 p-4 rounded-lg border border-accent-primary/20">
+                            <div class="text-2xl font-bold text-accent-primary mb-1">Localized</div>
+                            <div class="text-sm text-neutral-700">Handles Thai NLP, unstructured PDFs, and local business logic better than global giants.</div>
+                        </div>
+                        <div class="bg-accent-secondary/10 p-4 rounded-lg border border-accent-secondary/20">
+                            <div class="text-2xl font-bold text-accent-secondary mb-1">Overlay</div>
+                            <div class="text-sm text-neutral-700">Doesn't replace ERP. Sits on top, ingesting data and sending back decisions.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: The Agent Workflow (Interactive) -->
+    <section id="workflow" class="py-16 bg-white border-t border-neutral-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12 text-center">
+                <h2 class="text-3xl font-serif font-bold text-neutral-900">How the "Control Center" Works</h2>
+                <p class="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
+                    A move from static reporting to agentic workflow. Click through the stages below to see how th8 processes a procurement request.
+                </p>
+            </div>
+
+            <!-- Workflow Interactive Component -->
+            <div class="flex flex-col lg:flex-row gap-8 items-start">
+                
+                <!-- Steps Navigation -->
+                <div class="w-full lg:w-1/3 flex flex-col space-y-4">
+                    <button onclick="setWorkflowStep(0)" id="step-btn-0" class="step-active text-left p-4 rounded-xl border-2 transition-all flex items-center group">
+                        <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center font-bold mr-4 text-current">1</span>
+                        <div>
+                            <div class="font-bold">Data Ingestion</div>
+                            <div class="text-xs opacity-80 font-normal">Unstructured Input</div>
+                        </div>
+                    </button>
+                    <button onclick="setWorkflowStep(1)" id="step-btn-1" class="step-inactive text-left p-4 rounded-xl border-2 transition-all flex items-center group hover:border-neutral-300">
+                        <span class="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center font-bold mr-4 text-neutral-600">2</span>
+                        <div>
+                            <div class="font-bold">Agent Analysis</div>
+                            <div class="text-xs opacity-80 font-normal">Anomaly & Risk Check</div>
+                        </div>
+                    </button>
+                    <button onclick="setWorkflowStep(2)" id="step-btn-2" class="step-inactive text-left p-4 rounded-xl border-2 transition-all flex items-center group hover:border-neutral-300">
+                        <span class="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center font-bold mr-4 text-neutral-600">3</span>
+                        <div>
+                            <div class="font-bold">Decision Proposal</div>
+                            <div class="text-xs opacity-80 font-normal">Recommendation Engine</div>
+                        </div>
+                    </button>
+                    <button onclick="setWorkflowStep(3)" id="step-btn-3" class="step-inactive text-left p-4 rounded-xl border-2 transition-all flex items-center group hover:border-neutral-300">
+                        <span class="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center font-bold mr-4 text-neutral-600">4</span>
+                        <div>
+                            <div class="font-bold">Execution</div>
+                            <div class="text-xs opacity-80 font-normal">Action & Write-back</div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Display Panel -->
+                <div class="w-full lg:w-2/3">
+                    <div class="bg-neutral-900 text-white rounded-2xl p-8 h-full shadow-xl relative overflow-hidden transition-all duration-500" id="workflow-display">
+                        <!-- Content injected via JS -->
+                        <div class="absolute top-0 right-0 p-32 bg-accent-primary/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                        
+                        <div id="workflow-content">
+                            <!-- Dynamic Content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Strategic Roadmap & Recommendations -->
+    <section id="strategy" class="py-16 bg-neutral-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <h2 class="text-3xl font-serif font-bold text-neutral-900">Strategic Recommendations</h2>
+                <p class="mt-4 text-lg text-neutral-600">
+                    Based on deep research, here are the 4 pillars for th8's roadmap to dominate the Asian market.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-xl border border-neutral-200 card-hover transition-all">
+                    <div class="text-accent-primary mb-4 text-4xl">❶</div>
+                    <h3 class="text-xl font-bold text-neutral-900 mb-2">Tiered Autonomy</h3>
+                    <p class="text-neutral-600 text-sm leading-relaxed mb-4">
+                        Don't sell "Full Auto" immediately. Build trust through a ladder:
+                    </p>
+                    <div class="flex space-x-2 text-xs font-semibold">
+                        <span class="px-2 py-1 bg-neutral-100 rounded text-neutral-500">Watchdog</span>
+                        <span class="text-neutral-300">&rarr;</span>
+                        <span class="px-2 py-1 bg-neutral-100 rounded text-neutral-700">Copilot</span>
+                        <span class="text-neutral-300">&rarr;</span>
+                        <span class="px-2 py-1 bg-accent-primary/10 text-accent-primary rounded">Autopilot</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-xl border border-neutral-200 card-hover transition-all">
+                    <div class="text-accent-secondary mb-4 text-4xl">❷</div>
+                    <h3 class="text-xl font-bold text-neutral-900 mb-2">Unstructured Data Advantage</h3>
+                    <p class="text-neutral-600 text-sm leading-relaxed">
+                        Global players fail at local context. Use OCR & NLP to ingest Thai PDFs, LINE chats, and messy emails. This is the "Data Moat" that structured ERPs cannot bridge.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-xl border border-neutral-200 card-hover transition-all">
+                    <div class="text-neutral-800 mb-4 text-4xl">❸</div>
+                    <h3 class="text-xl font-bold text-neutral-900 mb-2">Overlay Intelligence</h3>
+                    <p class="text-neutral-600 text-sm leading-relaxed">
+                        <strong>Don't Replace, Overlay.</strong> Sell th8 as the "Control Tower" that sits above SAP/Oracle. Position as the decision engine, leaving the ERP as the system of record.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-8 rounded-xl border border-neutral-200 card-hover transition-all">
+                    <div class="text-accent-highlight mb-4 text-4xl">❹</div>
+                    <h3 class="text-xl font-bold text-neutral-900 mb-2">Community Intelligence</h3>
+                    <p class="text-neutral-600 text-sm leading-relaxed">
+                        The long game. Aggregate anonymized pricing data to offer "Real Market Price" benchmarking. This transforms the business model from License Fee to Outcome/Savings based.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-neutral-900 text-neutral-400 py-12 border-t border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <span class="text-2xl font-serif font-bold text-white tracking-tight">th8<span class="text-accent-primary">.ai</span></span>
+                <p class="text-sm mt-2">Decision Control Center Research & Insight</p>
+            </div>
+            <div class="text-sm">
+                Generated for Internal Strategic Planning &copy; 2026
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- State Management ---
+        const state = {
+            marketView: 'global', // 'global' or 'local'
+            workflowStep: 0
+        };
+
+        // --- Data Definitions ---
+        const marketData = {
+            global: {
+                title: "Global: The Rise of Autonomous Commerce",
+                desc: "Globally, the market is aggressively moving towards 'No-Touch' procurement. Players like Globality and Pactum are setting the standard with 45.3% CAGR.",
+                points: [
+                    "Trend: Autonomous Sourcing & Negotiation",
+                    "Benchmark: Globality (Smart RFQ), Pactum (AI Neg.)",
+                    "Goal: Headcount Reduction & Speed"
+                ],
+                chartLabel: "Global AI in Supply Chain ($ Bn)",
+                chartLabels: ['2022', '2023', '2024', '2025', '2026'],
+                chartData: [2.1, 3.4, 5.2, 7.8, 11.5]
+            },
+            local: {
+                title: "Asia/Thailand: The 'Middle Layer' Gap",
+                desc: "The region is stuck in 'Dashboard-Centricity'. Executives see data (PowerBI) but lack systems to act on it. There is a massive gap for a decision engine.",
+                points: [
+                    "Status: Digitalization 1.0 (ERP/Paperless)",
+                    "Pain: Passive Data (Requires human interpretation)",
+                    "Opportunity: Overlay Intelligence on rigid ERPs"
+                ],
+                chartLabel: "Thai Enterprise Adoption (%)",
+                chartLabels: ['Paper/Manual', 'ERP (Basic)', 'Dashboard (Passive)', 'AI Agent (Active)'],
+                chartData: [20, 45, 30, 5] 
+            }
+        };
+
+        const workflowSteps = [
+            {
+                title: "1. Data Ingestion (The Senses)",
+                icon: "📥",
+                content: "The system ingests not just structured POs, but unstructured data: <strong>Email attachments, PDF Quotes, and LINE chat logs</strong>. It uses OCR and NLP to normalize this messy local data into a standard format.",
+                badge: "Unique Selling Point"
+            },
+            {
+                title: "2. Agent Analysis (The Brain)",
+                icon: "🧠",
+                content: "Specific agents wake up. The <strong>Risk Agent</strong> checks supplier history. The <strong>Price Agent</strong> compares against market benchmarks. The <strong>Anomaly Watchdog</strong> flags outliers.",
+                badge: "Watchdog Level"
+            },
+            {
+                title: "3. Decision Proposal (The Voice)",
+                icon: "💡",
+                content: "The system generates a proposal. <br><em>'Approve this PO? (Low Risk)'</em> or <br><em>'Reject: Price is 15% above market average. Click to send negotiation email.'</em>",
+                badge: "Copilot Level"
+            },
+            {
+                title: "4. Execution (The Hands)",
+                icon: "⚡",
+                content: "Upon human confirmation (or auto-approval for low value), the agent executes. It writes back to the ERP (SAP/Oracle), sends the email to the supplier, and logs the saving.",
+                badge: "Autopilot Level"
+            }
+        ];
+
+        // --- Chart Objects ---
+        let marketChartInstance = null;
+        let radarChartInstance = null;
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initMarketChart();
+            renderMarketContent();
+            initPositioningPlot();
+            initRadarChart();
+            renderWorkflow();
+        });
+
+        // --- Navigation ---
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Market Section Logic ---
+        function switchMarketView(view) {
+            state.marketView = view;
+            
+            // Update Buttons
+            const btnGlobal = document.getElementById('btn-global');
+            const btnLocal = document.getElementById('btn-local');
+            
+            if (view === 'global') {
+                btnGlobal.className = "px-6 py-2 rounded-md text-sm font-medium transition-all shadow-sm bg-white text-neutral-900";
+                btnLocal.className = "px-6 py-2 rounded-md text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-all";
+            } else {
+                btnGlobal.className = "px-6 py-2 rounded-md text-sm font-medium text-neutral-500 hover:text-neutral-900 transition-all";
+                btnLocal.className = "px-6 py-2 rounded-md text-sm font-medium transition-all shadow-sm bg-white text-neutral-900";
+            }
+
+            renderMarketContent();
+            updateMarketChart();
+        }
+
+        function renderMarketContent() {
+            const data = marketData[state.marketView];
+            const container = document.getElementById('market-text-content');
+            
+            // Fade out effect
+            container.style.opacity = 0;
+            
+            setTimeout(() => {
+                let html = `
+                    <div class="inline-block px-3 py-1 mb-4 rounded-full bg-neutral-200 text-neutral-700 text-xs font-bold tracking-wide uppercase">
+                        ${state.marketView === 'global' ? 'Macro View' : 'Regional View'}
+                    </div>
+                    <h3 class="text-2xl font-bold text-neutral-900 mb-4">${data.title}</h3>
+                    <p class="text-neutral-600 mb-6 leading-relaxed">${data.desc}</p>
+                    <div class="space-y-3">
+                        ${data.points.map(p => `
+                            <div class="flex items-start">
+                                <span class="flex-shrink-0 w-1.5 h-1.5 mt-2 bg-accent-primary rounded-full mr-3"></span>
+                                <span class="text-sm text-neutral-700 font-medium">${p}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.innerHTML = html;
+                container.style.opacity = 1;
+            }, 300);
+        }
+
+        function initMarketChart() {
+            const ctx = document.getElementById('marketChart').getContext('2d');
+            
+            // Default configuration
+            Chart.defaults.font.family = "'Inter', sans-serif";
+            Chart.defaults.color = '#57534E';
+            
+            marketChartInstance = new Chart(ctx, {
+                type: 'line', // Initial type
+                data: {
+                    labels: [],
+                    datasets: []
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            backgroundColor: '#292524',
+                            titleFont: { size: 13 },
+                            bodyFont: { size: 13 },
+                            padding: 10,
+                            cornerRadius: 4,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + (state.marketView === 'global' ? ' Bn USD' : '%');
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: { grid: { color: '#E7E5E4' }, beginAtZero: true },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+            updateMarketChart();
+        }
+
+        function updateMarketChart() {
+            const data = marketData[state.marketView];
+            const isGlobal = state.marketView === 'global';
+
+            marketChartInstance.config.type = isGlobal ? 'line' : 'doughnut';
+            marketChartInstance.data.labels = data.chartLabels;
+            
+            // Reset datasets
+            marketChartInstance.data.datasets = [];
+
+            if (isGlobal) {
+                marketChartInstance.data.datasets.push({
+                    label: data.chartLabel,
+                    data: data.chartData,
+                    borderColor: '#0D9488',
+                    backgroundColor: 'rgba(13, 148, 136, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#BE185D',
+                    pointRadius: 6,
+                    borderWidth: 3
+                });
+                marketChartInstance.options.scales.x.display = true;
+                marketChartInstance.options.scales.y.display = true;
+            } else {
+                marketChartInstance.data.datasets.push({
+                    label: data.chartLabel,
+                    data: data.chartData,
+                    backgroundColor: [
+                        '#D6D3D1', // Paper
+                        '#A8A29E', // ERP
+                        '#BE185D', // Dashboard (Pain)
+                        '#0D9488'  // Agent (Opportunity)
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                });
+                marketChartInstance.options.scales.x.display = false;
+                marketChartInstance.options.scales.y.display = false;
+            }
+
+            marketChartInstance.update();
+        }
+
+        // --- Positioning Plot (Plotly) ---
+        function initPositioningPlot() {
+            const traceLegacy = {
+                x: [2, 3.5],
+                y: [8, 4],
+                mode: 'markers+text',
+                type: 'scatter',
+                name: 'Legacy ERP',
+                text: ['SAP/Oracle', 'e-Procure'],
+                textposition: 'top center',
+                textfont: { family: 'Inter', size: 11, color: '#78716C' },
+                marker: { size: 25, color: '#E7E5E4' } // Light gray
+            };
+
+            const traceNiche = {
+                x: [8, 9],
+                y: [3, 2],
+                mode: 'markers+text',
+                type: 'scatter',
+                name: 'Niche AI',
+                text: ['Contract AI', 'Spend Viz'],
+                textposition: 'bottom center',
+                textfont: { family: 'Inter', size: 11, color: '#78716C' },
+                marker: { size: 20, color: '#FBCFE8' } // Light pink
+            };
+
+            const traceTh8 = {
+                x: [8.5],
+                y: [8.5],
+                mode: 'markers+text',
+                type: 'scatter',
+                name: 'th8',
+                text: ['th8 Orchestrator'],
+                textposition: 'top center',
+                textfont: { family: 'Inter', size: 14, color: '#0D9488', weight: 'bold' },
+                marker: { size: 35, color: '#0D9488', opacity: 0.9, line: {color: 'white', width: 2} }
+            };
+
+            const layout = {
+                showlegend: false,
+                font: { family: 'Inter' },
+                xaxis: { 
+                    title: 'Level of AI Autonomy', 
+                    range: [0, 10], 
+                    gridcolor: '#F5F5F4',
+                    zerolinecolor: '#E7E5E4'
+                },
+                yaxis: { 
+                    title: 'Strategic Integration Scope', 
+                    range: [0, 10], 
+                    gridcolor: '#F5F5F4',
+                    zerolinecolor: '#E7E5E4'
+                },
+                margin: { t: 20, r: 20, b: 50, l: 50 },
+                hovermode: 'closest'
+            };
+
+            const config = { responsive: true, displayModeBar: false };
+            Plotly.newPlot('positioningPlot', [traceLegacy, traceNiche, traceTh8], layout, config);
+        }
+
+        // --- Radar Chart ---
+        function initRadarChart() {
+            // Label Wrapping Helper
+            const wrapLabel = (str) => {
+                if (str.length <= 15) return str;
+                return str.split(' ');
+            };
+
+            const ctx = document.getElementById('radarChart').getContext('2d');
+            radarChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['Decision Speed', 'Thai Context/NLP', 'Ease of Customization', 'Cost Efficiency', 'Integration Depth'].map(wrapLabel),
+                    datasets: [{
+                        label: 'th8 Control Center',
+                        data: [9, 10, 9, 9, 8],
+                        fill: true,
+                        backgroundColor: 'rgba(13, 148, 136, 0.2)',
+                        borderColor: '#0D9488',
+                        pointBackgroundColor: '#0D9488',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#0D9488'
+                    }, {
+                        label: 'Global SaaS (e.g. Globality)',
+                        data: [8, 3, 4, 4, 9],
+                        fill: true,
+                        backgroundColor: 'rgba(244, 63, 94, 0.1)',
+                        borderColor: '#BE185D',
+                        pointBackgroundColor: '#BE185D',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#BE185D',
+                        borderDash: [5, 5]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#E7E5E4' },
+                            grid: { color: '#F5F5F4' },
+                            pointLabels: {
+                                font: { size: 11, family: "'Inter', sans-serif" },
+                                color: '#57534E'
+                            },
+                            ticks: { display: false, backdropColor: 'transparent' },
+                            suggestedMin: 0,
+                            suggestedMax: 10
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    // Handle wrapped labels in tooltip title
+                                    let label = context[0].label;
+                                    return Array.isArray(label) ? label.join(' ') : label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- Workflow Logic ---
+        function setWorkflowStep(index) {
+            state.workflowStep = index;
+            renderWorkflow();
+        }
+
+        function renderWorkflow() {
+            // Update Buttons
+            for (let i = 0; i < 4; i++) {
+                const btn = document.getElementById(`step-btn-${i}`);
+                const circle = btn.querySelector('span');
+                const text = btn.querySelector('.text-neutral-600');
+                
+                if (i === state.workflowStep) {
+                    btn.className = "step-active text-left p-4 rounded-xl border-2 transition-all flex items-center group shadow-md transform scale-105";
+                    circle.className = "w-8 h-8 rounded-full bg-white/20 flex items-center justify-center font-bold mr-4 text-white";
+                } else {
+                    btn.className = "step-inactive text-left p-4 rounded-xl border-2 transition-all flex items-center group hover:border-neutral-300";
+                    circle.className = "w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center font-bold mr-4 text-neutral-600";
+                }
+            }
+
+            // Update Content
+            const data = workflowSteps[state.workflowStep];
+            const contentDiv = document.getElementById('workflow-content');
+            
+            // Animation reset
+            contentDiv.style.opacity = 0;
+            contentDiv.style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                contentDiv.innerHTML = `
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="text-5xl">${data.icon}</div>
+                        <div class="px-3 py-1 bg-white/10 rounded-full text-xs font-mono text-accent-primary border border-accent-primary/30">
+                            ${data.badge}
+                        </div>
+                    </div>
+                    <h3 class="text-3xl font-serif font-bold mb-4">${data.title}</h3>
+                    <div class="h-1 w-20 bg-accent-primary mb-6"></div>
+                    <p class="text-xl text-neutral-300 leading-relaxed font-light">
+                        ${data.content}
+                    </p>
+                    <div class="mt-8 pt-6 border-t border-white/10 flex justify-between text-xs text-neutral-500 font-mono">
+                        <span>INPUT: ${state.workflowStep === 0 ? 'Raw Data' : 'Processed Data'}</span>
+                        <span>STATUS: Active</span>
+                    </div>
+                `;
+                
+                contentDiv.style.transition = 'all 0.5s ease-out';
+                contentDiv.style.opacity = 1;
+                contentDiv.style.transform = 'translateY(0)';
+            }, 200);
+        }
+
+    </script>
+</body>
+</html>

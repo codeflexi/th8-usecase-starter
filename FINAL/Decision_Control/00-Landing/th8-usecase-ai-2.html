@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>th8 Deep Tech Spec & UX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        code: {
+                            bg: '#1E1E1E',
+                            key: '#569CD6',
+                            string: '#CE9178',
+                            num: '#B5CEA8',
+                            comment: '#6A9955'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F8FAFC; color: #334155; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #E2E8F0; }
+        ::-webkit-scrollbar-thumb { background: #94A3B8; border-radius: 4px; }
+
+        .tech-panel {
+            background-color: #0F172A;
+            color: #E2E8F0;
+            border-left: 1px solid #334155;
+        }
+
+        .code-block {
+            background-color: #1E1E1E;
+            color: #D4D4D4;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            border: 1px solid #333;
+        }
+
+        .tab-btn {
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            border-bottom-color: #3B82F6;
+            color: #3B82F6;
+            font-weight: 600;
+        }
+        
+        .json-key { color: #9CDCFE; }
+        .json-string { color: #CE9178; }
+        .json-num { color: #B5CEA8; }
+        .json-bool { color: #569CD6; }
+        .comment { color: #6A9955; }
+    </style>
+</head>
+<body class="h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 h-16 flex items-center px-6 justify-between shrink-0 z-20">
+        <div class="flex items-center gap-3">
+            <div class="bg-slate-900 text-white px-2 py-1 rounded font-bold">th8</div>
+            <h1 class="font-bold text-slate-700">Deep Tech Specification</h1>
+        </div>
+        <div class="flex gap-4 text-sm font-medium">
+            <button onclick="setFlow(1)" id="btn-1" class="tab-btn active px-3 py-4">1. Replenishment</button>
+            <button onclick="setFlow(2)" id="btn-2" class="tab-btn px-3 py-4">2. Consolidator</button>
+            <button onclick="setFlow(3)" id="btn-3" class="tab-btn px-3 py-4">3. Expiry Opt.</button>
+            <button onclick="setFlow(4)" id="btn-4" class="tab-btn px-3 py-4">4. Smart Sourcing</button>
+        </div>
+    </header>
+
+    <!-- Content Area (Split View) -->
+    <main class="flex-1 flex overflow-hidden">
+        
+        <!-- LEFT: User Experience (Frontend) -->
+        <div class="w-1/2 p-8 overflow-y-auto bg-slate-50">
+            <div class="max-w-xl mx-auto">
+                <div class="mb-4">
+                    <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">User Interface View</span>
+                    <h2 class="text-2xl font-bold text-slate-800 mt-1" id="ui-title">Auto-Replenishment Agent</h2>
+                    <p class="text-slate-600 text-sm mt-2" id="ui-desc">ระบบทำนาย Demand และสร้าง PO ให้อัตโนมัติ</p>
+                </div>
+
+                <!-- Simulate UI Card -->
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                    <!-- Header -->
+                    <div class="bg-blue-600 p-4 text-white flex justify-between items-center" id="card-header">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs font-bold opacity-80 uppercase">AI Proposal</div>
+                                <div class="font-bold">Replenishment #PO-8821</div>
+                            </div>
+                        </div>
+                        <span class="bg-white/20 px-2 py-1 rounded text-xs font-bold">Confidence: 98%</span>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="p-6">
+                        <!-- Insight -->
+                        <div class="mb-6">
+                            <h4 class="text-sm font-bold text-slate-700 mb-2">Why this suggestion?</h4>
+                            <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 text-sm text-slate-700 leading-relaxed" id="ui-insight">
+                                <i class="fas fa-chart-line text-blue-500 mr-2"></i>
+                                "เทศกาลปีใหม่ทำให้ยอดขายสาขา Siam Center เพิ่มขึ้น <span class="font-bold text-blue-700">+35%</span> สต็อกปัจจุบัน (5 ลัง) จะหมดภายในวันศุกร์"
+                            </div>
+                        </div>
+
+                        <!-- Data Visual -->
+                        <div class="mb-6 border rounded-lg p-4 bg-slate-50">
+                            <div class="flex justify-between text-xs text-slate-500 mb-2">
+                                <span>Current Stock</span>
+                                <span>Projected Demand</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2.5 mb-1">
+                                <div class="bg-red-500 h-2.5 rounded-full" style="width: 15%"></div>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2.5">
+                                <div class="bg-blue-500 h-2.5 rounded-full" style="width: 85%"></div>
+                            </div>
+                            <div class="mt-2 text-right text-xs font-bold text-slate-600">Gap: -70 Units</div>
+                        </div>
+
+                        <!-- Action -->
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 border rounded bg-white">
+                                <span class="text-sm text-slate-600">Action:</span>
+                                <span class="font-bold text-slate-800" id="ui-action-text">Create PO to 'Aroma Thai' (70 Units)</span>
+                            </div>
+                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all shadow-md active:scale-95">
+                                Approve & Send
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulation Control -->
+                <div class="mt-8 p-4 bg-white rounded-xl border border-dashed border-slate-300">
+                    <div class="text-xs font-bold text-slate-400 uppercase mb-2">User Feedback Simulation</div>
+                    <div class="flex gap-2">
+                        <button class="px-3 py-1 bg-green-100 text-green-700 rounded text-xs font-bold border border-green-200">User Approves</button>
+                        <button class="px-3 py-1 bg-red-100 text-red-700 rounded text-xs font-bold border border-red-200">User Rejects</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Tech Panel (Backend) -->
+        <div class="w-1/2 tech-panel p-8 overflow-y-auto font-mono text-sm">
+            <div class="mb-8">
+                <span class="text-blue-400 font-bold text-xs uppercase tracking-widest"><i class="fas fa-microchip mr-2"></i>Under the Hood</span>
+                <h2 class="text-xl font-bold mt-1 text-white">System Logic & Logs</h2>
+            </div>
+
+            <!-- 1. Context Engineering -->
+            <div class="mb-8">
+                <h3 class="text-slate-400 font-bold mb-3 flex items-center">
+                    <i class="fas fa-database mr-2 w-5"></i> 1. Context Engineering (Input)
+                </h3>
+                <p class="text-slate-500 text-xs mb-2">Data injected into the AI Model / Rule Engine.</p>
+                <div class="code-block">
+                    <pre id="code-context">
+{
+  <span class="json-key">"store_id"</span>: <span class="json-string">"BKK-001"</span>,
+  <span class="json-key">"sku"</span>: <span class="json-string">"Coffee-Arabica-1kg"</span>,
+  <span class="json-key">"current_stock"</span>: <span class="json-num">5</span>,
+  <span class="json-key">"avg_daily_sales_L30D"</span>: <span class="json-num">12.5</span>,
+  <span class="json-key">"predicted_sales_next_7d"</span>: <span class="json-num">105.0</span>,
+  <span class="json-key">"active_events"</span>: [<span class="json-string">"New Year"</span>, <span class="json-string">"Member Promo"</span>],
+  <span class="json-key">"supplier_lead_time"</span>: <span class="json-num">2</span> <span class="comment">// days</span>
+}</pre>
+                </div>
+            </div>
+
+            <!-- 2. The Brain (Logic) -->
+            <div class="mb-8">
+                <h3 class="text-slate-400 font-bold mb-3 flex items-center">
+                    <i class="fas fa-brain mr-2 w-5"></i> 2. The Brain (Hybrid Logic)
+                </h3>
+                
+                <div class="mb-4">
+                    <div class="text-xs text-blue-400 mb-1 font-bold">A. Hard Rules (Python)</div>
+                    <div class="code-block bg-slate-800 border-slate-700">
+                        <pre id="code-rule">
+<span class="json-bool">def</span> <span class="json-key">check_replenish_trigger</span>(ctx):
+    stock_cover_days = ctx.stock / ctx.daily_sales
+    <span class="json-bool">if</span> stock_cover_days < ctx.lead_time + 1:
+        <span class="json-bool">return</span> <span class="json-bool">True</span> <span class="comment"># Trigger Alert</span>
+    <span class="json-bool">return</span> <span class="json-bool">False</span></pre>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-xs text-purple-400 mb-1 font-bold">B. LLM Prompt (Reasoning Generation)</div>
+                    <div class="code-block bg-slate-800 border-slate-700 whitespace-pre-wrap" id="code-prompt">
+System: You are an expert Inventory Manager.
+Context: {JSON_CONTEXT}
+Task: Explain why we need to order 70 units NOW. Be concise and persuasive.
+Output: "Due to [Event], demand is up [X]%. Current stock covers only [Y] days."</div>
+                </div>
+            </div>
+
+            <!-- 3. Audit Log -->
+            <div class="mb-8">
+                <h3 class="text-slate-400 font-bold mb-3 flex items-center">
+                    <i class="fas fa-list-ul mr-2 w-5"></i> 3. Audit Trail & Monitoring
+                </h3>
+                <p class="text-slate-500 text-xs mb-2">Immutable logs stored in MongoDB/Postgres.</p>
+                <div class="code-block">
+                    <pre id="code-audit">
+{
+  <span class="json-key">"log_id"</span>: <span class="json-string">"audit_998212"</span>,
+  <span class="json-key">"timestamp"</span>: <span class="json-string">"2024-01-05T09:41:00Z"</span>,
+  <span class="json-key">"actor"</span>: <span class="json-string">"User:Manager_01"</span>,
+  <span class="json-key">"action"</span>: <span class="json-string">"APPROVE_PO"</span>,
+  <span class="json-key">"snapshot_data"</span>: {
+    <span class="json-key">"po_qty"</span>: <span class="json-num">70</span>,
+    <span class="json-key">"price_at_moment"</span>: <span class="json-num">450.00</span>
+  },
+  <span class="json-key">"ai_confidence_score"</span>: <span class="json-num">0.98</span>
+}</pre>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Data for all 4 flows
+        const flows = {
+            1: { // Replenishment
+                title: "Auto-Replenishment Agent",
+                desc: "Predictive Demand & Auto-PO Generation",
+                color: "bg-blue-600",
+                ui: {
+                    insight: '"เทศกาลปีใหม่ทำให้ยอดขายเพิ่มขึ้น <span class="font-bold text-blue-700">+35%</span> สต็อกปัจจุบันจะหมดใน 2 วัน"',
+                    action: "Create PO to 'Aroma Thai' (70 Units)"
+                },
+                code: {
+                    context: `{
+  "store_id": "BKK-001",
+  "sku": "Coffee-Arabica",
+  "stock": 5,
+  "predicted_demand": 105,
+  "events": ["New Year"],
+  "lead_time": 2
+}`,
+                    rule: `if stock_cover_days < lead_time + safety_buffer:
+    trigger_alert(priority="HIGH")
+    generate_draft_po()`,
+                    prompt: `Context: {JSON}
+Task: Explain reorder urgency.
+Output: "Stock covers 1 day. New Year traffic expected to deplete inventory by Friday."`,
+                    audit: `{
+  "action": "APPROVE_PO",
+  "sku": "Coffee-Arabica",
+  "qty": 70,
+  "status": "SENT_TO_ERP"
+}`
+                }
+            },
+            2: { // Consolidator
+                title: "Spend Consolidator Agent",
+                desc: "Unified Purchasing to unlock Tier Pricing",
+                color: "bg-purple-600",
+                ui: {
+                    insight: '"พบ PR จาก 3 แผนก (IT, HR, Mkt) สั่งสินค้ากลุ่ม <strong>Paper</strong> เหมือนกัน รวมยอดได้ 500 รีม เพื่อรับส่วนลด 15%"',
+                    action: "Merge 3 PRs -> Single PO to Vendor A"
+                },
+                code: {
+                    context: `{
+  "pending_prs": [
+    {"dept": "IT", "item": "A4 Paper", "qty": 100},
+    {"dept": "HR", "item": "Paper 80gsm", "qty": 200}
+  ],
+  "supplier_tiers": {
+    "Vendor_A": {"min_qty": 500, "discount": 0.15}
+  }
+}`,
+                    rule: `embedding_similarity(item_a, item_b) > 0.95
+AND sum(qty) >= supplier_tier_threshold
+THEN suggest_consolidation()`,
+                    prompt: `Task: Normalize Item Names.
+Input: ["A4 Paper", "Copy Paper 80g"]
+Output: "Office Paper A4 80gsm"`,
+                    audit: `{
+  "action": "CONSOLIDATE_PR",
+  "pr_ids_merged": ["PR-101", "PR-102"],
+  "savings_generated": 4500.00
+}`
+                }
+            },
+            3: { // Expiry
+                title: "Expiry & Inventory Optimizer",
+                desc: "Minimize Write-off via Stock Transfer",
+                color: "bg-red-600",
+                ui: {
+                    insight: '"ยา <strong>Augmentin</strong> ใน Ward 4 จะหมดอายุใน 60 วัน (ยอดใช้น้อย) ควรย้ายไป OPD ที่มียอดใช้สูงกว่า"',
+                    action: "Transfer 500 Boxes: Ward 4 -> OPD"
+                },
+                code: {
+                    context: `{
+  "batch_id": "B882",
+  "expiry_date": "2024-03-01",
+  "location_A": {"name": "Ward 4", "burn_rate": 0.5},
+  "location_B": {"name": "OPD", "burn_rate": 50.0}
+}`,
+                    rule: `days_to_expiry < 60
+AND (stock / burn_rate_loc_A) > days_to_expiry
+AND (stock / burn_rate_loc_B) < 10
+THEN recommend_transfer(A, B)`,
+                    prompt: `Analyze Risk:
+If stock stays in Ward 4, write-off probability = 99%.
+If moved to OPD, stock clears in 10 days.
+Action: Move immediately.`,
+                    audit: `{
+  "action": "TRANSFER_STOCK",
+  "batch": "B882",
+  "from": "Ward_4",
+  "to": "OPD",
+  "reason": "EXPIRY_RISK"
+}`
+                }
+            },
+            4: { // Sourcing
+                title: "Smart Sourcing Tracker",
+                desc: "Commodity Price Arbitrage",
+                color: "bg-amber-600",
+                ui: {
+                    insight: '"ราคาตลาดโลก <strong>Resin</strong> ร่วงแตะ $1,200 (Target Price) ต่ำกว่าสัญญาปัจจุบัน 10%"',
+                    action: "Lock Price & Issue PO (100 Tons)"
+                },
+                code: {
+                    context: `{
+  "commodity": "Resin-PP",
+  "current_contract_price": 1350,
+  "market_spot_price": 1200,
+  "target_price": 1250,
+  "min_order_qty": 100
+}`,
+                    rule: `if market_spot_price <= target_price
+AND market_trend == "BOTTOMING_OUT"
+THEN trigger_buy_signal()`,
+                    prompt: `Task: Draft Negotiation Email.
+Context: Market price is $1200.
+Output: "Dear Supplier, based on LME index dropping to $1200, we would like to place an early order of 100 tons at spot rate."`,
+                    audit: `{
+  "action": "LOCK_PRICE",
+  "commodity": "Resin",
+  "spot_rate_captured": 1200,
+  "contract_variance": -150
+}`
+                }
+            }
+        };
+
+        function setFlow(id) {
+            const data = flows[id];
+            
+            // UI Updates
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`btn-${id}`).classList.add('active');
+
+            document.getElementById('ui-title').innerText = data.title;
+            document.getElementById('ui-desc').innerText = data.desc;
+            document.getElementById('card-header').className = `${data.color} p-4 text-white flex justify-between items-center`;
+            document.getElementById('ui-insight').innerHTML = data.ui.insight;
+            document.getElementById('ui-action-text').innerText = data.ui.action;
+
+            // Code Updates (Typing Effect Simulation by simple replacement for now)
+            updateCode('code-context', data.code.context);
+            updateCode('code-rule', data.code.rule);
+            updateCode('code-prompt', data.code.prompt);
+            updateCode('code-audit', data.code.audit);
+        }
+
+        function updateCode(elementId, text) {
+            const el = document.getElementById(elementId);
+            el.style.opacity = '0';
+            setTimeout(() => {
+                // Formatting JSON colors simply
+                const formatted = text.replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:')
+                                      .replace(/: "([^"]+)"/g, ': <span class="json-string">"$1"</span>')
+                                      .replace(/: (\d+\.?\d*)/g, ': <span class="json-num">$1</span>');
+                el.innerHTML = formatted;
+                el.style.opacity = '1';
+            }, 200);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            setFlow(1);
+        });
+    </script>
+</body>
+</html>

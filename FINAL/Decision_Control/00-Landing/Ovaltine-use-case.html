@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ovaltine AI Sales Manager: From Report to Action</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#F97316', // Ovaltine-ish Orange
+                            orangeLight: '#FFEDD5',
+                            brown: '#78350F',  // Malt/Choco
+                            blue: '#0EA5E9',   // Tech/AI Blue
+                            blueDark: '#0C4A6E',
+                            bg: '#FFF7ED',     // Warm background
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FFF7ED;
+            color: #431407;
+        }
+
+        /* Chart Container Styling - Mandatory */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 280px;
+            max-height: 350px;
+            margin: 0 auto;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFEDD5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F97316;
+            border-radius: 4px;
+        }
+
+        /* Interactions */
+        .case-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .case-btn:hover {
+            transform: translateX(4px);
+            background-color: #FED7AA;
+        }
+        .case-btn.active {
+            background-color: #F97316;
+            color: white;
+            border-right: 4px solid #78350F;
+        }
+
+        /* Phone Simulator Styling */
+        .phone-mockup {
+            border: 12px solid #292524;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            background: white;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 20px;
+            width: 120px;
+            background: #292524;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 20;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+        }
+    </style>
+    <!-- Chosen Palette: "Ovaltine Energy" - Brand Orange/Brown mixed with Tech Blue for AI contrast -->
+    <!-- Application Structure Plan:
+         1. Header: Strong branding, emphasis on "Revenue & Speed".
+         2. Navigation: Tabs for GT, MT, Marketing, Consumer.
+         3. Interactive Split:
+            - Left: "The Old Way" (Report) - Charts showing missed opportunities (Lost Sales, Stockouts).
+            - Right: "The New Way" (AI Manager) - A Mobile UI simulator showing an actionable alert and a "One-Click" button.
+         4. Rationale: Shows the direct conversion of data insights (Chart) into immediate revenue (Action).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b-4 border-brand-orange sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-orange text-white font-black rounded-lg p-2 text-2xl tracking-tighter shadow-lg transform -rotate-2">
+                    OVALTINE
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-xl font-bold text-brand-brown">AI Sales Manager</h1>
+                    <p class="text-xs text-brand-blue font-bold uppercase tracking-widest">Revenue • Speed • Market Share</p>
+                </div>
+            </div>
+            <div class="text-right">
+                <div class="text-xs font-bold text-gray-400 uppercase">Concept</div>
+                <div class="text-sm font-bold text-brand-brown">"Drive Revenue, Win the Shelf"</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        
+        <!-- Intro -->
+        <div class="mb-10 text-center max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold text-brand-brown mb-4">
+                From <span class="text-gray-400 line-through decoration-brand-orange decoration-4">Monthly Report</span> 
+                to <span class="text-brand-orange">Instant Action</span>
+            </h2>
+            <p class="text-lg text-gray-600 leading-relaxed">
+                Explore 10 scenarios where Ovaltine's AI Manager transforms passive data into immediate sales across General Trade, Modern Trade, and Marketing channels.
+            </p>
+        </div>
+
+        <!-- Filter Navigation -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10">
+            <button onclick="setCategory('gt')" id="nav-gt" class="px-6 py-3 rounded-full font-bold transition-all shadow-sm ring-2 ring-inset bg-white text-gray-500 ring-gray-200 hover:ring-brand-orange hover:text-brand-orange">
+                🏪 General Trade
+            </button>
+            <button onclick="setCategory('mt')" id="nav-mt" class="px-6 py-3 rounded-full font-bold transition-all shadow-sm ring-2 ring-inset bg-white text-gray-500 ring-gray-200 hover:ring-brand-orange hover:text-brand-orange">
+                🏬 Modern Trade
+            </button>
+            <button onclick="setCategory('mkt')" id="nav-mkt" class="px-6 py-3 rounded-full font-bold transition-all shadow-sm ring-2 ring-inset bg-white text-gray-500 ring-gray-200 hover:ring-brand-orange hover:text-brand-orange">
+                🚌 Marketing & Events
+            </button>
+            <button onclick="setCategory('ecom')" id="nav-ecom" class="px-6 py-3 rounded-full font-bold transition-all shadow-sm ring-2 ring-inset bg-white text-gray-500 ring-gray-200 hover:ring-brand-orange hover:text-brand-orange">
+                📱 Consumer & E-Com
+            </button>
+        </div>
+
+        <!-- Interactive Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start min-h-[600px]">
+            
+            <!-- Left: Case Selection List -->
+            <div class="lg:col-span-4 bg-white rounded-2xl shadow-sm border border-orange-100 overflow-hidden">
+                <div class="p-4 bg-brand-orangeLight border-b border-orange-200">
+                    <h3 class="font-bold text-brand-brown" id="list-header">Select Scenario</h3>
+                </div>
+                <div id="case-list-container" class="divide-y divide-orange-50">
+                    <!-- JS Injected List -->
+                </div>
+            </div>
+
+            <!-- Right: The Simulator -->
+            <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- The Old Way: Report View -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 flex flex-col">
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs font-bold text-gray-400 uppercase">The Old Way</div>
+                            <h4 class="font-bold text-gray-700 text-lg">Reactive Report</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-grow flex flex-col justify-center">
+                        <p class="text-sm text-gray-500 mb-4" id="old-desc">
+                            Analysis shows stockout occurred 3 days ago.
+                        </p>
+                        <div class="chart-container bg-gray-50 rounded-xl p-2 border border-gray-100">
+                            <canvas id="oldChart"></canvas>
+                        </div>
+                        <div class="mt-4 p-3 bg-red-50 text-red-600 text-xs rounded-lg font-medium border border-red-100">
+                            <i class="fas fa-exclamation-circle mr-1"></i> Result: Revenue lost. Too late to fix.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- The New Way: AI Manager (Mobile UI) -->
+                <div class="flex justify-center">
+                    <div class="phone-mockup w-full max-w-[320px] h-[580px] flex flex-col animate-slide-up">
+                        <div class="notch"></div>
+                        
+                        <!-- App Header -->
+                        <div class="bg-brand-brown text-white p-4 pt-10 flex justify-between items-center shadow-md z-10">
+                            <div class="font-bold"><span class="text-brand-orange">AI</span> Manager</div>
+                            <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                        </div>
+
+                        <!-- App Content -->
+                        <div class="flex-grow bg-gray-50 p-4 overflow-y-auto relative">
+                            
+                            <!-- Date -->
+                            <div class="text-center text-xs text-gray-400 mb-4 font-bold">TODAY, 09:41 AM</div>
+
+                            <!-- AI Card -->
+                            <div class="bg-white rounded-2xl p-0 shadow-lg border border-gray-100 overflow-hidden mb-4">
+                                <!-- Alert Strip -->
+                                <div class="bg-gradient-to-r from-brand-orange to-red-500 p-4 text-white">
+                                    <div class="flex items-start gap-3">
+                                        <div class="text-2xl"><i class="fas fa-bolt"></i></div>
+                                        <div>
+                                            <h5 class="font-bold text-sm leading-tight" id="app-alert-title">Stockout Risk</h5>
+                                            <p class="text-xs opacity-90 mt-1" id="app-alert-msg">Shop A will run out in 24 hrs.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Insight Body -->
+                                <div class="p-4">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <div class="w-6 h-6 rounded-full bg-blue-100 text-brand-blue flex items-center justify-center text-xs">
+                                            <i class="fas fa-brain"></i>
+                                        </div>
+                                        <span class="text-xs font-bold text-gray-400 uppercase">AI Strategy</span>
+                                    </div>
+                                    <p class="text-sm text-gray-700 leading-relaxed mb-4" id="app-strategy">
+                                        High demand detected. Propose free shipping to secure order now.
+                                    </p>
+                                    
+                                    <!-- Action Button -->
+                                    <button onclick="triggerAction()" id="app-btn" class="w-full py-3 bg-brand-blue hover:bg-brand-blueDark text-white rounded-xl font-bold shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 group">
+                                        <span id="app-btn-text">Send Line Offer</span>
+                                        <i class="fas fa-paper-plane group-hover:translate-x-1 transition-transform"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Success Overlay -->
+                            <div id="success-overlay" class="absolute inset-0 bg-white/95 backdrop-blur z-20 flex flex-col items-center justify-center text-center hidden p-6">
+                                <div class="w-16 h-16 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-3xl mb-4 animate-bounce">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <h4 class="text-xl font-bold text-gray-800">Action Executed!</h4>
+                                <p class="text-sm text-gray-500 mt-2" id="success-msg">Offer sent to Shop Owner via Line OA.</p>
+                                <div class="mt-6 p-3 bg-brand-orangeLight text-brand-orange rounded-lg text-xs font-bold w-full">
+                                    <i class="fas fa-chart-line mr-1"></i> Revenue Secured
+                                </div>
+                                <button onclick="resetApp()" class="mt-8 text-gray-400 text-xs underline">Back</button>
+                            </div>
+
+                        </div>
+                        
+                        <!-- Bottom Nav -->
+                        <div class="bg-white border-t border-gray-200 p-4 flex justify-around text-gray-300 text-xl">
+                            <i class="fas fa-home hover:text-brand-orange"></i>
+                            <i class="fas fa-chart-pie hover:text-brand-orange"></i>
+                            <i class="fas fa-comment-dots text-brand-orange"></i>
+                            <i class="fas fa-user hover:text-brand-orange"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-brown text-brand-orangeLight py-10 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h3 class="text-xl font-bold mb-2">Ovaltine AI Manager</h3>
+            <p class="text-sm opacity-70">Empowering Sales & Marketing Teams with Real-time Intelligence.</p>
+            <div class="mt-6 flex justify-center space-x-6 text-2xl opacity-50">
+                <i class="fab fa-line"></i>
+                <i class="fab fa-facebook"></i>
+                <i class="fas fa-globe"></i>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        // --- Data: 10 Ovaltine Use Cases ---
+        const useCases = [
+            // GT
+            {
+                id: 'stockout',
+                category: 'gt',
+                title: 'Stockout Preventer',
+                icon: 'fa-box-open',
+                desc: 'Predictive Re-stocking for Mom & Pop Shops',
+                oldWay: {
+                    chartType: 'line',
+                    chartData: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                        datasets: [{
+                            label: 'Stock Level (Cartons)',
+                            data: [10, 8, 4, 0, 0],
+                            borderColor: '#EF4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    desc: 'Report shows Shop A ran out of UHT on Thursday. Sales lost for 2 days.'
+                },
+                newWay: {
+                    alertTitle: 'Stockout Risk: Shop A',
+                    alertMsg: 'Predicted empty by tomorrow.',
+                    strategy: 'School break demand spike detected. Offer free shipping to incentivize immediate restocking.',
+                    btnText: 'Send Line Offer',
+                    successMsg: 'Line message sent. Shop owner clicked "Confirm Order". Revenue secured.'
+                }
+            },
+            {
+                id: 'dormant',
+                category: 'gt',
+                title: 'Dormant Shop Activator',
+                icon: 'fa-store-slash',
+                desc: 'Re-engaging inactive shops',
+                oldWay: {
+                    chartType: 'bar',
+                    chartData: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr'],
+                        datasets: [{
+                            label: 'Orders',
+                            data: [5, 4, 0, 0],
+                            backgroundColor: ['#F97316', '#F97316', '#9CA3AF', '#9CA3AF']
+                        }]
+                    },
+                    desc: 'Shop B hasn\'t ordered for 45 days. Likely switched to competitor.'
+                },
+                newWay: {
+                    alertTitle: 'Churn Alert: Shop B',
+                    alertMsg: 'Inactive for 45 days.',
+                    strategy: 'Customer is price sensitive. Propose 3% discount on next invoice to win them back.',
+                    btnText: 'Send "We Miss You" Deal',
+                    successMsg: 'SMS Coupon sent. Sales rep notified to follow up.'
+                }
+            },
+            {
+                id: 'route',
+                category: 'gt',
+                title: 'Smart Route Optimizer',
+                icon: 'fa-route',
+                desc: 'Dynamic routing based on conditions',
+                oldWay: {
+                    chartType: 'bar', // Representing Visits vs Successful Visits
+                    chartData: {
+                        labels: ['Planned', 'Successful'],
+                        datasets: [{
+                            label: 'Sales Visits',
+                            data: [20, 5],
+                            backgroundColor: ['#3B82F6', '#EF4444']
+                        }]
+                    },
+                    desc: 'Sales rep visited flooded area. 15 shops closed. Day wasted.'
+                },
+                newWay: {
+                    alertTitle: 'Route Hazard: Flood',
+                    alertMsg: 'Bangkapi area flooded.',
+                    strategy: '3 schools closed. Re-route to Ladprao where UHT stock is low.',
+                    btnText: 'Update Google Maps',
+                    successMsg: 'Route updated. Navigation started to high-potential area.'
+                }
+            },
+            // MT
+            {
+                id: 'competitor',
+                category: 'mt',
+                title: 'Competitor Hunter',
+                icon: 'fa-crosshairs',
+                desc: 'Real-time display monitoring',
+                oldWay: {
+                    chartType: 'doughnut',
+                    chartData: {
+                        labels: ['Ovaltine', 'Competitor M'],
+                        datasets: [{
+                            data: [40, 60],
+                            backgroundColor: ['#F97316', '#166534']
+                        }]
+                    },
+                    desc: 'Market share dropped 20% due to unnoticed competitor display activity.'
+                },
+                newWay: {
+                    alertTitle: 'Competitor Activity',
+                    alertMsg: 'Lotus Rama 4: Big Display Detected.',
+                    strategy: 'Image recognition found green stack. Deploy Flash Coupon to intercept shoppers.',
+                    btnText: 'Deploy Flash Promo',
+                    successMsg: '5 THB Coupon activated for shoppers in that zone.'
+                }
+            },
+            {
+                id: 'shelf',
+                category: 'mt',
+                title: 'Shelf Share Defender',
+                icon: 'fa-ruler-horizontal',
+                desc: 'Planogram Compliance Audit',
+                oldWay: {
+                    chartType: 'bar',
+                    chartData: {
+                        labels: ['Contracted', 'Actual'],
+                        datasets: [{
+                            label: 'Shelf Share %',
+                            data: [40, 25],
+                            backgroundColor: ['#3B82F6', '#EF4444']
+                        }]
+                    },
+                    desc: 'Audit report shows we only had 25% space last month. Contract violation.'
+                },
+                newWay: {
+                    alertTitle: 'Planogram Violation',
+                    alertMsg: 'Share is 25% (Contract: 40%).',
+                    strategy: 'Soy milk encroaching on our space. Draft complaint email to buyer with photo proof.',
+                    btnText: 'Send Complaint Email',
+                    successMsg: 'Email sent to Store Manager & Buyer with evidence attached.'
+                }
+            },
+            // MARKETING
+            {
+                id: 'event',
+                category: 'mkt',
+                title: 'School Event Sniper',
+                icon: 'fa-school',
+                desc: 'Targeting high-traffic events',
+                oldWay: {
+                    chartType: 'bar',
+                    chartData: {
+                        labels: ['Target', 'Actual'],
+                        datasets: [{
+                            label: 'Samples Distributed',
+                            data: [1000, 200],
+                            backgroundColor: ['#9CA3AF', '#EF4444']
+                        }]
+                    },
+                    desc: 'Sampling van visited empty school (closed for prep day).'
+                },
+                newWay: {
+                    alertTitle: 'High Traffic Event',
+                    alertMsg: 'Kindergarten A Sports Day.',
+                    strategy: 'Social buzz detected. 2,000 parents & kids expected Friday. Re-route Van A.',
+                    btnText: 'Re-route Sampling Van',
+                    successMsg: 'Schedule updated. Van A driver notified of new destination.'
+                }
+            },
+            {
+                id: 'weather',
+                category: 'mkt',
+                title: 'Weather-Based Pusher',
+                icon: 'fa-snowflake',
+                desc: 'Contextual product ads',
+                oldWay: {
+                    chartType: 'line',
+                    chartData: {
+                        labels: ['Mon', 'Tue', 'Wed'],
+                        datasets: [{
+                            label: 'UHT Sales (Cold)',
+                            data: [100, 50, 20],
+                            borderColor: '#3B82F6'
+                        }]
+                    },
+                    desc: 'UHT sales dropped due to cold wave. Marketing budget wasted on cold drink ads.'
+                },
+                newWay: {
+                    alertTitle: 'Cold Snap Incoming',
+                    alertMsg: 'Chiang Mai temp dropping to 15°C.',
+                    strategy: 'Shift ad budget from UHT to 3-in-1 Hot Drink. Update creative copy.',
+                    btnText: 'Switch Ad Campaign',
+                    successMsg: 'FB Ads updated to "Hot Ovaltine" creative in Northern region.'
+                }
+            },
+            {
+                id: 'gift',
+                category: 'mkt',
+                title: 'Premium Gift Allocator',
+                icon: 'fa-gift',
+                desc: 'Dynamic inventory moving',
+                oldWay: {
+                    chartType: 'bar',
+                    chartData: {
+                        labels: ['North (Demand)', 'South (Stock)'],
+                        datasets: [{
+                            label: 'Dino Flask Stock',
+                            data: [0, 5000],
+                            backgroundColor: ['#EF4444', '#10B981']
+                        }]
+                    },
+                    desc: 'North ran out of Dino Flasks. South has overstock. Sales opportunity lost.'
+                },
+                newWay: {
+                    alertTitle: 'Stock Imbalance',
+                    alertMsg: 'High demand in North for Flasks.',
+                    strategy: 'TikTok trend driving demand in Isan. Transfer 5k units from Surat warehouse.',
+                    btnText: 'Transfer Premium Stock',
+                    successMsg: 'Stock transfer order generated (Surat -> Khon Kaen).'
+                }
+            },
+            // ECOM
+            {
+                id: 'bundle',
+                category: 'ecom',
+                title: 'Bundle Builder',
+                icon: 'fa-box-open',
+                desc: 'Market Basket Analysis',
+                oldWay: {
+                    chartType: 'bar',
+                    chartData: {
+                        labels: ['Jar Only'],
+                        datasets: [{
+                            label: 'Sales Vol',
+                            data: [50],
+                            backgroundColor: '#9CA3AF'
+                        }]
+                    },
+                    desc: 'Jar sales stagnant. Customers buying Cereal separately.'
+                },
+                newWay: {
+                    alertTitle: 'Basket Insight',
+                    alertMsg: '70% buyers also buy Cereal.',
+                    strategy: 'Create "Breakfast Set" (Ovaltine + Cereal) to increase basket size.',
+                    btnText: 'Create Shopee Bundle',
+                    successMsg: 'New SKU "Breakfast Set" created and pushed to Shopee.'
+                }
+            },
+            {
+                id: 'sentiment',
+                category: 'ecom',
+                title: 'Sweetness Sentinel',
+                icon: 'fa-smile',
+                desc: 'Sentiment Analysis on new formula',
+                oldWay: {
+                    chartType: 'pie',
+                    chartData: {
+                        labels: ['Positive', 'Negative'],
+                        datasets: [{
+                            data: [60, 40],
+                            backgroundColor: ['#10B981', '#EF4444']
+                        }]
+                    },
+                    desc: 'Waiting 2 months for focus group results to realize "Less Sweet" isn\'t working upcountry.'
+                },
+                newWay: {
+                    alertTitle: 'Negative Sentiment',
+                    alertMsg: 'Twitter: "Too bland" (15% neg).',
+                    strategy: 'Upcountry users dislike "Less Sweet" messaging. Change copy to "Aromatic & Rich".',
+                    btnText: 'Adjust Ad Copy',
+                    successMsg: 'Ad copy updated. Sentiment monitoring active.'
+                }
+            }
+        ];
+
+        // --- State ---
+        let activeCategory = 'gt';
+        let activeCaseId = useCases[0].id;
+        let chartInstance = null;
+
+        // --- Functions ---
+        function init() {
+            setCategory('gt');
+        }
+
+        function setCategory(cat) {
+            activeCategory = cat;
+            
+            // Update Nav Buttons
+            const buttons = document.querySelectorAll('button[id^="nav-"]');
+            buttons.forEach(btn => {
+                const isActive = btn.id === `nav-${cat}`;
+                if (isActive) {
+                    btn.className = "px-6 py-3 rounded-full font-bold shadow-md bg-brand-orange text-white transform scale-105 transition-all";
+                } else {
+                    btn.className = "px-6 py-3 rounded-full font-bold transition-all shadow-sm ring-2 ring-inset bg-white text-gray-500 ring-gray-200 hover:ring-brand-orange hover:text-brand-orange";
+                }
+            });
+
+            renderCaseList();
+        }
+
+        function renderCaseList() {
+            const container = document.getElementById('case-list-container');
+            const filteredCases = useCases.filter(c => c.category === activeCategory);
+            
+            container.innerHTML = filteredCases.map(c => `
+                <div onclick="setCase('${c.id}')" class="case-btn cursor-pointer p-4 border-l-4 border-transparent hover:bg-orange-50 transition-colors ${c.id === activeCaseId ? 'bg-orange-50 border-brand-orange' : ''}">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-white border border-gray-100 flex items-center justify-center text-brand-orange shadow-sm">
+                            <i class="fas ${c.icon}"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm">${c.title}</h4>
+                            <p class="text-xs text-gray-500">${c.desc}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Select first if current not in cat
+            if (!filteredCases.find(c => c.id === activeCaseId)) {
+                if (filteredCases.length > 0) setCase(filteredCases[0].id);
+            } else {
+                setCase(activeCaseId);
+            }
+        }
+
+        function setCase(id) {
+            activeCaseId = id;
+            
+            // Update list highlight
+            const buttons = document.querySelectorAll('.case-btn');
+            buttons.forEach(btn => {
+                // Reset styling logic is handled in renderCaseList re-render or class toggling
+                // Simpler to just re-render list classes or toggle here. 
+                // Let's just update the list UI
+                const isTarget = btn.getAttribute('onclick').includes(id);
+                if (isTarget) {
+                    btn.classList.add('bg-orange-50', 'border-brand-orange');
+                    btn.classList.remove('border-transparent');
+                } else {
+                    btn.classList.remove('bg-orange-50', 'border-brand-orange');
+                    btn.classList.add('border-transparent');
+                }
+            });
+
+            renderSimulator(id);
+        }
+
+        function renderSimulator(id) {
+            const data = useCases.find(c => c.id === id);
+            
+            // Reset Mobile UI
+            document.getElementById('success-overlay').classList.add('hidden');
+            
+            // Render Old Way
+            document.getElementById('old-desc').innerText = data.oldWay.desc;
+            
+            if (chartInstance) chartInstance.destroy();
+            const ctx = document.getElementById('oldChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: data.oldWay.chartType,
+                data: data.oldWay.chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: true, position: 'bottom' } }
+                }
+            });
+
+            // Render New Way (App)
+            document.getElementById('app-alert-title').innerText = data.newWay.alertTitle;
+            document.getElementById('app-alert-msg').innerText = data.newWay.alertMsg;
+            document.getElementById('app-strategy').innerText = data.newWay.strategy;
+            
+            const btn = document.getElementById('app-btn');
+            document.getElementById('app-btn-text').innerText = data.newWay.btnText;
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            
+            // Store success msg
+            document.getElementById('success-msg').innerText = data.newWay.successMsg;
+        }
+
+        function triggerAction() {
+            const btn = document.getElementById('app-btn');
+            const originalText = document.getElementById('app-btn-text').innerText;
+            
+            // Loading
+            document.getElementById('app-btn-text').innerText = 'Processing...';
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            
+            setTimeout(() => {
+                document.getElementById('success-overlay').classList.remove('hidden');
+                document.getElementById('success-overlay').classList.add('flex');
+            }, 1000);
+        }
+
+        function resetApp() {
+            document.getElementById('success-overlay').classList.add('hidden');
+            document.getElementById('success-overlay').classList.remove('flex');
+            renderSimulator(activeCaseId);
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', init);
+
+    </script>
+</body>
+</html>

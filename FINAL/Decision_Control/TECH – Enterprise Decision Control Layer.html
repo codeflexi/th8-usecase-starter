@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TH8.AI – Enterprise Decision Control Layer (Backend Architecture)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body { font-family: "Prompt", system-ui, sans-serif; }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+  <div class="max-w-7xl mx-auto px-6 py-10 space-y-10">
+
+    <!-- HEADER -->
+    <div class="text-center space-y-2">
+      <h1 class="text-3xl font-bold">TH8.AI – Enterprise Decision Control Layer</h1>
+      <p class="text-slate-600">
+        Backend Architecture Overview (Agentic RAG + Deterministic Decision + Full Audit)
+      </p>
+    </div>
+
+    <!-- LAYERS -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+      <!-- INGESTION -->
+      <div class="bg-white border rounded-xl p-5 space-y-3">
+        <h2 class="font-semibold text-lg text-blue-700">1. Data Ingestion Layer</h2>
+        <ul class="text-sm space-y-1">
+          <li>• SAP / ERP Events</li>
+          <li>• Workflow Systems</li>
+          <li>• Manual Input (Fallback)</li>
+        </ul>
+        <div class="text-xs text-slate-500">
+          Normalize → Correlate → Bind to Case
+        </div>
+      </div>
+
+      <!-- CONTEXT -->
+      <div class="bg-white border rounded-xl p-5 space-y-3">
+        <h2 class="font-semibold text-lg text-indigo-700">2. Context Engineering</h2>
+        <ul class="text-sm space-y-1">
+          <li>• Case Snapshot</li>
+          <li>• Latest Events</li>
+          <li>• Policy Version (Immutable)</li>
+          <li>• Derived Signals (SLA, Amount)</li>
+        </ul>
+        <div class="text-xs text-slate-500">
+          Deterministic Context Pack (Hashable)
+        </div>
+      </div>
+
+      <!-- AGENTIC RAG -->
+      <div class="bg-white border rounded-xl p-5 space-y-3">
+        <h2 class="font-semibold text-lg text-purple-700">3. Agentic RAG (Evidence)</h2>
+        <ul class="text-sm space-y-1">
+          <li>• Vector Search (Contracts, Policies)</li>
+          <li>• Relational Queries (ERP, SLA, History)</li>
+          <li>• Evidence Planning & Validation</li>
+        </ul>
+        <div class="text-xs text-slate-500">
+          Agent selects sources • LLM optional
+        </div>
+      </div>
+
+      <!-- GUARDRAILS -->
+      <div class="bg-white border rounded-xl p-5 space-y-3">
+        <h2 class="font-semibold text-lg text-red-700">4. Guardrails</h2>
+        <ul class="text-sm space-y-1">
+          <li>• RBAC & Authority</li>
+          <li>• Data Completeness</li>
+          <li>• Policy Constraints</li>
+          <li>• Sanity Checks</li>
+        </ul>
+        <div class="text-xs text-slate-500">
+          Block / Escalate / Require Info
+        </div>
+      </div>
+    </div>
+
+    <!-- DECISION CORE -->
+    <div class="bg-white border rounded-2xl p-6 space-y-4">
+      <h2 class="text-xl font-semibold text-emerald-700">
+        5. Deterministic Decision Engine (Core)
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="border rounded-lg p-4">
+          <h3 class="font-medium">Policy Evaluation</h3>
+          <p class="text-sm text-slate-600">
+            Thresholds, SLA rules, contract flags
+          </p>
+        </div>
+        <div class="border rounded-lg p-4">
+          <h3 class="font-medium">Decision Output</h3>
+          <p class="text-sm text-slate-600">
+            Required / Recommended / Role
+          </p>
+        </div>
+        <div class="border rounded-lg p-4">
+          <h3 class="font-medium">Explainability</h3>
+          <p class="text-sm text-slate-600">
+            Rule hits + Evidence references
+          </p>
+        </div>
+      </div>
+
+      <p class="text-sm text-slate-500">
+        Decision outcome is deterministic • LLM cannot override policy
+      </p>
+    </div>
+
+    <!-- HUMAN + EXECUTION -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <div class="bg-white border rounded-xl p-5 space-y-3">
+        <h2 class="font-semibold text-lg text-sky-700">
+          6. Human-in-the-Loop
+        </h2>
+        <ul class="text-sm space-y-1">
+          <li>• Approve / Reject</li>
+          <li>• Escalate</li>
+          <li>• Admin Override (Justified)</li>
+        </ul>
+      </div>
+
+      <div class="bg-white border rounded-xl p-5 space-y-3">
+        <h2 class="font-semibold text-lg text-slate-700">
+          7. External Execution
+        </h2>
+        <ul class="text-sm space-y-1">
+          <li>• ERP / Workflow action</li>
+          <li>• Notification (LINE / Email)</li>
+          <li>• No direct system control</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- MEMORY + AUDIT -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+      <div class="bg-white border rounded-xl p-5 space-y-3">
+        <h2 class="font-semibold text-lg text-amber-700">8. Memory Layer</h2>
+        <ul class="text-sm space-y-1">
+          <li>• Case Snapshots</li>
+          <li>• Decision Notes</li>
+          <li>• Evidence Links</li>
+        </ul>
+        <p class="text-xs text-slate-500">
+          Append-only • Structured + Vector
+        </p>
+      </div>
+
+      <div class="bg-white border rounded-xl p-5 space-y-3">
+        <h2 class="font-semibold text-lg text-slate-800">9. Unified Audit</h2>
+        <ul class="text-sm space-y-1">
+          <li>• Event Ingestion</li>
+          <li>• Agent Steps</li>
+          <li>• Decisions & Overrides</li>
+        </ul>
+        <p class="text-xs text-slate-500">
+          Immutable • Cross-system trace
+        </p>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="text-center text-sm text-slate-500 pt-6">
+      TH8.AI Backend Architecture — Designed for Enterprise Decision Governance
+    </div>
+
+  </div>
+</body>
+</html>

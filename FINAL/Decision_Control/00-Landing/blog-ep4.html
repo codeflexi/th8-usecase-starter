@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Ep.4: Turning Cost Center into Profit Center | TH8.AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Sarabun', sans-serif; line-height: 1.8; color: #1e293b; }
+        h1, h2, h3, h4, .font-head { font-family: 'Prompt', sans-serif; }
+        
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none; width: 100%; background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%;
+            background: #10b981; cursor: pointer; margin-top: -8px; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%; height: 4px; cursor: pointer; background: #e2e8f0; border-radius: 2px;
+        }
+    </style>
+</head>
+<body class="bg-white antialiased">
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-100">
+        <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-black rounded flex items-center justify-center font-bold text-white text-sm font-head">T8</div>
+                <span class="font-bold font-head tracking-tight text-slate-900">TH8.AI Insights</span>
+            </div>
+            <a href="#" class="text-sm font-head text-slate-500 hover:text-green-600 transition-colors">
+                ← Back to Series
+            </a>
+        </div>
+    </nav>
+
+    <header class="pt-16 pb-10 px-6 max-w-4xl mx-auto text-center">
+        <span class="inline-block py-1 px-3 rounded-full bg-green-50 text-green-700 text-xs font-bold uppercase tracking-wider mb-4 font-head">
+            Governance Series: The Finale
+        </span>
+        <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6 text-slate-900">
+            เปลี่ยน Compliance จาก "ตัวถ่วง"<br>
+            ให้เป็น <span class="text-green-600">"กำไร" (Profit Center)</span>
+        </h1>
+        <p class="text-xl text-slate-500 font-light max-w-2xl mx-auto">
+            ทำไมการลงทุนใน Governance AI ถึงไม่ใช่ "ค่าใช้จ่าย" แต่คือการ "อุดรูรั่ว" ที่คืนทุนได้ภายใน 6 เดือน
+        </p>
+        
+        <div class="flex items-center justify-center gap-3 mt-8">
+            <div class="w-10 h-10 bg-slate-200 rounded-full overflow-hidden">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Author">
+            </div>
+            <div class="text-left">
+                <p class="text-sm font-bold text-slate-900 font-head">TH8 Editorial Team</p>
+                <p class="text-xs text-slate-500">5 min read · Jan 20, 2026</p>
+            </div>
+        </div>
+    </header>
+
+    <article class="max-w-3xl mx-auto px-6 pb-24">
+        
+        <p class="text-lg">
+            ปกติเวลาเราพูดถึงการซื้อ Software ใหม่ CFO มักจะมองว่าเป็น <strong>"Sunk Cost" (เงินจม)</strong> ที่ต้องจ่ายรายปีเพื่อแลกกับความสะดวก
+        </p>
+        <p>
+            แต่สำหรับ <strong>Decision Control Center</strong> สมการนั้นเปลี่ยนไปครับ... เพราะนี่ไม่ใช่ระบบที่ซื้อมาเพื่อ "ทำงานให้เร็วขึ้น" เท่านั้น แต่ซื้อมาเพื่อ <strong>"ดึงเงินที่กำลังไหลออกจากกระเป๋าคุณกลับคืนมา"</strong>
+        </p>
+
+        <div class="bg-slate-900 text-white p-8 rounded-2xl shadow-xl my-10 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-green-500 rounded-full filter blur-[60px] opacity-20"></div>
+            <h3 class="font-head text-2xl font-bold mb-4">The "1% Leakage" Rule</h3>
+            <p class="text-slate-300 mb-0">
+                งานวิจัยจาก Gartner และ McKinsey ระบุตรงกันว่า องค์กรทั่วไปจะมีเงินรั่วไหล (Leakage) จากกระบวนการจัดซื้อประมาณ <strong>1% - 3% ของยอด Spend ทั้งหมด</strong> โดยไม่รู้ตัว (Invisible Leakage)
+            </p>
+        </div>
+
+        <h2 class="text-2xl font-bold mb-6 font-head mt-12">เงินหายไปไหน? (Industry Use Cases)</h2>
+        <p>จากประสบการณ์ที่เราเข้าไป Audit ข้อมูลย้อนหลังให้ลูกค้า พบว่าเงินไม่ได้หายไปกับการ "ทุจริต" เสมอไป แต่หายไปกับ "ความผิดพลาด" ดังนี้:</p>
+
+        <div class="grid md:grid-cols-2 gap-6 my-8">
+            <div class="border border-slate-200 p-6 rounded-xl bg-white hover:border-blue-400 transition-colors">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4"><i data-lucide="factory" class="w-5 h-5"></i></div>
+                <h4 class="font-bold font-head text-lg mb-2">Manufacturing</h4>
+                <p class="text-sm text-slate-600 mb-2"><strong>ปัญหา:</strong> สั่งซื้ออะไหล่เครื่องจักรซ้ำซ้อน เพราะชื่อในระบบ SAP กับชื่อในแคตตาล็อก Vendor เขียนไม่เหมือนกัน</p>
+                <p class="text-xs font-bold text-blue-600">TH8 Solution: AI เข้าใจ Semantic ว่า "Part A" = "Model A-1" และแจ้งเตือนก่อนเปิด PO ซ้ำ</p>
+            </div>
+            <div class="border border-slate-200 p-6 rounded-xl bg-white hover:border-green-400 transition-colors">
+                <div class="w-10 h-10 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4"><i data-lucide="shopping-cart" class="w-5 h-5"></i></div>
+                <h4 class="font-bold font-head text-lg mb-2">Retail / Trading</h4>
+                <p class="text-sm text-slate-600 mb-2"><strong>ปัญหา:</strong> Vendor วางบิลโดย "ลืมหักส่วนลดท้ายบิล" (Rebate) ที่ตกลงกันไว้ทางอีเมลเมื่อ 3 เดือนก่อน</p>
+                <p class="text-xs font-bold text-green-600">TH8 Solution: AI จำเงื่อนไขในอีเมลได้แม่นกว่าคน และทักท้วงทันทีที่ Invoice เข้ามา</p>
+            </div>
+        </div>
+
+        <div id="calculator" class="bg-slate-50 border border-slate-200 rounded-3xl p-8 my-16 shadow-inner">
+            <div class="text-center mb-8">
+                <span class="text-green-600 font-bold text-xs uppercase tracking-wider">Interactive Tool</span>
+                <h2 class="text-2xl font-bold font-head text-slate-900 mt-2">คำนวณความคุ้มค่าของคุณ (ROI)</h2>
+                <p class="text-sm text-slate-500">ลองใส่ตัวเลขงบจัดซื้อต่อปีของคุณดูครับ</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div>
+                        <label class="flex justify-between text-sm font-bold text-slate-700 mb-2">
+                            Annual Spend (งบจัดซื้อต่อปี)
+                            <span class="text-blue-600" id="spendDisplay">500 M THB</span>
+                        </label>
+                        <input type="range" id="spendInput" min="100" max="5000" step="100" value="500">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>100M</span>
+                            <span>5,000M</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="flex justify-between text-sm font-bold text-slate-700 mb-2">
+                            Estimated Leakage (อัตราเงินรั่วไหล)
+                            <span class="text-red-500" id="leakageDisplay">1.0 %</span>
+                        </label>
+                        <input type="range" id="leakageInput" min="0.1" max="5.0" step="0.1" value="1.0">
+                        <div class="flex justify-between text-xs text-slate-400 mt-1">
+                            <span>0.1% (Best Case)</span>
+                            <span>5.0% (Risk)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-lg text-center border border-slate-100">
+                    <p class="text-sm text-slate-500 mb-2">เงินที่คุณอาจกำลังสูญเสีย <br>(Potential Saving Opportunity)</p>
+                    <h3 class="text-4xl font-bold text-green-600 font-head mb-2" id="savingResult">฿ 5.0 M</h3>
+                    <p class="text-xs text-slate-400">ต่อปี</p>
+                    
+                    <div class="mt-6 pt-6 border-t border-slate-100">
+                        <p class="text-xs font-bold text-slate-700 mb-1">Payback Period (ระยะคืนทุนค่าระบบ)</p>
+                        <p class="text-lg font-bold text-blue-600 font-head">&lt; 3 Months</p>
+                        <p class="text-[10px] text-slate-400 mt-1">*Based on standard license fee</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-2xl font-bold mb-6 font-head">เริ่มวันนี้ แบบ "Low Risk" (Phase 0)</h2>
+        <p>
+            ความกังวลสุดท้ายของผู้บริหารคือ <em>"กลัวลงทุนแล้วใช้ไม่ได้จริง"</em> หรือ <em>"กลัวกระทบระบบ ERP เดิม"</em>
+        </p>
+        <p>
+            TH8 จึงออกแบบโมเดลการติดตั้งแบบ <strong>"Non-Intrusive Pilot"</strong>:
+        </p>
+
+        <ul class="space-y-4 my-8">
+            <li class="flex items-start gap-4">
+                <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm shrink-0">1</div>
+                <div>
+                    <h4 class="font-bold text-slate-900">ไม่ต้องต่อ ERP (ในเดือนแรก)</h4>
+                    <p class="text-sm text-slate-600">เราขอแค่ไฟล์ PDF สัญญาและ Invoice เก่าๆ (ย้อนหลัง 3 เดือน) มาให้ AI Audit ดู</p>
+                </div>
+            </li>
+            <li class="flex items-start gap-4">
+                <div class="w-8 h-8 rounded-full bg-slate-100 text-slate-900 flex items-center justify-center font-bold text-sm shrink-0">2</div>
+                <div>
+                    <h4 class="font-bold text-slate-900">Proof of Value (PoV)</h4>
+                    <p class="text-sm text-slate-600">ภายใน 2 สัปดาห์ เราจะส่งรายงานกลับไปบอกคุณว่า "เจอเงินรั่วไหลเท่าไหร่" จากข้อมูลชุดนั้น</p>
+                </div>
+            </li>
+            <li class="flex items-start gap-4">
+                <div class="w-8 h-8 rounded-full bg-green-100 text-green-700 flex items-center justify-center font-bold text-sm shrink-0">3</div>
+                <div>
+                    <h4 class="font-bold text-slate-900">Pay from Savings</h4>
+                    <p class="text-sm text-slate-600">ถ้าเราหาเงินคืนให้คุณไม่ได้... คุณไม่ต้องซื้อระบบเรา</p>
+                </div>
+            </li>
+        </ul>
+
+        <div class="mt-16 bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-10 text-center text-white shadow-2xl">
+            <h3 class="text-2xl md:text-3xl font-bold mb-4 font-head">หยุดเงินรั่วไหล... ตั้งแต่วันนี้</h3>
+            <p class="text-slate-300 mb-8 max-w-xl mx-auto">
+                อย่าปล่อยให้กำไรของคุณหายไปกับกองเอกสาร ปรึกษาเราเพื่อทำ <strong>Free Audit Assessment</strong> ได้เลย
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="bg-green-500 hover:bg-green-600 text-white text-lg font-bold py-3 px-8 rounded-xl shadow-lg transition-all font-head">
+                    นัดทำ Free Audit Assessment
+                </button>
+                <button class="bg-transparent border border-slate-600 text-slate-300 hover:bg-white/10 py-3 px-8 rounded-xl font-head transition-all">
+                    ดูตัวอย่างรายงานผลลัพธ์
+                </button>
+            </div>
+        </div>
+
+    </article>
+
+    <footer class="bg-white border-t border-slate-100 py-12 text-center">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <div class="w-6 h-6 bg-slate-200 rounded flex items-center justify-center font-bold text-[10px]">T8</div>
+            <span class="font-bold text-slate-700 font-head">TH8.AI</span>
+        </div>
+        <p class="text-xs text-slate-400">© 2026 TH8.AI. All rights reserved.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const spendInput = document.getElementById('spendInput');
+        const leakageInput = document.getElementById('leakageInput');
+        const spendDisplay = document.getElementById('spendDisplay');
+        const leakageDisplay = document.getElementById('leakageDisplay');
+        const savingResult = document.getElementById('savingResult');
+
+        function calculateROI() {
+            const spend = parseFloat(spendInput.value);
+            const leakage = parseFloat(leakageInput.value);
+            
+            // Format Displays
+            spendDisplay.innerText = spend.toLocaleString() + " M THB";
+            leakageDisplay.innerText = leakage.toFixed(1) + " %";
+
+            // Calculation
+            const saving = spend * (leakage / 100);
+            
+            // Animate Result
+            savingResult.innerText = "฿ " + saving.toFixed(1) + " M";
+        }
+
+        spendInput.addEventListener('input', calculateROI);
+        leakageInput.addEventListener('input', calculateROI);
+        
+        // Init
+        calculateROI();
+    </script>
+</body>
+</html>

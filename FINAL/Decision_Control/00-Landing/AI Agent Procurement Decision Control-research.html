@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Decision Control Center: Deep Research & Positioning</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Config & Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#0F172A',      // Slate 900
+                            card: '#1E293B',    // Slate 800
+                            primary: '#06B6D4', // Cyan 500 (Vibrant)
+                            secondary: '#8B5CF6', // Violet 500
+                            accent: '#F43F5E',  // Rose 500
+                            text: '#F1F5F9',    // Slate 100
+                            muted: '#94A3B8'    // Slate 400
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0F172A; /* Slate 900 */
+            color: #F1F5F9;
+            font-family: 'Prompt', sans-serif;
+        }
+        /* Chart Container Styling - Mandatory Requirement */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Restrict max width for readability */
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px; /* Base height */
+            max-height: 400px;
+        }
+        
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1E293B;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #06B6D4;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0891B2;
+        }
+
+        /* Flowchart Connector Lines (Pure CSS - No SVG) */
+        .flow-line {
+            width: 2px;
+            background-color: #94A3B8;
+            height: 20px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .flow-line-horizontal {
+                height: 2px;
+                width: 30px;
+                background-color: #94A3B8;
+                margin: auto 0;
+            }
+        }
+    </style>
+    <!-- 
+        Research Summary & Narrative Plan:
+        1. Intro: Define the shift from "Digital" to "Autonomous" Procurement.
+        2. Global Landscape: Show market growth and benchmark global players (Globality, Pactum) vs. Traditional.
+        3. Regional Gap: Highlight the lack of AI Agents in Asia/Thailand (Opportunity).
+        4. Competitive Positioning (Matrix): th8 vs. Legacy ERP vs. Niche AI.
+        5. Capabilities (Radar): The specific advantages of th8.
+        6. Workflow: How the Decision Control Center works.
+        
+        Palette: Vibrant Cyan/Violet/Rose on Dark Background ("Tech/Futuristic").
+        
+        Chart Selection Justifications (No SVG):
+        - Market Growth -> Line Chart (Chart.js)
+        - Global vs Local Adoption -> Doughnut Chart (Chart.js)
+        - Positioning Matrix -> Scatter Plot (Plotly.js Canvas) -> Best for 2D comparison.
+        - Capabilities Comparison -> Radar Chart (Chart.js) -> Best for multivariate comparison.
+        - Workflow -> CSS Grid/Flex Cards (No Mermaid/SVG).
+    -->
+</head>
+<body class="p-4 md:p-8">
+
+    <!-- Header Section -->
+    <header class="max-w-7xl mx-auto mb-12 text-center">
+        <div class="inline-block px-4 py-1 mb-4 rounded-full bg-brand-primary/20 text-brand-primary text-sm font-semibold tracking-wide">
+            DEEP RESEARCH & STRATEGIC INSIGHT
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent">
+            AI Agent Decision Control Center
+        </h1>
+        <p class="text-xl text-brand-muted max-w-3xl mx-auto">
+            เจาะลึกสมรภูมิ Procurement ระดับโลกและโอกาสของ <span class="text-brand-primary font-bold">th8</span> ในการเป็นผู้นำด้าน Intelligent Orchestration ในเอเชีย
+        </p>
+    </header>
+
+    <!-- Main Grid Layout -->
+    <div class="max-w-7xl mx-auto grid grid-cols-1 gap-12">
+
+        <!-- Section 1: The Global Shift -->
+        <section class="bg-brand-card rounded-2xl p-6 md:p-8 shadow-lg border border-slate-700">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4 text-brand-primary border-l-4 border-brand-primary pl-4">
+                1. Global Landscape: The Rise of Autonomous
+            </h2>
+            <p class="mb-8 text-brand-muted leading-relaxed">
+                ในระดับโลก (Global Tier 1), การจัดซื้อกำลังเปลี่ยนผ่านจาก <strong>"Transactional"</strong> (เน้นระบบเอกสาร) ไปสู่ <strong>"Autonomous"</strong> (เน้นผลลัพธ์). ตลาด AI ใน Supply Chain กำลังเติบโตอย่างก้าวกระโดด บริษัทชั้นนำอย่าง <em>Globality</em> (USA) และ <em>Pactum</em> (AI Negotiation) กำลังกำหนดมาตรฐานใหม่ โดยใช้ AI Agent เข้ามาแทนที่กระบวนการ manual.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <!-- Market Growth Chart -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-center">มูลค่าตลาด AI in Supply Chain (Global)</h3>
+                    <div class="chart-container">
+                        <canvas id="marketGrowthChart"></canvas>
+                    </div>
+                    <p class="text-sm text-center text-brand-muted mt-2">CAGR 45.3% สะท้อนความต้องการระบบอัตโนมัติที่สูงมาก</p>
+                </div>
+
+                <!-- Key Insight Cards -->
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-brand-secondary/30">
+                        <div class="text-brand-secondary font-bold text-xl mb-1">Global Benchmark</div>
+                        <ul class="list-disc list-inside text-sm text-brand-muted space-y-1">
+                            <li><strong>Globality:</strong> Autonomous Sourcing (สร้าง RFQ อัตโนมัติ)</li>
+                            <li><strong>Pactum:</strong> AI Negotiation (บอทต่อรองราคากับ supplier)</li>
+                            <li><strong>Coupa:</strong> Community Intelligence (ใช้ข้อมูลเครือข่าย)</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-900/50 p-4 rounded-lg border border-brand-accent/30">
+                        <div class="text-brand-accent font-bold text-xl mb-1">The Gap</div>
+                        <p class="text-sm text-brand-muted">
+                            ผู้เล่นเหล่านี้ค่าตัวแพงมหาศาล (Enterprise only) และมักขาดความยืดหยุ่นในบริบท Local Process ของเอเชีย
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Regional Context & Adoption -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Left: Text Analysis -->
+            <div class="md:col-span-1 bg-brand-card rounded-2xl p-6 shadow-lg border border-slate-700">
+                <h2 class="text-2xl font-bold mb-4 text-brand-secondary border-l-4 border-brand-secondary pl-4">
+                    2. Asia & Thailand Context
+                </h2>
+                <p class="text-brand-muted mb-4">
+                    ในไทยและอาเซียน องค์กรส่วนใหญ่ยังติดอยู่ในยุค <strong>Digitalization 1.0</strong> คือการย้ายกระดาษมาบนระบบ (ERP/e-Procurement)
+                </p>
+                <p class="text-brand-muted mb-4">
+                    <strong>Pain Point:</strong> ผู้บริหารมี Dashboard (PowerBI/Tableau) แต่ข้อมูลเป็น "Static" ต้องใช้คนแปลผลและตัดสินใจเอง ไม่มีระบบช่วย "Control" หรือ "Suggest Action" อย่างแท้จริง
+                </p>
+                <div class="mt-6 p-4 bg-brand-primary/10 rounded-lg">
+                    <span class="block text-2xl font-bold text-brand-primary mb-1">Opportunity</span>
+                    <span class="text-sm text-brand-text">
+                        ตลาดต้องการ "Brain" ที่วางทับบน ERP เดิม ไม่ใช่การรื้อระบบใหม่ (Overlay Intelligence)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Right: Chart Visualization -->
+            <div class="md:col-span-2 bg-brand-card rounded-2xl p-6 shadow-lg border border-slate-700">
+                <h3 class="text-lg font-semibold mb-4 text-center">ระดับการนำเทคโนโลยีมาใช้ใน Procurement (Thailand/ASEAN)</h3>
+                <div class="chart-container">
+                    <canvas id="adoptionChart"></canvas>
+                </div>
+                <p class="text-center text-xs text-brand-muted mt-4">
+                    *ข้อมูลประมาณการจากการสำรวจ Tech Adoption ในกลุ่ม Enterprise
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 3: Strategic Positioning (The Core Research) -->
+        <section class="bg-brand-card rounded-2xl p-6 md:p-8 shadow-lg border border-slate-700">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2 text-brand-accent border-l-4 border-brand-accent pl-4">
+                3. th8 Positioning Strategy
+            </h2>
+            <p class="mb-6 text-brand-muted">
+                หากเปรียบเทียบในสมรภูมิ Decision Intelligence, <strong>th8</strong> ควรวาง Positioning เป็น <strong>"The Orchestrator"</strong> (ผู้ควบคุมวง) ที่รวมร่างระหว่างความฉลาดของ AI Agent กับความเข้าใจบริบทธุรกิจ (Business Logic).
+            </p>
+
+            <!-- Plotly Container for Scatter Plot -->
+            <div id="positioningPlot" class="w-full h-[500px] bg-slate-900 rounded-xl border border-slate-600 mb-6"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                <div class="p-3 bg-slate-800 rounded border border-gray-700">
+                    <div class="font-bold text-gray-400">Legacy ERP</div>
+                    <div class="text-xs text-gray-500">Rigid, Manual Decision</div>
+                </div>
+                <div class="p-3 bg-slate-800 rounded border border-gray-700">
+                    <div class="font-bold text-gray-400">Niche AI Tools</div>
+                    <div class="text-xs text-gray-500">Smart but Siloed (Narrow)</div>
+                </div>
+                <div class="p-3 bg-brand-primary/20 rounded border border-brand-primary">
+                    <div class="font-bold text-brand-primary">th8 Control Center</div>
+                    <div class="text-xs text-brand-text">Integrated & Autonomous</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: What Makes th8 Advantageous? -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Chart Side -->
+            <div class="bg-brand-card rounded-2xl p-6 shadow-lg border border-slate-700 order-2 md:order-1">
+                <h3 class="text-lg font-semibold mb-4 text-center">Competitive Capabilities (Radar Analysis)</h3>
+                <div class="chart-container">
+                    <canvas id="advantageRadar"></canvas>
+                </div>
+            </div>
+
+            <!-- Text Content Side -->
+            <div class="bg-brand-card rounded-2xl p-6 shadow-lg border border-slate-700 order-1 md:order-2 flex flex-col justify-center">
+                <h2 class="text-2xl font-bold mb-4 text-white border-l-4 border-white pl-4">
+                    4. The th8 Advantage (Winning Zone)
+                </h2>
+                <p class="text-brand-muted mb-6">
+                    จากการวิเคราะห์ th8 มีความได้เปรียบใน 3 มิติหลักเมื่อเทียบกับ Global Player:
+                </p>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center text-slate-900 font-bold mr-3 flex-shrink-0">1</div>
+                        <div>
+                            <h4 class="font-bold text-brand-primary">Localized Agent Agility</h4>
+                            <p class="text-sm text-brand-muted">ความสามารถในการปรับ Logic ของ Agent ให้เข้ากับกฎเกณฑ์เฉพาะของบริษัทไทย (Flexible Compliance) ซึ่ง Global SaaS ปรับยากมาก</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 rounded-full bg-brand-secondary flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">2</div>
+                        <div>
+                            <h4 class="font-bold text-brand-secondary">Decision Integration</h4>
+                            <p class="text-sm text-brand-muted">ไม่ใช่แค่แนะนำ แต่ผูกเข้ากับระบบ Approval Flow จริง กลายเป็น "Control Center" ที่สั่งการได้</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="w-8 h-8 rounded-full bg-brand-accent flex items-center justify-center text-white font-bold mr-3 flex-shrink-0">3</div>
+                        <div>
+                            <h4 class="font-bold text-brand-accent">Cost-to-Value</h4>
+                            <p class="text-sm text-brand-muted">ราคาที่เข้าถึงได้มากกว่า Globality/Coupa แต่ให้ Capability เรื่อง AI Decision ที่ใกล้เคียงกัน</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: The Agent Workflow (Process) -->
+        <section class="bg-brand-card rounded-2xl p-6 md:p-8 shadow-lg border border-slate-700">
+            <h2 class="text-2xl font-bold mb-8 text-brand-primary text-center">
+                5. How "Decision Control Center" Works
+            </h2>
+            
+            <!-- Responsive Flowchart using Grid/Flex (No SVG/Mermaid) -->
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 relative">
+                
+                <!-- Step 1 -->
+                <div class="w-full md:w-1/5 bg-slate-800 p-4 rounded-lg border-t-4 border-blue-500 shadow-md text-center z-10">
+                    <div class="text-2xl mb-2">📥</div>
+                    <h4 class="font-bold text-white mb-1">Data Ingestion</h4>
+                    <p class="text-xs text-brand-muted">PR/PO, Supplier Data, Market Price</p>
+                </div>
+
+                <!-- Connector -->
+                <div class="flow-line md:flow-line-horizontal"></div>
+
+                <!-- Step 2 -->
+                <div class="w-full md:w-1/5 bg-slate-800 p-4 rounded-lg border-t-4 border-brand-secondary shadow-md text-center z-10 relative">
+                    <div class="absolute -top-3 -right-3 bg-brand-secondary text-white text-xs px-2 py-1 rounded-full animate-pulse">AI Agent</div>
+                    <div class="text-2xl mb-2">🧠</div>
+                    <h4 class="font-bold text-white mb-1">Agent Analysis</h4>
+                    <p class="text-xs text-brand-muted">Detect Anomaly, Compare Price, Risk Check</p>
+                </div>
+
+                <!-- Connector -->
+                <div class="flow-line md:flow-line-horizontal"></div>
+
+                <!-- Step 3 -->
+                <div class="w-full md:w-1/5 bg-slate-800 p-4 rounded-lg border-t-4 border-brand-primary shadow-md text-center z-10">
+                    <div class="text-2xl mb-2">🎯</div>
+                    <h4 class="font-bold text-white mb-1">Decision Proposal</h4>
+                    <p class="text-xs text-brand-muted">Recommend: Approve / Reject / Negotiate</p>
+                </div>
+
+                <!-- Connector -->
+                <div class="flow-line md:flow-line-horizontal"></div>
+
+                <!-- Step 4 -->
+                <div class="w-full md:w-1/5 bg-slate-800 p-4 rounded-lg border-t-4 border-brand-accent shadow-md text-center z-10">
+                    <div class="text-2xl mb-2">⚡</div>
+                    <h4 class="font-bold text-white mb-1">Execution</h4>
+                    <p class="text-xs text-brand-muted">Auto-Email, ERP Update, Alert</p>
+                </div>
+
+            </div>
+            
+            <div class="mt-8 text-center text-brand-muted text-sm">
+                *The th8 difference: AI Agents autonomous handle Step 2 & 3, human only supervises.*
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto mt-12 py-6 text-center border-t border-slate-800 text-brand-muted text-sm">
+        <p>&copy; 2024 th8 Decision Control Center Research. Generated for Strategic Planning.</p>
+    </footer>
+
+    <!-- JavaScript Implementation -->
+    <script>
+        // --- UTILITY FUNCTIONS ---
+        // Label wrapping logic for Chart.js (Max 16 chars)
+        const wrapLabel = (str) => {
+            if (str.length <= 16) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= 16) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        };
+
+        // Standard Tooltip Config
+        const commonTooltipOptions = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- CHART 1: Market Growth (Line Chart) ---
+        const ctxGrowth = document.getElementById('marketGrowthChart').getContext('2d');
+        new Chart(ctxGrowth, {
+            type: 'line',
+            data: {
+                labels: ['2022', '2023', '2024', '2025 (F)', '2026 (F)', '2027 (F)'],
+                datasets: [{
+                    label: 'Market Value (Billion USD)',
+                    data: [2.1, 3.4, 5.2, 7.8, 11.5, 16.2],
+                    borderColor: '#06B6D4', // Brand Primary
+                    backgroundColor: 'rgba(6, 182, 212, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#F43F5E',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#F1F5F9' }
+                    },
+                    tooltip: commonTooltipOptions
+                },
+                scales: {
+                    y: {
+                        grid: { color: '#334155' },
+                        ticks: { color: '#94A3B8' }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94A3B8' }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: Adoption (Doughnut Chart) ---
+        // Labels need wrapping
+        const adoptionLabels = ['Traditional ERP (Basic)', 'Dashboard/BI (Passive)', 'AI Agents (Autonomous)'];
+        const adoptionLabelsWrapped = adoptionLabels.map(wrapLabel);
+
+        const ctxAdoption = document.getElementById('adoptionChart').getContext('2d');
+        new Chart(ctxAdoption, {
+            type: 'doughnut',
+            data: {
+                labels: adoptionLabelsWrapped,
+                datasets: [{
+                    data: [65, 30, 5],
+                    backgroundColor: [
+                        '#334155', // Slate 700 (Traditional)
+                        '#8B5CF6', // Violet (Dashboard)
+                        '#06B6D4'  // Cyan (Agent - The Opportunity)
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#F1F5F9' }
+                    },
+                    tooltip: commonTooltipOptions
+                }
+            }
+        });
+
+        // --- CHART 3: Competitive Positioning Matrix (Plotly Scatter) ---
+        // X: Level of Autonomy (Low -> High)
+        // Y: Scope of Integration (Siloed -> Enterprise Wide)
+        
+        const traceLegacy = {
+            x: [2, 3],
+            y: [8, 4],
+            mode: 'markers+text',
+            type: 'scatter',
+            name: 'Legacy Players',
+            text: ['Traditional ERP', 'Basic e-Procure'],
+            textposition: 'top center',
+            marker: { size: 15, color: '#64748B' } // Slate
+        };
+
+        const traceNiche = {
+            x: [8, 9],
+            y: [3, 2],
+            mode: 'markers+text',
+            type: 'scatter',
+            name: 'Niche AI',
+            text: ['Contract AI', 'Spend Analytics'],
+            textposition: 'bottom center',
+            marker: { size: 15, color: '#F43F5E' } // Rose
+        };
+
+        const traceTh8 = {
+            x: [8.5],
+            y: [8.5],
+            mode: 'markers+text',
+            type: 'scatter',
+            name: 'th8 Control Center',
+            text: ['th8 Decision Center'],
+            textposition: 'top center',
+            marker: { size: 25, color: '#06B6D4', opacity: 0.9, line: {color: 'white', width: 2} } // Cyan
+        };
+
+        const layoutMatrix = {
+            title: { text: 'Strategic Positioning Map', font: { color: '#F1F5F9' } },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            xaxis: { 
+                title: 'Level of AI Autonomy (Human-in-loop -> Autonomous)', 
+                range: [0, 10], 
+                color: '#94A3B8',
+                gridcolor: '#334155'
+            },
+            yaxis: { 
+                title: 'Strategic Integration Scope', 
+                range: [0, 10], 
+                color: '#94A3B8',
+                gridcolor: '#334155'
+            },
+            showlegend: true,
+            legend: { font: { color: '#F1F5F9' } },
+            margin: { t: 40, l: 50, r: 20, b: 50 }
+        };
+
+        Plotly.newPlot('positioningPlot', [traceLegacy, traceNiche, traceTh8], layoutMatrix, {responsive: true, displayModeBar: false});
+
+        // --- CHART 4: Advantage Radar (Radar Chart) ---
+        const radarLabels = ['Decision Speed', 'Thai Context/NLP', 'Ease of Customization', 'Cost Efficiency', 'Integration Depth'];
+        const radarLabelsWrapped = radarLabels.map(wrapLabel);
+
+        const ctxRadar = document.getElementById('advantageRadar').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: radarLabelsWrapped,
+                datasets: [{
+                    label: 'th8 Decision Center',
+                    data: [9, 10, 9, 9, 8],
+                    fill: true,
+                    backgroundColor: 'rgba(6, 182, 212, 0.4)',
+                    borderColor: '#06B6D4',
+                    pointBackgroundColor: '#06B6D4',
+                    pointBorderColor: '#fff',
+                }, {
+                    label: 'Global SaaS (e.g. Globality)',
+                    data: [8, 3, 4, 4, 9],
+                    fill: true,
+                    backgroundColor: 'rgba(244, 63, 94, 0.2)',
+                    borderColor: '#F43F5E',
+                    pointBackgroundColor: '#F43F5E',
+                    pointBorderColor: '#fff',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#334155' },
+                        grid: { color: '#334155' },
+                        pointLabels: { color: '#F1F5F9', font: { size: 11 } },
+                        ticks: { display: false, backdropColor: 'transparent' },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                },
+                plugins: {
+                    legend: { labels: { color: '#F1F5F9' } },
+                    tooltip: commonTooltipOptions
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

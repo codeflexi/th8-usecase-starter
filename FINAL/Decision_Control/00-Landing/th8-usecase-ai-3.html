@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>th8 Financial & Tech Spec</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: { 850: '#1e293b', 900: '#0f172a', 950: '#020617' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F8FAFC; color: #334155; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #E2E8F0; }
+        ::-webkit-scrollbar-thumb { background: #94A3B8; border-radius: 4px; }
+        .tech-panel { background-color: #0F172A; color: #E2E8F0; }
+        .code-block { background-color: #1E1E1E; color: #D4D4D4; padding: 1rem; border-radius: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; border: 1px solid #333; overflow-x: auto; }
+        .tab-btn.active { border-bottom: 2px solid #3B82F6; color: #3B82F6; font-weight: 600; }
+        .json-key { color: #9CDCFE; } .json-string { color: #CE9178; } .json-num { color: #B5CEA8; }
+        .financial-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+    </style>
+</head>
+<body class="h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 h-16 flex items-center px-6 justify-between shrink-0 z-20">
+        <div class="flex items-center gap-3">
+            <div class="bg-slate-900 text-white px-2 py-1 rounded font-bold">th8</div>
+            <h1 class="font-bold text-slate-700">Financial & Tech Specs</h1>
+        </div>
+        <div class="flex gap-4 text-sm font-medium">
+            <button onclick="setFlow(1)" id="btn-1" class="tab-btn active px-3 py-4">1. Replenish (Revenue)</button>
+            <button onclick="setFlow(2)" id="btn-2" class="tab-btn px-3 py-4">2. Consolidate (SG&A)</button>
+            <button onclick="setFlow(3)" id="btn-3" class="tab-btn px-3 py-4">3. Expiry (Write-off)</button>
+            <button onclick="setFlow(4)" id="btn-4" class="tab-btn px-3 py-4">4. Sourcing (COGS)</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex overflow-hidden">
+        
+        <!-- LEFT: Tech Specs (Backend Logic) -->
+        <div class="w-1/2 tech-panel p-8 overflow-y-auto font-mono text-sm border-r border-slate-700">
+            <div class="mb-6">
+                <span class="text-blue-400 font-bold text-xs uppercase tracking-widest"><i class="fas fa-microchip mr-2"></i>System Intelligence</span>
+                <h2 class="text-xl font-bold mt-1 text-white" id="tech-title">Auto-Replenishment Logic</h2>
+            </div>
+
+            <!-- Context Input -->
+            <div class="mb-6">
+                <h3 class="text-slate-400 font-bold mb-2 text-xs uppercase">1. Context Engineering (Input Data)</h3>
+                <div class="code-block">
+                    <pre id="code-context">Loading...</pre>
+                </div>
+            </div>
+
+            <!-- Logic / Rule -->
+            <div class="mb-6">
+                <h3 class="text-slate-400 font-bold mb-2 text-xs uppercase">2. Decision Logic (Rule/LLM)</h3>
+                <div class="code-block bg-slate-800 border-slate-700">
+                    <pre id="code-rule">Loading...</pre>
+                </div>
+            </div>
+
+             <!-- Audit -->
+             <div class="mb-6">
+                <h3 class="text-slate-400 font-bold mb-2 text-xs uppercase">3. Audit Log</h3>
+                <div class="code-block">
+                    <pre id="code-audit">Loading...</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Business Value (Financial Impact) -->
+        <div class="w-1/2 bg-slate-50 p-8 overflow-y-auto">
+            <div class="mb-6">
+                <span class="text-emerald-600 font-bold text-xs uppercase tracking-widest"><i class="fas fa-chart-line mr-2"></i>Business Value</span>
+                <h2 class="text-2xl font-bold mt-1 text-slate-800">Financial Impact Analysis</h2>
+                <p class="text-slate-500 text-sm mt-1">ROI Calculation & P&L Attribution</p>
+            </div>
+
+            <!-- ROI Card -->
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 p-6 mb-6">
+                <h3 class="font-bold text-lg text-slate-800 mb-4 flex items-center">
+                    <i class="fas fa-calculator text-emerald-500 mr-2"></i> ROI Calculation
+                </h3>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                        <div class="text-xs text-slate-500 uppercase font-bold mb-1">Problem Cost</div>
+                        <div class="text-2xl font-bold text-red-500" id="roi-cost">฿50,000 / Day</div>
+                        <div class="text-xs text-slate-400 mt-1" id="roi-cost-desc">Lost Revenue from Stockout</div>
+                    </div>
+                    <div class="p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+                        <div class="text-xs text-emerald-600 uppercase font-bold mb-1">AI Benefit</div>
+                        <div class="text-2xl font-bold text-emerald-600" id="roi-gain">+฿1.5 Million</div>
+                        <div class="text-xs text-emerald-800/60 mt-1" id="roi-gain-desc">Annual Revenue Saved</div>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-100 text-sm text-slate-600">
+                    <strong>Formula:</strong> <span id="roi-formula" class="font-mono bg-slate-100 px-2 py-1 rounded">Avg_Daily_Sales * Out_of_Stock_Days</span>
+                </div>
+            </div>
+
+            <!-- P&L Impact Map -->
+            <div class="bg-slate-800 rounded-2xl shadow-lg border border-slate-700 p-6 text-white relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <i class="fas fa-file-invoice-dollar text-9xl text-white"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-4 flex items-center relative z-10">
+                    <i class="fas fa-table text-blue-400 mr-2"></i> P&L Statement Impact
+                </h3>
+                
+                <div class="space-y-3 relative z-10 font-mono text-sm">
+                    <!-- Revenue -->
+                    <div class="flex justify-between items-center p-2 rounded transition-all" id="pnl-rev-row">
+                        <span class="text-slate-400">Revenue (Sales)</span>
+                        <span class="font-bold" id="pnl-rev-val">---</span>
+                    </div>
+                    <!-- COGS -->
+                    <div class="flex justify-between items-center p-2 rounded transition-all" id="pnl-cogs-row">
+                        <span class="text-slate-400">Cost of Goods Sold (COGS)</span>
+                        <span class="font-bold" id="pnl-cogs-val">---</span>
+                    </div>
+                    <!-- Gross Profit -->
+                    <div class="flex justify-between items-center p-2 border-t border-slate-600">
+                        <span class="text-slate-300">Gross Profit</span>
+                        <span class="font-bold" id="pnl-gp-val">---</span>
+                    </div>
+                    <!-- SG&A -->
+                    <div class="flex justify-between items-center p-2 rounded transition-all" id="pnl-sga-row">
+                        <span class="text-slate-400">SG&A Expenses</span>
+                        <span class="font-bold" id="pnl-sga-val">---</span>
+                    </div>
+                    <!-- Net Profit -->
+                    <div class="flex justify-between items-center p-3 bg-white/10 rounded mt-2 border border-white/20">
+                        <span class="text-white font-bold">Net Profit Impact</span>
+                        <span class="font-bold text-emerald-400 text-lg" id="pnl-net-val">---</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-xl text-blue-800 text-sm">
+                <i class="fas fa-info-circle mr-1"></i>
+                <span id="cfo-msg">ระบบช่วยเพิ่มยอดขายโดยตรงจากการลดโอกาสเสียลูกค้า (Opportunity Cost)</span>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const specs = {
+            1: { // Replenishment
+                title: "Auto-Replenishment Logic",
+                code: {
+                    context: `{"store_id": "Siam_Center", "sku": "Coffee_Bean", "stock": 5, "forecast_demand": 105, "event": "New Year"}`,
+                    rule: `if stock < (daily_sales * lead_time) + safety_stock:
+    trigger_alert("HIGH_RISK")
+    create_po(qty=forecast - stock)`,
+                    audit: `{"action": "AUTO_PO", "qty": 70, "reason": "STOCKOUT_PREVENTION"}`
+                },
+                financial: {
+                    cost: "฿50,000 / Day",
+                    costDesc: "Lost Revenue from Stockout",
+                    gain: "+฿1.5 Million",
+                    gainDesc: "Annual Revenue Saved (Est.)",
+                    formula: "Avg_Daily_Sales * Avoided_OOS_Days",
+                    pnl: {
+                        rev: { val: "⬆ INCREASES", class: "bg-emerald-500/20 text-emerald-400" },
+                        cogs: { val: "⬇ Decreases (Less Waste)", class: "text-slate-500" },
+                        sga: { val: "---", class: "text-slate-500" },
+                        net: "⬆ POSITIVE"
+                    },
+                    msg: "Impact: เพิ่ม Top Line (รายได้) โดยตรง และลดการเสียโอกาสขายในช่วง High Season"
+                }
+            },
+            2: { // Consolidator
+                title: "Spend Consolidator Logic",
+                code: {
+                    context: `{"pending_prs": [{"dept":"IT", "item":"Paper", "qty":100}, {"dept":"HR", "item":"Paper", "qty":200}], "supplier_tier": {"500_units": "15%_off"}}`,
+                    rule: `if sum(pr.qty) >= supplier.bulk_tier:
+    consolidate_prs()
+    apply_discount_code("BULK_15")`,
+                    audit: `{"action": "MERGE_PR", "original_count": 3, "savings": 4500.00}`
+                },
+                financial: {
+                    cost: "฿4,500 / Month",
+                    costDesc: "Overpaid due to Retail Pricing",
+                    gain: "+฿54,000",
+                    gainDesc: "Annual Cost Savings",
+                    formula: "(Retail_Price - Bulk_Price) * Total_Volume",
+                    pnl: {
+                        rev: { val: "---", class: "text-slate-500" },
+                        cogs: { val: "---", class: "text-slate-500" },
+                        sga: { val: "⬇ DECREASES (Supplies)", class: "bg-emerald-500/20 text-emerald-400" },
+                        net: "⬆ POSITIVE"
+                    },
+                    msg: "Impact: ลดค่าใช้จ่ายดำเนินงาน (SG&A) ทันที จากการได้ Volume Discount"
+                }
+            },
+            3: { // Expiry
+                title: "Expiry Optimizer Logic",
+                code: {
+                    context: `{"batch": "B882", "expiry": "60_days", "loc_A_burn": 0.5, "loc_B_burn": 50.0}`,
+                    rule: `if days_to_expiry < threshold AND usage_rate < stock:
+    find_location_with_high_demand()
+    transfer_stock(from=A, to=B)`,
+                    audit: `{"action": "TRANSFER", "sku": "Augmentin", "avoided_loss": 25000.00}`
+                },
+                financial: {
+                    cost: "฿250,000 / Quarter",
+                    costDesc: "Inventory Write-off Value",
+                    gain: "+฿1 Million",
+                    gainDesc: "Annual Write-off Avoided",
+                    formula: "Stock_Value * (100% - Recovery_Rate)",
+                    pnl: {
+                        rev: { val: "---", class: "text-slate-500" },
+                        cogs: { val: "⬇ DECREASES (Write-off)", class: "bg-emerald-500/20 text-emerald-400" },
+                        sga: { val: "---", class: "text-slate-500" },
+                        net: "⬆ POSITIVE"
+                    },
+                    msg: "Impact: ลดต้นทุนขาย (COGS) โดยตรงจากการลดหนี้สูญสินค้า (Inventory Write-off)"
+                }
+            },
+            4: { // Sourcing
+                title: "Smart Sourcing Logic",
+                code: {
+                    context: `{"commodity": "Resin", "contract_price": 1350, "spot_price": 1200, "vol": 100}`,
+                    rule: `if spot_price < contract_price - switching_cost:
+    trigger_buy_signal()
+    lock_price(qty=100)`,
+                    audit: `{"action": "LOCK_PRICE", "spot": 1200, "variance_gain": 15000.00}`
+                },
+                financial: {
+                    cost: "$150 / Ton",
+                    costDesc: "Price Variance Loss",
+                    gain: "+$15,000 (฿500k)",
+                    gainDesc: "Savings per Order Lot",
+                    formula: "(Contract_Price - Spot_Price) * Volume",
+                    pnl: {
+                        rev: { val: "---", class: "text-slate-500" },
+                        cogs: { val: "⬇ DECREASES (Material)", class: "bg-emerald-500/20 text-emerald-400" },
+                        sga: { val: "---", class: "text-slate-500" },
+                        net: "⬆ POSITIVE"
+                    },
+                    msg: "Impact: เพิ่ม Gross Margin โดยตรงจากการลดต้นทุนวัตถุดิบ (Raw Material Cost)"
+                }
+            }
+        };
+
+        function setFlow(id) {
+            const data = specs[id];
+            
+            // UI
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`btn-${id}`).classList.add('active');
+            
+            // Tech Update
+            document.getElementById('tech-title').innerText = data.title;
+            updateCode('code-context', data.code.context);
+            updateCode('code-rule', data.code.rule);
+            updateCode('code-audit', data.code.audit);
+
+            // Financial Update
+            document.getElementById('roi-cost').innerText = data.financial.cost;
+            document.getElementById('roi-cost-desc').innerText = data.financial.costDesc;
+            document.getElementById('roi-gain').innerText = data.financial.gain;
+            document.getElementById('roi-gain-desc').innerText = data.financial.gainDesc;
+            document.getElementById('roi-formula').innerText = data.financial.formula;
+            document.getElementById('cfo-msg').innerText = data.financial.msg;
+
+            // P&L Table Animation
+            updatePnlRow('pnl-rev', data.financial.pnl.rev);
+            updatePnlRow('pnl-cogs', data.financial.pnl.cogs);
+            updatePnlRow('pnl-sga', data.financial.pnl.sga);
+            document.getElementById('pnl-net-val').innerText = data.financial.pnl.net;
+        }
+
+        function updatePnlRow(idPrefix, data) {
+            const row = document.getElementById(idPrefix + '-row');
+            const val = document.getElementById(idPrefix + '-val');
+            
+            // Reset classes
+            row.className = "flex justify-between items-center p-2 rounded transition-all " + data.class;
+            val.innerText = data.val;
+        }
+
+        function updateCode(elementId, text) {
+            const el = document.getElementById(elementId);
+            // Simple syntax highlighting simulation
+            let formatted = text.replace(/"([^"]+)":/g, '<span class="json-key">"$1"</span>:')
+                                .replace(/: "([^"]+)"/g, ': <span class="json-string">"$1"</span>')
+                                .replace(/: (\d+\.?\d*)/g, ': <span class="json-num">$1</span>');
+            el.innerHTML = formatted;
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            setFlow(1);
+        });
+    </script>
+</body>
+</html>

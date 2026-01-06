@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>th8 UX Concept: Report vs Manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#F3F4F6',
+                            primary: '#06B6D4', // Cyan
+                            secondary: '#8B5CF6', // Violet
+                            dark: '#111827',
+                            success: '#10B981',
+                            warning: '#F59E0B',
+                            danger: '#EF4444'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Prompt', sans-serif; background-color: #F3F4F6; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .animate-slide-up {
+            animation: slideUp 0.5s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #06B6D4;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #06B6D4;
+        }
+    </style>
+</head>
+<body class="text-gray-800 h-screen flex flex-col overflow-hidden">
+
+    <!-- Header / Context -->
+    <header class="bg-white shadow-sm z-20 px-6 py-4 flex justify-between items-center">
+        <div>
+            <h1 class="text-xl font-bold text-gray-800">th8 UX Use Case</h1>
+            <p class="text-sm text-gray-500">Concept: "Don't build a better report, build a better manager"</p>
+        </div>
+        
+        <!-- Toggle Switch -->
+        <div class="flex items-center space-x-3 bg-gray-100 p-1.5 rounded-lg">
+            <button onclick="setView('report')" id="btn-report" class="px-4 py-2 rounded-md text-sm font-medium transition-all shadow-sm bg-white text-gray-800">
+                <i class="fas fa-table mr-2"></i>The Report (Old Way)
+            </button>
+            <button onclick="setView('manager')" id="btn-manager" class="px-4 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-800 transition-all">
+                <i class="fas fa-robot mr-2"></i>The Manager (th8 Way)
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 relative overflow-hidden flex justify-center p-6">
+        
+        <!-- VIEW 1: THE REPORT (Passive, Data Heavy) -->
+        <div id="view-report" class="w-full max-w-5xl bg-white rounded-xl shadow-lg border border-gray-200 flex flex-col h-full animate-slide-up">
+            <!-- Mock Browser Bar -->
+            <div class="bg-gray-50 px-4 py-2 border-b border-gray-200 flex items-center space-x-2">
+                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                <div class="ml-4 text-xs text-gray-400 font-mono">Legacy_ERP_System > Procurement > PO_Report_View.aspx</div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="p-8 overflow-y-auto">
+                <div class="flex justify-between items-end mb-6">
+                    <h2 class="text-2xl font-bold text-gray-700">Monthly Procurement Report</h2>
+                    <button class="bg-gray-200 text-gray-600 px-3 py-1 rounded text-sm"><i class="fas fa-download mr-1"></i> Export CSV</button>
+                </div>
+
+                <!-- Filters (Visual Clutter) -->
+                <div class="grid grid-cols-4 gap-4 mb-6 bg-gray-50 p-4 rounded-lg border border-gray-200">
+                    <div><label class="text-xs font-bold text-gray-500">Date Range</label><select class="w-full border rounded p-1 text-sm"><option>This Month</option></select></div>
+                    <div><label class="text-xs font-bold text-gray-500">Department</label><select class="w-full border rounded p-1 text-sm"><option>IT Dept</option></select></div>
+                    <div><label class="text-xs font-bold text-gray-500">Category</label><select class="w-full border rounded p-1 text-sm"><option>Hardware</option></select></div>
+                    <div><label class="text-xs font-bold text-gray-500">Status</label><select class="w-full border rounded p-1 text-sm"><option>Pending</option></select></div>
+                </div>
+
+                <!-- The Data Table (The Problem) -->
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3">PO No.</th>
+                            <th class="px-4 py-3">Item</th>
+                            <th class="px-4 py-3">Supplier</th>
+                            <th class="px-4 py-3">Qty</th>
+                            <th class="px-4 py-3">Unit Price</th>
+                            <th class="px-4 py-3">Total</th>
+                            <th class="px-4 py-3">Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-4 py-3 font-medium">PO-2024-001</td>
+                            <td class="px-4 py-3">Dell Monitor 24"</td>
+                            <td class="px-4 py-3">Office Mate</td>
+                            <td class="px-4 py-3">5</td>
+                            <td class="px-4 py-3">4,500</td>
+                            <td class="px-4 py-3">22,500</td>
+                            <td class="px-4 py-3 text-green-600"><i class="fas fa-minus"></i> 0%</td>
+                        </tr>
+                        <!-- The Problem Row -->
+                        <tr class="bg-red-50 border-b border-red-100">
+                            <td class="px-4 py-3 font-medium text-red-700">PO-2024-002</td>
+                            <td class="px-4 py-3 text-red-700 font-bold">MacBook Pro 14" M3</td>
+                            <td class="px-4 py-3">Apple Reseller A</td>
+                            <td class="px-4 py-3">10</td>
+                            <td class="px-4 py-3 text-red-700 font-bold">72,900</td>
+                            <td class="px-4 py-3">729,000</td>
+                            <td class="px-4 py-3 text-red-600 font-bold"><i class="fas fa-arrow-up"></i> +12%</td>
+                        </tr>
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="px-4 py-3 font-medium">PO-2024-003</td>
+                            <td class="px-4 py-3">HDMI Cable</td>
+                            <td class="px-4 py-3">Connect Shop</td>
+                            <td class="px-4 py-3">20</td>
+                            <td class="px-4 py-3">350</td>
+                            <td class="px-4 py-3">7,000</td>
+                            <td class="px-4 py-3 text-green-600"><i class="fas fa-arrow-down"></i> -5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- User Experience Note -->
+                <div class="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 text-sm flex items-start">
+                    <i class="fas fa-exclamation-triangle mt-1 mr-3"></i>
+                    <div>
+                        <strong>The User Pain Point:</strong> 
+                        <br>ในหน้าจอนี้ User ต้อง:
+                        <ol class="list-decimal ml-4 mt-1">
+                            <li>กวาดสายตาหาบรรทัดที่เป็นสีแดง (PO-2024-002)</li>
+                            <li>จำราคาเดิมในหัวว่าปกติซื้อเท่าไหร่ (ไม่มีบอกในหน้านี้)</li>
+                            <li>ปิดหน้านี้ -> เปิด Outlook -> เขียนอีเมลหา Supplier เพื่อถามว่าทำไมราคาขึ้น</li>
+                            <li>รอคำตอบ -> กลับมาหน้า Report -> กด Approve/Reject</li>
+                        </ol>
+                        <p class="mt-2 font-bold">นี่คือ "Better Report" (มีสี มีข้อมูลครบ) แต่ไม่ใช่ "Better Manager"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: THE MANAGER (Active, Agentic) -->
+        <div id="view-manager" class="w-full max-w-3xl hidden flex-col h-full animate-slide-up">
+            
+            <!-- Context Greeting -->
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold text-gray-800">Good Morning, Boss.</h2>
+                <p class="text-gray-500">I've analyzed yesterday's requests. <span class="text-brand-primary font-bold">1 item requires your attention.</span> I auto-approved 14 routine items.</p>
+            </div>
+
+            <!-- The Action Card -->
+            <div class="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden relative">
+                <!-- Status Bar -->
+                <div class="h-2 bg-gradient-to-r from-brand-warning to-brand-primary"></div>
+                
+                <div class="p-6 md:p-8">
+                    <!-- Header -->
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-brand-warning/10 flex items-center justify-center text-brand-warning text-xl">
+                                <i class="fas fa-tag"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Price Anomaly Detected</h3>
+                                <p class="text-sm text-gray-500">PO #2024-002 • IT Department • MacBook Pro 14" (x10)</p>
+                            </div>
+                        </div>
+                        <span class="bg-red-100 text-red-700 text-xs font-bold px-3 py-1 rounded-full">+12% Variance</span>
+                    </div>
+
+                    <!-- The "Manager" Insight (Context) -->
+                    <div class="bg-gray-50 rounded-xl p-5 mb-6 border border-gray-200">
+                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-3">AI Analysis</h4>
+                        <div class="flex items-center space-x-8">
+                            <div>
+                                <div class="text-sm text-gray-500">Current Quote</div>
+                                <div class="text-xl font-bold text-red-600">฿72,900</div>
+                            </div>
+                            <div class="h-8 w-px bg-gray-300"></div>
+                            <div>
+                                <div class="text-sm text-gray-500">Last Purchase (30 days ago)</div>
+                                <div class="text-xl font-bold text-gray-800">฿65,000</div>
+                            </div>
+                            <div class="h-8 w-px bg-gray-300"></div>
+                            <div>
+                                <div class="text-sm text-gray-500">Market Benchmark</div>
+                                <div class="text-xl font-bold text-brand-success">฿66,500</div>
+                            </div>
+                        </div>
+                        <p class="mt-3 text-sm text-gray-600">
+                            <i class="fas fa-info-circle text-brand-primary mr-1"></i>
+                            Supplier "Reseller A" has increased price significantly. Market trend is stable. No justification provided.
+                        </p>
+                    </div>
+
+                    <!-- The "Manager" Action (Solution) -->
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wide">Recommended Action</h4>
+                        
+                        <!-- Action Option: Negotiate (Selected) -->
+                        <div class="border-2 border-brand-primary bg-brand-primary/5 rounded-xl p-4 cursor-pointer relative transition-all">
+                            <div class="absolute top-4 right-4 text-brand-primary"><i class="fas fa-check-circle text-xl"></i></div>
+                            <div class="font-bold text-brand-primary mb-1">Auto-Negotiate (Recommended)</div>
+                            <p class="text-sm text-gray-600 mb-3">Reject the PO and send an email citing previous purchase price and market benchmark.</p>
+                            
+                            <!-- The Drafted Email (Evidence of Work) -->
+                            <div class="bg-white rounded border border-gray-200 p-3 text-sm text-gray-500 italic relative group">
+                                <div class="absolute -top-2 left-2 bg-white px-1 text-xs text-gray-400">Email Draft</div>
+                                "Dear Reseller A, We noticed a 12% increase for the MacBook Pro quote compared to our last order (PO-2023-998). Market data suggests pricing should be around ฿66,500. Can you please review..."
+                                <button class="text-brand-primary text-xs font-bold ml-2 hover:underline">Edit</button>
+                            </div>
+                        </div>
+
+                        <!-- Secondary Action (Collapsed) -->
+                        <div class="border border-gray-200 rounded-xl p-4 hover:bg-gray-50 cursor-pointer opacity-70">
+                            <div class="font-bold text-gray-600">Approve Anyway</div>
+                            <p class="text-sm text-gray-400">Mark as "Urgent/Exception" and proceed with payment.</p>
+                        </div>
+                    </div>
+
+                    <!-- Footer Action Buttons -->
+                    <div class="mt-8 flex justify-end space-x-3 pt-6 border-t border-gray-100">
+                        <button class="px-6 py-3 rounded-lg text-gray-500 hover:bg-gray-100 font-medium">Ignore</button>
+                        <button onclick="executeAction()" id="btn-execute" class="px-8 py-3 rounded-lg bg-brand-primary hover:bg-cyan-600 text-white font-bold shadow-lg shadow-cyan-500/30 transform transition hover:-translate-y-0.5 flex items-center">
+                            <span>Execute Recommended Action</span>
+                            <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Success Overlay (Hidden initially) -->
+                <div id="success-overlay" class="absolute inset-0 bg-white/95 backdrop-blur z-10 flex flex-col items-center justify-center text-center hidden">
+                    <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center text-4xl mb-4 animate-bounce">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Action Executed!</h3>
+                    <p class="text-gray-500 mt-2">Email sent to Reseller A.<br>PO #2024-002 status updated to "Negotiating".</p>
+                    <p class="mt-6 text-sm text-brand-primary font-bold">You just saved approx ฿64,000 in potential cost.</p>
+                    <button onclick="resetDemo()" class="mt-8 text-gray-400 hover:text-gray-600 underline">Reset Demo</button>
+                </div>
+            </div>
+
+             <!-- User Experience Note -->
+             <div class="mt-6 text-center text-sm text-gray-400">
+                <p>This UI didn't ask you to find the problem. It <strong>found it</strong>, <strong>explained it</strong>, and <strong>did the work</strong> for you.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function setView(viewName) {
+            const reportView = document.getElementById('view-report');
+            const managerView = document.getElementById('view-manager');
+            const btnReport = document.getElementById('btn-report');
+            const btnManager = document.getElementById('btn-manager');
+
+            if (viewName === 'report') {
+                reportView.classList.remove('hidden');
+                reportView.classList.add('flex');
+                managerView.classList.add('hidden');
+                managerView.classList.remove('flex');
+
+                btnReport.className = "px-4 py-2 rounded-md text-sm font-medium transition-all shadow-sm bg-white text-gray-800";
+                btnManager.className = "px-4 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-800 transition-all";
+            } else {
+                reportView.classList.add('hidden');
+                reportView.classList.remove('flex');
+                managerView.classList.remove('hidden');
+                managerView.classList.add('flex');
+
+                btnReport.className = "px-4 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-800 transition-all";
+                btnManager.className = "px-4 py-2 rounded-md text-sm font-medium transition-all shadow-sm bg-brand-primary text-white shadow-cyan-500/30";
+            }
+        }
+
+        function executeAction() {
+            const btn = document.getElementById('btn-execute');
+            const originalText = btn.innerHTML;
+            
+            // Loading State
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i> Processing Agent...';
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+            
+            setTimeout(() => {
+                document.getElementById('success-overlay').classList.remove('hidden');
+                document.getElementById('success-overlay').classList.add('flex');
+            }, 1500);
+        }
+
+        function resetDemo() {
+            document.getElementById('success-overlay').classList.add('hidden');
+            document.getElementById('success-overlay').classList.remove('flex');
+            
+            const btn = document.getElementById('btn-execute');
+            btn.innerHTML = '<span>Execute Recommended Action</span><i class="fas fa-paper-plane ml-2"></i>';
+            btn.classList.remove('opacity-75', 'cursor-not-allowed');
+            
+            setView('report');
+        }
+    </script>
+</body>
+</html>

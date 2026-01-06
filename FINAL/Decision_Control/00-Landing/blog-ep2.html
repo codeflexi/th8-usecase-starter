@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Ep.2: The Glass Box Operation | TH8.AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Sarabun', sans-serif; line-height: 1.8; color: #334155; }
+        h1, h2, h3, h4, .font-head { font-family: 'Prompt', sans-serif; }
+        
+        /* Highlight text */
+        .highlight { background: linear-gradient(120deg, #fecaca 0%, #fecaca 100%); background-repeat: no-repeat; background-size: 100% 0.2em; background-position: 0 88%; transition: background-size 0.25s ease-in; }
+        .highlight:hover { background-size: 100% 88%; }
+
+        /* Split View Mockup */
+        .mockup-container { perspective: 1000px; }
+        .mockup-card { transition: transform 0.5s; transform-style: preserve-3d; }
+        .mockup-card:hover { transform: rotateX(2deg) rotateY(2deg); }
+
+        /* Timeline Connector */
+        .timeline-line { position: absolute; left: 24px; top: 24px; bottom: -24px; width: 2px; background: #e2e8f0; z-index: 0; }
+    </style>
+</head>
+<body class="bg-white antialiased">
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-100">
+        <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-black rounded flex items-center justify-center font-bold text-white text-sm font-head">T8</div>
+                <span class="font-bold font-head tracking-tight text-slate-900">TH8.AI Insights</span>
+            </div>
+            <a href="#" class="text-sm font-head text-slate-500 hover:text-red-600 transition-colors">
+                ← Back to Series
+            </a>
+        </div>
+    </nav>
+
+    <header class="pt-16 pb-10 px-6 max-w-4xl mx-auto text-center">
+        <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider mb-4 font-head">
+            Governance Series: Episode 2
+        </span>
+        <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6 text-slate-900">
+            เลิกเดาใจ AI... <br>
+            เปิดเบื้องหลังระบบที่ <span class="text-red-600">โปร่งใส</span> และ <span class="highlight">ตรวจสอบได้</span>
+        </h1>
+        <p class="text-xl text-slate-500 font-light max-w-2xl mx-auto">
+            จาก "Black Box" สู่ "Glass Box": ดูการทำงานจริงของ Decision Control Center แบบทีละขั้นตอน (Step-by-Step)
+        </p>
+        
+        <div class="flex items-center justify-center gap-3 mt-8">
+            <div class="w-10 h-10 bg-slate-200 rounded-full overflow-hidden">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Author">
+            </div>
+            <div class="text-left">
+                <p class="text-sm font-bold text-slate-900 font-head">TH8 Editorial Team</p>
+                <p class="text-xs text-slate-500">6 min read · Jan 13, 2026</p>
+            </div>
+        </div>
+    </header>
+
+    <article class="max-w-3xl mx-auto px-6 pb-24">
+        
+        <p class="text-lg">
+            ใน <a href="#" class="text-red-600 underline decoration-red-300">Ep.1</a> เราคุยกันแล้วว่า ERP มีจุดบอดเรื่องเอกสาร และ AI ทั่วไปก็ไว้ใจไม่ได้เรื่องตัวเลข
+        </p>
+        <p>
+            คำถามที่ IT Manager และ Operations Director มักถามผมต่อคือ: 
+            <br>
+            <em>"แล้วระบบ TH8 ทำงานยังไง? มันตัดสินใจแทนคนเลยเหรอ? จะรู้ได้ไงว่ามันไม่มั่ว?"</em>
+        </p>
+        <p>
+            วันนี้ผมจะพาคุณไปทัวร์ระบบแบบ <strong>"Walkthrough"</strong> เพื่อให้เห็นว่าเราเปลี่ยนกระบวนการจัดซื้อที่ซับซ้อน ให้กลายเป็น <strong>"Glass Box" (กล่องแก้ว)</strong> ที่มองเห็นทุกอย่างได้อย่างไร
+        </p>
+
+        <div class="bg-slate-50 border-l-4 border-slate-800 p-6 my-10 rounded-r-lg">
+            <h3 class="font-head font-bold text-lg mb-2">Scenario: "The Price Mismatch"</h3>
+            <p class="mb-0 text-sm">
+                สมมติว่า Vendor ส่ง Invoice มาเก็บเงินค่า "เก้าอี้ Ergonomic" จำนวน 50 ตัว<br>
+                แต่ราคาในบิล <strong>สูงกว่า</strong> ราคาที่ตกลงกันในสัญญา
+            </p>
+        </div>
+
+        <h2 class="text-2xl font-bold mb-8 font-head mt-12">The 5-Minute Journey</h2>
+        <p class="mb-8">มาดูกันว่าในเวลาเพียง 5 นาที ระบบจัดการเรื่องนี้อย่างไร:</p>
+
+        <div class="relative pl-8 space-y-12">
+            <div class="timeline-line"></div>
+
+            <div class="relative group">
+                <div class="absolute -left-[42px] top-0 w-10 h-10 bg-white border-2 border-slate-200 rounded-full flex items-center justify-center font-bold text-slate-500 group-hover:border-blue-500 group-hover:text-blue-600 transition-colors bg-white z-10">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold font-head text-lg text-slate-900">10:00 น. — Ingestion (รับเรื่อง)</h3>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">Auto</span>
+                    </div>
+                    <p class="text-sm text-slate-600">
+                        Vendor ส่งอีเมล Invoice เข้ามาที่ <code class="bg-slate-100 px-1 rounded text-red-500">billing@company.com</code> ระบบ TH8 ดูดไฟล์ PDF เข้ามาทันที โดยพนักงานไม่ต้องเปิดอ่านเอง
+                    </p>
+                </div>
+            </div>
+
+            <div class="relative group">
+                <div class="absolute -left-[42px] top-0 w-10 h-10 bg-white border-2 border-slate-200 rounded-full flex items-center justify-center font-bold text-slate-500 group-hover:border-red-500 group-hover:text-red-600 transition-colors bg-white z-10">
+                    <i data-lucide="scan-line" class="w-5 h-5"></i>
+                </div>
+                <div class="bg-slate-900 p-6 rounded-xl shadow-xl text-white mockup-container">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold font-head text-lg text-white">10:00:05 น. — The "Brain" Work</h3>
+                        <span class="text-xs bg-red-600 px-2 py-1 rounded text-white animate-pulse">Processing</span>
+                    </div>
+                    <p class="text-sm text-slate-300 mb-6">
+                        นี่คือจุดที่ "เวทมนตร์" เกิดขึ้น ระบบทำ 2 อย่างพร้อมกัน:
+                        <br>1. <strong>Extract:</strong> อ่านข้อมูลจาก Invoice (PDF)
+                        <br>2. <strong>Retrieve (RAG):</strong> วิ่งไปค้นหา "สัญญาคู่ค้า" (Contract) ที่เกี่ยวข้องจากฐานข้อมูลมาเทียบ
+                    </p>
+                    
+                    <div class="bg-slate-800 rounded-lg p-1 border border-slate-600">
+                        <div class="bg-slate-900 p-2 text-[10px] text-slate-400 border-b border-slate-700 flex justify-between">
+                            <span>SYSTEM COMPARISON VIEW</span>
+                            <span>MATCHING LOGIC: PRICE_CHECK</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-px bg-slate-700 h-40">
+                            <div class="bg-white p-3 relative overflow-hidden">
+                                <div class="absolute top-2 left-2 bg-blue-100 text-blue-800 text-[8px] px-1 font-bold">INCOMING INVOICE</div>
+                                <div class="mt-4 space-y-2 opacity-60 text-[8px] font-mono text-slate-800">
+                                    <div class="h-2 bg-slate-200 w-1/3"></div>
+                                    <div class="h-2 bg-slate-200 w-1/2"></div>
+                                    <div class="flex justify-between items-center border border-red-500 p-1 rounded bg-red-50">
+                                        <span>Ergonomic Chair</span>
+                                        <span class="font-bold text-red-600">3,500 THB</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-[#fdfbf7] p-3 relative overflow-hidden">
+                                <div class="absolute top-2 right-2 bg-slate-200 text-slate-800 text-[8px] px-1 font-bold">REFERENCE CONTRACT</div>
+                                <div class="mt-4 space-y-2 text-[8px] font-serif text-slate-800">
+                                    <p>AGREEMENT 2024</p>
+                                    <div class="bg-yellow-100 border border-yellow-300 p-1">
+                                        "Unit price fixed at <strong>3,000 THB</strong>"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 bg-red-900/50 border border-red-500/50 rounded text-red-300 text-xs font-mono">
+                            <i data-lucide="alert-triangle" class="w-3 h-3"></i> Violation Detected: +16% Price Variance
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative group">
+                <div class="absolute -left-[42px] top-0 w-10 h-10 bg-white border-2 border-slate-200 rounded-full flex items-center justify-center font-bold text-slate-500 group-hover:border-green-500 group-hover:text-green-600 transition-colors bg-white z-10">
+                    <i data-lucide="user-check" class="w-5 h-5"></i>
+                </div>
+                <div class="bg-white border border-slate-200 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-bold font-head text-lg text-slate-900">10:05:00 น. — Human Decision</h3>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded text-slate-500">Manual</span>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">
+                        CFO ได้รับแจ้งเตือนทาง Line/Email แทนที่จะต้องเสียเวลาคุยกับจัดซื้อ CFO เห็นข้อมูลสรุป <strong>"Delta" (ส่วนต่าง 25,000 บาท)</strong> และกดปุ่มตัดสินใจได้ทันที
+                    </p>
+                    <div class="flex gap-3">
+                        <button class="flex-1 py-2 border border-slate-300 rounded text-slate-500 text-xs font-bold bg-slate-50">Reject</button>
+                        <button class="flex-1 py-2 bg-slate-900 text-white rounded text-xs font-bold shadow-lg hover:bg-slate-800 transition-colors">
+                            Approve with Reason
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-2xl font-bold mb-6 font-head mt-16">ทำไมเราเรียกว่า "Glass Box"?</h2>
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div>
+                <h3 class="font-bold text-lg mb-2">1. ไม่มีการเดา (Deterministic Logic)</h3>
+                <p class="text-sm text-slate-600">
+                    เราใช้ AI แค่ "อ่าน" แต่ตอน "คำนวณ" เราใช้ Python Code ที่แม่นยำ 100% (ต่างจาก ChatGPT ที่อาจบวกลบเลขผิด)
+                </p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg mb-2">2. หลักฐานวางอยู่ตรงหน้า</h3>
+                <p class="text-sm text-slate-600">
+                    ทุกการแจ้งเตือนจะมี <strong>"Evidence Link"</strong> กลับไปที่หน้า PDF ต้นฉบับเสมอ ไม่ต้องเชื่อระบบ แต่กดดูเองได้เลย
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-white border-2 border-slate-900 rounded-3xl p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-red-500 to-slate-900"></div>
+            
+            <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4 font-head">อยากลองเล่นของจริงไหม?</h3>
+            <p class="text-slate-600 mb-8 max-w-xl mx-auto">
+                เราเตรียม <strong>Interactive Demo</strong> ไว้ให้คุณลองเป็น CFO
+                ลองกดอนุมัติเคสที่มีปัญหา และดูว่าระบบจะบันทึก Audit Log อย่างไร
+            </p>
+            
+            <button class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white text-lg font-bold py-4 px-8 rounded-xl shadow-xl transition-all transform hover:-translate-y-1 font-head">
+                <i data-lucide="play-circle" class="w-6 h-6"></i>
+                ลองเล่น Interactive Demo (ไม่ต้อง Login)
+            </button>
+            <p class="text-xs text-slate-400 mt-4">
+                ติดตามต่อ Ep.3: เจาะลึก Technical Architecture ที่ IT Director ยอมรับ
+            </p>
+        </div>
+
+    </article>
+
+    <footer class="bg-slate-50 border-t border-slate-200 py-12 text-center">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <div class="w-6 h-6 bg-black rounded flex items-center justify-center font-bold text-white text-[10px] font-head">T8</div>
+            <span class="font-bold text-slate-700 font-head">TH8.AI</span>
+        </div>
+        <p class="text-xs text-slate-400">© 2026 TH8.AI. Powering the Future of Governance.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

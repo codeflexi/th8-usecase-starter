@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Ep.3: The Neuro-Symbolic Architecture | TH8.AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&family=Prompt:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Sarabun', sans-serif; line-height: 1.8; color: #1e293b; }
+        h1, h2, h3, h4, .font-head { font-family: 'Prompt', sans-serif; }
+        .font-code { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Code Block Styling */
+        .code-window {
+            background: #0f172a;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            margin: 2rem 0;
+        }
+        .code-header {
+            background: #1e293b;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid #334155;
+        }
+        .dot { width: 0.75rem; height: 0.75rem; border-radius: 50%; }
+        
+        /* Interactive Architecture Diagram (CSS Only) */
+        .arch-box {
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+        }
+        .arch-box:hover { border-color: #dc2626; box-shadow: 0 4px 6px -1px rgba(220, 38, 38, 0.1); }
+        .connector-line {
+            width: 2px; background: #cbd5e1; position: absolute; left: 50%; transform: translateX(-50%); z-index: -1;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 antialiased">
+
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-black rounded flex items-center justify-center font-bold text-white text-sm font-head">T8</div>
+                <span class="font-bold font-head tracking-tight text-slate-900">TH8 Engineering Blog</span>
+            </div>
+            <div class="flex gap-4 text-sm font-head text-slate-500">
+                <a href="#" class="hover:text-red-600">Ep.1: The Crisis</a>
+                <a href="#" class="hover:text-red-600">Ep.2: The Demo</a>
+                <span class="text-red-600 font-bold">Ep.3: The Engine</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-slate-900 text-white pt-20 pb-16 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(#334155 1px, transparent 1px), linear-gradient(to right, #334155 1px, transparent 1px); background-size: 40px 40px;"></div>
+        
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-red-500/20 border border-red-500 text-red-300 text-xs font-bold uppercase tracking-wider mb-6 font-head">
+                For CTOs & Architects
+            </span>
+            <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6 font-head">
+                Beyond RAG: เจาะลึกสถาปัตยกรรม AI <br>
+                ที่ <span class="text-red-500">"ห้ามคิดเลข"</span> และ <span class="text-green-400">"โกงไม่ได้"</span>
+            </h1>
+            <p class="text-xl text-slate-400 font-light max-w-2xl mx-auto font-head">
+                ทำไม Generative AI ถึงไม่พอสำหรับงาน Enterprise? เปิดพิมพ์เขียวระบบ "Neuro-Symbolic" ที่ผสาน LLM เข้ากับ Python Logic เพื่อความแม่นยำ 100%
+            </p>
+            
+            <div class="flex justify-center gap-4 mt-8">
+                <div class="flex items-center gap-2 text-xs text-slate-400">
+                    <i data-lucide="clock" class="w-4 h-4"></i> 10 min read
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-400">
+                    <i data-lucide="code" class="w-4 h-4"></i> Technical Deep Dive
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <article class="max-w-4xl mx-auto px-6 -mt-10 relative z-20">
+        
+        <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-200 mb-12">
+            <p class="text-lg text-slate-700 mb-4">
+                ในฐานะคนทำ Tech เราทุกคนรู้ความลับข้อหนึ่งของ LLM (Large Language Models) ที่ฝ่ายการตลาดไม่ค่อยพูดถึง:
+            </p>
+            <p class="text-xl font-bold text-slate-900 font-head italic border-l-4 border-red-600 pl-4">
+                "AI เก่งภาษาเหมือนกวี... แต่ตกเลขเหมือนเด็กอนุบาล"
+            </p>
+            <p class="text-lg text-slate-700 mt-4">
+                ถ้าคุณให้ ChatGPT คำนวณภาษีซ้อนหรือตรวจสอบเงื่อนไขสัญญาที่ซับซ้อน มันอาจจะตอบคุณด้วยความมั่นใจ... <strong>แต่ผิด</strong> (Hallucination). สำหรับงานจัดซื้อระดับ Enterprise ความผิดพลาดแม้แต่ 0.1% คือความเสียหายหลักล้าน
+            </p>
+            <p class="text-lg text-slate-700">
+                ที่ <strong>TH8.AI</strong> เราจึงไม่ใช้ AI ธรรมดา แต่เราสร้างสถาปัตยกรรมแบบ <strong>"Neuro-Symbolic AI"</strong> บทความนี้จะพาคุณไปดูไส้ในของระบบ (Under the hood) ว่ามันทำงานอย่างไร
+            </p>
+        </div>
+
+        <h2 class="text-3xl font-bold mb-6 font-head text-slate-900 flex items-center gap-3">
+            <span class="w-10 h-10 bg-slate-900 text-white rounded-lg flex items-center justify-center text-lg">1</span>
+            Neuro-Symbolic Architecture
+        </h2>
+        <p class="mb-6 text-lg">
+            เราออกแบบระบบโดยแยกการทำงานออกเป็น 2 ส่วนชัดเจน เหมือนสมองมนุษย์ซีกซ้ายและขวา:
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6 mb-10">
+            <div class="bg-slate-100 p-6 rounded-xl border border-slate-200">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><i data-lucide="brain" class="w-6 h-6"></i></div>
+                    <h3 class="font-bold text-lg font-head">Neural Layer (LLM)</h3>
+                </div>
+                <ul class="list-disc list-inside text-slate-600 space-y-2">
+                    <li>หน้าที่: <strong>Orchestrator</strong> (ผู้สั่งการ)</li>
+                    <li>ทำอะไร: อ่าน PDF, เข้าใจเจตนา (Intent), สรุปความ</li>
+                    <li>ข้อห้าม: <strong>ห้ามคำนวณเงิน, ห้ามตัดสินใจอนุมัติ</strong></li>
+                </ul>
+            </div>
+            <div class="bg-slate-900 text-white p-6 rounded-xl border border-slate-800 shadow-lg">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 bg-red-600 text-white rounded-full flex items-center justify-center"><i data-lucide="cpu" class="w-6 h-6"></i></div>
+                    <h3 class="font-bold text-lg font-head">Symbolic Layer (Code)</h3>
+                </div>
+                <ul class="list-disc list-inside text-slate-300 space-y-2">
+                    <li>หน้าที่: <strong>Executor</strong> (ผู้ปฏิบัติงาน)</li>
+                    <li>ทำอะไร: คำนวณส่วนต่าง (Delta), ตรวจสอบ Policy, บันทึก Log</li>
+                    <li>จุดเด่น: <strong>Deterministic (1+1 ต้องเท่ากับ 2 เสมอ)</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="text-3xl font-bold mb-6 font-head text-slate-900 flex items-center gap-3 mt-16">
+            <span class="w-10 h-10 bg-slate-900 text-white rounded-lg flex items-center justify-center text-lg">2</span>
+            The "Kill Switch" for Hallucination
+        </h2>
+        <p class="mb-6 text-lg">
+            เราแก้ปัญหา AI มั่วตัวเลขด้วยเทคนิค <strong>"Native Tool Calling"</strong> แทนที่จะให้ LLM สร้างคำตอบเอง เราบังคับให้มันเรียกใช้ Python Function ที่เราเขียนไว้
+        </p>
+        <p class="mb-4 font-bold text-slate-900">ดูตัวอย่าง Flow การทำงานจริงเมื่อมีการตรวจสอบราคา:</p>
+
+        <div class="code-window">
+            <div class="code-header">
+                <div class="dot bg-red-500"></div>
+                <div class="dot bg-yellow-500"></div>
+                <div class="dot bg-green-500"></div>
+                <span class="text-xs text-slate-400 font-mono ml-2">policy_engine/core.py</span>
+            </div>
+            <div class="p-6 overflow-x-auto">
+<pre class="font-code text-sm text-blue-300">
+<span class="text-slate-500"># 1. LLM detects intent but DOES NOT calculate.</span>
+<span class="text-slate-500"># It returns a structured request to call a tool instead.</span>
+
+<span class="text-purple-400">class</span> <span class="text-yellow-300">PriceCheckTool</span>(BaseTool):
+    name = <span class="text-green-300">"calculate_price_delta"</span>
+    description = <span class="text-green-300">"Use this whenever user asks about price variance."</span>
+
+    <span class="text-purple-400">def</span> <span class="text-blue-400">run</span>(self, po_price: <span class="text-yellow-300">float</span>, contract_price: <span class="text-yellow-300">float</span>):
+        <span class="text-slate-500"># Pure Python Logic: 100% Deterministic</span>
+        delta = po_price - contract_price
+        percent = (delta / contract_price) * <span class="text-orange-400">100</span>
+        
+        <span class="text-purple-400">if</span> percent > <span class="text-orange-400">5.0</span>:
+            <span class="text-purple-400">return</span> {
+                <span class="text-green-300">"status"</span>: <span class="text-red-400">"VIOLATION"</span>,
+                <span class="text-green-300">"message"</span>: f<span class="text-green-300">"Price exceeds contract by {percent}%"</span>,
+                <span class="text-green-300">"action"</span>: <span class="text-red-400">"BLOCK_APPROVAL"</span>
+            }
+        <span class="text-purple-400">return</span> {<span class="text-green-300">"status"</span>: <span class="text-green-300">"PASS"</span>}
+</pre>
+            </div>
+        </div>
+        
+        <p class="text-sm text-slate-500 italic text-center mb-10">
+            *Code นี้ทำงานบน Server ที่ปลอดภัย ไม่ได้รันบน LLM Provider ดังนั้น Logic ธุรกิจของคุณจึงเป็นความลับและแม่นยำเสมอ
+        </p>
+
+        <h2 class="text-3xl font-bold mb-6 font-head text-slate-900 flex items-center gap-3 mt-16">
+            <span class="w-10 h-10 bg-slate-900 text-white rounded-lg flex items-center justify-center text-lg">3</span>
+            Enterprise-Grade Architecture
+        </h2>
+        <p class="mb-8 text-lg">
+            เราไม่ได้แค่ต่อ API แล้วจบ แต่เราสร้าง <strong>"Governance Layer"</strong> ที่รองรับ High Availability และ Data Privacy
+        </p>
+
+        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative items-center">
+                
+                <div class="space-y-4">
+                    <div class="arch-box">
+                        <i data-lucide="layers" class="w-6 h-6 mx-auto mb-2 text-slate-600"></i>
+                        <h4 class="font-bold text-sm">ERP (SAP/Oracle)</h4>
+                        <p class="text-xs text-slate-500">Structured Data</p>
+                    </div>
+                    <div class="arch-box">
+                        <i data-lucide="file-text" class="w-6 h-6 mx-auto mb-2 text-slate-600"></i>
+                        <h4 class="font-bold text-sm">Document Server</h4>
+                        <p class="text-xs text-slate-500">Unstructured PDF</p>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex justify-center items-center">
+                    <i data-lucide="arrow-right" class="w-8 h-8 text-slate-400 animate-pulse"></i>
+                </div>
+
+                <div class="border-2 border-dashed border-red-300 bg-red-50/50 p-4 rounded-xl relative">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-red-100 text-red-600 text-[10px] px-2 py-1 rounded font-bold">SECURE ZONE</span>
+                    <div class="arch-box bg-white border-red-200 mb-4 shadow-lg">
+                        <i data-lucide="shield-check" class="w-8 h-8 mx-auto mb-2 text-red-600"></i>
+                        <h4 class="font-bold text-sm">Privacy Gateway</h4>
+                        <p class="text-xs text-slate-500">PII Redaction / Masking</p>
+                    </div>
+                    <div class="arch-box bg-slate-900 text-white border-slate-800">
+                        <i data-lucide="cpu" class="w-8 h-8 mx-auto mb-2 text-blue-400"></i>
+                        <h4 class="font-bold text-sm">Logic Engine</h4>
+                        <p class="text-xs text-slate-400">Python + Vector DB</p>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex justify-center items-center">
+                    <i data-lucide="arrow-right" class="w-8 h-8 text-slate-400 animate-pulse"></i>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="arch-box border-green-200 bg-green-50">
+                        <i data-lucide="check-square" class="w-6 h-6 mx-auto mb-2 text-green-600"></i>
+                        <h4 class="font-bold text-sm">Decision UI</h4>
+                        <p class="text-xs text-slate-500">For CFO Approval</p>
+                    </div>
+                    <div class="arch-box border-slate-300 bg-slate-100">
+                        <i data-lucide="database" class="w-6 h-6 mx-auto mb-2 text-slate-600"></i>
+                        <h4 class="font-bold text-sm">Audit Logs</h4>
+                        <p class="text-xs text-slate-500">Immutable JSON</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <h2 class="text-3xl font-bold mb-6 font-head text-slate-900 flex items-center gap-3 mt-16">
+            <span class="w-10 h-10 bg-slate-900 text-white rounded-lg flex items-center justify-center text-lg">4</span>
+            The "Black Box" Recorder
+        </h2>
+        <p class="mb-6 text-lg">
+            ความน่ากลัวของ AI คือ "เราไม่รู้ว่ามันคิดอะไร" แต่ TH8 แก้ปัญหานี้ด้วย <strong>Immutable Audit Trail</strong> ทุกการตัดสินใจจะถูกบันทึกเป็น JSON Object ที่แก้ไขไม่ได้
+        </p>
+
+        <div class="code-window">
+            <div class="code-header flex justify-between">
+                <div class="flex gap-2 items-center">
+                    <div class="dot bg-slate-500"></div>
+                    <span class="text-xs text-slate-400 font-mono">audit_logs/evt_20260113.json</span>
+                </div>
+                <span class="text-[10px] bg-green-900 text-green-400 px-2 rounded">Verified</span>
+            </div>
+            <div class="p-6 overflow-x-auto">
+<pre class="font-code text-xs text-slate-300 leading-relaxed">
+{
+  <span class="text-blue-400">"event_id"</span>: "evt_8f2a9c...",
+  <span class="text-blue-400">"timestamp"</span>: "2026-01-13T14:32:00Z",
+  <span class="text-blue-400">"actor"</span>: "system_policy_engine",
+  <span class="text-blue-400">"input_context"</span>: {
+    "po_id": "PO-2025-002",
+    "contract_ref": "REF-OVT-2024.pdf#page=5"
+  },
+  <span class="text-blue-400">"execution_trace"</span>: [
+    { "step": "ocr", "status": "success" },
+    { "step": "tool_calc_delta", "result": { "delta": 16.6, "limit": 5.0 } }
+  ],
+  <span class="text-blue-400">"final_decision"</span>: <span class="text-red-400">"BLOCK_AND_FLAG"</span>,
+  <span class="text-blue-400">"hash"</span>: "sha256:7b3..."
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="mt-20 bg-slate-900 rounded-3xl p-10 text-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-grid-white/[0.05] bg-[length:20px_20px]"></div>
+            <div class="relative z-10">
+                <h3 class="text-2xl font-bold text-white mb-4 font-head">ท้าพิสูจน์ระบบด้วยข้อมูลจริง?</h3>
+                <p class="text-slate-400 mb-8 max-w-2xl mx-auto">
+                    เรามั่นใจใน Architecture ของเรามาก... ส่งไฟล์สัญญาและ Invoice เก่าๆ ของคุณมาให้เราทดสอบ (ภายใต้ NDA) เราจะแสดงให้เห็นว่าระบบจับผิดสิ่งที่คุณมองข้ามไปได้อย่างไร
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="bg-red-600 hover:bg-red-700 text-white text-lg font-bold py-3 px-8 rounded-xl transition-all shadow-lg shadow-red-900/50 font-head">
+                        Schedule Technical Workshop
+                    </button>
+                    <button class="bg-transparent border border-slate-600 text-slate-300 hover:bg-slate-800 py-3 px-8 rounded-xl font-head transition-all">
+                        Download Technical Whitepaper
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </article>
+
+    <footer class="bg-slate-50 border-t border-slate-200 mt-20 py-12 text-center">
+        <div class="flex items-center justify-center gap-2 mb-4">
+            <div class="w-6 h-6 bg-black rounded flex items-center justify-center font-bold text-white text-[10px] font-head">T8</div>
+            <span class="font-bold text-slate-700 font-head">TH8.AI Engineering</span>
+        </div>
+        <p class="text-xs text-slate-400">© 2026 TH8.AI. Built for Enterprise Trust.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>th8 Decision Control Center: Strategic Insight Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        bg: '#0F172A',      // Slate 900
+                        card: '#1E293B',    // Slate 800
+                        primary: '#22D3EE', // Cyan 400
+                        secondary: '#A78BFA', // Violet 400
+                        accent: '#FB7185',  // Rose 400
+                        text: '#F8FAFC',    // Slate 50
+                        muted: '#94A3B8'    // Slate 400
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0F172A;
+            color: #F8FAFC;
+        }
+        /* Mandatory Chart Container Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Constraint */
+            margin-left: auto;
+            margin-right: auto; /* Centering */
+            height: 350px; /* Responsive base */
+            max-height: 400px; /* Overflow prevention */
+        }
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1E293B;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #22D3EE;
+            border-radius: 4px;
+        }
+        
+        /* Flowchart connector lines using CSS borders (NO SVG) */
+        .flow-connector-v {
+            width: 2px;
+            height: 40px;
+            background-image: linear-gradient(to bottom, #22D3EE 50%, transparent 50%);
+            background-size: 2px 10px;
+            margin: 0 auto;
+        }
+        .flow-connector-h {
+            height: 2px;
+            width: 40px;
+            background-image: linear-gradient(to right, #22D3EE 50%, transparent 50%);
+            background-size: 10px 2px;
+            margin: auto 0;
+        }
+    </style>
+    
+    <!-- Chosen Palette: "Neon Night" (Vibrant Cyan, Violet, Rose on Dark Slate) - High Contrast & Tech feel -->
+    <!-- Application Structure Plan: 
+         1. Hero Section: Hook & Definition.
+         2. Market Landscape: Comparison of Global vs Local trends using Bar & Doughnut charts.
+         3. Positioning Strategy: Core analysis using Scatter (Matrix) & Radar charts to show competitive advantage.
+         4. Workflow Visualization: Vertical process flow using CSS styling.
+         5. Strategic Pillars: Grid of cards for key recommendations.
+         Designed to flow from "Why Now?" -> "Where do we stand?" -> "How does it work?" -> "What next?".
+    -->
+    <!-- Visualization & Content Choices:
+         1. Global Market Growth -> Line Chart -> Show upward trend clearly.
+         2. Local Adoption Status -> Doughnut Chart -> Show composition of current tech usage.
+         3. Competitive Matrix -> Scatter Chart (Chart.js) -> Compare th8 vs Legacy/Niche on 2 axes.
+         4. Capability Comparison -> Radar Chart -> Compare multiple attributes (Agility, Cost, etc.).
+         5. Workflow -> HTML/CSS Flow -> Step-by-step logic without SVG.
+         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+</head>
+<body class="p-4 md:p-8 antialiased selection:bg-primary selection:text-bg">
+
+    <!-- Hero Section -->
+    <header class="max-w-7xl mx-auto mb-16 text-center pt-8">
+        <div class="inline-block px-4 py-1 mb-4 rounded-full bg-primary/10 text-primary border border-primary/20 text-sm font-semibold tracking-wider uppercase">
+            Strategic Insight & Research
+        </div>
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent leading-tight">
+            th8 Decision Control Center
+        </h1>
+        <p class="text-xl text-muted max-w-3xl mx-auto leading-relaxed">
+            เปลี่ยนกระบวนการจัดซื้อจาก <strong>"Passive Dashboard"</strong> สู่ <strong>"Active Orchestrator"</strong> <br>
+            ด้วยพลังของ AI Agent ที่ไม่ได้แค่ "รายงาน" แต่ช่วย "ตัดสินใจ" และ "ควบคุม"
+        </p>
+    </header>
+
+    <!-- Main Content Grid -->
+    <div class="max-w-7xl mx-auto grid grid-cols-1 gap-16">
+
+        <!-- Section 1: Market Landscape (Comparison) -->
+        <section>
+            <div class="mb-8 border-l-4 border-primary pl-4">
+                <h2 class="text-3xl font-bold text-text mb-2">1. The Market Gap</h2>
+                <p class="text-muted text-lg">
+                    ในขณะที่โลกมุ่งสู่ <strong>Autonomous Commerce</strong> แต่ตลาดไทยยังติดอยู่ในยุค <strong>Digitalization 1.0</strong> (แค่ย้ายกระดาษลงระบบ) นี่คือโอกาสของ "Middle Layer" Intelligence
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Global Trend -->
+                <div class="bg-card rounded-2xl p-6 shadow-lg border border-slate-700">
+                    <h3 class="text-lg font-semibold text-primary mb-4 flex items-center">
+                        <span class="mr-2">🌍</span> Global Trend: Hyper-Automation
+                    </h3>
+                    <p class="text-sm text-muted mb-6 h-12">
+                        ตลาดโลกเติบโตด้วย CAGR 45.3% นำโดยผู้เล่นอย่าง Globality และ Pactum ที่เน้นการลดคนและเพิ่มความเร็ว
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="globalTrendChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Local Reality -->
+                <div class="bg-card rounded-2xl p-6 shadow-lg border border-slate-700">
+                    <h3 class="text-lg font-semibold text-accent mb-4 flex items-center">
+                        <span class="mr-2">🇹🇭</span> Local Reality: The "Action" Gap
+                    </h3>
+                    <p class="text-sm text-muted mb-6 h-12">
+                        องค์กรไทยส่วนใหญ่มีแค่ Dashboard (Passive) แต่ขาดระบบที่ช่วย "Action" หรือ "Decide" บนข้อมูลเหล่านั้น
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="localAdoptionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Strategic Positioning (Matrix & Radar) -->
+        <section>
+            <div class="mb-8 border-l-4 border-secondary pl-4">
+                <h2 class="text-3xl font-bold text-text mb-2">2. th8 Positioning Strategy</h2>
+                <p class="text-muted text-lg">
+                    th8 ไม่ได้มาแทนที่ ERP เดิม แต่เป็น <strong>"The Orchestrator"</strong> ที่วางทับอยู่ด้านบน (Overlay) เพื่อเชื่อมต่อข้อมูลและสั่งการ
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Positioning Matrix -->
+                <div class="bg-card rounded-2xl p-6 shadow-lg border border-slate-700">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-text">Strategic Positioning Map</h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded text-muted">Analysis</span>
+                    </div>
+                    <p class="text-sm text-muted mb-4">
+                        เปรียบเทียบระหว่างระดับการตัดสินใจอัตโนมัติ (Autonomy) กับ ขอบเขตการเชื่อมโยงข้อมูล (Integration Scope)
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="positioningMatrixChart"></canvas>
+                    </div>
+                    <div class="mt-4 flex justify-center gap-4 text-xs text-muted">
+                        <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-slate-500 mr-1"></span> Legacy ERP</div>
+                        <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-accent mr-1"></span> Niche AI</div>
+                        <div class="flex items-center"><span class="w-3 h-3 rounded-full bg-primary mr-1"></span> th8 Center</div>
+                    </div>
+                </div>
+
+                <!-- Capability Radar -->
+                <div class="bg-card rounded-2xl p-6 shadow-lg border border-slate-700">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold text-text">Capability Advantage</h3>
+                        <span class="text-xs bg-slate-700 px-2 py-1 rounded text-muted">Vs Global SaaS</span>
+                    </div>
+                    <p class="text-sm text-muted mb-4">
+                        จุดแข็งของ th8 คือความยืดหยุ่นในบริบทไทย (Localization) และราคาที่เข้าถึงได้ (Cost Efficiency)
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="capabilityRadarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: The Workflow (Process) -->
+        <section class="bg-card/50 rounded-3xl p-8 border border-slate-700">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-text mb-4">3. How "Control Center" Works</h2>
+                <p class="text-muted max-w-2xl mx-auto">
+                    เปลี่ยนจากการทำงานแบบ Manual เป็น <strong>Agentic Workflow</strong> ที่มนุษย์มีหน้าที่เพียงตรวจสอบและอนุมัติ (Human-in-the-loop)
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center items-center md:items-stretch gap-0 md:gap-4 relative">
+                
+                <!-- Step 1 -->
+                <div class="w-full md:w-1/4 p-6 bg-card border border-primary/30 rounded-xl relative hover:border-primary transition-colors group">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-bg font-bold w-8 h-8 rounded-full flex items-center justify-center">1</div>
+                    <div class="text-4xl mb-4 text-center">📥</div>
+                    <h4 class="text-lg font-bold text-primary text-center mb-2">Data Ingestion</h4>
+                    <p class="text-sm text-muted text-center">
+                        รวบรวมข้อมูลดิบ: PR/PO จาก ERP, ใบเสนอราคา PDF, แชท LINE, และอีเมล
+                    </p>
+                </div>
+
+                <!-- Connector Mobile (Vertical) -->
+                <div class="flow-connector-v md:hidden"></div>
+                <!-- Connector Desktop (Horizontal) -->
+                <div class="hidden md:block self-center text-primary text-2xl animate-pulse">➤</div>
+
+                <!-- Step 2 -->
+                <div class="w-full md:w-1/4 p-6 bg-card border border-secondary/30 rounded-xl relative hover:border-secondary transition-colors group">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-secondary text-bg font-bold w-8 h-8 rounded-full flex items-center justify-center">2</div>
+                    <div class="text-4xl mb-4 text-center">🧠</div>
+                    <h4 class="text-lg font-bold text-secondary text-center mb-2">Agent Analysis</h4>
+                    <p class="text-sm text-muted text-center">
+                        AI Agents ทำงาน: ตรวจสอบราคาตลาด, เช็คประวัติ Supplier, หาความผิดปกติ
+                    </p>
+                </div>
+
+                <!-- Connector Mobile -->
+                <div class="flow-connector-v md:hidden"></div>
+                <!-- Connector Desktop -->
+                <div class="hidden md:block self-center text-secondary text-2xl animate-pulse">➤</div>
+
+                <!-- Step 3 -->
+                <div class="w-full md:w-1/4 p-6 bg-card border border-accent/30 rounded-xl relative hover:border-accent transition-colors group">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-accent text-bg font-bold w-8 h-8 rounded-full flex items-center justify-center">3</div>
+                    <div class="text-4xl mb-4 text-center">🎯</div>
+                    <h4 class="text-lg font-bold text-accent text-center mb-2">Decision Proposal</h4>
+                    <p class="text-sm text-muted text-center">
+                        เสนอทางเลือก: "อนุมัติเลย" (เขียว), "ควรต่อรอง" (เหลือง), "ปฏิเสธ" (แดง)
+                    </p>
+                </div>
+
+                <!-- Connector Mobile -->
+                <div class="flow-connector-v md:hidden"></div>
+                <!-- Connector Desktop -->
+                <div class="hidden md:block self-center text-accent text-2xl animate-pulse">➤</div>
+
+                <!-- Step 4 -->
+                <div class="w-full md:w-1/4 p-6 bg-card border border-slate-500 rounded-xl relative hover:border-white transition-colors group">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-slate-500 text-white font-bold w-8 h-8 rounded-full flex items-center justify-center">4</div>
+                    <div class="text-4xl mb-4 text-center">⚡</div>
+                    <h4 class="text-lg font-bold text-white text-center mb-2">Execution</h4>
+                    <p class="text-sm text-muted text-center">
+                        ดำเนินการ: ส่งอีเมลหา Supplier, อัปเดตเข้าระบบ ERP, บันทึก Savings
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 4: Strategic Recommendations -->
+        <section>
+            <div class="mb-8 border-l-4 border-accent pl-4">
+                <h2 class="text-3xl font-bold text-text mb-2">4. Strategic Pillars</h2>
+                <p class="text-muted text-lg">
+                    กลยุทธ์ 4 ประการเพื่อชัยชนะในตลาดไทย
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Pillar 1 -->
+                <div class="bg-card p-6 rounded-xl border-t-4 border-primary hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-3xl mb-3">📶</div>
+                    <h3 class="text-lg font-bold text-primary mb-2">Tiered Autonomy</h3>
+                    <p class="text-sm text-muted">
+                        เริ่มจาก Watchdog (เฝ้าระวัง) -> Copilot (ผู้ช่วย) -> Autopilot (ทำเอง) เพื่อสร้างความเชื่อมั่น
+                    </p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="bg-card p-6 rounded-xl border-t-4 border-secondary hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-3xl mb-3">💬</div>
+                    <h3 class="text-lg font-bold text-secondary mb-2">Unstructured Data</h3>
+                    <p class="text-sm text-muted">
+                        ชนะด้วย NLP ที่อ่านไทยได้ อ่าน PDF ใบเสนอราคาได้ และเข้าใจบริบทใน Chat/Email
+                    </p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="bg-card p-6 rounded-xl border-t-4 border-accent hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-3xl mb-3">🏗️</div>
+                    <h3 class="text-lg font-bold text-accent mb-2">Overlay Intelligence</h3>
+                    <p class="text-sm text-muted">
+                        ไม่ต้องรื้อ ERP ทิ้ง แต่เป็นสมองที่วางทับอยู่ด้านบน (Brain over Body)
+                    </p>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="bg-card p-6 rounded-xl border-t-4 border-white hover:-translate-y-2 transition-transform duration-300">
+                    <div class="text-3xl mb-3">🤝</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Community Intel</h3>
+                    <p class="text-sm text-muted">
+                        สร้าง Data Moat ด้วยราคากลางจากเครือข่ายผู้ใช้งานจริง (Benchmarking)
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto mt-20 py-8 border-t border-slate-800 text-center">
+        <p class="text-muted text-sm">
+            &copy; 2024 th8 Decision Control Center. Generated for Strategic Insight Research.
+        </p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Utility Functions ---
+
+        // Label Wrapping Logic (Max ~16 chars)
+        const wrapLabel = (str) => {
+            if (str.length <= 16) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if (currentLine.length + 1 + words[i].length <= 16) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        };
+
+        // Standard Tooltip Configuration
+        const standardTooltipConfig = {
+            backgroundColor: 'rgba(15, 23, 42, 0.9)', // Dark Slate
+            titleColor: '#22D3EE', // Primary Cyan
+            bodyColor: '#F8FAFC', // Text Light
+            borderColor: '#334155',
+            borderWidth: 1,
+            padding: 10,
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // Global Chart Defaults
+        Chart.defaults.font.family = "'Prompt', sans-serif";
+        Chart.defaults.color = '#94A3B8'; // Muted text color
+        Chart.defaults.scale.grid.color = '#334155'; // Darker grid lines
+
+        // --- Chart 1: Global Trend (Line/Bar) ---
+        const ctxGlobal = document.getElementById('globalTrendChart').getContext('2d');
+        new Chart(ctxGlobal, {
+            type: 'line',
+            data: {
+                labels: ['2022', '2023', '2024', '2025(F)', '2026(F)'],
+                datasets: [{
+                    label: 'AI Market Value ($ Bn)',
+                    data: [2.1, 3.4, 5.2, 7.8, 11.5],
+                    borderColor: '#22D3EE',
+                    backgroundColor: 'rgba(34, 211, 238, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#F8FAFC',
+                    pointBorderColor: '#22D3EE',
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: standardTooltipConfig
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#1E293B' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // --- Chart 2: Local Adoption (Doughnut) ---
+        // Labels need wrapping
+        const adoptionLabels = ['Manual/Paper (Legacy)', 'ERP/Digital 1.0 (Passive)', 'AI Agents (Active)'];
+        const wrappedAdoptionLabels = adoptionLabels.map(wrapLabel);
+
+        const ctxLocal = document.getElementById('localAdoptionChart').getContext('2d');
+        new Chart(ctxLocal, {
+            type: 'doughnut',
+            data: {
+                labels: wrappedAdoptionLabels,
+                datasets: [{
+                    data: [50, 45, 5],
+                    backgroundColor: [
+                        '#475569', // Slate 600 (Manual)
+                        '#A78BFA', // Violet (ERP)
+                        '#22D3EE'  // Cyan (The Opportunity)
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: { 
+                        position: 'bottom',
+                        labels: { color: '#94A3B8', padding: 20 }
+                    },
+                    tooltip: standardTooltipConfig
+                }
+            }
+        });
+
+        // --- Chart 3: Positioning Matrix (Scatter Chart) ---
+        // Replacing Plotly with Chart.js Bubble/Scatter for 100% Canvas compliance and consistent styling
+        const ctxMatrix = document.getElementById('positioningMatrixChart').getContext('2d');
+        new Chart(ctxMatrix, {
+            type: 'scatter',
+            data: {
+                datasets: [
+                    {
+                        label: 'Legacy ERP',
+                        data: [{x: 2, y: 8}, {x: 3, y: 7}],
+                        backgroundColor: '#64748B', // Slate 500
+                        pointRadius: 10,
+                        pointHoverRadius: 12
+                    },
+                    {
+                        label: 'Niche AI',
+                        data: [{x: 8, y: 3}, {x: 9, y: 2}],
+                        backgroundColor: '#FB7185', // Rose
+                        pointRadius: 10,
+                        pointHoverRadius: 12
+                    },
+                    {
+                        label: 'th8 Control Center',
+                        data: [{x: 8.5, y: 8.5}],
+                        backgroundColor: '#22D3EE', // Cyan
+                        borderColor: '#FFFFFF',
+                        borderWidth: 2,
+                        pointRadius: 20, // Make it standout
+                        pointHoverRadius: 22
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }, // Custom legend used in HTML
+                    tooltip: {
+                        ...standardTooltipConfig,
+                        callbacks: {
+                            title: function(context) {
+                                return context[0].dataset.label;
+                            },
+                            label: function(context) {
+                                return `Autonomy: ${context.raw.x}, Integration: ${context.raw.y}`;
+                            }
+                        }
+                    },
+                    annotation: {
+                        // Ideally we'd use chartjs-plugin-annotation, but sticking to core for stability
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Level of AI Autonomy (Low -> High)', color: '#94A3B8' },
+                        min: 0, max: 10,
+                        grid: { color: '#334155' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Integration Scope (Silo -> Enterprise)', color: '#94A3B8' },
+                        min: 0, max: 10,
+                        grid: { color: '#334155' }
+                    }
+                }
+            }
+        });
+
+        // --- Chart 4: Capability Radar (Radar Chart) ---
+        const radarLabels = ['Decision Speed', 'Thai NLP Context', 'Customization', 'Cost Efficiency', 'Integration Depth'];
+        const wrappedRadarLabels = radarLabels.map(wrapLabel);
+
+        const ctxRadar = document.getElementById('capabilityRadarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: wrappedRadarLabels,
+                datasets: [{
+                    label: 'th8 Control Center',
+                    data: [9, 10, 9, 9, 8],
+                    fill: true,
+                    backgroundColor: 'rgba(34, 211, 238, 0.2)', // Cyan transparent
+                    borderColor: '#22D3EE',
+                    pointBackgroundColor: '#22D3EE',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#22D3EE'
+                }, {
+                    label: 'Global SaaS',
+                    data: [8, 3, 4, 4, 9],
+                    fill: true,
+                    backgroundColor: 'rgba(251, 113, 133, 0.1)', // Rose transparent
+                    borderColor: '#FB7185',
+                    pointBackgroundColor: '#FB7185',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#FB7185',
+                    borderDash: [5, 5] // Dashed line for competitor
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#334155' },
+                        grid: { color: '#334155' },
+                        pointLabels: {
+                            font: { size: 11, family: "'Prompt', sans-serif" },
+                            color: '#F8FAFC' // Light text for labels
+                        },
+                        ticks: { display: false, backdropColor: 'transparent' }, // Hide internal tick numbers
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                },
+                plugins: {
+                    legend: { 
+                        position: 'top',
+                        labels: { color: '#F8FAFC' }
+                    },
+                    tooltip: standardTooltipConfig
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
